@@ -272,9 +272,15 @@
             background-color: #f8fafc;
         }
 
-        /* Animation speed increased per user request */
-        .scroll-up { animation: marquee-up 100s linear infinite; }
-        .scroll-down { animation: marquee-down 100s linear infinite; transform: translateY(-50%); }
+        /* Alternating heights to ensure at least 70% of 3500px is visible while varying the sizes */
+        .work-preview:nth-child(4n+1) { min-height: 2450px; }
+        .work-preview:nth-child(4n+2) { min-height: 2700px; }
+        .work-preview:nth-child(4n+3) { min-height: 2550px; }
+        .work-preview:nth-child(4n)   { min-height: 2800px; }
+
+        /* Slowed down marquee to 70 seconds */
+        .scroll-up { animation: marquee-up 70s linear infinite; }
+        .scroll-down { animation: marquee-down 70s linear infinite; transform: translateY(-50%); }
 
         @keyframes marquee-up {
             0% { transform: translateY(0); }
@@ -301,7 +307,7 @@
 
         @media (max-width: 768px) {
             .work-showcase-container { gap: 16px; height: 500px; padding: 0 16px; }
-            .work-col:nth-child(3) { display: none; }
+            .work-col:nth-child(3), .work-col:nth-child(4) { display: none; }
             .scrolling-work, .scrolling-work-wrapper { gap: 16px; }
         }
 
@@ -643,7 +649,7 @@
         <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-24 flex items-center justify-between">
             
             <a href="#" class="flex items-center focus:outline-none">
-                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-12 md:h-14 w-auto">
+                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-16 md:h-20 w-auto">
             </a>
             
             <div class="hidden md:flex items-center gap-10 ml-auto">
@@ -786,7 +792,7 @@
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check text-brand"></i>
                                             <div class="services-card-link-text">Performance-Optimized Architecture</div>
                                         </div>
                                     </div>
@@ -869,50 +875,63 @@
             </div>
 
             <div class="work-showcase-container max-w-[1200px] mx-auto px-6 lg:px-8">
+                <!-- Column 1 -->
                 <div class="work-col">
                     <div class="scrolling-work scroll-up">
                         <div class="scrolling-work-wrapper">
                             <img src="images/work-1.jpg" alt="Work 1" class="work-preview"/>
                             <img src="images/work-2.jpg" alt="Work 2" class="work-preview"/>
                             <img src="images/work-3.jpg" alt="Work 3" class="work-preview"/>
-                            <img src="images/work-4.jpg" alt="Work 4" class="work-preview"/>
                         </div>
                         <div class="scrolling-work-wrapper">
                             <img src="images/work-1.jpg" alt="Work 1" class="work-preview"/>
                             <img src="images/work-2.jpg" alt="Work 2" class="work-preview"/>
                             <img src="images/work-3.jpg" alt="Work 3" class="work-preview"/>
-                            <img src="images/work-4.jpg" alt="Work 4" class="work-preview"/>
                         </div>
                     </div>
                 </div>
 
+                <!-- Column 2 -->
                 <div class="work-col">
                     <div class="scrolling-work scroll-down">
                         <div class="scrolling-work-wrapper">
+                            <img src="images/work-4.jpg" alt="Work 4" class="work-preview"/>
                             <img src="images/work-5.jpg" alt="Work 5" class="work-preview"/>
                             <img src="images/work-6.jpg" alt="Work 6" class="work-preview"/>
-                            <img src="images/work-7.jpg" alt="Work 7" class="work-preview"/>
-                            <img src="images/work-8.jpg" alt="Work 8" class="work-preview"/>
                         </div>
                         <div class="scrolling-work-wrapper">
+                            <img src="images/work-4.jpg" alt="Work 4" class="work-preview"/>
                             <img src="images/work-5.jpg" alt="Work 5" class="work-preview"/>
                             <img src="images/work-6.jpg" alt="Work 6" class="work-preview"/>
-                            <img src="images/work-7.jpg" alt="Work 7" class="work-preview"/>
-                            <img src="images/work-8.jpg" alt="Work 8" class="work-preview"/>
                         </div>
                     </div>
                 </div>
 
+                <!-- Column 3 -->
                 <div class="work-col">
                     <div class="scrolling-work scroll-up">
                         <div class="scrolling-work-wrapper">
+                            <img src="images/work-7.jpg" alt="Work 7" class="work-preview"/>
+                            <img src="images/work-8.jpg" alt="Work 8" class="work-preview"/>
                             <img src="images/work-9.jpg" alt="Work 9" class="work-preview"/>
+                        </div>
+                        <div class="scrolling-work-wrapper">
+                            <img src="images/work-7.jpg" alt="Work 7" class="work-preview"/>
+                            <img src="images/work-8.jpg" alt="Work 8" class="work-preview"/>
+                            <img src="images/work-9.jpg" alt="Work 9" class="work-preview"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 4 -->
+                <div class="work-col">
+                    <div class="scrolling-work scroll-down">
+                        <div class="scrolling-work-wrapper">
                             <img src="images/work-10.jpg" alt="Work 10" class="work-preview"/>
                             <img src="images/work-11.jpg" alt="Work 11" class="work-preview"/>
                             <img src="images/work-12.jpg" alt="Work 12" class="work-preview"/>
                         </div>
                         <div class="scrolling-work-wrapper">
-                            <img src="images/work-9.jpg" alt="Work 9" class="work-preview"/>
                             <img src="images/work-10.jpg" alt="Work 10" class="work-preview"/>
                             <img src="images/work-11.jpg" alt="Work 11" class="work-preview"/>
                             <img src="images/work-12.jpg" alt="Work 12" class="work-preview"/>
@@ -925,6 +944,7 @@
             </div>
         </section>
 
+        <!-- Testimonials Section Restructured for Scrolling -->
         <section id="testimonials" class="py-24 md:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand/5 rounded-full blur-[100px] -mr-48 -mt-48 pointer-events-none"></div>
 
@@ -939,6 +959,7 @@
                 <div class="scrollable-container !pt-0 !pb-0">
                     <div class="scrollable-services-holder testimonials-grid">
                         
+                        <!-- Review 1 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -952,6 +973,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 2 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -965,6 +987,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 3 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -978,6 +1001,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 4 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -991,6 +1015,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 5 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -1004,6 +1029,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 6 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -1017,6 +1043,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 7 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -1030,6 +1057,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 8 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -1202,7 +1230,7 @@
         <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             
             <a href="#" class="flex items-center focus:outline-none">
-                <img src="images/logo-footer.png" alt="Opes Consulting Logo Footer" class="h-12 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity">
+                <img src="images/logo-footer.png" alt="Opes Consulting Logo Footer" class="h-16 md:h-20 w-auto opacity-70 hover:opacity-100 transition-opacity">
             </a>
             
             <p class="text-sm text-slate-400 font-medium text-center md:text-left">
