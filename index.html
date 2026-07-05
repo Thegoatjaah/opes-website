@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Opes Consulting - Email Marketing, Website Creation, and CRM Automation">
+    <title>Opes Consulting | Elite Digital Agency</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#0094ff',
+                    },
+                    fontFamily: {
+                        sans: ['Aspekta', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* --- ASPEKTA FONT FACE SETUP --- */
+        @font-face {
+            font-family: 'Aspekta';
+            src: url('Aspekta-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Aspekta';
+            src: url('Aspekta-Medium.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Aspekta';
+            src: url('Aspekta-SemiBold.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Aspekta';
+            src: url('Aspekta-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* --- USER PROVIDED NAV LINK ANIMATION --- */
+        .nav-link {
+            display: inline-block; 
+            transition: transform 0.25s ease-out, color 0.15s ease-out; 
+            text-decoration: none;
+        }
+        .nav-link:hover {
+            transform: translateY(-2px); 
+        }
+
+        /* --- MOBILE MENU HAMBURGER ICON --- */
+        .menu-icon1 {
+            width: 24px;
+            height: 18px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-icon1_line-top,
+        .menu-icon1_line-middle,
+        .menu-icon1_line-bottom {
+            width: 100%;
+            height: 2px;
+            background-color: #0f172a; 
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s ease-out;
+            transform-origin: center;
+        }
+
+        .menu-icon1:hover .menu-icon1_line-top,
+        .menu-icon1:hover .menu-icon1_line-middle,
+        .menu-icon1:hover .menu-icon1_line-bottom {
+            background-color: #0094ff; 
+        }
+
+        /* Active (X) State */
+        .menu-icon1.is-open .menu-icon1_line-top {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .menu-icon1.is-open .menu-icon1_line-middle {
+            opacity: 0;
+        }
+        .menu-icon1.is-open .menu-icon1_line-bottom {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* --- BUTTON STYLING --- */
+        .custom-filled-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            text-align: center;
+            font-family: 'Aspekta', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 120%;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            background-color: #0094ff; 
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            white-space: nowrap;
+        }
+
+        .custom-filled-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 148, 255, 0.25);
+        }
+          
+        .custom-filled-button:active {
+            transform: translateY(0);
+        }
+
+        .custom-stroked-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 30px; 
+            text-align: center;
+            font-family: 'Aspekta', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 120%;
+            color: #0094ff;
+            background-color: transparent;
+            border: 2px solid #0094ff;
+            border-radius: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+            white-space: nowrap;
+        }
+
+        .custom-stroked-button:hover {
+            background-color: #0094ff;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 148, 255, 0.25);
+        }
+
+        /* Mobile Adjustments for side-by-side Hero Buttons */
+        @media (max-width: 480px) {
+            .custom-filled-button {
+                padding: 14px 20px;
+                font-size: 14px;
+            }
+            .custom-stroked-button {
+                padding: 12px 18px;
+                font-size: 14px;
+            }
+        }
+
+        /* Header Specific CTA styling */
+        .header-outline-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-family: 'Aspekta', sans-serif;
+            font-weight: 600;
+            color: #0094ff;
+            background-color: transparent;
+            border: 2px solid #0094ff;
+            border-radius: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+            white-space: nowrap;
+        }
+
+        .header-outline-btn:hover {
+            background-color: #f7f7f7;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Menu Contact Button */
+        .mobile-contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 14px 24px;
+            color: #1e293b; 
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease-out;
+        }
+
+        .mobile-contact-btn:hover {
+            color: #0094ff;
+            border-color: #0094ff;
+            background-color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO GRADIENT --- */
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(0,148,255,0.08) 0%, rgba(0,148,255,0.02) 50%, rgba(255,255,255,1) 100%);
+        }
+
+        /* --- SLOW MOVING IMAGE MARQUEE STYLING --- */
+        .work-showcase-section {
+            background-color: #ffffff; 
+            padding: 120px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .work-showcase-container {
+            display: flex;
+            gap: 32px;
+            height: 700px; 
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .work-col {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .scrolling-work {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            will-change: transform; 
+        }
+
+        .scrolling-work-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .work-preview {
+            width: 100%;
+            min-height: 3024px; 
+            border-radius: 12px;
+            object-fit: cover;
+            object-position: top; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            background-color: #f8fafc;
+        }
+
+        /* Animation speed increased per user request */
+        .scroll-up { animation: marquee-up 100s linear infinite; }
+        .scroll-down { animation: marquee-down 100s linear infinite; transform: translateY(-50%); }
+
+        @keyframes marquee-up {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        @keyframes marquee-down {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(0); }
+        }
+
+        .top-showcase-gradient, 
+        .bottom-showcase-gradient {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 120px;
+            pointer-events: none; 
+            z-index: 2;
+        }
+
+        .top-showcase-gradient { top: 0; background: linear-gradient(to bottom, #ffffff 0%, transparent 100%); }
+        .bottom-showcase-gradient { bottom: 0; background: linear-gradient(to top, #ffffff 0%, transparent 100%); }
+
+        @media (max-width: 768px) {
+            .work-showcase-container { gap: 16px; height: 500px; padding: 0 16px; }
+            .work-col:nth-child(3) { display: none; }
+            .scrolling-work, .scrolling-work-wrapper { gap: 16px; }
+        }
+
+        /* --- SCROLLABLE SERVICES, PRICING & TESTIMONIAL ARCHITECTURE --- */
+        @keyframes fadeUpCard {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popInImage {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .scrollable-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 40px 0 80px 0;
+        }
+
+        .scrollable-services-holder {
+            display: flex;
+            gap: 32px;
+            overflow-x: auto;
+            padding: 20px 24px; 
+            scroll-behavior: smooth;
+            scrollbar-width: none; 
+        }
+
+        .scrollable-services-holder::-webkit-scrollbar {
+            display: none; 
+        }
+
+        .services-card {
+            display: flex;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 48px;
+            min-width: 700px; 
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            gap: 48px;
+            opacity: 0;
+            animation: fadeUpCard 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .services-card:nth-child(1) { animation-delay: 0.1s; }
+        .services-card:nth-child(2) { animation-delay: 0.25s; }
+        .services-card:nth-child(3) { animation-delay: 0.4s; }
+
+        .services-card.small { min-width: 450px; }
+
+        /* Specific Testimonial Grid & Card Adjustments to make them Horizontally Long */
+        .testimonials-grid {
+            display: grid !important;
+            grid-template-rows: 1fr;
+            grid-auto-flow: column;
+            grid-auto-columns: calc(33.3333% - 16px); 
+            gap: 24px !important;
+            padding: 20px 24px !important;
+        }
+
+        .testimonial-card {
+            width: 100%;
+            min-width: 0;
+            opacity: 0;
+            animation: fadeUpCard 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            height: 100%;
+            padding: 24px 32px !important; 
+        }
+
+        .testimonial-card p.text-slate-700 {
+            font-size: 15px !important;
+            line-height: 1.55;
+            margin-bottom: 24px !important;
+        }
+
+        .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+        .testimonial-card:nth-child(2) { animation-delay: 0.15s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.2s; }
+        .testimonial-card:nth-child(4) { animation-delay: 0.25s; }
+        .testimonial-card:nth-child(5) { animation-delay: 0.3s; }
+        .testimonial-card:nth-child(6) { animation-delay: 0.35s; }
+        .testimonial-card:nth-child(7) { animation-delay: 0.4s; }
+        .testimonial-card:nth-child(8) { animation-delay: 0.45s; }
+
+        .service-card-info { flex: 1; }
+
+        .service-card-h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 0;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .service-card-services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .service-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: #475569;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .service-link:hover {
+            color: #0094ff;
+            transform: translateX(4px);
+        }
+
+        .service-card-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.9;
+            color: #0094ff;
+        }
+
+        .service-card-imagery {
+            position: relative;
+            width: 280px; 
+            min-height: 340px; 
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-card-imagery.small { width: 180px; min-height: auto; }
+
+        .first-image, .second-image, .only-image {
+            opacity: 0;
+            animation: popInImage 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            object-fit: cover;
+            background-color: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+        }
+
+        .first-image {
+            position: absolute;
+            width: 190px;
+            height: 280px;
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            top: 0; 
+            left: 0; 
+            z-index: 2;
+            animation-delay: 0.5s; 
+        }
+
+        .second-image {
+            position: absolute;
+            width: 190px;
+            height: 280px;
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            bottom: 0; 
+            right: 0; 
+            z-index: 1;
+            animation-delay: 0.7s; 
+        }
+
+        .only-image {
+            width: 100%;
+            height: 300px;
+            border-radius: 16px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+            animation-delay: 0.6s;
+        }
+
+        .home-scrollable-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            opacity: 0;
+            animation: fadeUpCard 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.6s;
+        }
+
+        .scrollable-controls {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .scrollable-track {
+            width: 300px;
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .scrollable-handle {
+            position: absolute;
+            top: -4px; 
+            left: 0;
+            width: 80px;
+            height: 12px;
+            background: #0094ff;
+            border-radius: 6px;
+            cursor: grab;
+            transition: background 0.2s;
+        }
+
+        .scrollable-handle:active {
+            cursor: grabbing;
+            background: #007acd;
+        }
+
+        .scrollable-button-flex { display: flex; gap: 12px; }
+
+        .scrollable-direction-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid #cbd5e1;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #0f172a;
+            transition: background 0.2s, transform 0.2s, color 0.2s;
+        }
+
+        .scrollable-direction-btn:hover:not(:disabled) {
+            background: #0094ff;
+            color: white;
+            border-color: #0094ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 148, 255, 0.2);
+        }
+
+        .scrollable-direction-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .scrollable-direction-icon {
+            width: 14px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .scrollable-direction-btn.previous .scrollable-direction-icon {
+            transform: rotate(180deg); 
+        }
+
+        @media (max-width: 1024px) {
+            .testimonials-grid {
+                grid-auto-columns: calc(50% - 12px); 
+            }
+        }
+
+        @media (max-width: 991px) {
+            .scrollable-services-holder:not(.testimonials-grid) {
+                flex-direction: column;
+                overflow-x: hidden; 
+                padding: 20px;
+            }
+            .services-card:not(.testimonial-card), .services-card.small:not(.testimonial-card) {
+                min-width: 100%;
+                width: 100%;
+            }
+            .home-scrollable-controls:not(.keep-visible) { display: none; }
+        }
+
+        @media (max-width: 767px) {
+            .testimonials-grid {
+                grid-template-rows: repeat(2, 1fr); 
+                grid-auto-columns: calc(50% - 6px); 
+                gap: 12px !important;
+                padding: 12px 16px !important; 
+            }
+            
+            .testimonial-card {
+                padding: 16px !important;
+            }
+            
+            .testimonial-card p.text-slate-700 {
+                font-size: 12px !important;
+                line-height: 1.4;
+                margin-bottom: 12px !important;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 18; 
+                -webkit-box-orient: vertical;
+            }
+            
+            .testimonial-author {
+                text-align: left;
+            }
+            
+            .testimonial-author h4 {
+                font-size: 13px;
+            }
+            
+            .testimonial-author p.text-sm {
+                font-size: 11px;
+            }
+            
+            .testimonial-card .text-sm.mb-6 {
+                margin-bottom: 12px !important;
+                font-size: 10px;
+            }
+
+            .services-card {
+                flex-direction: column;
+                padding: 40px 24px;
+                gap: 32px;
+            }
+            
+            .service-card-imagery {
+                width: 100%;
+                max-width: 280px; 
+                margin: 0 auto;   
+                height: 380px; 
+                margin-top: 10px;
+            }
+            
+            .service-card-imagery.small { max-width: 100%; height: auto; }
+            .first-image { left: 0; right: auto; top: 0; }
+            .second-image { right: 0; left: auto; bottom: 0; }
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
+
+    <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-24 flex items-center justify-between">
+            
+            <a href="#" class="flex items-center focus:outline-none">
+                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-12 md:h-14 w-auto">
+            </a>
+            
+            <div class="hidden md:flex items-center gap-10 ml-auto">
+                <nav class="flex items-center gap-10 font-medium text-[16px] tracking-wide text-slate-800">
+                    <a href="#services" class="nav-link hover:text-brand">Services</a>
+                    <a href="#work" class="nav-link hover:text-brand">Work</a>
+                    <a href="#pricing" class="nav-link hover:text-brand">Pricing</a>
+                    <a href="#testimonials" class="nav-link hover:text-brand">Testimonials</a>
+                </nav>
+                
+                <a href="#contact" class="header-outline-btn">
+                    Book a Call
+                </a>
+            </div>
+
+            <button id="mobile-menu-btn" class="md:hidden focus:outline-none ml-auto p-2" aria-label="Toggle Menu">
+                <div class="menu-icon1">
+                    <div class="menu-icon1_line-top"></div>
+                    <div class="menu-icon1_line-middle"></div>
+                    <div class="menu-icon1_line-bottom"></div>
+                </div>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden absolute top-24 left-0 w-full bg-[#f8fafc] border-b border-slate-200 shadow-xl z-40">
+            <div class="flex flex-col px-6 py-10 gap-6">
+                <div><a href="#services" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Services</a></div>
+                <div><a href="#work" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Work</a></div>
+                <div><a href="#pricing" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Pricing</a></div>
+                <div><a href="#testimonials" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
+                
+                <div class="mt-6">
+                    <a href="#contact" class="mobile-contact-btn">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <section class="hero-gradient pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
+            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 flex flex-col items-start text-left relative z-10">
+                
+                <div class="inline-flex items-center gap-3 px-5 py-2.5 bg-white rounded-full shadow-sm border border-slate-100 mb-8">
+                    <div class="flex text-[#14a800] text-sm gap-0.5"> 
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <span class="text-sm font-medium text-slate-600">Top Rated Agency</span>
+                </div>
+
+                <h1 class="text-5xl lg:text-[56px] xl:text-[62px] font-bold tracking-tight max-w-5xl leading-[1.1] lg:leading-[1.15] mb-8 text-slate-900">
+                    <span class="text-brand">Smarter</span> eCRM.<br>
+                    <span class="text-brand">Stronger</span> <span class="whitespace-nowrap">Customer Relationships.</span><br>
+                    <span class="text-brand">Better</span> Results.
+                </h1>
+                
+                <p class="text-lg md:text-xl text-slate-600 font-medium max-w-[700px] mb-12 leading-relaxed">
+                    Opes Consulting delivers tailored lifecycle marketing. We architect high-converting websites, automate your CRM, and build email systems that turn audiences into buyers.
+                </p>
+                
+                <div class="flex flex-row gap-3 sm:gap-4 items-center justify-start">
+                    <a href="#contact" class="custom-filled-button">
+                        Book a Strategy Call
+                    </a>
+                    <a href="#pricing" class="custom-stroked-button">
+                        View Pricing
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="bg-slate-50 border-y border-slate-100 py-24 md:py-32">
+            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 text-center md:text-left mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">How We <span class="text-brand">Build Growth</span></h2>
+                <p class="text-slate-600 font-medium max-w-2xl text-lg mx-auto md:mx-0">
+                    We strip away the noise to focus on the three pillars of digital scaling: acquisition, nurturing, and automated retention.
+                </p>
+            </div>
+
+            <div class="scrollable-container !pt-0">
+                <div class="scrollable-services-holder">
+                    
+                    <div class="services-card">
+                        <div class="service-card-info">
+                            <h2 class="service-card-h2">Email Marketing</h2>
+                            <div class="w-dyn-list">
+                                <div role="list" class="service-card-services-list w-dyn-items">
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link w-inline-block cursor-default">
+                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <div class="services-card-link-text">High-Converting Campaign Design</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link w-inline-block cursor-default">
+                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <div class="services-card-link-text">Mobile-First & Dark-Mode HTML</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link w-inline-block cursor-default">
+                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <div class="services-card-link-text">Deliverability & Inbox Optimization</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link w-inline-block cursor-default">
+                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <div class="services-card-link-text">A/B Testing & ROI Tracking</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-card-imagery">
+                            <img src="images/service-email-1.jpg" loading="eager" alt="Email Project 1" class="first-image"/>
+                            <img src="images/service-email-2.jpg" loading="eager" alt="Email Project 2" class="second-image"/>
+                        </div>
+                    </div>
+
+                    <div class="services-card small">
+                        <div class="service-card-info flex flex-col h-full">
+                            <h2 class="service-card-h2 mb-2">Website Building</h2>
+                            <div class="w-dyn-list flex-grow">
+                                <div role="list" class="service-card-services-list w-dyn-items">
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link w-inline-block cursor-default">
+                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <div class="services-card-link-text">Custom HTML & Tailwind CSS</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link w-inline-block cursor-default">
+                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <div class="services-card-link-text">Cloudflare Pages Deployment</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link w-inline-block cursor-default">
+                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <div class="services-card-link-text">Performance-Optimized Architecture</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link w-inline-block cursor-default">
+                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <div class="services-card-link-text">Responsive & Conversion-Focused</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="services-card small">
+                        <div class="service-card-info">
+                            <h2 class="service-card-h2">CRM Automation</h2>
+                            <div class="w-dyn-list">
+                                <div role="list" class="service-card-services-list w-dyn-items">
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link w-inline-block cursor-default">
+                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <div class="services-card-link-text">eCRM & Lifecycle Automation</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link w-inline-block cursor-default">
+                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <div class="services-card-link-text">Lead Nurturing & Scoring Flows</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link w-inline-block cursor-default">
+                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <div class="services-card-link-text">Cart Recovery & Win-Back Sequences</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link w-inline-block cursor-default">
+                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <div class="services-card-link-text">GoHighLevel, Klaviyo & HubSpot</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-card-imagery small">
+                            <img src="images/service-crm.jpg" loading="eager" alt="CRM Automation Project" class="only-image"/>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="home-scrollable-controls">
+                    <div class="scrollable-controls">
+                        <div class="scrollable-track">
+                            <div class="scrollable-handle"></div>
+                        </div>
+                        <div class="scrollable-button-flex">
+                            <button aria-label="Move back through list" class="scrollable-direction-btn previous">
+                                <div class="scrollable-direction-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
+                                </div>
+                            </button>
+                            <button aria-label="Move forward through the list" class="scrollable-direction-btn">
+                                <div class="scrollable-direction-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="work" class="work-showcase-section">
+            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 mb-16 text-center md:text-left">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Work That <span class="text-brand">Moves the Needle</span></h2>
+                <p class="text-slate-600 font-medium max-w-xl md:mx-0 mx-auto text-lg">A look at the stunning websites and scalable retention systems we've built.</p>
+            </div>
+
+            <div class="work-showcase-container max-w-[1200px] mx-auto px-6 lg:px-8">
+                <div class="work-col">
+                    <div class="scrolling-work scroll-up">
+                        <div class="scrolling-work-wrapper">
+                            <img src="images/work-1.jpg" alt="Work 1" class="work-preview"/>
+                            <img src="images/work-2.jpg" alt="Work 2" class="work-preview"/>
+                            <img src="images/work-3.jpg" alt="Work 3" class="work-preview"/>
+                            <img src="images/work-4.jpg" alt="Work 4" class="work-preview"/>
+                        </div>
+                        <div class="scrolling-work-wrapper">
+                            <img src="images/work-1.jpg" alt="Work 1" class="work-preview"/>
+                            <img src="images/work-2.jpg" alt="Work 2" class="work-preview"/>
+                            <img src="images/work-3.jpg" alt="Work 3" class="work-preview"/>
+                            <img src="images/work-4.jpg" alt="Work 4" class="work-preview"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="work-col">
+                    <div class="scrolling-work scroll-down">
+                        <div class="scrolling-work-wrapper">
+                            <img src="images/work-5.jpg" alt="Work 5" class="work-preview"/>
+                            <img src="images/work-6.jpg" alt="Work 6" class="work-preview"/>
+                            <img src="images/work-7.jpg" alt="Work 7" class="work-preview"/>
+                            <img src="images/work-8.jpg" alt="Work 8" class="work-preview"/>
+                        </div>
+                        <div class="scrolling-work-wrapper">
+                            <img src="images/work-5.jpg" alt="Work 5" class="work-preview"/>
+                            <img src="images/work-6.jpg" alt="Work 6" class="work-preview"/>
+                            <img src="images/work-7.jpg" alt="Work 7" class="work-preview"/>
+                            <img src="images/work-8.jpg" alt="Work 8" class="work-preview"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="work-col">
+                    <div class="scrolling-work scroll-up">
+                        <div class="scrolling-work-wrapper">
+                            <img src="images/work-9.jpg" alt="Work 9" class="work-preview"/>
+                            <img src="images/work-10.jpg" alt="Work 10" class="work-preview"/>
+                            <img src="images/work-11.jpg" alt="Work 11" class="work-preview"/>
+                            <img src="images/work-12.jpg" alt="Work 12" class="work-preview"/>
+                        </div>
+                        <div class="scrolling-work-wrapper">
+                            <img src="images/work-9.jpg" alt="Work 9" class="work-preview"/>
+                            <img src="images/work-10.jpg" alt="Work 10" class="work-preview"/>
+                            <img src="images/work-11.jpg" alt="Work 11" class="work-preview"/>
+                            <img src="images/work-12.jpg" alt="Work 12" class="work-preview"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="top-showcase-gradient"></div>
+                <div class="bottom-showcase-gradient"></div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="py-24 md:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand/5 rounded-full blur-[100px] -mr-48 -mt-48 pointer-events-none"></div>
+
+            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 relative z-10">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                    <div class="max-w-2xl">
+                        <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Why Industry Leaders <span class="text-brand">Trust Opes Consulting</span>.</h2>
+                        <p class="text-slate-600 font-medium text-lg">Don't just take our word for it. Here is what our clients are saying about the systems we build.</p>
+                    </div>
+                </div>
+
+                <div class="scrollable-container !pt-0 !pb-0">
+                    <div class="scrollable-services-holder testimonials-grid">
+                        
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "We hired Jaheim to build 13 automated email journeys in Brevo and the whole process was seamless. He turned our copy and requirements into fully tested, branded, personalised flows, communicated clearly throughout, and delivered everything with excellent attention to detail. I’d happily recommend him for any email automation project."
+                            </p>
+                            <div class="mt-6 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Teresa</h4>
+                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Jaheim set up our Brevo automations flawlessly, from onboarding to re-engagement journeys with dynamic personalisation working exactly as needed. He worked efficiently, delivered on time, and ensured everything was fully tested before launch, saving us a huge amount of time."
+                            </p>
+                            <div class="mt-6 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Ammira</h4>
+                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Working with Jaheim was a great experience. He quickly translated our requirements into polished automated journeys, built strong-looking templates, and ensured everything worked perfectly. He communicated well throughout and improved the final result with thoughtful recommendations."
+                            </p>
+                            <div class="mt-6 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Naomi</h4>
+                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Jaheim is a knowledgeable media buyer with strong technical skills and a calm, professional approach. He was responsive, open to feedback, and consistently improved the work, despite occasional time zone challenges. A fast learner with strong potential in performance marketing."
+                            </p>
+                            <div class="mt-6 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Tori</h4>
+                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Jaheim is technically strong, easy to work with, and very dependable. He handled challenges calmly, stayed responsive across time zones, and consistently delivered high-quality work with a problem-solving mindset."
+                            </p>
+                            <div class="mt-6 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Damir</h4>
+                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Jaheim exceeded expectations, building well-designed email templates and fully functional automations with precise personalisation, timing, and testing. He delivered on time and often suggested improvements that made the final result even better."
+                            </p>
+                            <div class="mt-6 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Morgan</h4>
+                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Jaheim combines strong technical ability with a professional, collaborative approach. He handled complex automations, communicated clearly, met deadlines, and helped streamline our marketing processes, saving valuable time."
+                            </p>
+                            <div class="mt-6 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Nathan</h4>
+                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Jaheim is one of the best professionals I’ve worked with. Highly skilled, responsive, and consistently outstanding in delivery—every project felt smooth and well handled from start to finish."
+                            </p>
+                            <div class="mt-6 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Darius</h4>
+                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="home-scrollable-controls keep-visible mt-12">
+                        <div class="scrollable-controls">
+                            <div class="scrollable-track">
+                                <div class="scrollable-handle"></div>
+                            </div>
+                            <div class="scrollable-button-flex">
+                                <button aria-label="Move back through list" class="scrollable-direction-btn previous">
+                                    <div class="scrollable-direction-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
+                                    </div>
+                                </button>
+                                <button aria-label="Move forward through the list" class="scrollable-direction-btn">
+                                    <div class="scrollable-direction-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="bg-white py-24 md:py-32">
+            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 text-center md:text-left mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Transparent <span class="text-brand">Pricing</span></h2>
+                <p class="text-slate-600 font-medium max-w-2xl text-lg mx-auto md:mx-0">
+                    Invest in systems that scale your revenue predictably. Find the plan that fits your current lifecycle phase.
+                </p>
+            </div>
+
+            <div class="scrollable-container !pt-0">
+                <div class="scrollable-services-holder xl:justify-center">
+                    
+                    <div class="services-card small">
+                        <div class="service-card-info flex flex-col h-full">
+                            <h2 class="service-card-h2 mb-2">Email Marketing</h2>
+                            <div class="text-4xl font-bold text-brand mb-10">Custom<span class="text-lg text-slate-500 font-medium"> /mo</span></div>
+                            
+                            <div class="w-dyn-list flex-grow">
+                                <div role="list" class="service-card-services-list w-dyn-items">
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link cursor-default">
+                                            <i class="fa-solid fa-check text-brand"></i>
+                                            <div class="services-card-link-text">Comprehensive Lifecycle Audits</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link cursor-default">
+                                            <i class="fa-solid fa-check text-brand"></i>
+                                            <div class="services-card-link-text">Data-Driven A/B Testing</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link cursor-default">
+                                            <i class="fa-solid fa-check text-brand"></i>
+                                            <div class="services-card-link-text">Pixel-Perfect HTML Templates</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#contact" class="custom-filled-button w-full mt-10">Inquire Now</a>
+                        </div>
+                    </div>
+
+                    <div class="services-card small">
+                        <div class="service-card-info flex flex-col h-full">
+                            <h2 class="service-card-h2 mb-2">Website Build</h2>
+                            <div class="text-4xl font-bold text-brand mb-10">Bespoke<span class="text-lg text-slate-500 font-medium"> /project</span></div>
+                            
+                            <div class="w-dyn-list flex-grow">
+                                <div role="list" class="service-card-services-list w-dyn-items">
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link cursor-default">
+                                            <i class="fa-solid fa-check text-brand"></i>
+                                            <div class="services-card-link-text">Custom HTML/Tailwind CSS</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link cursor-default">
+                                            <i class="fa-solid fa-check text-brand"></i>
+                                            <div class="services-card-link-text">Cloudflare Pages Hosting</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link cursor-default">
+                                            <i class="fa-solid fa-check text-brand"></i>
+                                            <div class="services-card-link-text">Speed & Conversion Optimized</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#contact" class="custom-filled-button w-full mt-10">Get an Estimate</a>
+                        </div>
+                    </div>
+
+                    <div class="services-card small">
+                        <div class="service-card-info flex flex-col h-full">
+                            <h2 class="service-card-h2 mb-2">CRM Setup</h2>
+                            <div class="text-4xl font-bold text-brand mb-10">Tailored<span class="text-lg text-slate-500 font-medium"> /setup</span></div>
+                            
+                            <div class="w-dyn-list flex-grow">
+                                <div role="list" class="service-card-services-list w-dyn-items">
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link cursor-default">
+                                            <i class="fa-solid fa-check text-brand"></i>
+                                            <div class="services-card-link-text">HubSpot & GoHighLevel Mastery</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link cursor-default">
+                                            <i class="fa-solid fa-check text-brand"></i>
+                                            <div class="services-card-link-text">Sophisticated Welcome Journeys</div>
+                                        </div>
+                                    </div>
+                                    <div role="listitem" class="w-dyn-item">
+                                        <div class="service-link cursor-default">
+                                            <i class="fa-solid fa-check text-brand"></i>
+                                            <div class="services-card-link-text">Automated Pipeline Routing</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#contact" class="custom-filled-button w-full mt-10">Book Consultation</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="home-scrollable-controls">
+                    <div class="scrollable-controls">
+                        <div class="scrollable-track">
+                            <div class="scrollable-handle"></div>
+                        </div>
+                        <div class="scrollable-button-flex">
+                            <button aria-label="Move back through list" class="scrollable-direction-btn previous">
+                                <div class="scrollable-direction-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
+                                </div>
+                            </button>
+                            <button aria-label="Move forward through the list" class="scrollable-direction-btn">
+                                <div class="scrollable-direction-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white py-12 border-t border-slate-100">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <a href="#" class="flex items-center focus:outline-none">
+                <img src="images/logo-footer.png" alt="Opes Consulting Logo Footer" class="h-12 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity">
+            </a>
+            
+            <p class="text-sm text-slate-400 font-medium text-center md:text-left">
+                &copy; 2026 Opes Consulting. All rights reserved.
+            </p>
+            
+            <div class="flex gap-6 text-slate-400">
+                <a href="#" class="hover:text-brand transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="#" class="hover:text-brand transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = menuBtn ? menuBtn.querySelector('.menu-icon1') : null;
+
+            if(menuBtn && mobileMenu && menuIcon) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    menuIcon.classList.toggle('is-open');
+                });
+            }
+        });
+    </script>
+
+    <script>
+        (function(){
+            const WRAPPER = '.scrollable-container';
+            const TRACK   = '.scrollable-services-holder';
+            const RAIL    = '.scrollable-track';
+            const HANDLE  = '.scrollable-handle';
+            const BTNBOX  = '.scrollable-button-flex';
+            const BTN     = '.scrollable-direction-btn';
+            
+            const clamp = (v,min,max)=>Math.min(max,Math.max(min,v));
+            const maxScroll = t => Math.max(0, t.scrollWidth - t.clientWidth);
+
+            function syncButtons(track, prevBtn, nextBtn){
+                if (!prevBtn && !nextBtn) return;
+                const eps = 1;
+                const m = maxScroll(track);
+                const atStart = track.scrollLeft <= eps;
+                const atEnd   = track.scrollLeft >= m - eps;
+                if (prevBtn) prevBtn.disabled = atStart;
+                if (nextBtn) nextBtn.disabled = atEnd;
+            }
+
+            function handleFromScroll(track, railEl, handleEl){
+                if (!railEl || !handleEl) return;
+                const m = maxScroll(track);
+                const ratio = m ? track.scrollLeft / m : 0;
+                const rw = railEl.clientWidth;
+                const hw = handleEl.offsetWidth;
+                const maxLeft = Math.max(0, rw - hw);
+                handleEl.style.left = (ratio * maxLeft) + 'px';
+            }
+
+            function scrollFromHandle(track, railEl, handleEl){
+                const rw = railEl.clientWidth;
+                const hw = handleEl.offsetWidth;
+                const left = parseFloat(getComputedStyle(handleEl).left) || 0;
+                const ratio = (rw - hw) ? left / (rw - hw) : 0;
+                track.scrollLeft = ratio * maxScroll(track);
+            }
+
+            function scrollByStep(track, dir){
+                const step = window.innerWidth <= 767 ? track.clientWidth : 400; 
+                const target = clamp(track.scrollLeft + dir * step, 0, maxScroll(track));
+                track.scrollTo({ left: target, behavior: 'smooth' });
+            }
+
+            function initOne(container){
+                const track   = container.querySelector(TRACK);
+                const rail    = container.querySelector(RAIL);
+                const handle  = container.querySelector(HANDLE);
+                const btnBox  = container.querySelector(BTNBOX);
+                
+                if (!track || !rail || !handle) return;
+                
+                const [prevBtn, nextBtn] = btnBox ? Array.from(btnBox.querySelectorAll(BTN)) : [];
+                
+                if (prevBtn) prevBtn.addEventListener('click', ()=> scrollByStep(track, -1));
+                if (nextBtn) nextBtn.addEventListener('click', ()=> scrollByStep(track, +1));
+
+                rail.addEventListener('click', (e)=>{
+                    if (e.target === handle) return;
+                    const r = rail.getBoundingClientRect();
+                    const hw = handle.offsetWidth;
+                    const x = clamp(e.clientX - r.left - hw/2, 0, r.width - hw);
+                    handle.style.left = x + 'px';
+                    scrollFromHandle(track, rail, handle);
+                });
+
+                let dragging = false, startX = 0, startLeft = 0, pointerId = null;
+                handle.style.touchAction = 'none';
+                handle.style.userSelect  = 'none';
+
+                handle.addEventListener('pointerdown', (e)=>{
+                    dragging  = true;
+                    pointerId = e.pointerId;
+                    startX    = e.clientX;
+                    startLeft = parseFloat(getComputedStyle(handle).left) || 0;
+                    handle.setPointerCapture && handle.setPointerCapture(pointerId);
+                    e.preventDefault();
+                });
+
+                window.addEventListener('pointermove', (e)=>{
+                    if (!dragging) return;
+                    const r  = rail.getBoundingClientRect();
+                    const hw = handle.offsetWidth;
+                    const maxLeft = Math.max(0, r.width - hw);
+                    const left = clamp(startLeft + (e.clientX - startX), 0, maxLeft);
+                    handle.style.left = left + 'px';
+                    track.scrollLeft = (left / (maxLeft || 1)) * maxScroll(track);
+                    syncButtons(track, prevBtn, nextBtn);
+                }, {passive:true});
+
+                ['pointerup','pointercancel'].forEach(type=>{
+                    window.addEventListener(type, (e)=>{
+                        if (!dragging) return;
+                        dragging = false;
+                        handle.releasePointerCapture && pointerId != null && handle.releasePointerCapture(pointerId);
+                        pointerId = null;
+                        handleFromScroll(track, rail, handle);
+                        syncButtons(track, prevBtn, nextBtn);
+                    });
+                });
+
+                let ticking = false;
+                function onScroll(){
+                    if (dragging) return;
+                    if (ticking) return;
+                    requestAnimationFrame(()=>{
+                        handleFromScroll(track, rail, handle);
+                        syncButtons(track, prevBtn, nextBtn);
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+
+                track.addEventListener('scroll', onScroll, {passive:true});
+                window.addEventListener('resize', ()=> {
+                    onScroll();
+                    syncButtons(track, prevBtn, nextBtn);
+                });
+                
+                handleFromScroll(track, rail, handle);
+                syncButtons(track, prevBtn, nextBtn);
+            }
+
+            function initAll(){ document.querySelectorAll(WRAPPER).forEach(initOne); }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
+            else initAll();
+        })();
+    </script>
+</body>
+</html>
