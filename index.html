@@ -264,21 +264,14 @@
 
         .work-preview {
             width: 100%;
-            min-height: 3024px; 
+            height: auto; /* Scales down cleanly based on the natural width/height ratio */
+            display: block; 
             border-radius: 12px;
-            object-fit: cover;
-            object-position: top; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
             background-color: #f8fafc;
         }
 
-        /* Alternating heights to ensure at least 70% of 3500px is visible while varying the sizes */
-        .work-preview:nth-child(4n+1) { min-height: 2450px; }
-        .work-preview:nth-child(4n+2) { min-height: 2700px; }
-        .work-preview:nth-child(4n+3) { min-height: 2550px; }
-        .work-preview:nth-child(4n)   { min-height: 2800px; }
-
-        /* Slowed down marquee to 70 seconds */
+        /* Scroll Animation Set to 70s */
         .scroll-up { animation: marquee-up 70s linear infinite; }
         .scroll-down { animation: marquee-down 70s linear infinite; transform: translateY(-50%); }
 
@@ -840,7 +833,7 @@
                             </div>
                         </div>
                         <div class="service-card-imagery small">
-                            <img src="images/service-crm.png" loading="eager" alt="CRM Automation Project" class="only-image"/>
+                            <img src="images/service-crm.jpg" loading="eager" alt="CRM Automation Project" class="only-image"/>
                         </div>
                     </div>
 
@@ -874,7 +867,7 @@
                 <p class="text-slate-600 font-medium max-w-xl md:mx-0 mx-auto text-lg">A look at the stunning websites and scalable retention systems we've built.</p>
             </div>
 
-            <div class="work-showcase-container max-w-[1200px] mx-auto px-6 lg:px-8">
+            <div class="work-showcase-container max-w-[1600px] w-full mx-auto px-6 lg:px-12">
                 <!-- Column 1 -->
                 <div class="work-col">
                     <div class="scrolling-work scroll-up">
