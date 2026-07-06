@@ -6,10 +6,6 @@
     <meta name="description" content="Opes Consulting - Email Marketing, Website Creation, and CRM Automation">
     <title>Opes Consulting | Elite Digital Agency</title>
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -484,6 +480,16 @@
             animation-delay: 0.6s;
         }
 
+        /* Specific rule to prevent CRM logos from being cropped */
+        .logo-image {
+            opacity: 0;
+            animation: popInImage 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            object-fit: contain;
+            width: 100%;
+            height: 250px;
+            animation-delay: 0.6s;
+        }
+
         .home-scrollable-controls {
             display: flex;
             justify-content: center;
@@ -646,7 +652,7 @@
         <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-24 flex items-center justify-between">
             
             <a href="#" class="flex items-center focus:outline-none">
-                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-14 md:h-20 w-auto">
+                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-12 md:h-14 w-auto">
             </a>
             
             <div class="hidden md:flex items-center gap-10 ml-auto">
@@ -765,7 +771,7 @@
                             </div>
                         </div>
                         <div class="service-card-imagery">
-                            <img src="images/service-email-3.jpg" loading="eager" alt="Email Project 1" class="first-image"/>
+                            <img src="images/service-email-1.jpg" loading="eager" alt="Email Project 1" class="first-image"/>
                             <img src="images/service-email-2.jpg" loading="eager" alt="Email Project 2" class="second-image"/>
                         </div>
                     </div>
@@ -837,7 +843,7 @@
                             </div>
                         </div>
                         <div class="service-card-imagery small">
-                            <img src="images/service-crm-1.png" loading="eager" alt="CRM Automation Project" class="only-image"/>
+                            <img src="images/service-crm-1.png" loading="eager" alt="CRM Automation Project" class="logo-image"/>
                         </div>
                     </div>
 
@@ -923,6 +929,7 @@
             </div>
         </section>
 
+        <!-- Testimonials Section Restructured for Scrolling -->
         <section id="testimonials" class="py-24 md:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand/5 rounded-full blur-[100px] -mr-48 -mt-48 pointer-events-none"></div>
 
@@ -934,9 +941,11 @@
                     </div>
                 </div>
 
+                <!-- Testimonials Scrollable Architecture -->
                 <div class="scrollable-container !pt-0 !pb-0">
                     <div class="scrollable-services-holder testimonials-grid">
                         
+                        <!-- Review 1 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -950,6 +959,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 2 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -963,6 +973,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 3 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -976,6 +987,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 4 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -989,6 +1001,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 5 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -1002,6 +1015,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 6 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -1015,6 +1029,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 7 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -1028,6 +1043,7 @@
                             </div>
                         </div>
 
+                        <!-- Review 8 -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
                             <div class="flex text-[#14a800] text-sm mb-6 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
