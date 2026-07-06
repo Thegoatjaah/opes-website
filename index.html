@@ -6,6 +6,10 @@
     <meta name="description" content="Opes Consulting - Email Marketing, Website Creation, and CRM Automation">
     <title>Opes Consulting | Elite Digital Agency</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -160,6 +164,7 @@
             box-shadow: 0 4px 12px rgba(0, 148, 255, 0.25);
         }
 
+        /* Mobile Adjustments for side-by-side Hero Buttons */
         @media (max-width: 480px) {
             .custom-filled-button {
                 padding: 14px 20px;
@@ -236,7 +241,8 @@
             display: flex;
             gap: 32px;
             height: 700px; 
-            overflow: hidden; /* Hidden on desktop */
+            overflow: hidden;
+            position: relative;
             width: 100%;
         }
 
@@ -296,26 +302,10 @@
         .top-showcase-gradient { top: 0; background: linear-gradient(to bottom, #ffffff 0%, transparent 100%); }
         .bottom-showcase-gradient { bottom: 0; background: linear-gradient(to top, #ffffff 0%, transparent 100%); }
 
-        /* Mobile Adjustments for Work Showcase */
         @media (max-width: 768px) {
-            .work-showcase-container { 
-                gap: 20px; 
-                height: 550px; 
-                padding: 0 20px; 
-                overflow-x: auto; /* Allow horizontal scrolling on mobile */
-                overflow-y: hidden;
-                scroll-snap-type: x mandatory;
-            }
-            .work-showcase-container::-webkit-scrollbar {
-                display: none; /* Hide the physical scrollbar */
-            }
-            .work-col { 
-                min-width: 85%; /* Keeps columns wide instead of slim */
-                max-width: 400px;
-                flex: 0 0 auto;
-                scroll-snap-align: center;
-            }
-            .scrolling-work, .scrolling-work-wrapper { gap: 20px; }
+            .work-showcase-container { gap: 16px; height: 500px; padding: 0 16px; }
+            .work-col:nth-child(3) { display: none; }
+            .scrolling-work, .scrolling-work-wrapper { gap: 16px; }
         }
 
         /* --- SCROLLABLE SERVICES, PRICING & TESTIMONIAL ARCHITECTURE --- */
@@ -368,7 +358,7 @@
 
         .services-card.small { min-width: 450px; }
 
-        /* Specific Testimonial Grid & Card Adjustments */
+        /* Specific Testimonial Grid & Card Adjustments to make them Horizontally Long */
         .testimonials-grid {
             display: grid !important;
             grid-template-rows: 1fr;
@@ -749,25 +739,25 @@
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check service-card-icon"></i>
                                             <div class="services-card-link-text">High-Converting Campaign Design</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check service-card-icon"></i>
                                             <div class="services-card-link-text">Mobile-First & Dark-Mode HTML</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check service-card-icon"></i>
                                             <div class="services-card-link-text">Deliverability & Inbox Optimization</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check service-card-icon"></i>
                                             <div class="services-card-link-text">A/B Testing & ROI Tracking</div>
                                         </div>
                                     </div>
@@ -775,7 +765,7 @@
                             </div>
                         </div>
                         <div class="service-card-imagery">
-                            <img src="images/service-email-1.jpg" loading="eager" alt="Email Project 1" class="first-image"/>
+                            <img src="images/service-email.jpg" loading="eager" alt="Email Project 1" class="first-image"/>
                             <img src="images/service-email-2.jpg" loading="eager" alt="Email Project 2" class="second-image"/>
                         </div>
                     </div>
@@ -787,25 +777,25 @@
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check service-card-icon"></i>
                                             <div class="services-card-link-text">Custom HTML & Tailwind CSS</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check service-card-icon"></i>
                                             <div class="services-card-link-text">Cloudflare Pages Deployment</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check service-card-icon"></i>
                                             <div class="services-card-link-text">Performance-Optimized Architecture</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check service-card-icon"></i>
                                             <div class="services-card-link-text">Responsive & Conversion-Focused</div>
                                         </div>
                                     </div>
@@ -821,25 +811,25 @@
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check service-card-icon"></i>
                                             <div class="services-card-link-text">eCRM & Lifecycle Automation</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check service-card-icon"></i>
                                             <div class="services-card-link-text">Lead Nurturing & Scoring Flows</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check service-card-icon"></i>
                                             <div class="services-card-link-text">Cart Recovery & Win-Back Sequences</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check service-card-icon"></i>
                                             <div class="services-card-link-text">GoHighLevel, Klaviyo & HubSpot</div>
                                         </div>
                                     </div>
@@ -847,7 +837,7 @@
                             </div>
                         </div>
                         <div class="service-card-imagery small">
-                            <img src="images/service-crm.jpg" loading="eager" alt="CRM Automation Project" class="only-image"/>
+                            <img src="images/service-crm-2.jpg" loading="eager" alt="CRM Automation Project" class="only-image"/>
                         </div>
                     </div>
 
