@@ -6,24 +6,19 @@
     <meta name="description" content="Opes Consulting - Email Marketing, Website Creation, and CRM Automation">
     <title>Opes Consulting | Elite Digital Agency</title>
     
-    <!-- Open Graph / Social Media Link Preview Tags -->
     <meta property="og:title" content="Opes Consulting | Elite Digital Agency">
     <meta property="og:description" content="Opes Consulting delivers tailored lifecycle marketing. We architect high-converting websites, automate your CRM, and build email systems.">
     <meta property="og:image" content="https://opesconsulting.com/images/social-preview.jpg">
     <meta property="og:url" content="https://opesconsulting.london">
     <meta property="og:type" content="website">
     
-    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Opes Consulting | Elite Digital Agency">
     <meta name="twitter:description" content="Opes Consulting delivers tailored lifecycle marketing. We architect high-converting websites, automate your CRM, and build email systems.">
     <meta name="twitter:image" content="https://opesconsulting.com/images/social-preview.jpg">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -471,7 +466,8 @@
             justify-content: center;
         }
 
-        .service-card-imagery.small { width: 180px; min-height: auto; }
+        /* Adjusted width for wide logos so they sit naturally */
+        .service-card-imagery.small { width: 240px; min-height: auto; }
 
         .first-image, .second-image, .only-image {
             opacity: 0;
@@ -513,12 +509,13 @@
             animation-delay: 0.6s;
         }
 
+        /* Fixed logo image sizing to collapse around the logo and remove empty space */
         .logo-image {
             opacity: 0;
             animation: popInImage 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             object-fit: contain;
             width: 100%;
-            height: 250px;
+            height: auto; /* Replaced rigid 250px height with auto */
             animation-delay: 0.6s;
         }
 
@@ -777,25 +774,25 @@
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check text-brand"></i>
                                             <div class="services-card-link-text">High-Converting Campaign Design</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check text-brand"></i>
                                             <div class="services-card-link-text">Mobile-First & Dark-Mode HTML</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check text-brand"></i>
                                             <div class="services-card-link-text">Deliverability & Inbox Optimization</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check text-brand"></i>
                                             <div class="services-card-link-text">A/B Testing & ROI Tracking</div>
                                         </div>
                                     </div>
@@ -815,25 +812,25 @@
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check text-brand"></i>
                                             <div class="services-card-link-text">Custom HTML & Tailwind CSS</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-check service-card-icon"></i>
-                                            <div class="services-card-link-text">Cloudflare Pages Deployment</div>
+                                            <i class="fa-solid fa-check text-brand"></i>
+                                            <div class="services-card-link-text">Cloudflare Pages Hosting</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check text-brand"></i>
                                             <div class="services-card-link-text">Performance-Optimized Architecture</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check text-brand"></i>
                                             <div class="services-card-link-text">Responsive & Conversion-Focused</div>
                                         </div>
                                     </div>
@@ -849,25 +846,25 @@
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check text-brand"></i>
                                             <div class="services-card-link-text">eCRM & Lifecycle Automation</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check text-brand"></i>
                                             <div class="services-card-link-text">Lead Nurturing & Scoring Flows</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check text-brand"></i>
                                             <div class="services-card-link-text">Cart Recovery & Win-Back Sequences</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-check service-card-icon"></i>
+                                            <i class="fa-solid fa-check text-brand"></i>
                                             <div class="services-card-link-text">GoHighLevel, Klaviyo & HubSpot</div>
                                         </div>
                                     </div>
