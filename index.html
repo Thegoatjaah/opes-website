@@ -264,14 +264,21 @@
 
         .work-preview {
             width: 100%;
-            height: auto; /* Scales down cleanly based on the natural width/height ratio */
-            display: block; 
+            min-height: 3024px; 
             border-radius: 12px;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            object-fit: cover;
+            object-position: top; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             background-color: #f8fafc;
         }
 
-        /* Scroll Animation Set to 70s */
+        /* Alternating heights to ensure at least 70% of 3500px is visible while varying the sizes */
+        .work-preview:nth-child(4n+1) { min-height: 2450px; }
+        .work-preview:nth-child(4n+2) { min-height: 2700px; }
+        .work-preview:nth-child(4n+3) { min-height: 2550px; }
+        .work-preview:nth-child(4n)   { min-height: 2800px; }
+
+        /* Slowed down marquee to 70 seconds */
         .scroll-up { animation: marquee-up 70s linear infinite; }
         .scroll-down { animation: marquee-down 70s linear infinite; transform: translateY(-50%); }
 
@@ -354,7 +361,7 @@
 
         .services-card.small { min-width: 450px; }
 
-        /* Specific Testimonial Grid & Card Adjustments to make them Horizontally Long */
+        /* Specific Testimonial Grid & Card Adjustments */
         .testimonials-grid {
             display: grid !important;
             grid-template-rows: 1fr;
@@ -438,14 +445,28 @@
             justify-content: center;
         }
 
-        .service-card-imagery.small { width: 180px; min-height: auto; }
+        /* Expanded specific container to comfortably fit the CRM logos */
+        .service-card-imagery.single { width: 280px; min-height: auto; }
 
-        .first-image, .second-image, .only-image {
+        .first-image, .second-image {
             opacity: 0;
             animation: popInImage 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             object-fit: cover;
             background-color: #f8fafc; 
             border: 1px solid #e2e8f0; 
+        }
+
+        /* Specific configuration for single PNG logo files (CRM graphic) */
+        .only-image {
+            width: 100%;
+            height: auto;
+            object-fit: contain; 
+            background-color: transparent; 
+            border: none; 
+            box-shadow: none; 
+            opacity: 0;
+            animation: popInImage 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.6s;
         }
 
         .first-image {
@@ -470,14 +491,6 @@
             right: 0; 
             z-index: 1;
             animation-delay: 0.7s; 
-        }
-
-        .only-image {
-            width: 100%;
-            height: 300px;
-            border-radius: 16px;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-            animation-delay: 0.6s;
         }
 
         .home-scrollable-controls {
@@ -630,7 +643,7 @@
                 margin-top: 10px;
             }
             
-            .service-card-imagery.small { max-width: 100%; height: auto; }
+            .service-card-imagery.single { max-width: 100%; height: auto; }
             .first-image { left: 0; right: auto; top: 0; }
             .second-image { right: 0; left: auto; bottom: 0; }
         }
@@ -693,7 +706,7 @@
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                     </div>
-                    <span class="text-sm font-medium text-slate-600">Top Rated Agency On Upwork</span>
+                    <span class="text-sm font-medium text-slate-600">Top Rated Agency</span>
                 </div>
 
                 <h1 class="text-5xl lg:text-[56px] xl:text-[62px] font-bold tracking-tight max-w-5xl leading-[1.1] lg:leading-[1.15] mb-8 text-slate-900">
@@ -832,7 +845,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="service-card-imagery small">
+                        <div class="service-card-imagery single">
                             <img src="images/service-crm.png" loading="eager" alt="CRM Automation Project" class="only-image"/>
                         </div>
                     </div>
