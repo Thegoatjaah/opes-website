@@ -6,6 +6,17 @@
     <meta name="description" content="Opes Consulting - Email Marketing, Website Creation, and CRM Automation">
     <title>Opes Consulting | Elite Digital Agency</title>
     
+    <meta property="og:title" content="Opes Consulting | Elite Digital Agency">
+    <meta property="og:description" content="Opes Consulting delivers tailored lifecycle marketing. We architect high-converting websites, automate your CRM, and build email systems.">
+    <meta property="og:image" content="https://opesconsulting.com/images/social-preview.jpg">
+    <meta property="og:url" content="https://opesconsulting.london">
+    <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Opes Consulting | Elite Digital Agency">
+    <meta name="twitter:description" content="Opes Consulting delivers tailored lifecycle marketing. We architect high-converting websites, automate your CRM, and build email systems.">
+    <meta name="twitter:image" content="https://opesconsulting.com/images/social-preview.jpg">
+    
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
@@ -163,7 +174,6 @@
             box-shadow: 0 4px 12px rgba(0, 148, 255, 0.25);
         }
 
-        /* Mobile Adjustments for side-by-side Hero Buttons */
         @media (max-width: 480px) {
             .custom-filled-button {
                 padding: 14px 20px;
@@ -302,9 +312,24 @@
         .bottom-showcase-gradient { bottom: 0; background: linear-gradient(to top, #ffffff 0%, transparent 100%); }
 
         @media (max-width: 768px) {
-            .work-showcase-container { gap: 16px; height: 500px; padding: 0 16px; }
-            .work-col:nth-child(3) { display: none; }
-            .scrolling-work, .scrolling-work-wrapper { gap: 16px; }
+            .work-showcase-container { 
+                gap: 20px; 
+                height: 550px; 
+                padding: 0 20px; 
+                overflow-x: auto; 
+                overflow-y: hidden;
+                scroll-snap-type: x mandatory;
+            }
+            .work-showcase-container::-webkit-scrollbar {
+                display: none; 
+            }
+            .work-col { 
+                min-width: 85%; 
+                max-width: 400px;
+                flex: 0 0 auto;
+                scroll-snap-align: center;
+            }
+            .scrolling-work, .scrolling-work-wrapper { gap: 20px; }
         }
 
         /* --- SCROLLABLE SERVICES, PRICING & TESTIMONIAL ARCHITECTURE --- */
@@ -483,7 +508,6 @@
             animation-delay: 0.6s;
         }
 
-        /* Specific rule to prevent CRM logos from being cropped */
         .logo-image {
             opacity: 0;
             animation: popInImage 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -706,7 +730,7 @@
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                     </div>
-                    <span class="text-sm font-medium text-slate-600">Top Rated Agency On Upwork</span>
+                    <span class="text-sm font-medium text-slate-600">Top Rated Agency</span>
                 </div>
 
                 <h1 class="text-5xl lg:text-[56px] xl:text-[62px] font-bold tracking-tight max-w-5xl leading-[1.1] lg:leading-[1.15] mb-8 text-slate-900">
