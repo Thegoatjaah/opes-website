@@ -82,21 +82,29 @@
         }
 
         .loader-logo {
-            width: 120px; /* Adjust this to match the "ordinary size" you prefer */
+            width: 120px; 
             height: auto;
-            animation: logo-zoom 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            /* Updated animation for spin and pulse */
+            animation: logo-wheel-pulse 1.5s ease-in-out forwards;
         }
 
-        @keyframes logo-zoom {
+        @keyframes logo-wheel-pulse {
             0% {
-                transform: scale(0.2);
+                transform: scale(0.2) rotate(0deg);
                 opacity: 0;
             }
-            50% {
+            60% {
+                /* Spins 360deg and increases to a size slightly bigger (1.15) */
+                transform: scale(1.15) rotate(360deg); 
                 opacity: 1;
             }
+            80% {
+                /* Decreases slightly for the pulse effect */
+                transform: scale(0.95) rotate(360deg); 
+            }
             100% {
-                transform: scale(1);
+                /* Settles into its normal size */
+                transform: scale(1) rotate(360deg); 
                 opacity: 1;
             }
         }
@@ -552,7 +560,7 @@
             animation: popInImage 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             object-fit: contain;
             width: 100%;
-            height: auto; /* Replaced rigid 250px height with auto */
+            height: auto; 
             animation-delay: 0.6s;
         }
 
@@ -1292,7 +1300,7 @@
     <script>
         window.addEventListener('load', () => {
             const loader = document.getElementById('page-loader');
-            // Adding a small delay ensures the user sees the zoom animation even if the page loads instantly
+            // Increased the timeout so the new wheel-and-pulse animation fully completes
             setTimeout(() => {
                 loader.classList.add('loader-hidden');
                 
@@ -1300,7 +1308,7 @@
                 setTimeout(() => {
                     loader.style.display = 'none';
                 }, 500); 
-            }, 800);
+            }, 1500);
         });
     </script>
 
