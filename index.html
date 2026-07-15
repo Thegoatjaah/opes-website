@@ -69,6 +69,43 @@
             font-display: swap;
         }
 
+        /* --- PAGE LOADER STYLING --- */
+        #page-loader {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .loader-logo {
+            width: 120px; /* Adjust this to match the "ordinary size" you prefer */
+            height: auto;
+            animation: logo-zoom 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes logo-zoom {
+            0% {
+                transform: scale(0.2);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
         /* --- USER PROVIDED NAV LINK ANIMATION --- */
         .nav-link {
             display: inline-block; 
@@ -677,6 +714,9 @@
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
+    <div id="page-loader">
+        <img src="favicon.png" alt="Loading..." class="loader-logo">
+    </div>
     <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
         <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-24 flex items-center justify-between">
             
@@ -1248,6 +1288,21 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('page-loader');
+            // Adding a small delay ensures the user sees the zoom animation even if the page loads instantly
+            setTimeout(() => {
+                loader.classList.add('loader-hidden');
+                
+                // Wait for the CSS transition to finish before removing it from the document flow
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500); 
+            }, 800);
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
