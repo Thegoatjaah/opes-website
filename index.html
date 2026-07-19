@@ -257,7 +257,7 @@
             background: linear-gradient(180deg, rgba(0,148,255,0.08) 0%, rgba(0,148,255,0.02) 50%, rgba(255,255,255,1) 100%);
         }
 
-        /* --- SCROLLING SHOWCASE STYLING (DESKTOP) --- */
+        /* --- SLOW MOVING IMAGE MARQUEE STYLING --- */
         .work-showcase-section {
             background-color: #ffffff; 
             padding: 80px 0; 
@@ -274,6 +274,12 @@
             overflow: hidden;
             position: relative;
             width: 100%;
+            scroll-behavior: smooth;
+            scrollbar-width: none; 
+        }
+
+        .work-showcase-container::-webkit-scrollbar {
+            display: none; 
         }
 
         .work-col {
@@ -318,33 +324,23 @@
         .top-showcase-gradient { top: 0; background: linear-gradient(to bottom, #ffffff 0%, transparent 100%); }
         .bottom-showcase-gradient { bottom: 0; background: linear-gradient(to top, #ffffff 0%, transparent 100%); }
 
-        /* --- MOBILE WORK SLIDER STYLING --- */
-        .work-mobile-card {
-            min-width: 85%;
-            height: 480px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            flex-shrink: 0;
-            opacity: 0;
-            animation: fadeUpCard 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            scroll-snap-align: center;
+        @media (max-width: 768px) {
+            .work-showcase-container { 
+                gap: 20px; 
+                height: 550px; 
+                padding: 0 20px; 
+                overflow-x: auto; 
+                overflow-y: hidden;
+                scroll-snap-type: x mandatory;
+            }
+            .work-col { 
+                min-width: 85%; 
+                max-width: 400px;
+                flex: 0 0 auto;
+                scroll-snap-align: center;
+            }
+            .scrolling-work, .scrolling-work-wrapper { gap: 20px; }
         }
-
-        .work-mobile-card:nth-child(1) { animation-delay: 0.1s; }
-        .work-mobile-card:nth-child(2) { animation-delay: 0.15s; }
-        .work-mobile-card:nth-child(3) { animation-delay: 0.2s; }
-        .work-mobile-card:nth-child(4) { animation-delay: 0.25s; }
-        .work-mobile-card:nth-child(5) { animation-delay: 0.3s; }
-
-        .work-mobile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top;
-            background-color: #f8fafc;
-        }
-
 
         /* --- SCROLLABLE SERVICES, PRICING & TESTIMONIAL ARCHITECTURE --- */
         @keyframes fadeUpCard {
@@ -546,7 +542,7 @@
         }
 
         @media (max-width: 991px) {
-            .scrollable-services-holder:not(.testimonials-grid):not(.work-mobile-slider-track) {
+            .scrollable-services-holder:not(.testimonials-grid) {
                 flex-direction: column;
                 overflow-x: hidden; 
                 padding: 20px;
@@ -822,14 +818,13 @@
             </div>
         </section>
 
-        <section id="work" class="work-showcase-section relative !pb-0 md:!pb-[80px]">
+        <section id="work" class="work-showcase-section relative scrollable-container !pb-8 md:!pb-[80px]">
             <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 mb-16 text-center md:text-left relative z-10">
                 <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Systems That <span class="text-brand">Drive Growth</span></h2>
                 <p class="text-slate-600 font-medium max-w-xl md:mx-0 mx-auto text-lg">A look at the AI-powered websites, intelligent retention systems, and high-converting campaigns we've engineered.</p>
             </div>
 
-            <!-- DESKTOP WORK SHOWCASE (Marquee) -->
-            <div class="relative w-full max-w-[1200px] mx-auto hidden md:block">
+            <div class="relative w-full max-w-[1200px] mx-auto">
                 <div class="work-showcase-container px-6 lg:px-8">
                     <div class="work-col">
                         <div class="scrolling-work scroll-up">
@@ -880,37 +875,23 @@
                 <div class="bottom-showcase-gradient"></div>
             </div>
 
-            <!-- MOBILE WORK SHOWCASE (Slider) -->
-            <div class="scrollable-container md:hidden !pt-0 w-full relative">
-                <div class="scrollable-services-holder work-mobile-slider-track">
-                    <div class="work-mobile-card"><img src="images/work-1.jpg" alt="Work 1" class="work-mobile-img"/></div>
-                    <div class="work-mobile-card"><img src="images/work-2.jpg" alt="Work 2" class="work-mobile-img"/></div>
-                    <div class="work-mobile-card"><img src="images/work-3.jpg" alt="Work 3" class="work-mobile-img"/></div>
-                    <div class="work-mobile-card"><img src="images/work-4.jpg" alt="Work 4" class="work-mobile-img"/></div>
-                    <div class="work-mobile-card"><img src="images/work-5.jpg" alt="Work 5" class="work-mobile-img"/></div>
-                    <div class="work-mobile-card"><img src="images/work-6.jpg" alt="Work 6" class="work-mobile-img"/></div>
-                    <div class="work-mobile-card"><img src="images/work-7.jpg" alt="Work 7" class="work-mobile-img"/></div>
-                    <div class="work-mobile-card"><img src="images/work-8.jpg" alt="Work 8" class="work-mobile-img"/></div>
-                    <div class="work-mobile-card"><img src="images/work-9.jpg" alt="Work 9" class="work-mobile-img"/></div>
-                </div>
-
-                <div class="home-scrollable-controls keep-visible mt-8 px-6">
-                    <div class="scrollable-controls">
-                        <div class="scrollable-track">
-                            <div class="scrollable-handle"></div>
-                        </div>
-                        <div class="scrollable-button-flex">
-                            <button aria-label="Move back through list" class="scrollable-direction-btn previous">
-                                <div class="scrollable-direction-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
-                                </div>
-                            </button>
-                            <button aria-label="Move forward through the list" class="scrollable-direction-btn">
-                                <div class="scrollable-direction-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
-                                </div>
-                            </button>
-                        </div>
+            <!-- Scroll Controls (Visible on mobile only) -->
+            <div class="home-scrollable-controls keep-visible flex md:hidden mt-8 px-6 w-full justify-center">
+                <div class="scrollable-controls">
+                    <div class="scrollable-track">
+                        <div class="scrollable-handle"></div>
+                    </div>
+                    <div class="scrollable-button-flex">
+                        <button aria-label="Move back through list" class="scrollable-direction-btn previous">
+                            <div class="scrollable-direction-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
+                            </div>
+                        </button>
+                        <button aria-label="Move forward through the list" class="scrollable-direction-btn">
+                            <div class="scrollable-direction-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
+                            </div>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1237,7 +1218,8 @@
     <script>
         (function(){
             const WRAPPER = '.scrollable-container';
-            const TRACK   = '.scrollable-services-holder';
+            // Adjusted TRACK query selector to include `.work-showcase-container`
+            const TRACK   = '.scrollable-services-holder, .work-showcase-container';
             const RAIL    = '.scrollable-track';
             const HANDLE  = '.scrollable-handle';
             const BTNBOX  = '.scrollable-button-flex';
