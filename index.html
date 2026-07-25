@@ -55,6 +55,36 @@
             font-display: swap;
         }
 
+        /* --- PAGE LOADER STYLING --- */
+        #page-loader {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .loader-logo {
+            width: 120px; 
+            height: auto;
+            animation: logo-wheel-pulse 1.5s ease-in-out forwards;
+        }
+
+        @keyframes logo-wheel-pulse {
+            0% { transform: scale(0.2) rotate(0deg); opacity: 0; }
+            60% { transform: scale(1.15) rotate(360deg); opacity: 1; }
+            80% { transform: scale(0.95) rotate(360deg); }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
         /* --- USER PROVIDED NAV LINK ANIMATION --- */
         .nav-link {
             display: inline-block; 
@@ -240,6 +270,12 @@
             overflow: hidden;
             position: relative;
             width: 100%;
+            scroll-behavior: smooth;
+            scrollbar-width: none; 
+        }
+
+        .work-showcase-container::-webkit-scrollbar {
+            display: none; 
         }
 
         .work-col {
@@ -272,36 +308,21 @@
             background-color: #f8fafc;
         }
 
-        /* Animation speed increased per user request */
         .scroll-up { animation: marquee-up 100s linear infinite; }
         .scroll-down { animation: marquee-down 100s linear infinite; transform: translateY(-50%); }
 
-        @keyframes marquee-up {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
-        }
+        @keyframes marquee-up { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+        @keyframes marquee-down { 0% { transform: translateY(-50%); } 100% { transform: translateY(0); } }
 
-        @keyframes marquee-down {
-            0% { transform: translateY(-50%); }
-            100% { transform: translateY(0); }
+        .top-showcase-gradient, .bottom-showcase-gradient {
+            position: absolute; left: 0; right: 0; height: 120px; pointer-events: none; z-index: 2;
         }
-
-        .top-showcase-gradient, 
-        .bottom-showcase-gradient {
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 120px;
-            pointer-events: none; 
-            z-index: 2;
-        }
-
         .top-showcase-gradient { top: 0; background: linear-gradient(to bottom, #ffffff 0%, transparent 100%); }
         .bottom-showcase-gradient { bottom: 0; background: linear-gradient(to top, #ffffff 0%, transparent 100%); }
 
         @media (max-width: 768px) {
-            .work-showcase-container { gap: 16px; height: 500px; padding: 0 16px; }
-            .work-col:nth-child(3) { display: none; }
+            .work-showcase-container { gap: 16px; height: 500px; padding: 0 16px; overflow-x: auto; scroll-snap-type: x mandatory;}
+            .work-col { min-width: 85%; max-width: 400px; flex: 0 0 auto; scroll-snap-align: center; }
             .scrolling-work, .scrolling-work-wrapper { gap: 16px; }
         }
 
@@ -566,7 +587,7 @@
         }
 
         @media (max-width: 991px) {
-            .scrollable-services-holder:not(.testimonials-grid) {
+            .scrollable-services-holder:not(.testimonials-grid):not(.work-showcase-container) {
                 flex-direction: column;
                 overflow-x: hidden; 
                 padding: 20px;
@@ -638,6 +659,10 @@
     </style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
+
+    <div id="page-loader">
+        <img src="Icon Load.png" alt="Loading..." class="loader-logo">
+    </div>
 
     <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
         <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-24 flex items-center justify-between">
@@ -862,66 +887,88 @@
             </div>
         </section>
 
-        <section id="work" class="work-showcase-section">
-            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 mb-16 text-center md:text-left">
+        <section id="work" class="work-showcase-section relative scrollable-container !pb-8 md:!pb-[80px]">
+            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 mb-16 text-center md:text-left relative z-10">
                 <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Work That <span class="text-brand">Moves the Needle</span></h2>
                 <p class="text-slate-600 font-medium max-w-xl md:mx-0 mx-auto text-lg">A look at the stunning websites and scalable retention systems we've built.</p>
             </div>
 
-            <div class="work-showcase-container max-w-[1200px] mx-auto px-6 lg:px-8">
-                <div class="work-col">
-                    <div class="scrolling-work scroll-up">
-                        <div class="scrolling-work-wrapper">
-                            <img src="images/work-1.jpg" alt="Work 1" class="work-preview"/>
-                            <img src="images/work-2.jpg" alt="Work 2" class="work-preview"/>
-                            <img src="images/work-3.jpg" alt="Work 3" class="work-preview"/>
-                            <img src="images/work-4.jpg" alt="Work 4" class="work-preview"/>
+            <div class="relative w-full max-w-[1200px] mx-auto">
+                <div class="work-showcase-container px-6 lg:px-8">
+                    <div class="work-col">
+                        <div class="scrolling-work scroll-up">
+                            <div class="scrolling-work-wrapper">
+                                <img src="images/work-1.jpg" alt="Work 1" class="work-preview"/>
+                                <img src="images/work-2.jpg" alt="Work 2" class="work-preview"/>
+                                <img src="images/work-3.jpg" alt="Work 3" class="work-preview"/>
+                                <img src="images/work-4.jpg" alt="Work 4" class="work-preview"/>
+                            </div>
+                            <div class="scrolling-work-wrapper">
+                                <img src="images/work-1.jpg" alt="Work 1" class="work-preview"/>
+                                <img src="images/work-2.jpg" alt="Work 2" class="work-preview"/>
+                                <img src="images/work-3.jpg" alt="Work 3" class="work-preview"/>
+                                <img src="images/work-4.jpg" alt="Work 4" class="work-preview"/>
+                            </div>
                         </div>
-                        <div class="scrolling-work-wrapper">
-                            <img src="images/work-1.jpg" alt="Work 1" class="work-preview"/>
-                            <img src="images/work-2.jpg" alt="Work 2" class="work-preview"/>
-                            <img src="images/work-3.jpg" alt="Work 3" class="work-preview"/>
-                            <img src="images/work-4.jpg" alt="Work 4" class="work-preview"/>
+                    </div>
+
+                    <div class="work-col">
+                        <div class="scrolling-work scroll-down">
+                            <div class="scrolling-work-wrapper">
+                                <img src="images/work-5.jpg" alt="Work 5" class="work-preview"/>
+                                <img src="images/work-6.jpg" alt="Work 6" class="work-preview"/>
+                                <img src="images/work-7.jpg" alt="Work 7" class="work-preview"/>
+                                <img src="images/work-8.jpg" alt="Work 8" class="work-preview"/>
+                            </div>
+                            <div class="scrolling-work-wrapper">
+                                <img src="images/work-5.jpg" alt="Work 5" class="work-preview"/>
+                                <img src="images/work-6.jpg" alt="Work 6" class="work-preview"/>
+                                <img src="images/work-7.jpg" alt="Work 7" class="work-preview"/>
+                                <img src="images/work-8.jpg" alt="Work 8" class="work-preview"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-col">
+                        <div class="scrolling-work scroll-up">
+                            <div class="scrolling-work-wrapper">
+                                <img src="images/work-9.jpg" alt="Work 9" class="work-preview"/>
+                                <img src="images/work-10.jpg" alt="Work 10" class="work-preview"/>
+                                <img src="images/work-11.jpg" alt="Work 11" class="work-preview"/>
+                                <img src="images/work-12.jpg" alt="Work 12" class="work-preview"/>
+                            </div>
+                            <div class="scrolling-work-wrapper">
+                                <img src="images/work-9.jpg" alt="Work 9" class="work-preview"/>
+                                <img src="images/work-10.jpg" alt="Work 10" class="work-preview"/>
+                                <img src="images/work-11.jpg" alt="Work 11" class="work-preview"/>
+                                <img src="images/work-12.jpg" alt="Work 12" class="work-preview"/>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="work-col">
-                    <div class="scrolling-work scroll-down">
-                        <div class="scrolling-work-wrapper">
-                            <img src="images/work-5.jpg" alt="Work 5" class="work-preview"/>
-                            <img src="images/work-6.jpg" alt="Work 6" class="work-preview"/>
-                            <img src="images/work-7.jpg" alt="Work 7" class="work-preview"/>
-                            <img src="images/work-8.jpg" alt="Work 8" class="work-preview"/>
-                        </div>
-                        <div class="scrolling-work-wrapper">
-                            <img src="images/work-5.jpg" alt="Work 5" class="work-preview"/>
-                            <img src="images/work-6.jpg" alt="Work 6" class="work-preview"/>
-                            <img src="images/work-7.jpg" alt="Work 7" class="work-preview"/>
-                            <img src="images/work-8.jpg" alt="Work 8" class="work-preview"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="work-col">
-                    <div class="scrolling-work scroll-up">
-                        <div class="scrolling-work-wrapper">
-                            <img src="images/work-9.jpg" alt="Work 9" class="work-preview"/>
-                            <img src="images/work-10.jpg" alt="Work 10" class="work-preview"/>
-                            <img src="images/work-11.jpg" alt="Work 11" class="work-preview"/>
-                            <img src="images/work-12.jpg" alt="Work 12" class="work-preview"/>
-                        </div>
-                        <div class="scrolling-work-wrapper">
-                            <img src="images/work-9.jpg" alt="Work 9" class="work-preview"/>
-                            <img src="images/work-10.jpg" alt="Work 10" class="work-preview"/>
-                            <img src="images/work-11.jpg" alt="Work 11" class="work-preview"/>
-                            <img src="images/work-12.jpg" alt="Work 12" class="work-preview"/>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="top-showcase-gradient"></div>
                 <div class="bottom-showcase-gradient"></div>
+            </div>
+
+            <!-- Scroll Controls (Visible on mobile only) -->
+            <div class="home-scrollable-controls keep-visible flex md:hidden mt-8 px-6 w-full justify-center">
+                <div class="scrollable-controls">
+                    <div class="scrollable-track">
+                        <div class="scrollable-handle"></div>
+                    </div>
+                    <div class="scrollable-button-flex">
+                        <button aria-label="Move back through list" class="scrollable-direction-btn previous">
+                            <div class="scrollable-direction-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
+                            </div>
+                        </button>
+                        <button aria-label="Move forward through the list" class="scrollable-direction-btn">
+                            <div class="scrollable-direction-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
+                            </div>
+                        </button>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -944,7 +991,7 @@
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
-                                "Opes built our Brevo email automations flawlessly, delivering fully tested, branded journeys that saved us time and gave us confidence to launch."
+                                "We hired Jaheim to build 13 automated email journeys in Brevo and the whole process was seamless. He turned our copy and requirements into fully tested, branded, personalised flows, communicated clearly throughout, and delivered everything with excellent attention to detail. I’d happily recommend him for any email automation project."
                             </p>
                             <div class="mt-6 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Teresa</h4>
@@ -957,7 +1004,7 @@
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
-                                "Our email automations were set up perfectly, with every journey tested and personalised. They delivered excellent quality, on time, and saved us a huge amount of time."
+                                "Jaheim set up our Brevo automations flawlessly, from onboarding to re-engagement journeys with dynamic personalisation working exactly as needed. He worked efficiently, delivered on time, and ensured everything was fully tested before launch, saving us a huge amount of time."
                             </p>
                             <div class="mt-6 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Ammira</h4>
@@ -970,7 +1017,7 @@
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
-                                "Opes transformed our email strategy into polished, high-performing automated journeys that worked flawlessly from day one."
+                                "Working with Jaheim was a great experience. He quickly translated our requirements into polished automated journeys, built strong-looking templates, and ensured everything worked perfectly. He communicated well throughout and improved the final result with thoughtful recommendations."
                             </p>
                             <div class="mt-6 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Naomi</h4>
@@ -983,7 +1030,7 @@
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
-                                "They managed our campaigns professionally, communicated clearly, and consistently improved performance with a thoughtful, data-driven approach."
+                                "Jaheim is a knowledgeable media buyer with strong technical skills and a calm, professional approach. He was responsive, open to feedback, and consistently improved the work, despite occasional time zone challenges. A fast learner with strong potential in performance marketing."
                             </p>
                             <div class="mt-6 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Tori</h4>
@@ -996,7 +1043,7 @@
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
-                                "Reliable, technically skilled, and easy to work with. They delivered high-quality work and solved problems quickly throughout the project."
+                                "Jaheim is technically strong, easy to work with, and very dependable. He handled challenges calmly, stayed responsive across time zones, and consistently delivered high-quality work with a problem-solving mindset."
                             </p>
                             <div class="mt-6 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Damir</h4>
@@ -1009,7 +1056,7 @@
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
-                                "Opes built branded email automations that worked perfectly, improved our customer journeys, and exceeded our expectations."
+                                "Jaheim exceeded expectations, building well-designed email templates and fully functional automations with precise personalisation, timing, and testing. He delivered on time and often suggested improvements that made the final result even better."
                             </p>
                             <div class="mt-6 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Morgan</h4>
@@ -1022,7 +1069,7 @@
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
-                                "They streamlined our CRM and email marketing processes with reliable automations that saved our team valuable time."
+                                "Jaheim combines strong technical ability with a professional, collaborative approach. He handled complex automations, communicated clearly, met deadlines, and helped streamline our marketing processes, saving valuable time."
                             </p>
                             <div class="mt-6 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Nathan</h4>
@@ -1035,7 +1082,7 @@
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
-                                "Highly skilled, responsive, and a pleasure to work with. Opes consistently delivered outstanding results and exceeded our expectations."
+                                "Jaheim is one of the best professionals I’ve worked with. Highly skilled, responsive, and consistently outstanding in delivery—every project felt smooth and well handled from start to finish."
                             </p>
                             <div class="mt-6 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Darius</h4>
@@ -1217,6 +1264,20 @@
     </footer>
 
     <script>
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                setTimeout(() => {
+                    loader.classList.add('loader-hidden');
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                    }, 500); 
+                }, 1500);
+            }
+        });
+    </script>
+
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             const menuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -1234,7 +1295,7 @@
     <script>
         (function(){
             const WRAPPER = '.scrollable-container';
-            const TRACK   = '.scrollable-services-holder';
+            const TRACK   = '.scrollable-services-holder, .work-showcase-container';
             const RAIL    = '.scrollable-track';
             const HANDLE  = '.scrollable-handle';
             const BTNBOX  = '.scrollable-button-flex';
