@@ -308,6 +308,7 @@
             background-color: #f8fafc;
         }
 
+        /* Animation speed increased per user request */
         .scroll-up { animation: marquee-up 100s linear infinite; }
         .scroll-down { animation: marquee-down 100s linear infinite; transform: translateY(-50%); }
 
@@ -460,14 +461,20 @@
             justify-content: center;
         }
 
-        .service-card-imagery.small { width: 180px; min-height: auto; }
+        /* Updated for CRM card layout */
+        .service-card-imagery.small { width: 240px; min-height: auto; }
 
+        /* Unified animation base */
         .first-image, .second-image, .only-image {
             opacity: 0;
             animation: popInImage 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            object-fit: cover;
             background-color: #f8fafc; 
             border: 1px solid #e2e8f0; 
+        }
+
+        /* Specific Object fit for stacked images */
+        .first-image, .second-image {
+            object-fit: cover;
         }
 
         .first-image {
@@ -494,12 +501,20 @@
             animation-delay: 0.7s; 
         }
 
+        /* Updated CRM "only-image" to prevent all cropping */
         .only-image {
             width: 100%;
-            height: 300px;
+            height: auto;
+            max-height: 340px;
+            object-fit: contain; /* Prevents edge cropping completely */
             border-radius: 16px;
             box-shadow: 0 12px 24px rgba(0,0,0,0.08);
             animation-delay: 0.6s;
+        }
+
+        .logo-image {
+            opacity: 0; animation: popInImage 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            object-fit: contain; width: 100%; height: auto; animation-delay: 0.6s;
         }
 
         .home-scrollable-controls {
@@ -648,7 +663,7 @@
                 width: 100%;
                 max-width: 280px; 
                 margin: 0 auto;   
-                height: 380px; 
+                height: auto; /* Updated */
                 margin-top: 10px;
             }
             
@@ -661,7 +676,7 @@
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
     <div id="page-loader">
-        <img src="Icon-Load.png" alt="Loading..." class="loader-logo">
+        <img src="Icon Load.png" alt="Loading..." class="loader-logo">
     </div>
 
     <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
@@ -859,7 +874,7 @@
                             </div>
                         </div>
                         <div class="service-card-imagery small">
-                            <img src="images/service-crm-1.png" loading="eager" alt="CRM Automation Project" class="only-image"/>
+                            <img src="images/service-crm.jpg" loading="eager" alt="CRM Automation Project" class="only-image"/>
                         </div>
                     </div>
 
@@ -889,8 +904,8 @@
 
         <section id="work" class="work-showcase-section relative scrollable-container !pb-8 md:!pb-[80px]">
             <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 mb-16 text-center md:text-left relative z-10">
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Work That <span class="text-brand">Moves the Needle</span></h2>
-                <p class="text-slate-600 font-medium max-w-xl md:mx-0 mx-auto text-lg">A look at the stunning websites and scalable retention systems we've built.</p>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Systems That <span class="text-brand">Drive Growth</span></h2>
+                <p class="text-slate-600 font-medium max-w-xl md:mx-0 mx-auto text-lg">A look at the AI-powered websites, intelligent retention systems, and high-converting campaigns we've engineered.</p>
             </div>
 
             <div class="relative w-full max-w-[1200px] mx-auto">
