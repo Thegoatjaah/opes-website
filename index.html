@@ -506,7 +506,7 @@
             width: 100%;
             height: auto;
             max-height: 340px;
-            object-fit: contain; /* Prevents edge cropping completely */
+            object-fit: contain; 
             border-radius: 16px;
             box-shadow: 0 12px 24px rgba(0,0,0,0.08);
             animation-delay: 0.6s;
@@ -663,7 +663,7 @@
                 width: 100%;
                 max-width: 280px; 
                 margin: 0 auto;   
-                height: auto; /* Updated */
+                height: auto;
                 margin-top: 10px;
             }
             
@@ -692,6 +692,7 @@
                     <a href="#work" class="nav-link hover:text-brand">Work</a>
                     <a href="#pricing" class="nav-link hover:text-brand">Pricing</a>
                     <a href="#testimonials" class="nav-link hover:text-brand">Testimonials</a>
+                    <a href="#faq" class="nav-link hover:text-brand">FAQ</a>
                 </nav>
                 
                 <a href="#contact" class="header-outline-btn">
@@ -714,6 +715,7 @@
                 <div><a href="#work" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Work</a></div>
                 <div><a href="#pricing" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Pricing</a></div>
                 <div><a href="#testimonials" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
+                <div><a href="#faq" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">FAQ</a></div>
                 
                 <div class="mt-6">
                     <a href="#contact" class="mobile-contact-btn">Contact</a>
@@ -723,6 +725,7 @@
     </header>
 
     <main class="flex-grow">
+        <!-- Hero Section -->
         <section class="hero-gradient pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
             <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 flex flex-col items-start text-left relative z-10">
                 
@@ -758,6 +761,7 @@
             </div>
         </section>
 
+        <!-- Services Section -->
         <section id="services" class="bg-slate-50 border-y border-slate-100 py-24 md:py-32">
             <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 text-center md:text-left mb-12">
                 <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">How We <span class="text-brand">Build Growth</span></h2>
@@ -902,6 +906,7 @@
             </div>
         </section>
 
+        <!-- Work Section -->
         <section id="work" class="work-showcase-section relative scrollable-container !pb-8 md:!pb-[80px]">
             <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 mb-16 text-center md:text-left relative z-10">
                 <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Systems That <span class="text-brand">Drive Growth</span></h2>
@@ -987,6 +992,7 @@
             </div>
         </section>
 
+        <!-- Testimonials Section -->
         <section id="testimonials" class="py-24 md:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand/5 rounded-full blur-[100px] -mr-48 -mt-48 pointer-events-none"></div>
 
@@ -1130,6 +1136,7 @@
             </div>
         </section>
 
+        <!-- Pricing Section -->
         <section id="pricing" class="bg-white py-24 md:py-32">
             <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 text-center md:text-left mb-12">
                 <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Transparent <span class="text-brand">Pricing</span></h2>
@@ -1258,6 +1265,87 @@
             </div>
         </section>
 
+        <!-- FAQ Section -->
+        <section id="faq" class="bg-slate-50 border-y border-slate-100 py-24 md:py-32">
+            <div class="max-w-[800px] w-full mx-auto px-6 lg:px-8">
+                <div class="text-center md:text-left mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Frequently Asked <span class="text-brand">Questions</span></h2>
+                    <p class="text-slate-600 font-medium text-lg mx-auto md:mx-0">
+                        Everything you need to know about our web builds, CRM setups, and lifecycle systems.
+                    </p>
+                </div>
+                
+                <div class="flex flex-col border-t border-slate-200">
+                    
+                    <!-- FAQ Item 1 -->
+                    <div class="border-b border-slate-200 py-6 faq-item">
+                        <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
+                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">What platforms do you specialize in for CRM and email automation?</span>
+                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                                We architect and automate systems seamlessly using industry-leading software like GoHighLevel, Klaviyo, HubSpot, and Brevo, tailoring every setup specifically to fit your store's requirements.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="border-b border-slate-200 py-6 faq-item">
+                        <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
+                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">How long does it take to see results from a new email marketing campaign?</span>
+                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                                We formulate a three-month email marketing strategy aligned directly with specific operational targets to optimize subscriber ratios and lead generation. This dedicated timeframe provides the testing required to scale revenue predictably.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="border-b border-slate-200 py-6 faq-item">
+                        <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
+                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">Do you build websites from scratch or use templates?</span>
+                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                                We build performance-optimized architecture from the ground up using custom HTML and Tailwind CSS. We typically deploy via Cloudflare Pages to ensure maximum speed and high conversion rates.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="border-b border-slate-200 py-6 faq-item">
+                        <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
+                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">What is included in the custom email marketing setup?</span>
+                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                                Our custom integrations feature comprehensive lifecycle flow maps, targeted A/B testing protocols, pixel-perfect and mobile-first HTML template designs, and dedicated inbox deliverability optimization.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 5 -->
+                    <div class="border-b border-slate-200 py-6 faq-item">
+                        <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
+                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">How do we get started?</span>
+                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                                Use the "Book a Call" buttons to schedule a strategy consultation. We will discuss your current constraints, audit your existing funnel architecture, and outline the exact systems needed to scale your digital efforts.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer class="bg-white py-12 border-t border-slate-100">
@@ -1277,6 +1365,39 @@
             </div>
         </div>
     </footer>
+
+    <!-- FAQ Accordion Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqButtons = document.querySelectorAll('.faq-btn');
+            
+            faqButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const answer = btn.nextElementSibling;
+                    const icon = btn.querySelector('i');
+                    const isOpen = answer.style.maxHeight;
+
+                    // Close all other open FAQ items
+                    document.querySelectorAll('.faq-answer').forEach(ans => {
+                        if (ans !== answer) {
+                            ans.style.maxHeight = null;
+                            const otherIcon = ans.previousElementSibling.querySelector('i');
+                            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    // Toggle current FAQ item
+                    if (isOpen) {
+                        answer.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        });
+    </script>
 
     <script>
         window.addEventListener('load', () => {
