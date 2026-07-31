@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Opes Consulting Pricing - Flexible eCRM, Email Marketing, and Website Building Packages">
+    <title>Pricing | Opes Consulting</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#0094ff',
+                    },
+                    fontFamily: {
+                        sans: ['Aspekta', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* --- ASPEKTA FONT FACE SETUP --- */
+        @font-face {
+            font-family: 'Aspekta';
+            src: url('Aspekta-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Aspekta';
+            src: url('Aspekta-Medium.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Aspekta';
+            src: url('Aspekta-SemiBold.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Aspekta';
+            src: url('Aspekta-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* --- PAGE LOADER STYLING --- */
+        #page-loader {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .loader-logo {
+            width: 120px; 
+            height: auto;
+            animation: logo-wheel-pulse 1.5s ease-in-out forwards;
+        }
+
+        @keyframes logo-wheel-pulse {
+            0% { transform: scale(0.2) rotate(0deg); opacity: 0; }
+            60% { transform: scale(1.15) rotate(360deg); opacity: 1; }
+            80% { transform: scale(0.95) rotate(360deg); }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* --- NAV LINK ANIMATION --- */
+        .nav-link {
+            display: inline-block; 
+            transition: transform 0.25s ease-out, color 0.15s ease-out; 
+            text-decoration: none;
+        }
+        .nav-link:hover {
+            transform: translateY(-2px); 
+        }
+
+        /* --- MOBILE MENU HAMBURGER ICON --- */
+        .menu-icon1 {
+            width: 24px;
+            height: 18px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-icon1_line-top,
+        .menu-icon1_line-middle,
+        .menu-icon1_line-bottom {
+            width: 100%;
+            height: 2px;
+            background-color: #0f172a; 
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s ease-out;
+            transform-origin: center;
+        }
+
+        .menu-icon1:hover .menu-icon1_line-top,
+        .menu-icon1:hover .menu-icon1_line-middle,
+        .menu-icon1:hover .menu-icon1_line-bottom {
+            background-color: #0094ff; 
+        }
+
+        .menu-icon1.is-open .menu-icon1_line-top {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .menu-icon1.is-open .menu-icon1_line-middle {
+            opacity: 0;
+        }
+        .menu-icon1.is-open .menu-icon1_line-bottom {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* --- BUTTON STYLING --- */
+        .custom-filled-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            text-align: center;
+            font-family: 'Aspekta', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 120%;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            background-color: #0094ff; 
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            white-space: nowrap;
+        }
+
+        .custom-filled-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 148, 255, 0.25);
+        }
+
+        .custom-stroked-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 30px; 
+            text-align: center;
+            font-family: 'Aspekta', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 120%;
+            color: #0094ff;
+            background-color: transparent;
+            border: 2px solid #0094ff;
+            border-radius: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+            white-space: nowrap;
+        }
+
+        .custom-stroked-button:hover {
+            background-color: #0094ff;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 148, 255, 0.25);
+        }
+
+        .header-outline-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-family: 'Aspekta', sans-serif;
+            font-weight: 600;
+            color: #0094ff;
+            background-color: transparent;
+            border: 2px solid #0094ff;
+            border-radius: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+            white-space: nowrap;
+        }
+
+        .header-outline-btn:hover {
+            background-color: #f7f7f7;
+            transform: translateY(-2px);
+        }
+
+        .mobile-contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 14px 24px;
+            color: #1e293b; 
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease-out;
+        }
+
+        .mobile-contact-btn:hover {
+            color: #0094ff;
+            border-color: #0094ff;
+            background-color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(0,148,255,0.08) 0%, rgba(0,148,255,0.02) 50%, rgba(255,255,255,1) 100%);
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
+
+    <div id="page-loader">
+        <img src="Icon-Load.png" alt="Loading..." class="loader-logo">
+    </div>
+
+    <!-- Header Navbar -->
+    <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-24 flex items-center justify-between">
+            
+            <a href="/" class="flex items-center focus:outline-none">
+                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-12 md:h-14 w-auto">
+            </a>
+            
+            <div class="hidden md:flex items-center gap-10 ml-auto">
+                <nav class="flex items-center gap-10 font-medium text-[16px] tracking-wide text-slate-800">
+                    <a href="/#services" class="nav-link hover:text-brand">Services</a>
+                    <a href="/#work" class="nav-link hover:text-brand">Work</a>
+                    <a href="/pricing" class="nav-link hover:text-brand text-brand">Pricing</a>
+                    <a href="/#testimonials" class="nav-link hover:text-brand">Testimonials</a>
+                </nav>
+                
+                <a href="/#contact" class="header-outline-btn">
+                    Book a Call
+                </a>
+            </div>
+
+            <button id="mobile-menu-btn" class="md:hidden focus:outline-none ml-auto p-2" aria-label="Toggle Menu">
+                <div class="menu-icon1">
+                    <div class="menu-icon1_line-top"></div>
+                    <div class="menu-icon1_line-middle"></div>
+                    <div class="menu-icon1_line-bottom"></div>
+                </div>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden absolute top-24 left-0 w-full bg-[#f8fafc] border-b border-slate-200 shadow-xl z-40">
+            <div class="flex flex-col px-6 py-10 gap-6">
+                <div><a href="/#services" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Services</a></div>
+                <div><a href="/#work" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Work</a></div>
+                <div><a href="/pricing" class="nav-link text-[18px] font-medium text-brand">Pricing</a></div>
+                <div><a href="/#testimonials" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
+                
+                <div class="mt-6">
+                    <a href="/#contact" class="mobile-contact-btn">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <!-- Pricing Hero & 3 Column Structure -->
+        <section class="hero-gradient pt-24 pb-20 md:pt-32 md:pb-28 relative">
+            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-100 mb-6">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-brand">Transparent Investments</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tight max-w-4xl mx-auto mb-6 text-slate-900 leading-[1.15]">
+                    Flexible access to <span class="text-brand">eCRM</span> &amp; <span class="text-brand">Email Marketing</span> growth
+                </h1>
+                <p class="text-lg md:text-xl text-slate-600 font-medium max-w-2xl mx-auto mb-16 leading-relaxed">
+                    Choose from custom project scopes, dedicated monthly subscriptions, or fixed-price packages designed to scale your revenue predictably.
+                </p>
+
+                <!-- 3 Card Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 text-left">
+                    
+                    <!-- Card 1: Custom Projects -->
+                    <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between relative hover:shadow-md transition-shadow">
+                        <div>
+                            <div class="text-xl font-bold text-slate-900 mb-2">Custom Projects</div>
+                            <p class="text-slate-600 text-sm mb-6 font-medium">Tackle specific challenges or full program overhauls with a dedicated scope:</p>
+                            
+                            <ul class="space-y-4 mb-8 text-slate-700 text-sm font-medium">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <span>Comprehensive email audits &amp; complete program overhauls</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <span>Deliverability optimization &amp; domain authentication</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <span>ESP migration (Klaviyo, HubSpot, Brevo, GHL)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-brand mb-6">Bespoke Scope</div>
+                            <a href="#contact" class="custom-stroked-button w-full">Enquire About Projects</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Monthly Subscriptions (Featured) -->
+                    <div class="bg-white rounded-3xl p-8 border-2 border-brand shadow-xl flex flex-col justify-between relative transform lg:-translate-y-2">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full">
+                            Most Popular
+                        </div>
+                        <div>
+                            <div class="text-xl font-bold text-slate-900 mb-2">Monthly Subscriptions</div>
+                            <p class="text-slate-600 text-sm mb-6 font-medium">Unlimited access to your own dedicated eCRM team as an extension of your company:</p>
+                            
+                            <ul class="space-y-4 mb-8 text-slate-700 text-sm font-medium">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <span>Always-on support for email marketing &amp; automation flows</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <span>Access specialized designers, developers, and strategists</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <span>Continuous A/B testing, campaign builds, &amp; data tracking</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-brand mb-6">Custom /mo</div>
+                            <a href="#contact" class="custom-filled-button w-full">Browse Subscriptions</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Set Packages -->
+                    <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between relative hover:shadow-md transition-shadow">
+                        <div>
+                            <div class="text-xl font-bold text-slate-900 mb-2">Set Packages</div>
+                            <p class="text-slate-600 text-sm mb-6 font-medium">Fixed-scope packages created for fast, impactful deliverables:</p>
+                            
+                            <ul class="space-y-4 mb-8 text-slate-700 text-sm font-medium">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <span>Flows &amp; automation setup (strategy + technical implementation)</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <span>Mobile-first &amp; dark-mode pixel-perfect HTML email templates</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <span>Lead nurturing &amp; CRM pipeline configuration</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-brand mb-6">Fixed Pricing</div>
+                            <a href="#contact" class="custom-stroked-button w-full">View Packages</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="bg-slate-50 border-y border-slate-100 py-24 md:py-32">
+            <div class="max-w-[800px] w-full mx-auto px-6 lg:px-8">
+                <div class="text-center md:text-left mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Frequently Asked <span class="text-brand">Questions</span></h2>
+                    <p class="text-slate-600 font-medium text-lg mx-auto md:mx-0">
+                        Everything you need to know about our pricing models, subscriptions, and deliverables.
+                    </p>
+                </div>
+                
+                <div class="flex flex-col border-t border-slate-200">
+                    
+                    <!-- FAQ Item 1 -->
+                    <div class="border-b border-slate-200 py-6 faq-item">
+                        <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
+                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">What is included in each subscription plan?</span>
+                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                                Our subscription plans provide unconstrained access to expert eCRM support without billing you by hourly blocks. You can submit ongoing project queues and work directly with our developers and strategists on active items.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="border-b border-slate-200 py-6 faq-item">
+                        <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
+                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">How fast can we get started after choosing a plan?</span>
+                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                                Once we confirm project scope and onboarding details during our initial call, we can typically activate your account and kick off development within 48 hours.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="border-b border-slate-200 py-6 faq-item">
+                        <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
+                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">Can I upgrade or change my plan later?</span>
+                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                                Yes, you can upgrade your plan at any time as your business scales and your marketing requirements expand. Simply reach out to your account manager.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="border-b border-slate-200 py-6 faq-item">
+                        <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
+                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">What platforms do you support?</span>
+                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                                We specialize in top-tier marketing technology stacks including Klaviyo, GoHighLevel, HubSpot, and Brevo, ensuring your automations and website builds are robust and seamlessly integrated.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact CTA Section -->
+        <section id="contact" class="bg-white py-24 text-center">
+            <div class="max-w-[800px] mx-auto px-6">
+                <h2 class="text-4xl font-bold tracking-tight mb-6 text-slate-900">Ready to <span class="text-brand">Scale Your Revenue</span>?</h2>
+                <p class="text-lg text-slate-600 mb-10 font-medium">Book a discovery call with our team to discuss your store's requirements and determine the right engagement model.</p>
+                <a href="mailto:micahjowers270@gmail.com" class="custom-filled-button">Book a Strategy Call</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-slate-100">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <a href="/" class="flex items-center focus:outline-none">
+                <img src="images/logo-footer.png" alt="Opes Consulting Logo Footer" class="h-12 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity">
+            </a>
+            <p class="text-sm text-slate-400 font-medium text-center md:text-left">
+                &copy; 2026 Opes Consulting. All rights reserved.
+            </p>
+            <div class="flex gap-6 text-slate-400">
+                <a href="#" class="hover:text-brand transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="mailto:micahjowers270@gmail.com" class="hover:text-brand transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Page Loader Script -->
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                setTimeout(() => {
+                    loader.classList.add('loader-hidden');
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                    }, 500); 
+                }, 1500);
+            }
+        });
+    </script>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = menuBtn ? menuBtn.querySelector('.menu-icon1') : null;
+
+            if(menuBtn && mobileMenu && menuIcon) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    menuIcon.classList.toggle('is-open');
+                });
+            }
+        });
+    </script>
+
+    <!-- FAQ Accordion Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqButtons = document.querySelectorAll('.faq-btn');
+            
+            faqButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const answer = btn.nextElementSibling;
+                    const icon = btn.querySelector('i');
+                    const isOpen = answer.style.maxHeight;
+
+                    document.querySelectorAll('.faq-answer').forEach(ans => {
+                        if (ans !== answer) {
+                            ans.style.maxHeight = null;
+                            const otherIcon = ans.previousElementSibling.querySelector('i');
+                            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    if (isOpen) {
+                        answer.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
