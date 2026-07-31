@@ -300,7 +300,7 @@
 
         .work-preview {
             width: 100%;
-            height: auto; /* Ensures whole width is visible on Desktop/iPad */
+            height: auto; 
             border-radius: 12px;
             object-fit: cover;
             object-position: top; 
@@ -325,7 +325,7 @@
             .work-showcase-container { gap: 16px; height: 500px; padding: 0 16px; overflow-x: auto; scroll-snap-type: x mandatory;}
             .work-col { min-width: 85%; max-width: 400px; flex: 0 0 auto; scroll-snap-align: center; }
             .scrolling-work, .scrolling-work-wrapper { gap: 16px; }
-            .work-preview { min-height: 3024px; } /* Reverts image stretching behavior uniquely for mobile */
+            .work-preview { min-height: 3024px; } 
         }
 
         /* --- SCROLLABLE SERVICES, PRICING & TESTIMONIAL ARCHITECTURE --- */
@@ -691,7 +691,7 @@
                 <nav class="flex items-center gap-10 font-medium text-[16px] tracking-wide text-slate-800">
                     <a href="#services" class="nav-link hover:text-brand">Services</a>
                     <a href="#work" class="nav-link hover:text-brand">Work</a>
-                    <a href="#pricing" class="nav-link hover:text-brand">Pricing</a>
+                    <a href="pricing.html" class="nav-link hover:text-brand">Pricing</a>
                     <a href="#testimonials" class="nav-link hover:text-brand">Testimonials</a>
                     <a href="#faq" class="nav-link hover:text-brand">FAQ</a>
                 </nav>
@@ -714,7 +714,7 @@
             <div class="flex flex-col px-6 py-10 gap-6">
                 <div><a href="#services" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Services</a></div>
                 <div><a href="#work" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Work</a></div>
-                <div><a href="#pricing" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Pricing</a></div>
+                <div><a href="pricing.html" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Pricing</a></div>
                 <div><a href="#testimonials" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
                 <div><a href="#faq" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">FAQ</a></div>
                 
@@ -755,7 +755,7 @@
                     <a href="#contact" class="custom-filled-button">
                         Book a Strategy Call
                     </a>
-                    <a href="#pricing" class="custom-stroked-button">
+                    <a href="pricing.html" class="custom-stroked-button">
                         View Pricing
                     </a>
                 </div>
@@ -1131,135 +1131,6 @@
                                     </div>
                                 </button>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pricing Section -->
-        <section id="pricing" class="bg-white py-24 md:py-32">
-            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 text-center md:text-left mb-12">
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Transparent <span class="text-brand">Pricing</span></h2>
-                <p class="text-slate-600 font-medium max-w-2xl text-lg mx-auto md:mx-0">
-                    Invest in systems that scale your revenue predictably. Find the plan that fits your current lifecycle phase.
-                </p>
-            </div>
-
-            <div class="scrollable-container !pt-0">
-                <div class="scrollable-services-holder xl:justify-center">
-                    
-                    <div class="services-card small">
-                        <div class="service-card-info flex flex-col h-full">
-                            <h2 class="service-card-h2 mb-2">Email Marketing</h2>
-                            <div class="text-4xl font-bold text-brand mb-10">Custom<span class="text-lg text-slate-500 font-medium"> /mo</span></div>
-                            
-                            <div class="w-dyn-list flex-grow">
-                                <div role="list" class="service-card-services-list w-dyn-items">
-                                    <div role="listitem" class="w-dyn-item">
-                                        <div class="service-link cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
-                                            <div class="services-card-link-text">Comprehensive Lifecycle Audits</div>
-                                        </div>
-                                    </div>
-                                    <div role="listitem" class="w-dyn-item">
-                                        <div class="service-link cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
-                                            <div class="services-card-link-text">Data-Driven A/B Testing</div>
-                                        </div>
-                                    </div>
-                                    <div role="listitem" class="w-dyn-item">
-                                        <div class="service-link cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
-                                            <div class="services-card-link-text">Pixel-Perfect HTML Templates</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#contact" class="custom-filled-button w-full mt-10">Inquire Now</a>
-                        </div>
-                    </div>
-
-                    <div class="services-card small">
-                        <div class="service-card-info flex flex-col h-full">
-                            <h2 class="service-card-h2 mb-2">Website Build</h2>
-                            <div class="text-4xl font-bold text-brand mb-10">Bespoke<span class="text-lg text-slate-500 font-medium"> /project</span></div>
-                            
-                            <div class="w-dyn-list flex-grow">
-                                <div role="list" class="service-card-services-list w-dyn-items">
-                                    <div role="listitem" class="w-dyn-item">
-                                        <div class="service-link cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
-                                            <div class="services-card-link-text">Custom HTML/Tailwind CSS</div>
-                                        </div>
-                                    </div>
-                                    <div role="listitem" class="w-dyn-item">
-                                        <div class="service-link cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
-                                            <div class="services-card-link-text">Cloudflare Pages Hosting</div>
-                                        </div>
-                                    </div>
-                                    <div role="listitem" class="w-dyn-item">
-                                        <div class="service-link cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
-                                            <div class="services-card-link-text">Speed & Conversion Optimized</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#contact" class="custom-filled-button w-full mt-10">Get an Estimate</a>
-                        </div>
-                    </div>
-
-                    <div class="services-card small">
-                        <div class="service-card-info flex flex-col h-full">
-                            <h2 class="service-card-h2 mb-2">CRM Setup</h2>
-                            <div class="text-4xl font-bold text-brand mb-10">Tailored<span class="text-lg text-slate-500 font-medium"> /setup</span></div>
-                            
-                            <div class="w-dyn-list flex-grow">
-                                <div role="list" class="service-card-services-list w-dyn-items">
-                                    <div role="listitem" class="w-dyn-item">
-                                        <div class="service-link cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
-                                            <div class="services-card-link-text">HubSpot & GoHighLevel Mastery</div>
-                                        </div>
-                                    </div>
-                                    <div role="listitem" class="w-dyn-item">
-                                        <div class="service-link cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
-                                            <div class="services-card-link-text">Sophisticated Welcome Journeys</div>
-                                        </div>
-                                    </div>
-                                    <div role="listitem" class="w-dyn-item">
-                                        <div class="service-link cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
-                                            <div class="services-card-link-text">Automated Pipeline Routing</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#contact" class="custom-filled-button w-full mt-10">Book Consultation</a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="home-scrollable-controls">
-                    <div class="scrollable-controls">
-                        <div class="scrollable-track">
-                            <div class="scrollable-handle"></div>
-                        </div>
-                        <div class="scrollable-button-flex">
-                            <button aria-label="Move back through list" class="scrollable-direction-btn previous">
-                                <div class="scrollable-direction-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
-                                </div>
-                            </button>
-                            <button aria-label="Move forward through the list" class="scrollable-direction-btn">
-                                <div class="scrollable-direction-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10" fill="none" aria-hidden="true"><path d="M4.87781 5.32157L0.711611 9.8668C0.672902 9.90903 0.626949 9.94253 0.576374 9.96538C0.525799 9.98824 0.471593 10 0.416852 10C0.36211 10 0.307904 9.98824 0.257329 9.96538C0.206755 9.94253 0.160801 9.90903 0.122093 9.8668C0.0833846 9.82457 0.0526795 9.77444 0.0317308 9.71926C0.010782 9.66408 0 9.60495 0 9.54522C0 9.4855 0.010782 9.42636 0.0317308 9.37119C0.0526795 9.31601 0.0833846 9.26588 0.122093 9.22365L3.99406 5L0.122093 0.77635C0.043918 0.691063 -8.23706e-10 0.575389 0 0.454775C8.23707e-10 0.334161 0.043918 0.218487 0.122093 0.133201C0.200268 0.0479136 0.306296 8.98644e-10 0.416852 0C0.527408 -8.98644e-10 0.633436 0.0479136 0.711611 0.133201L4.87781 4.67842C4.91655 4.72064 4.94728 4.77077 4.96824 4.82594C4.98921 4.88112 5 4.94027 5 5C5 5.05973 4.98921 5.11888 4.96824 5.17405C4.94728 5.22923 4.91655 5.27936 4.87781 5.32157Z" fill="currentColor"/></svg>
-                                </div>
-                            </button>
                         </div>
                     </div>
                 </div>
