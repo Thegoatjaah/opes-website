@@ -300,7 +300,7 @@
 
         .work-preview {
             width: 100%;
-            min-height: 3024px; 
+            height: auto; /* Ensures whole width is visible on Desktop/iPad */
             border-radius: 12px;
             object-fit: cover;
             object-position: top; 
@@ -325,6 +325,7 @@
             .work-showcase-container { gap: 16px; height: 500px; padding: 0 16px; overflow-x: auto; scroll-snap-type: x mandatory;}
             .work-col { min-width: 85%; max-width: 400px; flex: 0 0 auto; scroll-snap-align: center; }
             .scrolling-work, .scrolling-work-wrapper { gap: 16px; }
+            .work-preview { min-height: 3024px; } /* Reverts image stretching behavior uniquely for mobile */
         }
 
         /* --- SCROLLABLE SERVICES, PRICING & TESTIMONIAL ARCHITECTURE --- */
@@ -696,7 +697,7 @@
                 </nav>
                 
                 <a href="#contact" class="header-outline-btn">
-                    Get Your Free Audit Now
+                    Book a Call
                 </a>
             </div>
 
@@ -1337,7 +1338,7 @@
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
-                                Use the "Get Your Free Audit Now" buttons to schedule a strategy consultation. We will discuss your current constraints, audit your existing funnel architecture, and outline the exact systems needed to scale your digital efforts.
+                                Use the "Book a Call" buttons to schedule a strategy consultation. We will discuss your current constraints, audit your existing funnel architecture, and outline the exact systems needed to scale your digital efforts.
                             </p>
                         </div>
                     </div>
