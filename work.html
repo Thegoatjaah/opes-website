@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Opes Consulting Portfolio - Our Previous Work and Client Case Studies">
+    <title>Our Work | Opes Consulting</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#0094ff',
+                    },
+                    fontFamily: {
+                        sans: ['Aspekta', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* --- ASPEKTA FONT FACE SETUP --- */
+        @font-face {
+            font-family: 'Aspekta';
+            src: url('Aspekta-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Aspekta';
+            src: url('Aspekta-Medium.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Aspekta';
+            src: url('Aspekta-SemiBold.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Aspekta';
+            src: url('Aspekta-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* --- PAGE LOADER STYLING --- */
+        #page-loader {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .loader-logo {
+            width: 120px; 
+            height: auto;
+            animation: logo-wheel-pulse 1.5s ease-in-out forwards;
+        }
+
+        @keyframes logo-wheel-pulse {
+            0% { transform: scale(0.2) rotate(0deg); opacity: 0; }
+            60% { transform: scale(1.15) rotate(360deg); opacity: 1; }
+            80% { transform: scale(0.95) rotate(360deg); }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* --- NAV LINK ANIMATION --- */
+        .nav-link {
+            display: inline-block; 
+            transition: transform 0.25s ease-out, color 0.15s ease-out; 
+            text-decoration: none;
+        }
+        .nav-link:hover {
+            transform: translateY(-2px); 
+        }
+
+        /* --- MOBILE MENU HAMBURGER ICON --- */
+        .menu-icon1 {
+            width: 24px;
+            height: 18px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-icon1_line-top,
+        .menu-icon1_line-middle,
+        .menu-icon1_line-bottom {
+            width: 100%;
+            height: 2px;
+            background-color: #0f172a; 
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s ease-out;
+            transform-origin: center;
+        }
+
+        .menu-icon1:hover .menu-icon1_line-top,
+        .menu-icon1:hover .menu-icon1_line-middle,
+        .menu-icon1:hover .menu-icon1_line-bottom {
+            background-color: #0094ff; 
+        }
+
+        .menu-icon1.is-open .menu-icon1_line-top {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .menu-icon1.is-open .menu-icon1_line-middle {
+            opacity: 0;
+        }
+        .menu-icon1.is-open .menu-icon1_line-bottom {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* --- BUTTON STYLING --- */
+        .custom-filled-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            text-align: center;
+            font-family: 'Aspekta', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 120%;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            background-color: #0094ff; 
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            white-space: nowrap;
+        }
+
+        .custom-filled-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 148, 255, 0.25);
+        }
+
+        .header-outline-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-family: 'Aspekta', sans-serif;
+            font-weight: 600;
+            color: #0094ff;
+            background-color: transparent;
+            border: 2px solid #0094ff;
+            border-radius: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+            white-space: nowrap;
+        }
+
+        .header-outline-btn:hover {
+            background-color: #f7f7f7;
+            transform: translateY(-2px);
+        }
+
+        .mobile-contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 14px 24px;
+            color: #1e293b; 
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease-out;
+        }
+
+        .mobile-contact-btn:hover {
+            color: #0094ff;
+            border-color: #0094ff;
+            background-color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(0,148,255,0.08) 0%, rgba(0,148,255,0.02) 50%, rgba(255,255,255,1) 100%);
+        }
+
+        /* --- SCROLL ANIMATIONS (SLIDE & PULSE) --- */
+        
+        /* Initial states before scrolling into view */
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* State when element enters viewport */
+        .is-revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* The custom subtle pulse keyframe triggered after reveal */
+        @keyframes subtle-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.025); }
+            100% { transform: scale(1); }
+        }
+
+        .animate-pulse-once {
+            animation: subtle-pulse 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Portfolio Image Placeholder Styling */
+        .portfolio-image {
+            width: 100%;
+            height: 100%;
+            min-height: 350px;
+            object-fit: cover;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            background-color: #f1f5f9; /* Fallback color */
+        }
+
+    </style>
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
+
+    <div id="page-loader">
+        <img src="Icon-Load.png" alt="Loading..." class="loader-logo">
+    </div>
+
+    <!-- Header Navbar -->
+    <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-24 flex items-center justify-between">
+            
+            <a href="/" class="flex items-center focus:outline-none">
+                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-12 md:h-14 w-auto">
+            </a>
+            
+            <div class="hidden md:flex items-center gap-10 ml-auto">
+                <nav class="flex items-center gap-10 font-medium text-[16px] tracking-wide text-slate-800">
+                    <a href="/#services" class="nav-link hover:text-brand">Services</a>
+                    <a href="#" class="nav-link text-brand">Work</a>
+                    <a href="pricing.html" class="nav-link hover:text-brand">Pricing</a>
+                    <a href="/#testimonials" class="nav-link hover:text-brand">Testimonials</a>
+                </nav>
+                
+                <a href="/#contact" class="header-outline-btn">
+                    Book a Call
+                </a>
+            </div>
+
+            <button id="mobile-menu-btn" class="md:hidden focus:outline-none ml-auto p-2" aria-label="Toggle Menu">
+                <div class="menu-icon1">
+                    <div class="menu-icon1_line-top"></div>
+                    <div class="menu-icon1_line-middle"></div>
+                    <div class="menu-icon1_line-bottom"></div>
+                </div>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden absolute top-24 left-0 w-full bg-[#f8fafc] border-b border-slate-200 shadow-xl z-40">
+            <div class="flex flex-col px-6 py-10 gap-6">
+                <div><a href="/#services" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Services</a></div>
+                <div><a href="#" class="nav-link text-[18px] font-medium text-brand">Work</a></div>
+                <div><a href="pricing.html" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Pricing</a></div>
+                <div><a href="/#testimonials" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
+                
+                <div class="mt-6">
+                    <a href="/#contact" class="mobile-contact-btn">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <!-- Hero Section -->
+        <section class="hero-gradient pt-24 pb-16 md:pt-32 md:pb-24 relative border-b border-slate-100">
+            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-100 mb-6">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-brand">Case Studies</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tight max-w-4xl mx-auto mb-6 text-slate-900 leading-[1.15]">
+                    Engineering <span class="text-brand">systems</span> that drive undeniable results.
+                </h1>
+                <p class="text-lg md:text-xl text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed">
+                    A look at the intelligent retention systems, high-converting outreach, and targeted nurture sequences we've engineered for previous clients.
+                </p>
+            </div>
+        </section>
+
+        <!-- Portfolio Items Section -->
+        <section class="py-24 overflow-hidden">
+            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 flex flex-col gap-32 md:gap-40">
+                
+                <!-- Client 1: Bchex (Image Left, Text Right) -->
+                <div class="scroll-trigger-wrapper grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <!-- Image Column -->
+                    <div class="reveal-left w-full h-full relative group">
+                        <img src="bchex-project.png" alt="Bchex Email Nurture Campaign" class="portfolio-image" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%25%22 height=%22100%25%22 viewBox=%220 0 800 600%22%3E%3Crect fill=%22%23f1f5f9%22 width=%22800%22 height=%22600%22/%3E%3Ctext fill=%22%2394a3b8%22 font-family=%22sans-serif%22 font-size=%2224%22 dy=%2210.5%22 font-weight=%22bold%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22%3EAdd bchex-project.png here%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <!-- Text Column -->
+                    <div class="reveal-right flex flex-col justify-center">
+                        <div class="text-brand font-bold text-lg mb-2">Bchex</div>
+                        <h2 class="text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 mb-6">B2B Nurture Campaign Architecture</h2>
+                        <p class="text-slate-600 text-lg font-medium leading-relaxed mb-8">
+                            For Bchex, a prominent B2B company, we executed a comprehensive lifecycle setup. We designed the workflow visually in Figma, created highly targeted copy from scratch, and built multiple segmented email nurture campaigns directly within HubSpot.
+                        </p>
+                        <ul class="space-y-4 text-slate-700 font-medium">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand mt-1.5 text-sm"></i>
+                                <span>End-to-end design starting from Figma prototypes.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand mt-1.5 text-sm"></i>
+                                <span>Copywriting engineered specifically for B2B engagement.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand mt-1.5 text-sm"></i>
+                                <span>Fully integrated and built on HubSpot (adaptable to Brevo, Mailchimp, or ActiveCampaign).</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Client 2: Korra (Text Left, Image Right on Desktop) -->
+                <div class="scroll-trigger-wrapper grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <!-- Text Column -->
+                    <div class="reveal-left flex flex-col justify-center order-2 md:order-1">
+                        <div class="text-brand font-bold text-lg mb-2">Korra</div>
+                        <h2 class="text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 mb-6">Automated HubSpot Integrations</h2>
+                        <p class="text-slate-600 text-lg font-medium leading-relaxed mb-8">
+                            Working directly with Korra's internal marketing team, we led the vision to seamlessly integrate their broader digital marketing funnel with a robust email solution. This involved extensive HubSpot integrations, continuous iterations, and heavy A/B testing.
+                        </p>
+                        <ul class="space-y-4 text-slate-700 font-medium">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand mt-1.5 text-sm"></i>
+                                <span>Built, automated, and actively ran multiple nurture campaigns.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand mt-1.5 text-sm"></i>
+                                <span>Continuous rigorous testing of email copy and layout designs.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand mt-1.5 text-sm"></i>
+                                <span>Unlimited free iterations to guarantee satisfaction and performance.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Image Column -->
+                    <div class="reveal-right w-full h-full relative group order-1 md:order-2">
+                        <img src="korra-project.png" alt="Korra Marketing Integration" class="portfolio-image" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%25%22 height=%22100%25%22 viewBox=%220 0 800 600%22%3E%3Crect fill=%22%23f1f5f9%22 width=%22800%22 height=%22600%22/%3E%3Ctext fill=%22%2394a3b8%22 font-family=%22sans-serif%22 font-size=%2224%22 dy=%2210.5%22 font-weight=%22bold%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22%3EAdd korra-project.png here%3C/text%3E%3C/svg%3E'">
+                    </div>
+                </div>
+
+                <!-- Client 3: DamirinDubai (Image Left, Text Right) -->
+                <div class="scroll-trigger-wrapper grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <!-- Image Column -->
+                    <div class="reveal-left w-full h-full relative group">
+                        <img src="damirindubai-project.png" alt="DamirinDubai Cold Outreach" class="portfolio-image" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%25%22 height=%22100%25%22 viewBox=%220 0 800 600%22%3E%3Crect fill=%22%23f1f5f9%22 width=%22800%22 height=%22600%22/%3E%3Ctext fill=%22%2394a3b8%22 font-family=%22sans-serif%22 font-size=%2224%22 dy=%2210.5%22 font-weight=%22bold%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22%3EAdd damirindubai-project.png here%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <!-- Text Column -->
+                    <div class="reveal-right flex flex-col justify-center">
+                        <div class="text-brand font-bold text-lg mb-2">DamirinDubai</div>
+                        <h2 class="text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 mb-6">High-Performance Cold Outreach</h2>
+                        <p class="text-slate-600 text-lg font-medium leading-relaxed mb-8">
+                            We managed end-to-end cold email outreach campaigns, which involved deep prospect research, email collection, lead verification, and writing hyper-customized copy designed specifically to bypass spam filters and generate immediate interest.
+                        </p>
+                        
+                        <!-- Metric Highlight -->
+                        <div class="grid grid-cols-2 gap-4 mb-8 bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                            <div>
+                                <div class="text-3xl font-bold text-brand mb-1">69-81%</div>
+                                <div class="text-sm font-medium text-slate-600">Average Open Rates</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold text-brand mb-1">1.5-2%</div>
+                                <div class="text-sm font-medium text-slate-600">Consistent Click Rates</div>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-4 text-slate-700 font-medium">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand mt-1.5 text-sm"></i>
+                                <span>Sourced qualified contacts and rigorously cleaned/verified lists.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand mt-1.5 text-sm"></i>
+                                <span>Maintained pristine deliverability and strong domain reputation.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brand mt-1.5 text-sm"></i>
+                                <span>Wrote highly personalized messaging to secure high response rates.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="bg-white py-24 text-center border-t border-slate-100">
+            <div class="max-w-[800px] mx-auto px-6">
+                <h2 class="text-4xl font-bold tracking-tight mb-6 text-slate-900">Want results like <span class="text-brand">these</span>?</h2>
+                <p class="text-lg text-slate-600 mb-10 font-medium">Book a call to discuss how we can architect a system tailored specifically for your brand.</p>
+                <a href="/#contact" class="custom-filled-button">Book a Strategy Call</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-slate-100">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <a href="/" class="flex items-center focus:outline-none">
+                <img src="images/logo-footer.png" alt="Opes Consulting Logo Footer" class="h-12 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity">
+            </a>
+            <p class="text-sm text-slate-400 font-medium text-center md:text-left">
+                &copy; 2026 Opes Consulting. All rights reserved.
+            </p>
+            <div class="flex gap-6 text-slate-400">
+                <a href="#" class="hover:text-brand transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="mailto:micahjowers270@gmail.com" class="hover:text-brand transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Intersection Observer Script for Reveal & Pulse Animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Setup intersection observer
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5 // Trigger when element is 50% visible in viewport
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const wrapper = entry.target;
+                        const leftElem = wrapper.querySelector('.reveal-left');
+                        const rightElem = wrapper.querySelector('.reveal-right');
+
+                        // 1. Reveal (Slide & Fade in)
+                        if(leftElem) leftElem.classList.add('is-revealed');
+                        if(rightElem) rightElem.classList.add('is-revealed');
+
+                        // 2. Pulse slightly after the slide animation completes (800ms)
+                        setTimeout(() => {
+                            if(leftElem) leftElem.classList.add('animate-pulse-once');
+                            if(rightElem) rightElem.classList.add('animate-pulse-once');
+                        }, 800);
+
+                        // Stop observing this element once animated
+                        observer.unobserve(wrapper);
+                    }
+                });
+            }, observerOptions);
+
+            // Target the wrapper div for each portfolio item
+            const triggerWrappers = document.querySelectorAll('.scroll-trigger-wrapper');
+            triggerWrappers.forEach(wrapper => {
+                observer.observe(wrapper);
+            });
+        });
+    </script>
+
+    <!-- Page Loader Script -->
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                setTimeout(() => {
+                    loader.classList.add('loader-hidden');
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                    }, 500); 
+                }, 1500);
+            }
+        });
+    </script>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = menuBtn ? menuBtn.querySelector('.menu-icon1') : null;
+
+            if(menuBtn && mobileMenu && menuIcon) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    menuIcon.classList.toggle('is-open');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
