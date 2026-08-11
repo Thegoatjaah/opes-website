@@ -376,7 +376,7 @@
         .services-card:nth-child(2) { animation-delay: 0.2s; }
         .services-card:nth-child(3) { animation-delay: 0.3s; }
 
-        .services-card.small { min-width: 400px; }
+        .services-card.small { min-width: 500px; }
 
         /* Specific Testimonial Grid & Card Adjustments */
         .testimonials-grid {
@@ -511,6 +511,11 @@
             border-radius: 14px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.06);
             animation-delay: 0.5s;
+        }
+
+        .logo-image {
+            opacity: 0; animation: popInImage 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            object-fit: contain; width: 100%; height: auto; animation-delay: 0.6s;
         }
 
         .home-scrollable-controls {
@@ -815,9 +820,9 @@
                     </div>
 
                     <div class="services-card small">
-                        <div class="service-card-info flex flex-col h-full">
-                            <h2 class="service-card-h2 mb-2">Website Building</h2>
-                            <div class="w-dyn-list flex-grow">
+                        <div class="service-card-info">
+                            <h2 class="service-card-h2">Website Building</h2>
+                            <div class="w-dyn-list">
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
@@ -845,6 +850,9 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="service-card-imagery small">
+                            <img src="images/service-website.png" loading="eager" alt="Website Building Project" class="only-image"/>
                         </div>
                     </div>
 
