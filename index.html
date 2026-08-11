@@ -138,10 +138,10 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 16px 32px;
+            padding: 14px 28px;
             text-align: center;
             font-family: 'Aspekta', sans-serif;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             line-height: 120%;
             color: #ffffff;
@@ -167,10 +167,10 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 14px 30px; 
+            padding: 12px 26px; 
             text-align: center;
             font-family: 'Aspekta', sans-serif;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             line-height: 120%;
             color: #0094ff;
@@ -193,11 +193,11 @@
         /* Mobile Adjustments for side-by-side Hero Buttons */
         @media (max-width: 480px) {
             .custom-filled-button {
-                padding: 14px 20px;
+                padding: 12px 18px;
                 font-size: 14px;
             }
             .custom-stroked-button {
-                padding: 12px 18px;
+                padding: 10px 16px;
                 font-size: 14px;
             }
         }
@@ -207,14 +207,14 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 24px;
+            padding: 10px 20px;
             font-size: 14px;
             font-family: 'Aspekta', sans-serif;
             font-weight: 600;
             color: #0094ff;
             background-color: transparent;
             border: 2px solid #0094ff;
-            border-radius: 12px;
+            border-radius: 10px;
             text-decoration: none;
             cursor: pointer;
             transition: all 0.3s ease-out;
@@ -232,11 +232,11 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            padding: 14px 24px;
+            padding: 12px 20px;
             color: #1e293b; 
             border: 1px solid #1e293b;
-            border-radius: 12px;
-            font-size: 18px;
+            border-radius: 10px;
+            font-size: 16px;
             font-weight: 500;
             transition: all 0.3s ease-out;
         }
@@ -256,7 +256,7 @@
         /* --- SLOW MOVING IMAGE MARQUEE STYLING --- */
         .work-showcase-section {
             background-color: #ffffff; 
-            padding: 120px 0;
+            padding: 80px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -265,8 +265,8 @@
 
         .work-showcase-container {
             display: flex;
-            gap: 32px;
-            height: 700px; 
+            gap: 24px;
+            height: 600px; 
             overflow: hidden;
             position: relative;
             width: 100%;
@@ -288,14 +288,14 @@
         .scrolling-work {
             display: flex;
             flex-direction: column;
-            gap: 32px;
+            gap: 24px;
             will-change: transform; 
         }
 
         .scrolling-work-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 32px;
+            gap: 24px;
         }
 
         .work-preview {
@@ -308,7 +308,7 @@
             background-color: #f8fafc;
         }
 
-        /* Animation speed increased per user request */
+        /* Animation speed */
         .scroll-up { animation: marquee-up 100s linear infinite; }
         .scroll-down { animation: marquee-down 100s linear infinite; transform: translateY(-50%); }
 
@@ -316,14 +316,14 @@
         @keyframes marquee-down { 0% { transform: translateY(-50%); } 100% { transform: translateY(0); } }
 
         .top-showcase-gradient, .bottom-showcase-gradient {
-            position: absolute; left: 0; right: 0; height: 120px; pointer-events: none; z-index: 2;
+            position: absolute; left: 0; right: 0; height: 100px; pointer-events: none; z-index: 2;
         }
         .top-showcase-gradient { top: 0; background: linear-gradient(to bottom, #ffffff 0%, transparent 100%); }
         .bottom-showcase-gradient { bottom: 0; background: linear-gradient(to top, #ffffff 0%, transparent 100%); }
 
         @media (max-width: 768px) {
-            .work-showcase-container { gap: 16px; height: 500px; padding: 0 16px; overflow-x: auto; scroll-snap-type: x mandatory;}
-            .work-col { min-width: 85%; max-width: 400px; flex: 0 0 auto; scroll-snap-align: center; }
+            .work-showcase-container { gap: 16px; height: 450px; padding: 0 16px; overflow-x: auto; scroll-snap-type: x mandatory;}
+            .work-col { min-width: 85%; max-width: 350px; flex: 0 0 auto; scroll-snap-align: center; }
             .scrolling-work, .scrolling-work-wrapper { gap: 16px; }
             .work-preview { min-height: 3024px; } 
         }
@@ -343,14 +343,14 @@
             position: relative;
             width: 100%;
             overflow: hidden;
-            padding: 40px 0 80px 0;
+            padding: 20px 0 60px 0;
         }
 
         .scrollable-services-holder {
             display: flex;
-            gap: 32px;
+            gap: 24px;
             overflow-x: auto;
-            padding: 20px 24px; 
+            padding: 16px 24px; 
             scroll-behavior: smooth;
             scrollbar-width: none; 
         }
@@ -362,30 +362,30 @@
         .services-card {
             display: flex;
             background: #ffffff;
-            border-radius: 24px;
-            padding: 48px;
-            min-width: 700px; 
+            border-radius: 20px;
+            padding: 40px;
+            min-width: 600px; 
             border: 1px solid #f1f5f9;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            gap: 48px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+            gap: 32px;
             opacity: 0;
             animation: fadeUpCard 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .services-card:nth-child(1) { animation-delay: 0.1s; }
-        .services-card:nth-child(2) { animation-delay: 0.25s; }
-        .services-card:nth-child(3) { animation-delay: 0.4s; }
+        .services-card:nth-child(2) { animation-delay: 0.2s; }
+        .services-card:nth-child(3) { animation-delay: 0.3s; }
 
-        .services-card.small { min-width: 450px; }
+        .services-card.small { min-width: 400px; }
 
-        /* Specific Testimonial Grid & Card Adjustments to make them Horizontally Long */
+        /* Specific Testimonial Grid & Card Adjustments */
         .testimonials-grid {
             display: grid !important;
             grid-template-rows: 1fr;
             grid-auto-flow: column;
             grid-auto-columns: calc(33.3333% - 16px); 
-            gap: 24px !important;
-            padding: 20px 24px !important;
+            gap: 20px !important;
+            padding: 16px 24px !important;
         }
 
         .testimonial-card {
@@ -394,13 +394,13 @@
             opacity: 0;
             animation: fadeUpCard 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             height: 100%;
-            padding: 24px 32px !important; 
+            padding: 24px !important; 
         }
 
         .testimonial-card p.text-slate-700 {
-            font-size: 15px !important;
-            line-height: 1.55;
-            margin-bottom: 24px !important;
+            font-size: 14px !important;
+            line-height: 1.5;
+            margin-bottom: 20px !important;
         }
 
         .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
@@ -415,27 +415,27 @@
         .service-card-info { flex: 1; }
 
         .service-card-h2 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: #0f172a;
             margin-top: 0;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             letter-spacing: -0.5px;
         }
 
         .service-card-services-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
         }
 
         .service-link {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
             text-decoration: none;
             color: #475569;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 500;
             transition: color 0.2s ease, transform 0.2s ease;
         }
@@ -446,16 +446,16 @@
         }
 
         .service-card-icon {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             opacity: 0.9;
             color: #0094ff;
         }
 
         .service-card-imagery {
             position: relative;
-            width: 280px; 
-            min-height: 340px; 
+            width: 240px; 
+            min-height: 300px; 
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -463,7 +463,7 @@
         }
 
         /* Updated for CRM card layout */
-        .service-card-imagery.small { width: 240px; min-height: auto; }
+        .service-card-imagery.small { width: 220px; min-height: auto; }
 
         /* Unified animation base */
         .first-image, .second-image, .only-image {
@@ -480,61 +480,56 @@
 
         .first-image {
             position: absolute;
-            width: 190px;
-            height: 280px;
-            border-radius: 12px;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            width: 170px;
+            height: 240px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
             top: 0; 
             left: 0; 
             z-index: 2;
-            animation-delay: 0.5s; 
+            animation-delay: 0.4s; 
         }
 
         .second-image {
             position: absolute;
-            width: 190px;
-            height: 280px;
-            border-radius: 12px;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            width: 170px;
+            height: 240px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
             bottom: 0; 
             right: 0; 
             z-index: 1;
-            animation-delay: 0.7s; 
+            animation-delay: 0.6s; 
         }
 
         /* Updated CRM "only-image" to prevent all cropping */
         .only-image {
             width: 100%;
             height: auto;
-            max-height: 340px;
+            max-height: 300px;
             object-fit: contain; 
-            border-radius: 16px;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-            animation-delay: 0.6s;
-        }
-
-        .logo-image {
-            opacity: 0; animation: popInImage 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            object-fit: contain; width: 100%; height: auto; animation-delay: 0.6s;
+            border-radius: 14px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+            animation-delay: 0.5s;
         }
 
         .home-scrollable-controls {
             display: flex;
             justify-content: center;
-            margin-top: 40px;
+            margin-top: 32px;
             opacity: 0;
             animation: fadeUpCard 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 0.6s;
+            animation-delay: 0.5s;
         }
 
         .scrollable-controls {
             display: flex;
             align-items: center;
-            gap: 32px;
+            gap: 24px;
         }
 
         .scrollable-track {
-            width: 300px;
+            width: 250px;
             height: 4px;
             background: #e2e8f0;
             border-radius: 4px;
@@ -545,7 +540,7 @@
             position: absolute;
             top: -4px; 
             left: 0;
-            width: 80px;
+            width: 60px;
             height: 12px;
             background: #0094ff;
             border-radius: 6px;
@@ -558,11 +553,11 @@
             background: #007acd;
         }
 
-        .scrollable-button-flex { display: flex; gap: 12px; }
+        .scrollable-button-flex { display: flex; gap: 10px; }
 
         .scrollable-direction-btn {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: 1px solid #cbd5e1;
             background: transparent;
@@ -579,14 +574,14 @@
             color: white;
             border-color: #0094ff;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 148, 255, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 148, 255, 0.15);
         }
 
         .scrollable-direction-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
         .scrollable-direction-icon {
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -598,7 +593,7 @@
 
         @media (max-width: 1024px) {
             .testimonials-grid {
-                grid-auto-columns: calc(50% - 12px); 
+                grid-auto-columns: calc(50% - 10px); 
             }
         }
 
@@ -606,7 +601,7 @@
             .scrollable-services-holder:not(.testimonials-grid):not(.work-showcase-container) {
                 flex-direction: column;
                 overflow-x: hidden; 
-                padding: 20px;
+                padding: 16px;
             }
             .services-card:not(.testimonial-card), .services-card.small:not(.testimonial-card) {
                 min-width: 100%;
@@ -633,7 +628,7 @@
                 margin-bottom: 12px !important;
                 overflow: hidden;
                 display: -webkit-box;
-                -webkit-line-clamp: 18; 
+                -webkit-line-clamp: 12; 
                 -webkit-box-orient: vertical;
             }
             
@@ -656,13 +651,13 @@
 
             .services-card {
                 flex-direction: column;
-                padding: 40px 24px;
-                gap: 32px;
+                padding: 32px 20px;
+                gap: 24px;
             }
             
             .service-card-imagery {
                 width: 100%;
-                max-width: 280px; 
+                max-width: 240px; 
                 margin: 0 auto;   
                 height: auto;
                 margin-top: 10px;
@@ -681,14 +676,14 @@
     </div>
 
     <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
-        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-24 flex items-center justify-between">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-20 md:h-24 flex items-center justify-between">
             
             <a href="/" class="flex items-center focus:outline-none">
-                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-12 md:h-14 w-auto">
+                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-10 md:h-12 w-auto">
             </a>
             
-            <div class="hidden md:flex items-center gap-10 ml-auto">
-                <nav class="flex items-center gap-10 font-medium text-[16px] tracking-wide text-slate-800">
+            <div class="hidden md:flex items-center gap-8 ml-auto">
+                <nav class="flex items-center gap-8 font-medium text-[15px] tracking-wide text-slate-800">
                     <a href="#services" class="nav-link hover:text-brand">Services</a>
                     <a href="work.html" class="nav-link hover:text-brand">Work</a>
                     <a href="pricing.html" class="nav-link hover:text-brand">Pricing</a>
@@ -696,7 +691,7 @@
                     <a href="#faq" class="nav-link hover:text-brand">FAQ</a>
                 </nav>
                 
-                <a href="#contact" class="header-outline-btn">
+                <a href="#contact" class="header-outline-btn ml-2">
                     Book a Call
                 </a>
             </div>
@@ -710,15 +705,15 @@
             </button>
         </div>
 
-        <div id="mobile-menu" class="hidden absolute top-24 left-0 w-full bg-[#f8fafc] border-b border-slate-200 shadow-xl z-40">
-            <div class="flex flex-col px-6 py-10 gap-6">
-                <div><a href="#services" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Services</a></div>
-                <div><a href="work.html" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Work</a></div>
-                <div><a href="pricing.html" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Pricing</a></div>
-                <div><a href="#testimonials" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
-                <div><a href="#faq" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">FAQ</a></div>
+        <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-[#f8fafc] border-b border-slate-200 shadow-xl z-40">
+            <div class="flex flex-col px-6 py-8 gap-5">
+                <div><a href="#services" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Services</a></div>
+                <div><a href="work.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Work</a></div>
+                <div><a href="pricing.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Pricing</a></div>
+                <div><a href="#testimonials" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
+                <div><a href="#faq" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">FAQ</a></div>
                 
-                <div class="mt-6">
+                <div class="mt-4">
                     <a href="#contact" class="mobile-contact-btn">Contact</a>
                 </div>
             </div>
@@ -727,27 +722,27 @@
 
     <main class="flex-grow">
         <!-- Hero Section -->
-        <section class="hero-gradient pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
+        <section class="hero-gradient pt-24 pb-16 md:pt-32 md:pb-20 relative overflow-hidden">
             <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 flex flex-col items-start text-left relative z-10">
                 
-                <div class="inline-flex items-center gap-3 px-5 py-2.5 bg-white rounded-full shadow-sm border border-slate-100 mb-8">
-                    <div class="flex text-[#14a800] text-sm gap-0.5"> 
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-100 mb-6">
+                    <div class="flex text-[#14a800] text-xs gap-0.5"> 
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                     </div>
-                    <span class="text-sm font-medium text-slate-600">Top Rated Agency</span>
+                    <span class="text-xs font-medium text-slate-600">Top Rated Agency</span>
                 </div>
 
-                <h1 class="text-5xl lg:text-[56px] xl:text-[62px] font-bold tracking-tight max-w-5xl leading-[1.1] lg:leading-[1.15] mb-8 text-slate-900">
+                <h1 class="text-4xl md:text-5xl lg:text-[56px] font-bold tracking-tight max-w-4xl leading-[1.1] lg:leading-[1.15] mb-6 text-slate-900">
                     <span class="text-brand">Smarter</span> eCRM.<br>
                     <span class="text-brand">Stronger</span> <span class="whitespace-nowrap">Customer Relationships.</span><br>
                     <span class="text-brand">Better</span> Results.
                 </h1>
                 
-                <p class="text-lg md:text-xl text-slate-600 font-medium max-w-[700px] mb-12 leading-relaxed">
+                <p class="text-base md:text-lg text-slate-600 font-medium max-w-[650px] mb-8 leading-relaxed">
                     Opes Consulting delivers tailored lifecycle marketing. We architect high-converting websites, automate your CRM, and build email systems that turn audiences into buyers.
                 </p>
                 
@@ -763,12 +758,12 @@
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="bg-slate-50 border-y border-slate-100 py-24 md:py-32">
-            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 mb-12">
+        <section id="services" class="bg-slate-50 border-y border-slate-100 py-16 md:py-24">
+            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 mb-8">
                 <div class="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 text-center md:text-left">
                     <div class="max-w-2xl">
-                        <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">How We <span class="text-brand">Build Growth</span></h2>
-                        <p class="text-slate-600 font-medium text-lg mx-auto md:mx-0">
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-slate-900">How We <span class="text-brand">Build Growth</span></h2>
+                        <p class="text-slate-600 font-medium text-base md:text-lg mx-auto md:mx-0">
                             We strip away the noise to focus on the three pillars of digital scaling: acquisition, nurturing, and automated retention.
                         </p>
                     </div>
@@ -915,10 +910,10 @@
         </section>
 
         <!-- Work Section -->
-        <section id="work" class="work-showcase-section relative scrollable-container !pb-8 md:!pb-[80px]">
-            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 mb-16 text-center md:text-left relative z-10">
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Systems That <span class="text-brand">Drive Growth</span></h2>
-                <p class="text-slate-600 font-medium max-w-xl md:mx-0 mx-auto text-lg">A look at the AI-powered websites, intelligent retention systems, and high-converting campaigns we've engineered.</p>
+        <section id="work" class="work-showcase-section relative scrollable-container !pb-6 md:!pb-[60px]">
+            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 mb-10 text-center md:text-left relative z-10">
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-slate-900">Systems That <span class="text-brand">Drive Growth</span></h2>
+                <p class="text-slate-600 font-medium max-w-xl md:mx-0 mx-auto text-base md:text-lg">A look at the AI-powered websites, intelligent retention systems, and high-converting campaigns we've engineered.</p>
             </div>
 
             <div class="relative w-full max-w-[1200px] mx-auto">
@@ -979,7 +974,7 @@
             </div>
 
             <!-- Scroll Controls (Visible on mobile only) -->
-            <div class="home-scrollable-controls keep-visible flex md:hidden mt-8 px-6 w-full justify-center">
+            <div class="home-scrollable-controls keep-visible flex md:hidden mt-6 px-6 w-full justify-center">
                 <div class="scrollable-controls">
                     <div class="scrollable-track">
                         <div class="scrollable-handle"></div>
@@ -1001,127 +996,127 @@
         </section>
 
         <!-- Testimonials Section -->
-        <section id="testimonials" class="py-24 md:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
+        <section id="testimonials" class="py-16 md:py-24 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand/5 rounded-full blur-[100px] -mr-48 -mt-48 pointer-events-none"></div>
 
             <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 relative z-10">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-8">
                     <div class="max-w-2xl">
-                        <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Why Industry Leaders <span class="text-brand">Trust Opes Consulting</span>.</h2>
-                        <p class="text-slate-600 font-medium text-lg">Don't just take our word for it. Here is what our clients are saying about the systems we build.</p>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-slate-900">Why Industry Leaders <span class="text-brand">Trust Opes Consulting</span>.</h2>
+                        <p class="text-slate-600 font-medium text-base md:text-lg">Don't just take our word for it. Here is what our clients are saying about the systems we build.</p>
                     </div>
                 </div>
 
                 <div class="scrollable-container !pt-0 !pb-0">
                     <div class="scrollable-services-holder testimonials-grid">
                         
-                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
-                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-xs mb-4 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "We hired Opes to build 13 automated email journeys in Brevo and the whole process was seamless. He turned our copy and requirements into fully tested, branded, personalised flows, communicated clearly throughout, and delivered everything with excellent attention to detail. I’d happily recommend him for any email automation project."
                             </p>
-                            <div class="mt-6 testimonial-author">
+                            <div class="mt-4 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Teresa</h4>
-                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
                             </div>
                         </div>
 
-                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
-                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-xs mb-4 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes set up our Brevo automations flawlessly, from onboarding to re-engagement journeys with dynamic personalisation working exactly as needed. He worked efficiently, delivered on time, and ensured everything was fully tested before launch, saving us a huge amount of time."
                             </p>
-                            <div class="mt-6 testimonial-author">
+                            <div class="mt-4 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Ammira</h4>
-                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
                             </div>
                         </div>
 
-                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
-                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-xs mb-4 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Working with Opes was a great experience. He quickly translated our requirements into polished automated journeys, built strong-looking templates, and ensured everything worked perfectly. He communicated well throughout and improved the final result with thoughtful recommendations."
                             </p>
-                            <div class="mt-6 testimonial-author">
+                            <div class="mt-4 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Naomi</h4>
-                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
                             </div>
                         </div>
 
-                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
-                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-xs mb-4 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is a knowledgeable media buyer with strong technical skills and a calm, professional approach. He was responsive, open to feedback, and consistently improved the work, despite occasional time zone challenges. A fast learner with strong potential in performance marketing."
                             </p>
-                            <div class="mt-6 testimonial-author">
+                            <div class="mt-4 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Tori</h4>
-                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
                             </div>
                         </div>
 
-                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
-                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-xs mb-4 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is technically strong, easy to work with, and very dependable. He handled challenges calmly, stayed responsive across time zones, and consistently delivered high-quality work with a problem-solving mindset."
                             </p>
-                            <div class="mt-6 testimonial-author">
+                            <div class="mt-4 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Damir</h4>
-                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
                             </div>
                         </div>
 
-                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
-                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-xs mb-4 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes exceeded expectations, building well-designed email templates and fully functional automations with precise personalisation, timing, and testing. He delivered on time and often suggested improvements that made the final result even better."
                             </p>
-                            <div class="mt-6 testimonial-author">
+                            <div class="mt-4 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Morgan</h4>
-                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
                             </div>
                         </div>
 
-                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
-                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-xs mb-4 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes combines strong technical ability with a professional, collaborative approach. He handled complex automations, communicated clearly, met deadlines, and helped streamline our marketing processes, saving valuable time."
                             </p>
-                            <div class="mt-6 testimonial-author">
+                            <div class="mt-4 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Nathan</h4>
-                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
                             </div>
                         </div>
 
-                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
-                            <div class="flex text-[#14a800] text-sm mb-6 gap-1">
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow testimonial-card">
+                            <div class="flex text-[#14a800] text-xs mb-4 gap-1">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is one of the best professionals I’ve worked with. Highly skilled, responsive, and consistently outstanding in delivery—every project felt smooth and well handled from start to finish."
                             </p>
-                            <div class="mt-6 testimonial-author">
+                            <div class="mt-4 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Darius</h4>
-                                <p class="text-sm text-slate-500 font-medium">Verified Review</p>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
                             </div>
                         </div>
 
                     </div>
 
-                    <div class="home-scrollable-controls keep-visible mt-12">
+                    <div class="home-scrollable-controls keep-visible mt-8">
                         <div class="scrollable-controls">
                             <div class="scrollable-track">
                                 <div class="scrollable-handle"></div>
@@ -1145,11 +1140,11 @@
         </section>
 
         <!-- FAQ Section -->
-        <section id="faq" class="bg-slate-50 border-y border-slate-100 py-24 md:py-32">
+        <section id="faq" class="bg-slate-50 border-y border-slate-100 py-16 md:py-24">
             <div class="max-w-[800px] w-full mx-auto px-6 lg:px-8">
-                <div class="text-center md:text-left mb-12">
-                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Frequently Asked <span class="text-brand">Questions</span></h2>
-                    <p class="text-slate-600 font-medium text-lg mx-auto md:mx-0">
+                <div class="text-center md:text-left mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-slate-900">Frequently Asked <span class="text-brand">Questions</span></h2>
+                    <p class="text-slate-600 font-medium text-base md:text-lg mx-auto md:mx-0">
                         Everything you need to know about our web builds, CRM setups, and lifecycle systems.
                     </p>
                 </div>
@@ -1157,65 +1152,65 @@
                 <div class="flex flex-col border-t border-slate-200">
                     
                     <!-- FAQ Item 1 -->
-                    <div class="border-b border-slate-200 py-6 faq-item">
+                    <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
-                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">What platforms do you specialize in for CRM and email automation?</span>
+                            <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">What platforms do you specialize in for CRM and email automation?</span>
                             <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
-                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                            <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
                                 We architect and automate systems seamlessly using industry-leading software like GoHighLevel, Klaviyo, HubSpot, and Brevo, tailoring every setup specifically to fit your store's requirements.
                             </p>
                         </div>
                     </div>
 
                     <!-- FAQ Item 2 -->
-                    <div class="border-b border-slate-200 py-6 faq-item">
+                    <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
-                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">How long does it take to see results from a new email marketing campaign?</span>
+                            <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">How long does it take to see results from a new email marketing campaign?</span>
                             <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
-                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                            <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
                                 We formulate a three-month email marketing strategy aligned directly with specific operational targets to optimize subscriber ratios and lead generation. This dedicated timeframe provides the testing required to scale revenue predictably.
                             </p>
                         </div>
                     </div>
 
                     <!-- FAQ Item 3 -->
-                    <div class="border-b border-slate-200 py-6 faq-item">
+                    <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
-                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">Do you build websites from scratch or use templates?</span>
+                            <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">Do you build websites from scratch or use templates?</span>
                             <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
-                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                            <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
                                 We build performance-optimized architecture from the ground up using custom HTML and Tailwind CSS. We typically deploy via Cloudflare Pages to ensure maximum speed and high conversion rates.
                             </p>
                         </div>
                     </div>
 
                     <!-- FAQ Item 4 -->
-                    <div class="border-b border-slate-200 py-6 faq-item">
+                    <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
-                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">What is included in the custom email marketing setup?</span>
+                            <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">What is included in the custom email marketing setup?</span>
                             <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
-                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                            <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
                                 Our custom integrations feature comprehensive lifecycle flow maps, targeted A/B testing protocols, pixel-perfect and mobile-first HTML template designs, and dedicated inbox deliverability optimization.
                             </p>
                         </div>
                     </div>
 
                     <!-- FAQ Item 5 -->
-                    <div class="border-b border-slate-200 py-6 faq-item">
+                    <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
-                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">How do we get started?</span>
+                            <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">How do we get started?</span>
                             <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
-                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                            <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
                                 Use the "Book a Call" buttons to schedule a strategy consultation. We will discuss your current constraints, audit your existing funnel architecture, and outline the exact systems needed to scale your digital efforts.
                             </p>
                         </div>
@@ -1227,20 +1222,20 @@
 
     </main>
 
-    <footer class="bg-white py-12 border-t border-slate-100">
-        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+    <footer class="bg-white py-10 border-t border-slate-100">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
             
             <a href="#" class="flex items-center focus:outline-none">
-                <img src="images/logo-footer.png" alt="Opes Consulting Logo Footer" class="h-12 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity">
+                <img src="images/logo-footer.png" alt="Opes Consulting Logo Footer" class="h-10 md:h-12 w-auto opacity-70 hover:opacity-100 transition-opacity">
             </a>
             
-            <p class="text-sm text-slate-400 font-medium text-center md:text-left">
+            <p class="text-xs md:text-sm text-slate-400 font-medium text-center md:text-left">
                 &copy; 2026 Opes Consulting. All rights reserved.
             </p>
             
-            <div class="flex gap-6 text-slate-400">
-                <a href="#" class="hover:text-brand transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
-                <a href="#" class="hover:text-brand transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
+            <div class="flex gap-5 text-slate-400">
+                <a href="#" class="hover:text-brand transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>
+                <a href="#" class="hover:text-brand transition-colors"><i class="fa-solid fa-envelope text-lg"></i></a>
             </div>
         </div>
     </footer>
