@@ -305,7 +305,7 @@
 
         <!-- HORIZONTAL SCROLLING PORTFOLIO SECTION -->
         <!-- Set to 300vh so scrolling horizontally exactly accommodates the 3 case studies -->
-        <section id="horizontal-scroll-section" class="relative h-[300vh] bg-slate-950">
+        <section id="horizontal-scroll-section" class="relative h-[400vh] bg-slate-950">
             
             <!-- STICKY ANCHOR -->
             <div class="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center bg-slate-950">
@@ -466,38 +466,44 @@
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- HORIZONTAL SCROLL LOGIC ---
-            const horizontalSection = document.getElementById('horizontal-scroll-section');
-            const horizontalTrack = document.getElementById('horizontal-track');
-            
-            let targetX = 0;
-            let currentX = 0;
+const horizontalSection = document.getElementById('horizontal-scroll-section');
+const horizontalTrack = document.getElementById('horizontal-track');
 
-            function animateHorizontalScroll() {
-                if (horizontalSection && horizontalTrack) {
-                    const rect = horizontalSection.getBoundingClientRect();
-                    
-                    // The distance the section can scroll vertically while pinned
-                    const scrollableDistance = rect.height - window.innerHeight;
-                    
-                    // Progress from 0 (top of section) to 1 (bottom of section)
-                    let scrollProgress = -rect.top / scrollableDistance;
-                    scrollProgress = Math.max(0, Math.min(1, scrollProgress));
-                    
-                    // The maximum distance the track needs to slide horizontally
-                    const maxTranslate = horizontalTrack.scrollWidth - window.innerWidth;
-                    
-                    targetX = -(scrollProgress * maxTranslate);
-                    
-                    // Linear interpolation (lerp) for buttery smooth gliding
-                    currentX += (targetX - currentX) * 0.1;
-                    
-                    // Apply the translation
-                    horizontalTrack.style.transform = `translateX(${currentX}px)`;
-                }
-                requestAnimationFrame(animateHorizontalScroll);
-            }
-            
-            requestAnimationFrame(animateHorizontalScroll);
+let targetX = 0;
+let currentX = 0;
+
+function animateHorizontalScroll() {
+    if (horizontalSection && horizontalTrack) {
+        const rect = horizontalSection.getBoundingClientRect();
+        
+        // The total distance the section can scroll vertically while pinned
+        const totalScrollableDistance = rect.height - window.innerHeight;
+        
+        // Reserve exactly one viewport height (100vh) at the end to "wait"
+        const waitDistance = window.innerHeight; 
+        
+        // The distance over which the actual sliding happens
+        const activeScrollDistance = totalScrollableDistance - waitDistance;
+        
+        // Progress from 0 to 1 ONLY during the active sliding portion
+        let scrollProgress = -rect.top / activeScrollDistance;
+        scrollProgress = Math.max(0, Math.min(1, scrollProgress));
+        
+        // The maximum distance the track needs to slide horizontally
+        const maxTranslate = horizontalTrack.scrollWidth - window.innerWidth;
+        
+        targetX = -(scrollProgress * maxTranslate);
+        
+        // Linear interpolation (lerp) for buttery smooth gliding
+        currentX += (targetX - currentX) * 0.1;
+        
+        // Apply the translation
+        horizontalTrack.style.transform = `translateX(${currentX}px)`;
+    }
+    requestAnimationFrame(animateHorizontalScroll);
+}
+
+requestAnimationFrame(animateHorizontalScroll);
 
             // --- LIGHTBOX FLIP LOGIC ---
             const lightbox = document.getElementById('project-lightbox');
