@@ -230,7 +230,8 @@
         }
     </style>
 </head>
-<body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen overflow-x-hidden">
+<!-- Removed overflow-x-hidden from body to ensure sticky positioning works -->
+<body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
     <div id="page-loader">
         <img src="Icon-Load.png" alt="Loading..." class="loader-logo">
@@ -280,7 +281,8 @@
         </div>
     </header>
 
-    <main class="flex-grow overflow-x-hidden">
+    <!-- Removed overflow-x-hidden from main to ensure sticky positioning works -->
+    <main class="flex-grow">
         
         <!-- Hero Section -->
         <section class="hero-gradient pt-8 pb-10 md:pt-12 md:pb-16 relative border-b border-slate-100">
@@ -298,17 +300,16 @@
         </section>
 
         <!-- HORIZONTAL SCROLLING PORTFOLIO SECTION -->
-        <!-- We give this section a large height (300vh for 3 cards) to dictate how long the user has to scroll vertically to reach the end of the horizontal track. -->
         <section id="horizontal-scroll-section" class="relative h-[300vh] bg-slate-50">
             
-            <!-- This container sticks to the screen while the user is scrolling through the section -->
-            <div class="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center bg-slate-50">
+            <!-- STICKY ANCHOR: This locks to the top of the viewport -->
+            <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center bg-slate-50">
                 
                 <!-- The track that moves left/right based on vertical scroll -->
                 <div id="horizontal-track" class="flex h-full w-max will-change-transform items-center">
                     
                     <!-- Panel 1: Bchex -->
-                    <div class="w-screen h-[100dvh] flex items-center justify-center flex-shrink-0 px-4 md:px-8 py-20 lg:py-24">
+                    <div class="w-screen h-screen flex items-center justify-center flex-shrink-0 px-4 md:px-8 py-20 lg:py-24">
                         <a href="#contact" class="block relative w-full h-full max-w-[1300px] rounded-[24px] md:rounded-[32px] overflow-hidden group shadow-2xl cursor-pointer">
                             
                             <!-- Background Image -->
@@ -333,7 +334,7 @@
                     </div>
 
                     <!-- Panel 2: Korra -->
-                    <div class="w-screen h-[100dvh] flex items-center justify-center flex-shrink-0 px-4 md:px-8 py-20 lg:py-24">
+                    <div class="w-screen h-screen flex items-center justify-center flex-shrink-0 px-4 md:px-8 py-20 lg:py-24">
                         <a href="#contact" class="block relative w-full h-full max-w-[1300px] rounded-[24px] md:rounded-[32px] overflow-hidden group shadow-2xl cursor-pointer">
                             
                             <!-- Background Image -->
@@ -358,7 +359,7 @@
                     </div>
 
                     <!-- Panel 3: DamirinDubai -->
-                    <div class="w-screen h-[100dvh] flex items-center justify-center flex-shrink-0 px-4 md:px-8 py-20 lg:py-24">
+                    <div class="w-screen h-screen flex items-center justify-center flex-shrink-0 px-4 md:px-8 py-20 lg:py-24">
                         <a href="#contact" class="block relative w-full h-full max-w-[1300px] rounded-[24px] md:rounded-[32px] overflow-hidden group shadow-2xl cursor-pointer">
                             
                             <!-- Background Image -->
@@ -385,7 +386,7 @@
                                     </div>
 
                                     <p class="text-slate-200 text-base md:text-lg font-medium mb-8 leading-relaxed max-w-2xl">
-                                        Managed end-to-end cold email outreach campaigns, including prospect research, email collection, lead verification, and writing custom email copy from scratch. Responsible for sourcing qualified contacts, cleaning lists, and maintaining strong deliverability to generate significant interest.
+                                        Managed end-to-end cold email outreach campaigns, which involved deep prospect research, email collection, lead verification, and writing custom email copy from scratch. Responsible for sourcing qualified contacts, cleaning lists, and maintaining strong deliverability to generate significant interest.
                                     </p>
                                     <div class="inline-flex items-center gap-3 font-bold text-brand md:text-lg pb-1 border-b-2 border-brand group-hover:text-white group-hover:border-white transition-all duration-300">
                                         View project <i class="fa-solid fa-arrow-right text-sm"></i>
