@@ -204,6 +204,10 @@
             box-shadow: 0 8px 20px rgba(0, 148, 255, 0.3);
         }
 
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(0,148,255,0.08) 0%, rgba(0,148,255,0.02) 50%, rgba(255,255,255,1) 100%);
+        }
+
         /* --- POP-UP ANIMATION FOR FINAL CTA --- */
         .cta-pop-up {
             opacity: 0;
@@ -284,7 +288,7 @@
     <main class="flex-grow">
         
         <!-- Hero Section -->
-        <section class="bg-white pt-8 pb-10 md:pt-12 md:pb-16 relative border-b border-slate-100">
+        <section class="hero-gradient pt-8 pb-10 md:pt-12 md:pb-16 relative border-b border-slate-100">
             <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 text-center">
                 <div class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-100 mb-6 mt-8">
                     <span class="text-xs font-semibold uppercase tracking-wider text-brand">Case Studies</span>
@@ -299,108 +303,117 @@
         </section>
 
         <!-- HORIZONTAL SCROLLING PORTFOLIO SECTION -->
-        <section id="horizontal-scroll-section" class="relative h-[300vh] bg-slate-50">
+        <!-- Set to 300vh so scrolling horizontally exactly accommodates the 3 case studies -->
+        <section id="horizontal-scroll-section" class="relative h-[300vh] bg-slate-950">
             
             <!-- STICKY ANCHOR -->
-            <div class="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center bg-slate-50">
+            <div class="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center bg-slate-950">
                 
                 <!-- Horizontal Track -->
                 <div id="horizontal-track" class="flex h-full w-max will-change-transform items-center">
                     
                     <!-- Panel 1: Bchex -->
-                    <div class="w-screen h-[100dvh] flex items-center justify-center flex-shrink-0 px-4 md:px-8 py-20 lg:py-24">
-                        <!-- Light Theme Card -->
-                        <div class="block w-full h-full max-w-[1300px] rounded-[24px] md:rounded-[32px] overflow-hidden group shadow-xl bg-white border border-slate-200 flex flex-col lg:flex-row transition-shadow duration-500 hover:shadow-2xl">
-                            
-                            <!-- Text Content (Left) -->
-                            <div class="w-full lg:w-5/12 p-8 md:p-12 lg:p-16 flex flex-col justify-center order-2 lg:order-1 flex-1 lg:flex-none overflow-y-auto no-scrollbar">
-                                <div class="text-brand font-bold text-lg mb-2">Bchex</div>
-                                <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-4 md:mb-6">B2B Nurture Campaign Architecture</h3>
-                                <p class="text-slate-600 text-base md:text-lg font-medium mb-8 leading-relaxed">
+                    <div class="w-screen h-[100dvh] flex items-center justify-center flex-shrink-0 relative overflow-hidden px-6 lg:px-12 pt-24 pb-12">
+                        
+                        <!-- Blurred Background Image -->
+                        <div class="absolute inset-0 z-0">
+                            <img src="images/bchex-project.jpg" class="w-full h-full object-cover blur-3xl opacity-20 scale-110" alt="">
+                            <div class="absolute inset-0 bg-slate-950/60"></div>
+                        </div>
+
+                        <!-- Content Layout -->
+                        <div class="max-w-[1200px] w-full relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 h-full">
+                            <!-- Text Left -->
+                            <div class="w-full lg:w-5/12 text-white flex flex-col justify-center order-2 lg:order-1">
+                                <h3 class="text-5xl md:text-7xl font-bold tracking-tight mb-6">Bchex</h3>
+                                <p class="text-slate-300 text-lg font-medium mb-8 leading-relaxed">
                                     Designed, created the copy, iterated, and built multiple email nurture campaigns for a B2B company. The emails were first structured in Figma and then fully built in HubSpot (adaptable to Brevo, MailerLite, Mailchimp, ActiveCampaign, etc.). Handled end-to-end design and setup prior to campaign deployment.
                                 </p>
                                 <div>
-                                    <button class="view-project-btn inline-flex items-center gap-3 font-bold text-brand text-base md:text-lg pb-1 border-b-2 border-brand hover:text-blue-700 hover:border-blue-700 transition-all duration-300" data-img="images/bchex-project.png">
+                                    <button class="view-project-btn group inline-flex items-center gap-3 font-bold text-brand text-lg pb-1 border-b-2 border-brand hover:text-white hover:border-white transition-all duration-300" data-img="images/bchex-project.jpg">
                                         <span>View project</span>
                                         <i class="fa-solid fa-arrow-right text-sm transform group-hover:translate-x-1 transition-transform"></i>
                                     </button>
                                 </div>
                             </div>
-
-                            <!-- Image Content (Right) -->
-                            <div class="w-full lg:w-7/12 h-[40vh] lg:h-full relative order-1 lg:order-2 bg-slate-100 overflow-hidden flex-shrink-0 border-b lg:border-b-0 lg:border-l border-slate-100">
-                                <img src="images/bchex-project.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03]" alt="Bchex Email Nurture Campaign" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%25%22 height=%22100%25%22 viewBox=%220 0 800 600%22%3E%3Crect fill=%22%23f1f5f9%22 width=%22800%22 height=%22600%22/%3E%3Ctext fill=%22%2394a3b8%22 font-family=%22sans-serif%22 font-size=%2224%22 dy=%2210.5%22 font-weight=%22bold%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22%3EAdd bchex-project.png here%3C/text%3E%3C/svg%3E'">
+                            <!-- Image Right -->
+                            <div class="w-full lg:w-7/12 h-[45vh] lg:h-[75vh] flex justify-center lg:justify-end order-1 lg:order-2">
+                                <img src="images/bchex-project.jpg" class="h-full w-auto max-w-full object-cover rounded-[32px] shadow-2xl border border-white/10" alt="Bchex Mockup">
                             </div>
-
                         </div>
                     </div>
 
                     <!-- Panel 2: Korra -->
-                    <div class="w-screen h-[100dvh] flex items-center justify-center flex-shrink-0 px-4 md:px-8 py-20 lg:py-24">
-                        <!-- Light Theme Card -->
-                        <div class="block w-full h-full max-w-[1300px] rounded-[24px] md:rounded-[32px] overflow-hidden group shadow-xl bg-white border border-slate-200 flex flex-col lg:flex-row transition-shadow duration-500 hover:shadow-2xl">
-                            
-                            <!-- Text Content (Left) -->
-                            <div class="w-full lg:w-5/12 p-8 md:p-12 lg:p-16 flex flex-col justify-center order-2 lg:order-1 flex-1 lg:flex-none overflow-y-auto no-scrollbar">
-                                <div class="text-brand font-bold text-lg mb-2">Korra</div>
-                                <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-4 md:mb-6">Automated HubSpot Integrations</h3>
-                                <p class="text-slate-600 text-base md:text-lg font-medium mb-8 leading-relaxed">
+                    <div class="w-screen h-[100dvh] flex items-center justify-center flex-shrink-0 relative overflow-hidden px-6 lg:px-12 pt-24 pb-12">
+                        
+                        <!-- Blurred Background Image -->
+                        <div class="absolute inset-0 z-0">
+                            <img src="images/korra-project.jpg" class="w-full h-full object-cover blur-3xl opacity-20 scale-110" alt="">
+                            <div class="absolute inset-0 bg-slate-950/60"></div>
+                        </div>
+
+                        <!-- Content Layout -->
+                        <div class="max-w-[1200px] w-full relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 h-full">
+                            <!-- Text Left -->
+                            <div class="w-full lg:w-5/12 text-white flex flex-col justify-center order-2 lg:order-1">
+                                <h3 class="text-5xl md:text-7xl font-bold tracking-tight mb-6">Korra</h3>
+                                <p class="text-slate-300 text-lg font-medium mb-8 leading-relaxed">
                                     Worked in collaboration with the marketing team to support and lead the vision of integrating their digital marketing funnel with a robust email solution. Built HubSpot integrations, automated workflows, and ran multiple nurture campaigns alongside continuous testing and free iterations of copy and design until perfectly satisfied.
                                 </p>
                                 <div>
-                                    <button class="view-project-btn inline-flex items-center gap-3 font-bold text-brand text-base md:text-lg pb-1 border-b-2 border-brand hover:text-blue-700 hover:border-blue-700 transition-all duration-300" data-img="images/korra-project.png">
+                                    <button class="view-project-btn group inline-flex items-center gap-3 font-bold text-brand text-lg pb-1 border-b-2 border-brand hover:text-white hover:border-white transition-all duration-300" data-img="images/korra-project.jpg">
                                         <span>View project</span>
                                         <i class="fa-solid fa-arrow-right text-sm transform group-hover:translate-x-1 transition-transform"></i>
                                     </button>
                                 </div>
                             </div>
-
-                            <!-- Image Content (Right) -->
-                            <div class="w-full lg:w-7/12 h-[40vh] lg:h-full relative order-1 lg:order-2 bg-slate-100 overflow-hidden flex-shrink-0 border-b lg:border-b-0 lg:border-l border-slate-100">
-                                <img src="images/korra-project.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03]" alt="Korra Marketing Integration" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%25%22 height=%22100%25%22 viewBox=%220 0 800 600%22%3E%3Crect fill=%22%23f1f5f9%22 width=%22800%22 height=%22600%22/%3E%3Ctext fill=%22%2394a3b8%22 font-family=%22sans-serif%22 font-size=%2224%22 dy=%2210.5%22 font-weight=%22bold%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22%3EAdd korra-project.png here%3C/text%3E%3C/svg%3E'">
+                            <!-- Image Right -->
+                            <div class="w-full lg:w-7/12 h-[45vh] lg:h-[75vh] flex justify-center lg:justify-end order-1 lg:order-2">
+                                <img src="images/korra-project.jpg" class="h-full w-auto max-w-full object-cover rounded-[32px] shadow-2xl border border-white/10" alt="Korra Mockup">
                             </div>
-
                         </div>
                     </div>
 
                     <!-- Panel 3: DamirinDubai -->
-                    <div class="w-screen h-[100dvh] flex items-center justify-center flex-shrink-0 px-4 md:px-8 py-20 lg:py-24">
-                        <!-- Light Theme Card -->
-                        <div class="block w-full h-full max-w-[1300px] rounded-[24px] md:rounded-[32px] overflow-hidden group shadow-xl bg-white border border-slate-200 flex flex-col lg:flex-row transition-shadow duration-500 hover:shadow-2xl">
-                            
-                            <!-- Text Content (Left) -->
-                            <div class="w-full lg:w-5/12 p-8 md:p-12 lg:p-16 flex flex-col justify-center order-2 lg:order-1 flex-1 lg:flex-none overflow-y-auto no-scrollbar">
-                                <div class="text-brand font-bold text-lg mb-2">DamirinDubai</div>
-                                <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-4 md:mb-6">High-Performance Cold Outreach</h3>
+                    <div class="w-screen h-[100dvh] flex items-center justify-center flex-shrink-0 relative overflow-hidden px-6 lg:px-12 pt-24 pb-12">
+                        
+                        <!-- Blurred Background Image -->
+                        <div class="absolute inset-0 z-0">
+                            <img src="images/damirindubai-project.jpg" class="w-full h-full object-cover blur-3xl opacity-20 scale-110" alt="">
+                            <div class="absolute inset-0 bg-slate-950/60"></div>
+                        </div>
+
+                        <!-- Content Layout -->
+                        <div class="max-w-[1200px] w-full relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 h-full">
+                            <!-- Text Left -->
+                            <div class="w-full lg:w-5/12 text-white flex flex-col justify-center order-2 lg:order-1">
+                                <h3 class="text-4xl md:text-6xl font-bold tracking-tight mb-6">DamirinDubai</h3>
                                 
-                                <!-- Embedded Metrics -->
-                                <div class="grid grid-cols-2 gap-4 mb-6 bg-slate-50 p-5 rounded-xl border border-slate-100 w-full">
+                                <div class="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-white/10">
                                     <div>
-                                        <div class="text-2xl md:text-3xl font-bold text-brand mb-1">69-81%</div>
-                                        <div class="text-xs md:text-sm font-semibold text-slate-500 uppercase tracking-wider">Open Rates</div>
+                                        <div class="text-3xl font-bold text-brand mb-1">69-81%</div>
+                                        <div class="text-sm font-medium text-slate-400 uppercase tracking-wider">Open Rates</div>
                                     </div>
                                     <div>
-                                        <div class="text-2xl md:text-3xl font-bold text-brand mb-1">1.5-2%</div>
-                                        <div class="text-xs md:text-sm font-semibold text-slate-500 uppercase tracking-wider">Click Rates</div>
+                                        <div class="text-3xl font-bold text-brand mb-1">1.5-2%</div>
+                                        <div class="text-sm font-medium text-slate-400 uppercase tracking-wider">Click Rates</div>
                                     </div>
                                 </div>
 
-                                <p class="text-slate-600 text-base md:text-lg font-medium mb-8 leading-relaxed">
-                                    Managed end-to-end cold email outreach campaigns, including prospect research, collection, lead verification, and writing custom copy from scratch. Built targeted sequences maintaining pristine deliverability to generate high response opportunities.
+                                <p class="text-slate-300 text-lg font-medium mb-8 leading-relaxed">
+                                    Managed end-to-end cold email outreach campaigns, including prospect research, collection, lead verification, and writing custom copy from scratch. Built targeted sequences maintaining pristine deliverability. Sourced qualified contacts and created personalized messaging to generate high response opportunities.
                                 </p>
                                 <div>
-                                    <button class="view-project-btn inline-flex items-center gap-3 font-bold text-brand text-base md:text-lg pb-1 border-b-2 border-brand hover:text-blue-700 hover:border-blue-700 transition-all duration-300" data-img="images/damirindubai-project.png">
+                                    <button class="view-project-btn group inline-flex items-center gap-3 font-bold text-brand text-lg pb-1 border-b-2 border-brand hover:text-white hover:border-white transition-all duration-300" data-img="images/damirindubai-project.jpg">
                                         <span>View project</span>
                                         <i class="fa-solid fa-arrow-right text-sm transform group-hover:translate-x-1 transition-transform"></i>
                                     </button>
                                 </div>
                             </div>
-
-                            <!-- Image Content (Right) -->
-                            <div class="w-full lg:w-7/12 h-[40vh] lg:h-full relative order-1 lg:order-2 bg-slate-100 overflow-hidden flex-shrink-0 border-b lg:border-b-0 lg:border-l border-slate-100">
-                                <img src="images/damirindubai-project.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03]" alt="DamirinDubai Cold Outreach" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%25%22 height=%22100%25%22 viewBox=%220 0 800 600%22%3E%3Crect fill=%22%23f1f5f9%22 width=%22800%22 height=%22600%22/%3E%3Ctext fill=%22%2394a3b8%22 font-family=%22sans-serif%22 font-size=%2224%22 dy=%2210.5%22 font-weight=%22bold%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22%3EAdd damirindubai-project.png here%3C/text%3E%3C/svg%3E'">
+                            <!-- Image Right -->
+                            <div class="w-full lg:w-7/12 h-[40vh] lg:h-[75vh] flex justify-center lg:justify-end order-1 lg:order-2">
+                                <img src="images/damirindubai-project.jpg" class="h-full w-auto max-w-full object-cover rounded-[32px] shadow-2xl border border-white/10" alt="DamirinDubai Mockup">
                             </div>
-
                         </div>
                     </div>
 
@@ -515,8 +528,6 @@
             viewBtns.forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    // Stop event from bubbling up to any potential links wrapped around the card
-                    e.stopPropagation(); 
                     const imgSrc = btn.getAttribute('data-img');
                     openLightbox(imgSrc);
                 });
