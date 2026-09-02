@@ -956,20 +956,26 @@
             </div>
         </section>
 
-<!-- ============================================================
-     OPES — FREE RESOURCE SECTION
-     Paste between the closing </section> of "How We Build Growth"
-     and the opening <section id="work"> of "Systems That Drive Growth".
-
-     Dark by design: it is a window into the guide, which is itself dark
-     navy. The colour wash is matched to the work page — the shifts stay
-     between #0A0C19 and #141827, so you feel them rather than see them.
-
-     Self-contained: scoped to .opes-fr-*, Aspekta set explicitly, and
-     only the weights you load (400/500/600/700).
-     ============================================================ -->
-
 <style>
+
+/* ============================================================
+   OPES — FREE RESOURCE SECTION
+   Paste between the closing </section> of "How We Build Growth"
+   and the opening <section id="work"> of "Systems That Drive Growth".
+   Dark by design: it is a window into the guide, which is itself dark
+   navy. The colour wash is matched to the work page — the shifts stay
+   between #0A0C19 and #141827, so you feel them rather than see them.
+   Self-contained: scoped to .opes-fr-*, Aspekta set explicitly, and
+   only the weights you load (400/500/600/700).
+   ============================================================
+
+   PASTING: drop this whole file in as-is. Do NOT wrap it in a
+   style tag — it opens with its own on line 1. A style tag nested
+   inside another one is invalid CSS and silently swallows the
+   first rule below, which is the rule that paints the dark
+   background. If the section ever renders with no background and
+   no padding, that is what has happened: count the style tags in
+   your page and make sure the opening and closing ones match. */
 .opes-fr{
   --fr-blue:#0094FF;
   --fr-neon:#5CC6FF;
@@ -1016,12 +1022,6 @@
   background-size:200px 200px;
 }
 
-/* lit hairline where this section meets the white one above */
-.opes-fr-edge{
-  position:absolute; top:0; left:0; right:0; height:1px; z-index:3; pointer-events:none;
-  background:linear-gradient(90deg, transparent, rgba(92,198,255,.55) 25%,
-             rgba(150,215,255,.8) 50%, rgba(92,198,255,.55) 75%, transparent);
-}
 
 /* the ring mark, large and barely there */
 .opes-fr-mark{
@@ -1042,15 +1042,11 @@
 @media (min-width:960px){ .opes-fr-in{ grid-template-columns:1fr 1fr; gap:64px; } }
 
 .opes-fr-eyebrow{
-  display:inline-flex; align-items:center; gap:9px;
-  background:rgba(14,26,45,.66); border:1px solid rgba(92,198,255,.26);
+  display:inline-flex; align-items:center;
+  background:rgba(14,26,45,.66); border:1px solid rgba(255,255,255,.10);
   border-radius:99px; padding:8px 16px; font-size:11px; font-weight:700;
   letter-spacing:.15em; text-transform:uppercase; color:#9FDBFF;
-  box-shadow:0 0 22px -8px rgba(0,148,255,.5); backdrop-filter:blur(8px);
-}
-.opes-fr-eyebrow::before{
-  content:""; width:6px; height:6px; border-radius:99px; background:var(--fr-neon);
-  box-shadow:0 0 9px 2px rgba(92,198,255,.9);
+  backdrop-filter:blur(8px);
 }
 .opes-fr h2{
   margin:24px 0 0; color:#F3F8FF;
@@ -1084,39 +1080,51 @@
 }
 
 .opes-fr-cta{ margin-top:36px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+/* Identical to .custom-filled-button in the page's own stylesheet — the
+   "Book a Strategy Call" button. Duplicated rather than reused so the
+   section stays self-contained, but every value is copied, not matched
+   by eye. If you ever restyle that button, restyle this one with it. */
 .opes-fr-btn{
-  display:inline-flex; align-items:center; justify-content:center; gap:10px;
-  background:linear-gradient(180deg,#2AA6FF 0%, #0072C8 100%);
-  color:#FFFFFF; font-size:1rem; font-weight:700; line-height:1.2;
-  padding:16px 32px; border-radius:12px; text-decoration:none;
-  border:1px solid rgba(150,215,255,.4);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),
-             0 12px 32px -12px rgba(0,148,255,.75);
-  transition:transform .24s cubic-bezier(.16,1,.3,1), box-shadow .24s ease;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px 28px;
+  text-align:center;
+  font-family:'Aspekta', sans-serif;
+  font-size:15px;
+  font-weight:600;
+  line-height:120%;
+  color:#ffffff;
+  border:none;
+  border-radius:12px;
+  background-color:#0094ff;
+  text-decoration:none;
+  cursor:pointer;
+  transition:transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  white-space:nowrap;
 }
 .opes-fr-btn:hover{
-  color:#FFFFFF; text-decoration:none; transform:translateY(-3px);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),
-             0 20px 44px -12px rgba(0,148,255,.95);
+  color:#ffffff; text-decoration:none;
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(0, 148, 255, 0.25);
 }
-.opes-fr-btn svg{ width:16px; height:16px; transition:transform .24s ease; }
-.opes-fr-btn:hover svg{ transform:translateX(3px); }
+.opes-fr-btn:active{ transform:translateY(0); }
+@media (max-width:480px){
+  .opes-fr-btn{ padding:12px 18px; font-size:14px; }
+}
 .opes-fr-note{ font-size:.85rem; color:#7F93AC; font-weight:500; }
 
 /* ---------- the card ---------- */
 .opes-fr-card{
   position:relative; border-radius:24px; padding:1px;
-  background:linear-gradient(150deg, rgba(150,220,255,.42), rgba(0,148,255,.13) 42%, rgba(120,180,255,.08));
-  box-shadow:0 40px 90px -38px rgba(0,20,50,.9), 0 0 50px -26px rgba(0,148,255,.3);
+  background:linear-gradient(150deg, rgba(255,255,255,.14), rgba(255,255,255,.05) 45%, rgba(255,255,255,.03));
+  box-shadow:0 40px 90px -38px rgba(0,20,50,.9);
 }
 .opes-fr-card-in{
   background:linear-gradient(180deg, rgba(17,25,44,.9), rgba(10,14,28,.94));
   backdrop-filter:blur(14px); border-radius:23px; padding:22px;
 }
 .opes-fr-card-h{ display:flex; align-items:center; gap:12px; margin-bottom:16px; }
-.opes-fr-dot{ width:10px; height:34px; border-radius:99px; flex:none;
-  background:linear-gradient(180deg,#7FD4FF,#0077CC);
-  box-shadow:0 0 14px 0 rgba(0,148,255,.6); }
 .opes-fr-card-h strong{ display:block; font-size:.98rem; color:#EDF5FF; font-weight:700; }
 .opes-fr-card-h em{ display:block; font-style:normal; font-size:.78rem;
   color:#8098B4; margin-top:3px; font-weight:500; }
@@ -1174,7 +1182,6 @@
   <div class="opes-fr-wash" aria-hidden="true"><span></span><span></span><span></span></div>
   <div class="opes-fr-mark" aria-hidden="true"></div>
   <div class="opes-fr-grain" aria-hidden="true"></div>
-  <div class="opes-fr-edge" aria-hidden="true"></div>
 
   <div class="opes-fr-in">
 
@@ -1198,10 +1205,6 @@
            href="https://opes-consultancy-london---free-resources.pages.dev/"
            target="_blank" rel="noopener">
           Get the free blueprint
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor"
-                  stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
         </a>
         <span class="opes-fr-note">Free. Create an account to read it.</span>
       </div>
@@ -1210,7 +1213,6 @@
     <div class="opes-fr-card">
       <div class="opes-fr-card-in">
         <div class="opes-fr-card-h">
-          <span class="opes-fr-dot" aria-hidden="true"></span>
           <span>
             <strong>Pre &amp; Post Purchase Email Flows</strong>
             <em>The complete lifecycle blueprint</em>
@@ -1915,18 +1917,30 @@
   accent-color:var(--np-brand);
 }
 .opes-np-consent label{ font-size:12.4px; line-height:1.5; color:#4A5768; cursor:pointer; }
-.opes-np-consent a{ color:var(--np-solid); font-weight:600; }
+.opes-np-consent a{ color:var(--np-brand); font-weight:600; }
 .opes-np-consent.is-bad{ border-color:#F0BFBF; background:#FDF2F2; }
 
+ /* Identical to .custom-filled-button in the page's own stylesheet — the
+    "Book a Strategy Call" button — every value copied, not matched by eye.
+    Only width is added, because in a dialog this button spans the card. */
 .opes-np-btn{
   margin-top:3px; width:100%;
-  background:var(--np-solid); color:#FFFFFF; border:none;
-  font-family:inherit; font-size:.95rem; font-weight:700; line-height:1;
-  padding:15px 20px; border-radius:10px; cursor:pointer;
-  transition:background .18s ease, opacity .18s ease;
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:14px 28px; text-align:center;
+  font-family:'Aspekta', sans-serif;
+  font-size:15px; font-weight:600; line-height:120%;
+  color:#ffffff; border:none; border-radius:12px;
+  background-color:#0094ff;
+  text-decoration:none; cursor:pointer;
+  transition:transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  white-space:nowrap;
 }
-.opes-np-btn:hover:not(:disabled){ background:var(--np-brand); }
+.opes-np-btn:hover:not(:disabled){
+  transform:translateY(-2px); box-shadow:0 4px 12px rgba(0, 148, 255, 0.25);
+}
+.opes-np-btn:active:not(:disabled){ transform:translateY(0); }
 .opes-np-btn:disabled{ opacity:.6; cursor:not-allowed; }
+@media (max-width:480px){ .opes-np-btn{ padding:12px 18px; font-size:14px; } }
 
 .opes-np-msg{ font-size:12.8px; font-weight:600; line-height:1.5; border-radius:10px; padding:10px 12px; }
 .opes-np-msg.err{ background:#FDECEC; border:1px solid #F5CBCB; color:#A32020; }
@@ -1955,7 +1969,7 @@
     <h2 id="opesNpTitle">We do email <span>for a living</span></h2>
     <p class="opes-np-sub" id="opesNpSub">
       Which means ours had better be worth opening. Tactics, teardowns and the
-      occasional strong opinion on subject lines — roughly once a month.
+      occasional strong opinion on subject lines, roughly once a month.
     </p>
 
     <form class="opes-np-form" id="opesNpForm" novalidate>
@@ -1995,9 +2009,34 @@
   var opesPopupConfig = {
     SUPABASE_URL: "https://wjcgynrmbvrxfjuteasx.supabase.co",
     SUPABASE_KEY: "sb_publishable_1VtJLIEIy30fh-9sRlQgdQ_colRA99Y",   // the PUBLISHABLE key
-    SCROLLS_BEFORE_OPEN: 2,      // scroll gestures before it appears
+
+    // --- when it opens ---
+    // It waits for BOTH of these, so someone has to have actually spent time
+    // on the page and got somewhere in it before being interrupted.
+    MIN_DWELL_MS: 20000,         // 20s on the page
+    SCROLL_DEPTH: 0.35,          // ...and a third of the way down it
+
+    EXIT_INTENT: true,           // also open when the cursor leaves upward for
+                                 // the tab bar. They are going anyway, so this
+                                 // only waits EXIT_MIN_MS, not the full dwell.
+    EXIT_MIN_MS: 5000,           // (desktop only; touch has no equivalent)
     DELAY_MS: 450,               // small pause so it doesn't feel like a jump-scare
-    REMEMBER_DAYS: 30            // how long a dismissal is respected
+
+    // --- how often it comes back ---
+    //   "session" — once per visit; shows again next time they come to the site
+    //   "days"    — respects REMEMBER_DAYS below
+    //   "always"  — every single page load (useful while testing, not in public)
+    // Joining always silences it permanently, whichever of these is set.
+    SHOW_AGAIN: "session",
+    REMEMBER_DAYS: 30,           // only used when SHOW_AGAIN is "days"
+
+    // --- optional: forward each signup to Brevo ---
+    // Leave empty and signups go to Supabase only. To also push them into a
+    // Brevo list, deploy the Edge Function in brevo-forward.ts and paste its
+    // URL here. The Brevo API key lives in that function, server-side.
+    // NEVER put a Brevo API key in this file: it is public, and it would let
+    // anyone read and edit your whole contact list.
+    BREVO_FORWARD_URL: ""
   };
   /* ----------------------------------- */
 
@@ -2010,22 +2049,33 @@
   var body  = document.getElementById("opesNpBody");
   if (!np || !form) return;
 
-  var KEY = "opes_np_seen";
-  var opened = false, scrolls = 0, lastFocus = null;
+  var KEY = "opes_np_seen";        // localStorage: survives closing the browser
+  var SKEY = "opes_np_dismissed";  // sessionStorage: cleared when the tab closes
+  var opened = false, lastFocus = null;
 
+  // Joining is permanent and outranks everything — nobody who is already on
+  // the list should ever be asked again. A dismissal is separate, and how long
+  // it lasts is what SHOW_AGAIN decides.
+  function joined() {
+    try { return localStorage.getItem(KEY) === "joined"; } catch (e) { return false; }
+  }
   function suppressed() {
+    if (joined()) return true;
+    var mode = opesPopupConfig.SHOW_AGAIN;
+    if (mode === "always") return false;
     try {
+      if (mode === "session") return sessionStorage.getItem(SKEY) === "1";
       var v = localStorage.getItem(KEY);
-      if (!v) return false;
-      if (v === "joined") return true;
-      return Date.now() < Number(v);
+      return !!v && Date.now() < Number(v);
     } catch (e) { return false; }
   }
   function remember(val) {
     try {
-      localStorage.setItem(KEY, val === "joined"
-        ? "joined"
-        : String(Date.now() + opesPopupConfig.REMEMBER_DAYS * 864e5));
+      if (val === "joined") { localStorage.setItem(KEY, "joined"); return; }
+      var mode = opesPopupConfig.SHOW_AGAIN;
+      if (mode === "always") return;
+      if (mode === "session") { sessionStorage.setItem(SKEY, "1"); return; }
+      localStorage.setItem(KEY, String(Date.now() + opesPopupConfig.REMEMBER_DAYS * 864e5));
     } catch (e) {}
   }
 
@@ -2041,6 +2091,11 @@
     }, 340);
     detach();
   }
+  function detach() {
+    if (timer) { clearTimeout(timer); timer = null; }
+    window.removeEventListener("scroll", onScroll);
+    document.removeEventListener("mouseout", onExit);
+  }
   function close() {
     veil.classList.remove("is-open");
     np.classList.remove("is-open");
@@ -2048,22 +2103,41 @@
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
-  /* --- open after two scroll gestures --- */
-  function onWheel() { if (++scrolls >= opesPopupConfig.SCROLLS_BEFORE_OPEN) setTimeout(open, opesPopupConfig.DELAY_MS); }
-  var lastY = window.scrollY;
-  function onScroll() {
-    // touch devices and keyboard scrolling fire no wheel event
-    if (Math.abs(window.scrollY - lastY) < 90) return;
-    lastY = window.scrollY;
-    onWheel();
+  /* --- open once they have both spent time here and got into the page --- */
+  var landedAt = Date.now();
+
+  function dwellLeft() { return opesPopupConfig.MIN_DWELL_MS - (Date.now() - landedAt); }
+
+  function depthReached() {
+    var doc = document.documentElement;
+    var scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+    return (window.scrollY || doc.scrollTop || 0) / scrollable >= opesPopupConfig.SCROLL_DEPTH;
   }
-  function detach() {
-    window.removeEventListener("wheel", onWheel);
-    window.removeEventListener("scroll", onScroll);
+
+  // Whichever condition finishes last is the one that opens it: if they race
+  // to the bottom in five seconds they still wait out the dwell, and if they
+  // sit reading the top for a minute they still have to move down the page.
+  var timer = null;
+  function consider() {
+    if (opened || timer || !depthReached()) return;
+    timer = setTimeout(open, Math.max(opesPopupConfig.DELAY_MS, dwellLeft()));
   }
+
+  function onScroll() { consider(); }
+
+  function onExit(e) {
+    // A real exit: the cursor leaving through the top of the window, not just
+    // moving over a child element. They are leaving, so the depth and dwell
+    // rules do not apply — only a short guard against an accidental flick.
+    if (e.clientY > 0 || e.relatedTarget) return;
+    if (Date.now() - landedAt < opesPopupConfig.EXIT_MIN_MS) return;
+    open();
+  }
+
   if (!suppressed()) {
-    window.addEventListener("wheel", onWheel, { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });
+    if (opesPopupConfig.EXIT_INTENT) document.addEventListener("mouseout", onExit);
+    consider();   // already deep in the page on load (a refresh, or an anchor link)
   }
 
   document.getElementById("opesNpClose").addEventListener("click", close);
@@ -2111,7 +2185,7 @@
     })
       .then(function (res) {
         // 409 = already on the list. That is a success from the visitor's side.
-        if (res.ok || res.status === 409) return done(name);
+        if (res.ok || res.status === 409) { forwardToBrevo(name, email); return done(name); }
         return res.text().then(function (t) { throw new Error(t || res.status); });
       })
       .catch(function (err) {
@@ -2122,6 +2196,22 @@
       });
   });
 
+  // Fire-and-forget. Supabase already has the row, so a Brevo outage must not
+  // cost the signup or make the visitor see an error — worst case the address
+  // is in Supabase and gets picked up on the next export.
+  function forwardToBrevo(name, email) {
+    var url = opesPopupConfig.BREVO_FORWARD_URL;
+    if (!url) return;
+    try {
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name, email: email, source: "homepage-popup" }),
+        keepalive: true
+      }).catch(function (e) { console.warn("[opes newsletter] brevo forward", e); });
+    } catch (e) {}
+  }
+
   function done(name) {
     remember("joined");
     body.innerHTML =
@@ -2129,7 +2219,7 @@
         '<div class="tick">&#10003;</div>' +
         '<h2>You&rsquo;re on the list<span>.</span></h2>' +
         '<p class="opes-np-sub">Thanks' + (name ? ", " + escapeHtml(name) : "") +
-        '. Keep an eye on your inbox &mdash; we only send when we have something worth sending.</p>' +
+        '. We only send when we have something worth sending.</p>' +
       '</div>';
     setTimeout(close, 2600);
   }
