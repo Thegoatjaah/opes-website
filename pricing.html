@@ -1,29 +1,110 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="/favicon.png">
+
+<html lang="en" class="scroll-smooth"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="icon" type="image/x-icon" href="favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Opes Consulting Pricing - Flexible eCRM, Email Marketing, and Website Building Packages">
     <title>Pricing | Opes Consulting</title>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap">
+    <link rel="stylesheet" href="images/all.min.css">
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./images/saved_resource"></script>
+    <script>
+        /* The vendored Tailwind above is what the repo uses. If this file
+           is ever opened somewhere that folder is not beside it, every
+           class on the page silently stops working. document.write is
+           deliberate: it is synchronous during parse, so tailwind.config
+           below still runs after the fallback has loaded. */
+        if (typeof tailwind === "undefined") {
+            document.write('<scr' + 'ipt src="https://cdn.tailwindcss.com"><\/scr' + 'ipt>');
+        }
+    </script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         brand: '#0094ff',
+                        ink: '#0A0C19',
                     },
                     fontFamily: {
-                        sans: ['Aspekta', 'sans-serif'],
+                        sans: ['DM Sans', 'Aspekta', 'sans-serif'],
+                        display: ['Newsreader', 'Georgia', 'serif'],
                     }
                 }
             }
         }
     </script>
+    <!-- ============================================================
+         SHARED THEME — the same treatment as index.html.
+         Aspekta stays loaded as the fallback, so deleting this block
+         returns the page to how it looked before.
+         ============================================================ -->
+    <style>
+        body, .custom-filled-button, .custom-stroked-button,
+        .header-outline-btn, .mobile-contact-btn {
+            font-family: 'DM Sans', 'Aspekta', sans-serif;
+        }
+        /* No bold headings anywhere. Tailwind's font-bold utility (0,1,0)
+           outranks a bare h1/h2 selector, so this has to be !important to
+           actually win. */
+        h1, h2, h3 {
+            font-family: 'Newsreader', Georgia, serif !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.02em;
+        }
+        /* The case-study panels carry their names at display size; 400 in a
+           serif at 7xl is too light to hold a full-bleed photograph. */
+        #horizontal-scroll-section h3 { font-weight: 500 !important; }
+
+        /* The artifact's pills — smaller than the originals, fully round. */
+        .custom-filled-button, .custom-stroked-button {
+            padding: 11px 21px !important; font-size: 13.5px !important;
+            border-radius: 999px !important;
+        }
+        .custom-stroked-button { border-width: 1px !important; }
+        .header-outline-btn {
+            padding: 8px 16px !important; font-size: 13px !important;
+            border-width: 1px !important; border-radius: 999px !important;
+            background: #0094FF !important; border-color: #0094FF !important; color: #fff !important;
+        }
+        .header-outline-btn:hover {
+            background: #0077CC !important; border-color: #0077CC !important; color: #fff !important;
+        }
+
+        /* The three plan names are the pricing page's equivalent of the
+           homepage's service-card titles, so they take the same treatment
+           rather than staying bold sans in a page of serif headings. */
+        .opes-plan-title {
+            font-family: 'Newsreader', Georgia, serif; font-weight: 500;
+            letter-spacing: -.02em; color: #0A0C19;
+        }
+
+        /* Anchor targets stop hiding under the sticky header. */
+        section[id] { scroll-margin-top: 104px; }
+
+        /* FAQ in the homepage's register. */
+        .faq-item { border-bottom: 1px solid #E7ECF2 !important; padding: 22px 0 !important; }
+        .faq-btn span {
+            font-family: 'Newsreader', Georgia, serif !important;
+            font-size: 1.15rem !important; font-weight: 500 !important;
+            letter-spacing: -.015em; color: #0A0C19;
+        }
+        .faq-answer p { font-size: 15px !important; line-height: 1.65; }
+
+        /* Footer on the Opes brand blue, same as the homepage. White at 88%
+           rather than pure white: on a mid-blue, full white vibrates. */
+        .opes-footer { background: #0094FF; border-top: 0 !important; }
+        .opes-footer p, .opes-footer a { color: rgba(255,255,255,.88); }
+        .opes-footer a:hover { color: #ffffff; }
+        .opes-footer img { opacity: .92 !important; filter: brightness(0) invert(1); }
+        .opes-footer img:hover { opacity: 1 !important; }
+    </style>
+
     
     <style>
         /* --- ASPEKTA FONT FACE SETUP --- */
@@ -238,31 +319,34 @@
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
     <div id="page-loader">
-        <img src="Icon-Load.png" alt="Loading..." class="loader-logo">
+        <img src="images/Icon-Load.png" alt="Loading..." class="loader-logo">
     </div>
 
     <!-- Header Navbar -->
     <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
         <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-24 flex items-center justify-between">
             
-            <a href="/" class="flex items-center focus:outline-none">
+            <a href="index.html" class="flex items-center focus:outline-none">
                 <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-20 md:h-12 w-auto">
             </a>
             
-            <div class="hidden md:flex items-center gap-10 ml-auto">
-                <nav class="flex items-center gap-10 font-medium text-[16px] tracking-wide text-slate-800">
-                    <a href="/#services" class="nav-link hover:text-brand">Services</a>
-                    <a href="/#work" class="nav-link hover:text-brand">Work</a>
-                    <a href="/pricing" class="nav-link hover:text-brand text-brand">Pricing</a>
-                    <a href="/#testimonials" class="nav-link hover:text-brand">Testimonials</a>
+            <div class="hidden xl:flex items-center gap-6 ml-auto">
+                <nav class="flex items-center gap-6 font-medium text-[15px] tracking-wide text-slate-800">
+                    <a href="index.html#services" class="nav-link hover:text-brand">Services</a>
+                    <a href="process.html" class="nav-link hover:text-brand">Process</a>
+                    <a href="https://opes-consultancy-london---free-resources.pages.dev/" target="_blank" rel="noopener" class="nav-link hover:text-brand">Free Resource</a>
+                    <a href="work.html" class="nav-link hover:text-brand">Work</a>
+                    <a href="pricing.html" class="nav-link hover:text-brand text-brand">Pricing</a>
+                    <a href="index.html#testimonials" class="nav-link hover:text-brand">Testimonials</a>
+                    <a href="#faq" class="nav-link hover:text-brand">FAQ</a>
                 </nav>
                 
-                <a href="/#contact" class="header-outline-btn">
+                <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" class="header-outline-btn" target="_blank" rel="noopener">
                     Book a Call
                 </a>
             </div>
 
-            <button id="mobile-menu-btn" class="md:hidden focus:outline-none ml-auto p-2" aria-label="Toggle Menu">
+            <button id="mobile-menu-btn" class="xl:hidden focus:outline-none ml-auto p-2" aria-label="Toggle Menu">
                 <div class="menu-icon1">
                     <div class="menu-icon1_line-top"></div>
                     <div class="menu-icon1_line-middle"></div>
@@ -273,13 +357,16 @@
 
         <div id="mobile-menu" class="hidden absolute top-24 left-0 w-full bg-[#f8fafc] border-b border-slate-200 shadow-xl z-40">
             <div class="flex flex-col px-6 py-10 gap-6">
-                <div><a href="/#services" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Services</a></div>
-                <div><a href="/#work" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Work</a></div>
-                <div><a href="/pricing" class="nav-link text-[18px] font-medium text-brand">Pricing</a></div>
-                <div><a href="/#testimonials" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
+                <div><a href="index.html#services" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Services</a></div>
+                <div><a href="process.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Process</a></div>
+                <div><a href="https://opes-consultancy-london---free-resources.pages.dev/" target="_blank" rel="noopener" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Free Resource</a></div>
+                <div><a href="work.html" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Work</a></div>
+                <div><a href="pricing.html" class="nav-link text-[18px] font-medium text-brand">Pricing</a></div>
+                <div><a href="index.html#testimonials" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
+                <div><a href="#faq" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">FAQ</a></div>
                 
                 <div class="mt-6">
-                    <a href="/#contact" class="mobile-contact-btn">Contact</a>
+                    <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" class="mobile-contact-btn" target="_blank" rel="noopener">Contact</a>
                 </div>
             </div>
         </div>
@@ -306,7 +393,7 @@
                     <!-- Card 1: Custom Projects -->
                     <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between relative hover:shadow-md transition-shadow">
                         <div>
-                            <div class="text-xl font-bold text-slate-900 mb-2">Custom Projects</div>
+                            <div class="opes-plan-title text-xl mb-2">Custom Projects</div>
                             <p class="text-slate-600 text-sm mb-6 font-medium">Tackle specific challenges or full program overhauls with a dedicated scope:</p>
                             
                             <ul class="space-y-4 mb-8 text-slate-700 text-sm font-medium">
@@ -336,7 +423,7 @@
                             Most Popular
                         </div>
                         <div>
-                            <div class="text-xl font-bold text-slate-900 mb-2">Monthly Subscriptions</div>
+                            <div class="opes-plan-title text-xl mb-2">Monthly Subscriptions</div>
                             <p class="text-slate-600 text-sm mb-6 font-medium">Unlimited access to your own dedicated eCRM team as an extension of your company:</p>
                             
                             <ul class="space-y-4 mb-8 text-slate-700 text-sm font-medium">
@@ -363,7 +450,7 @@
                     <!-- Card 3: Set Packages -->
                     <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between relative hover:shadow-md transition-shadow">
                         <div>
-                            <div class="text-xl font-bold text-slate-900 mb-2">Set Packages</div>
+                            <div class="opes-plan-title text-xl mb-2">Set Packages</div>
                             <p class="text-slate-600 text-sm mb-6 font-medium">Fixed-scope packages created for fast, impactful deliverables:</p>
                             
                             <ul class="space-y-4 mb-8 text-slate-700 text-sm font-medium">
@@ -465,24 +552,23 @@
             <div class="max-w-[800px] mx-auto px-6">
                 <h2 class="text-4xl font-bold tracking-tight mb-6 text-slate-900">Ready to <span class="text-brand">Scale Your Revenue</span>?</h2>
                 <p class="text-lg text-slate-600 mb-10 font-medium">Book a discovery call with our team to discuss your store's requirements and determine the right engagement model.</p>
-                <a href="mailto:micahjowers270@gmail.com" class="custom-filled-button">Book a Strategy Call</a>
+                <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" class="custom-filled-button">Book a Strategy Call</a>
             </div>
         </section>
 
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white py-12 border-t border-slate-100">
+    <footer class="opes-footer py-12">
         <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <a href="/" class="flex items-center focus:outline-none">
+            <a href="index.html" class="flex items-center focus:outline-none">
                 <img src="images/logo-footer.png" alt="Opes Consulting Logo Footer" class="h-12 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity">
             </a>
-            <p class="text-sm text-slate-400 font-medium text-center md:text-left">
-                &copy; 2026 Opes Consulting. All rights reserved.
+            <p class="text-sm font-medium text-center md:text-left">
+                © 2026 Opes Consulting. All rights reserved.
             </p>
-            <div class="flex gap-6 text-slate-400">
-                <a href="#" class="hover:text-brand transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
-                <a href="mailto:micahjowers270@gmail.com" class="hover:text-brand transition-colors"><i class="fa-solid fa-envelope text-xl"></i></a>
+            <div class="flex gap-6">
+                <a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" aria-label="Opes Consulting on Instagram" class="hover:text-brand transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
             </div>
         </div>
     </footer>
@@ -548,5 +634,6 @@
             });
         });
     </script>
-</body>
-</html>
+
+
+</body></html>
