@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="What happens after you book a call with Opes Consulting — the first ninety days, week by week, for retention programmes and HubSpot integrations.">
+    <title>Process | Opes Consulting</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap">
+    <link rel="stylesheet" href="./images/all.min.css">
+
+    <script src="./images/saved_resource"></script>
+    <script>
+        /* The vendored Tailwind above is what the repo uses. If this file is ever
+           opened somewhere that folder is not beside it, every class on the page
+           silently stops working. document.write is deliberate: it is synchronous
+           during parse, so tailwind.config below still runs after the fallback. */
+        if (typeof tailwind === "undefined") {
+            document.write('<scr' + 'ipt src="https://cdn.tailwindcss.com"><\/scr' + 'ipt>');
+        }
+    </script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brand: '#0094ff', ink: '#0A0C19' },
+                    fontFamily: {
+                        sans: ['DM Sans', 'Aspekta', 'sans-serif'],
+                        display: ['Newsreader', 'Georgia', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- ASPEKTA FONT FACE SETUP --- */
+        @font-face { font-family:'Aspekta'; src:url('Aspekta-Regular.woff2') format('woff2');  font-weight:400; font-display:swap; }
+        @font-face { font-family:'Aspekta'; src:url('Aspekta-Medium.woff2') format('woff2');   font-weight:500; font-display:swap; }
+        @font-face { font-family:'Aspekta'; src:url('Aspekta-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+        @font-face { font-family:'Aspekta'; src:url('Aspekta-Bold.woff2') format('woff2');     font-weight:700; font-display:swap; }
+
+        /* --- PAGE LOADER --- */
+        #page-loader {
+            position: fixed; inset: 0; background: #ffffff; z-index: 99999;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity .5s ease-out, visibility .5s ease-out;
+        }
+        .loader-logo { width: 120px; height: auto; animation: logo-wheel-pulse 1.5s cubic-bezier(.16,1,.3,1) forwards; }
+        @keyframes logo-wheel-pulse {
+            0%   { transform: rotate(-180deg) scale(.2); opacity: 0; }
+            70%  { transform: rotate(0deg) scale(1.15);  opacity: 1; }
+            100% { transform: rotate(0deg) scale(1);     opacity: 1; }
+        }
+        #page-loader.loader-hidden { opacity: 0; visibility: hidden; }
+
+        body { font-family: 'DM Sans', 'Aspekta', sans-serif; }
+        h1, h2, h3 {
+            font-family: 'Newsreader', Georgia, serif !important;
+            font-weight: 400 !important; letter-spacing: -.02em;
+        }
+        .hero-gradient { background: linear-gradient(180deg, rgba(0,148,255,.09) 0%, rgba(0,148,255,.02) 55%, #F1F5F9 100%) #F1F5F9; }
+
+        .header-outline-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 8px 16px; font-size: 13px; font-weight: 600;
+            border: 1px solid #0094FF; border-radius: 999px;
+            background: #0094FF; color: #fff; transition: background .2s, border-color .2s;
+        }
+        .header-outline-btn:hover { background: #0077CC; border-color: #0077CC; }
+        .mobile-contact-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 11px 21px; font-size: 14px; font-weight: 600;
+            border-radius: 999px; background: #0094FF; color: #fff;
+        }
+        .custom-filled-button {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 12px 24px; font-size: 14px; font-weight: 600;
+            border-radius: 999px; background: #0094FF; color: #fff;
+            transition: transform .3s ease-out, box-shadow .3s ease-out, background .2s;
+        }
+        .custom-filled-button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,148,255,.25); }
+        .custom-stroked-button {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 12px 24px; font-size: 14px; font-weight: 600;
+            border: 1px solid #DDE4ED; border-radius: 999px; color: #0F172A;
+            transition: background .2s, border-color .2s;
+        }
+        .custom-stroked-button:hover { background: #F8FAFC; border-color: #C9D4E2; }
+
+        .menu-icon1 { width: 24px; height: 16px; position: relative; }
+        .menu-icon1 div { position: absolute; left: 0; width: 100%; height: 2px; background: #0F172A; transition: transform .3s, opacity .3s; }
+        .menu-icon1_line-top { top: 0; } .menu-icon1_line-middle { top: 7px; } .menu-icon1_line-bottom { top: 14px; }
+        .menu-icon1.is-open .menu-icon1_line-top { transform: translateY(7px) rotate(45deg); }
+        .menu-icon1.is-open .menu-icon1_line-middle { opacity: 0; }
+        .menu-icon1.is-open .menu-icon1_line-bottom { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ---- THE TWO TRACKS ----------------------------------------------
+           Both are on the page, one after the other. They were behind a
+           switcher, which hid half the content behind a control you had to
+           notice first — the wrong trade on a page whose whole job is
+           reassurance. A rule and a lot of air separate them instead. */
+        .opes-track + .opes-track {
+            margin-top: clamp(4rem, 8vh, 7rem);
+            padding-top: clamp(4rem, 8vh, 7rem);
+            border-top: 1px solid #DCE3EC;
+        }
+        .opes-track-head { margin-bottom: clamp(2.5rem, 5vh, 3.75rem); }
+        .opes-track-eyebrow {
+            display: inline-block; font-size: 11px; font-weight: 700;
+            letter-spacing: .14em; text-transform: uppercase; color: #0077CC;
+            margin-bottom: 12px;
+        }
+        .opes-track-head h2 {
+            font-size: clamp(1.75rem, 3vw, 2.35rem); color: #0A0C19;
+            line-height: 1.15; margin-bottom: 12px;
+        }
+        .opes-track-head p { font-size: 16px; line-height: 1.65; color: #5A6675; max-width: 60ch; }
+
+        /* ---- THE TIMELINE ------------------------------------------------
+           One rail down the left with a marker per stage. The time label sits
+           in its own column on desktop so the eye can run down the dates
+           alone; below 820px it stacks above the stage instead. */
+        .opes-tl { position: relative; margin-top: 8px; }
+        .opes-stage {
+            position: relative; display: grid; grid-template-columns: 1fr;
+            gap: 6px; padding: 0 0 40px 34px;
+        }
+        .opes-stage::before {
+            content: ""; position: absolute; left: 5px; top: 26px; bottom: -6px;
+            width: 1px; background: #DCE3EC;
+        }
+        .opes-stage:last-child::before { display: none; }
+        .opes-stage::after {
+            content: ""; position: absolute; left: 0; top: 7px;
+            width: 11px; height: 11px; border-radius: 999px;
+            background: #F1F5F9; border: 2px solid #C3CEDC;
+        }
+        .opes-stage.is-first::after { border-color: #0094FF; background: #0094FF; }
+        .opes-when {
+            font-size: 11px; font-weight: 700; letter-spacing: .14em;
+            text-transform: uppercase; color: #0077CC; padding-top: 4px;
+        }
+        .opes-stage h3 { font-size: 1.4rem; color: #0A0C19; line-height: 1.25; }
+        .opes-stage p { font-size: 15.5px; line-height: 1.68; color: #5A6675; max-width: 62ch; }
+        .opes-stage p + p { margin-top: 12px; }
+        .opes-get {
+            display: inline-flex; align-items: baseline; gap: 8px; margin-top: 16px;
+            padding: 9px 16px; border: 1px solid #E1E8F0; border-radius: 12px;
+            background: #ffffff; font-size: 14px; color: #0F172A; max-width: 62ch;
+        }
+        .opes-get b {
+            font-size: 10.5px; font-weight: 700; letter-spacing: .13em;
+            text-transform: uppercase; color: #0077CC; flex: none;
+        }
+        @media (min-width: 820px) {
+            .opes-stage {
+                grid-template-columns: 150px 1fr;
+                column-gap: 34px; padding-left: 0; padding-bottom: 52px;
+            }
+            /* The rail lives IN the 34px gutter between the date column and
+               the text, not on the text's left edge — at 184px the dot sat
+               on top of the first letter of every heading. */
+            .opes-stage::before { left: 170px; }
+            .opes-stage::after  { left: 165px; }
+            .opes-when { grid-column: 1; text-align: right; padding-right: 0; }
+            .opes-stage > :not(.opes-when) { grid-column: 2; }
+        }
+
+        /* ---- NIGHTFALL ----------------------------------------------------
+           The same turn the homepage makes, here on the closing band. One
+           fixed layer behind the page; everything above it paints its own
+           white, so the only place it shows through is the band at the bottom.
+           Crossing the trigger flips a class and a half-second transition
+           carries the rest — one scroll looks the same as ten. */
+        /* Process sits on the brand system's deeper band rather than white,
+           so it reads as its own place in the site the moment it loads. */
+        html { background: #F1F5F9; }
+        body { background: transparent !important; }
+        #opes-night {
+            position: fixed; inset: 0; z-index: -1; pointer-events: none;
+            background: #0A0C19; opacity: 0;
+            transition: opacity .5s cubic-bezier(.4,0,.2,1);
+        }
+        html.night #opes-night { opacity: 1; }
+        .opes-body-band { background: #F1F5F9; }
+
+        .opes-end { background: transparent !important; position: relative; overflow: hidden; }
+        .opes-end::before {
+            content: ""; position: absolute; inset: -30% -15%; pointer-events: none;
+            opacity: 0; transition: opacity .5s cubic-bezier(.4,0,.2,1);
+            background:
+                radial-gradient(42vw 34vw at 10% 0%,   rgba(6,52,66,.7),  transparent 66%),
+                radial-gradient(40vw 32vw at 90% 100%, rgba(14,29,98,.6), transparent 68%);
+        }
+        html.night .opes-end::before { opacity: 1; }
+        .opes-end > * { position: relative; z-index: 2; }
+        .opes-end h2, .opes-end p, .opes-end .custom-stroked-button {
+            transition: color .5s cubic-bezier(.4,0,.2,1), border-color .5s cubic-bezier(.4,0,.2,1);
+        }
+        .opes-end h2 { color: #0A0C19; }
+        .opes-end p  { color: #5A6675; }
+        html.night .opes-end h2 { color: #F3F8FF; }
+        html.night .opes-end p  { color: #A9BDD6; }
+        html.night .opes-end .custom-stroked-button { color: #CFE6FF; border-color: rgba(255,255,255,.24); }
+        html.night .opes-end .custom-stroked-button:hover { background: #0094FF; border-color: #0094FF; color: #fff; }
+
+        /* A white bar over a black page reads as a mistake, so the header
+           comes with it. */
+        header { transition: background-color .5s cubic-bezier(.4,0,.2,1), border-color .5s cubic-bezier(.4,0,.2,1); }
+        html.night header {
+            background: rgba(10,12,25,.86) !important; border-bottom-color: rgba(255,255,255,.08) !important;
+        }
+        html.night header .nav-link { color: #CFE0F2 !important; }
+        html.night header .nav-link:hover { color: #61C6FF !important; }
+        html.night header img { filter: brightness(0) invert(1); }
+
+        .opes-footer { background: #0094FF; }
+        .opes-footer p, .opes-footer a { color: rgba(255,255,255,.88); }
+        .opes-footer a:hover { color: #fff; }
+        .opes-footer img { opacity: .92; filter: brightness(0) invert(1); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .loader-logo { animation: none; }
+            #opes-night, .opes-end::before { transition: none; }
+            .custom-filled-button:hover { transform: none; }
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
+
+<div id="page-loader">
+    <img src="images/Icon-Load.png" alt="Loading..." class="loader-logo">
+</div>
+
+<!-- Header Navbar -->
+<header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
+    <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-20 md:h-24 flex items-center justify-between">
+        <a href="index.html" class="flex items-center focus:outline-none">
+            <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-16 md:h-12 w-auto object-contain">
+        </a>
+        <div class="hidden xl:flex items-center gap-6 ml-auto">
+            <nav class="flex items-center gap-6 font-medium text-[15px] tracking-wide text-slate-800">
+                <a href="index.html#services" class="nav-link hover:text-brand">Services</a>
+                <a href="process.html" class="nav-link text-brand">Process</a>
+                <a href="https://opes-consultancy-london---free-resources.pages.dev/" target="_blank" rel="noopener" class="nav-link hover:text-brand">Free Resource</a>
+                <a href="work.html" class="nav-link hover:text-brand">Work</a>
+                <a href="pricing.html" class="nav-link hover:text-brand">Pricing</a>
+                <a href="index.html#testimonials" class="nav-link hover:text-brand">Testimonials</a>
+                <a href="index.html#faq" class="nav-link hover:text-brand">FAQ</a>
+            </nav>
+            <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener" class="header-outline-btn ml-2">Book a Call</a>
+        </div>
+        <button id="mobile-menu-btn" class="xl:hidden focus:outline-none ml-auto p-2" aria-label="Toggle Menu">
+            <div class="menu-icon1">
+                <div class="menu-icon1_line-top"></div>
+                <div class="menu-icon1_line-middle"></div>
+                <div class="menu-icon1_line-bottom"></div>
+            </div>
+        </button>
+    </div>
+    <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-[#f8fafc] border-b border-slate-200 shadow-xl z-40">
+        <div class="flex flex-col px-6 py-8 gap-5">
+            <div><a href="index.html#services" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Services</a></div>
+            <div><a href="process.html" class="nav-link text-[16px] font-medium text-brand">Process</a></div>
+            <div><a href="https://opes-consultancy-london---free-resources.pages.dev/" target="_blank" rel="noopener" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Free Resource</a></div>
+            <div><a href="work.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Work</a></div>
+            <div><a href="pricing.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Pricing</a></div>
+            <div><a href="index.html#testimonials" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
+            <div><a href="index.html#faq" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">FAQ</a></div>
+            <div class="mt-4"><a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener" class="mobile-contact-btn">Book a Call</a></div>
+        </div>
+    </div>
+</header>
+
+<main class="flex-grow">
+
+    <!-- Hero -->
+    <section class="hero-gradient pt-16 pb-12 md:pt-24 md:pb-16 relative border-b border-slate-100">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-100 mb-7">
+                <span class="text-xs font-semibold uppercase tracking-wider text-brand">Process</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-[56px] tracking-tight text-ink leading-[1.12] max-w-[20ch] mb-6">
+                What happens after you book the call.
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 font-medium max-w-[62ch] leading-relaxed">
+                Two tracks, depending on what you need. Both start with an audit, and neither
+                asks you to guess what comes next. Here is the whole thing, week by week.
+            </p>
+        </div>
+    </section>
+
+    <!-- The timeline -->
+    <section class="opes-body-band py-14 md:py-20">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8">
+
+            <!-- ============================ RETENTION ============================ -->
+            <div class="opes-track" id="track-retention">
+                <div class="opes-track-head">
+                    <span class="opes-track-eyebrow">Track one</span>
+                    <h2>Retention &amp; lifecycle</h2>
+                    <p>For e-commerce brands who want the email programme itself built,
+                    run and measured.</p>
+                </div>
+                <div class="opes-tl">
+
+                    <div class="opes-stage is-first">
+                        <div class="opes-when">Day 0</div>
+                        <h3>Audit, and an honest answer on fit</h3>
+                        <p>We audit your account, your brand and your site before anything is agreed,
+                        and set the goals the work will be measured against. If we are not the right
+                        fit for what you need, this is where we say so rather than three months in.</p>
+                        <div class="opes-get"><b>Outcome</b><span>A clear yes or no on fit, and the goals we work to.</span></div>
+                    </div>
+
+                    <div class="opes-stage">
+                        <div class="opes-when">Days 1&ndash;7</div>
+                        <h3>Walkthrough with your strategist</h3>
+                        <p>A strategist with direct DTC and e-commerce experience takes you through
+                        what the audit found and where the programme is falling short. It is the same
+                        person who ran the audit, so you are not handed to someone who has to be
+                        brought up to speed on your account.</p>
+                        <p>Onboarding forms cover the core issues, and a retention analysis call brings
+                        in whoever actually owns the decision &mdash; so what matters to them shapes
+                        the work from the first week rather than surfacing later.</p>
+                    </div>
+
+                    <div class="opes-stage">
+                        <div class="opes-when">Days 7&ndash;14</div>
+                        <h3>The retention audit report</h3>
+                        <p>We go through your existing emails and follow up on everything raised in
+                        the first week. Then you get the retention audit report: the conversion and
+                        CRM problems we have found, and the order we intend to solve them in.</p>
+                        <div class="opes-get"><b>You get</b><span>The retention audit report.</span></div>
+                    </div>
+
+                    <div class="opes-stage">
+                        <div class="opes-when">Days 14&ndash;30</div>
+                        <h3>Campaigns go live</h3>
+                        <p>Campaigns typically begin here &mdash; three to four sends a week on
+                        average, across cart, checkout and the core lifecycle flows. This first month
+                        becomes the performance baseline everything afterwards is measured against,
+                        which is what makes the later numbers mean anything.</p>
+                        <div class="opes-get"><b>You get</b><span>Live campaigns, and a baseline to judge them by.</span></div>
+                    </div>
+
+                    <div class="opes-stage">
+                        <div class="opes-when">Month 2</div>
+                        <h3>Testing, and steady management</h3>
+                        <p>Regular calls on how the core flows are performing. Offer testing and A/B
+                        testing run weekly to biweekly. The full retention infrastructure starts going
+                        in alongside the day-to-day management, rather than instead of it.</p>
+                    </div>
+
+                    <div class="opes-stage">
+                        <div class="opes-when">Month 3</div>
+                        <h3>Infrastructure, and real numbers</h3>
+                        <p>The retention infrastructure is in place, which is the point at which the
+                        reporting becomes worth reading. Lifetime value and repeat-rate tracking go
+                        live, and forecasting starts.</p>
+                        <div class="opes-get"><b>You get</b><span>LTV and repeat-rate tracking, live.</span></div>
+                    </div>
+
+                    <div class="opes-stage">
+                        <div class="opes-when">Months 4+</div>
+                        <h3>Advanced flows</h3>
+                        <p>Advanced flows and logic to push performance further, continued testing,
+                        and new strategy as both the programme and the data mature.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ============================= HUBSPOT ============================= -->
+            <div class="opes-track" id="track-hubspot">
+                <div class="opes-track-head">
+                    <span class="opes-track-eyebrow">Track two</span>
+                    <h2>HubSpot &amp; CRM integration</h2>
+                    <p>For B2B and SaaS teams who need their applications, their data and
+                    their CRM wired together.</p>
+                </div>
+                <div class="opes-tl">
+
+                    <div class="opes-stage is-first">
+                        <div class="opes-when">Day 0</div>
+                        <h3>Audit and strategy call</h3>
+                        <p>We work out what the integration actually needs &mdash; not what it looks
+                        like it needs from the outside &mdash; and whether we are the right people
+                        to build it.</p>
+                        <div class="opes-get"><b>Outcome</b><span>A clear scope, and a clear yes or no on fit.</span></div>
+                    </div>
+
+                    <div class="opes-stage">
+                        <div class="opes-when">Days 1&ndash;7</div>
+                        <h3>eCRM audit, set-up and onboarding</h3>
+                        <p>We prepare the eCRM audit, complete the set-up and onboarding, and define
+                        your list properties and segmentation logic &mdash; the decisions everything
+                        built afterwards depends on.</p>
+                        <p>The audit report is delivered, we agree how we communicate day to day,
+                        and the weekly call starts.</p>
+                        <div class="opes-get"><b>You get</b><span>The eCRM audit report, and a standing weekly call.</span></div>
+                    </div>
+
+                    <div class="opes-stage">
+                        <div class="opes-when">Days 7&ndash;14</div>
+                        <h3>Mapping the customer lifecycle</h3>
+                        <p>We map the full lifecycle: leads, first-time buyers, repeat buyers and
+                        channel customers, and how someone moves between them. Automation built
+                        without this map is guesswork wearing a workflow diagram.</p>
+                    </div>
+
+                    <div class="opes-stage">
+                        <div class="opes-when">Days 14&ndash;30</div>
+                        <h3>Automations and segmentation</h3>
+                        <p>The automations and segmentation get built &mdash; the pieces that have to
+                        exist before performance can be measured at all &mdash; and the baseline
+                        metrics are set.</p>
+                        <div class="opes-get"><b>You get</b><span>Working automations, and baseline metrics.</span></div>
+                    </div>
+
+                    <div class="opes-stage">
+                        <div class="opes-when">Month 2</div>
+                        <h3>Reporting and access</h3>
+                        <p>Biweekly calls reporting on performance, with full access to everything we
+                        have built, and a dedicated channel for day-to-day contact rather than a
+                        support queue.</p>
+                    </div>
+
+                    <div class="opes-stage">
+                        <div class="opes-when">Month 3</div>
+                        <h3>The full architecture</h3>
+                        <p>The full architecture is built out, with the performance analysis from the
+                        first two months deciding what goes where.</p>
+                    </div>
+
+                    <div class="opes-stage">
+                        <div class="opes-when">Month 4</div>
+                        <h3>Wider automation</h3>
+                        <p>We take over Gmail automations and the other customer journeys around
+                        them, and move into further strategy, implementation and improvement.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Closing -->
+    <section class="opes-end py-20 md:py-28">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl tracking-tight mb-5">Now you know what you are agreeing to.</h2>
+            <p class="text-base md:text-lg font-medium max-w-[58ch] mx-auto leading-relaxed">
+                Thirty minutes. We look at what you sell, how people buy it, and what your
+                lifecycle programme currently does. You will leave with at least one thing
+                worth fixing, whether or not you work with us.
+            </p>
+            <div class="mt-9 flex flex-wrap gap-3 justify-center">
+                <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener" class="custom-filled-button">Book a strategy call</a>
+                <a href="pricing.html" class="custom-stroked-button">View pricing</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div id="opes-night" aria-hidden="true"></div>
+
+<footer class="opes-footer py-10">
+    <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <a href="index.html" class="flex items-center focus:outline-none">
+            <img src="images/logo-footer.png" alt="Opes Consulting Logo Footer" class="h-10 md:h-12 w-auto transition-opacity">
+        </a>
+        <p class="text-xs md:text-sm font-medium text-center md:text-left">
+            &copy; 2026 Opes Consulting. All rights reserved.
+        </p>
+        <div class="flex gap-5">
+            <a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" aria-label="Opes Consulting on Instagram" class="transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    /* loader */
+    window.addEventListener('load', function () {
+        var l = document.getElementById('page-loader');
+        if (l) setTimeout(function () { l.classList.add('loader-hidden'); }, 400);
+    });
+
+    /* mobile menu */
+    document.addEventListener('DOMContentLoaded', function () {
+        var btn = document.getElementById('mobile-menu-btn');
+        var menu = document.getElementById('mobile-menu');
+        var icon = btn ? btn.querySelector('.menu-icon1') : null;
+        if (btn && menu && icon) {
+            btn.addEventListener('click', function () {
+                menu.classList.toggle('hidden');
+                icon.classList.toggle('is-open');
+            });
+        }
+
+        /* nightfall — same trigger and timing as the homepage */
+        var root = document.documentElement;
+        var zone = document.querySelector('.opes-end');
+        if (zone) {
+            var on = false;
+            var paint = function () {
+                var vh = window.innerHeight || 1;
+                var top = zone.getBoundingClientRect().top;
+                /* Turns on at 72% of the screen and off again at 84%, so
+                   parking right on the line cannot make it strobe. */
+                if (!on && top < vh * 0.72)     { on = true;  root.classList.add('night'); }
+                else if (on && top > vh * 0.84) { on = false; root.classList.remove('night'); }
+            };
+            addEventListener('scroll', paint, { passive: true });
+            addEventListener('resize', paint);
+            /* Images and fonts land after the first paint and change the page
+               height, which moves the band under someone who has not scrolled
+               since. Without these the ground can stick in the wrong state. */
+            addEventListener('load', paint);
+            if (window.ResizeObserver) new ResizeObserver(paint).observe(document.body);
+            paint();
+        }
+    });
+</script>
+
+</body>
+</html>
