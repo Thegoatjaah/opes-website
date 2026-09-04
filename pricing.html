@@ -315,11 +315,91 @@
             background: linear-gradient(180deg, rgba(0,148,255,0.08) 0%, rgba(0,148,255,0.02) 50%, rgba(255,255,255,1) 100%);
         }
     </style>
+    <style>
+        /* ---- THE PRICE MODALS ---------------------------------------------
+           The numbers live behind the three buttons rather than in a long list
+           under them: the cards stay the thing you read, and the detail is one
+           press away for whoever wants it.
+
+           Native <dialog> on purpose — it gives Esc, the backdrop, the focus
+           move and the background scroll lock without any of them being my
+           code to get wrong. The fallback below covers browsers without
+           showModal(). */
+        .opes-modal {
+            border: 0; padding: 0; max-width: 560px; width: calc(100% - 32px);
+            max-height: min(78vh, 720px); border-radius: 20px;
+            background: #fff; color: #0F172A;
+            box-shadow: 0 40px 90px -30px rgba(0, 20, 50, .45);
+            overflow: hidden;
+        }
+        .opes-modal::backdrop { background: rgba(10, 12, 25, .55); backdrop-filter: blur(3px); }
+        .opes-modal-in { display: flex; flex-direction: column; max-height: inherit; }
+        .opes-modal-top {
+            display: flex; align-items: flex-start; gap: 16px;
+            padding: 26px 26px 18px; border-bottom: 1px solid #E7ECF2;
+        }
+        /* flex:1 belongs on the text COLUMN, not the h3 inside it. On the h3 it
+           does nothing to the wrapper, so a short lede left the wrapper narrow
+           and the close button sat wherever the text ended rather than in the
+           corner — obvious on Retainers, which has the shortest lede. */
+        .opes-modal-top > div:first-child { flex: 1 1 auto; min-width: 0; }
+        .opes-modal-x { margin-left: auto; }
+        .opes-modal-top h3 {
+            font-family: 'Newsreader', Georgia, serif !important; font-weight: 400 !important;
+            font-size: 1.55rem; color: #0A0C19; letter-spacing: -.02em;
+        }
+        .opes-modal-top p { margin-top: 7px; font-size: 14px; line-height: 1.6; color: #5A6675; }
+        .opes-modal-x {
+            appearance: none; border: 1px solid #E2E8F0; background: #fff; cursor: pointer;
+            width: 32px; height: 32px; border-radius: 999px; flex: none;
+            font-size: 16px; line-height: 1; color: #5A6675;
+            display: flex; align-items: center; justify-content: center;
+            transition: background .2s, color .2s;
+        }
+        .opes-modal-x:hover { background: #F1F5F9; color: #0A0C19; }
+        .opes-modal-body { padding: 6px 26px 24px; overflow-y: auto; }
+        .opes-modal-sub {
+            font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+            color: #0077CC; margin: 22px 0 2px;
+        }
+        .opes-pl-row {
+            display: flex; align-items: baseline; justify-content: space-between; gap: 18px;
+            padding: 13px 0; border-bottom: 1px solid #EEF2F7;
+        }
+        .opes-pl-row:last-child { border-bottom: 0; }
+        .opes-pl-row dt { font-size: 15px; color: #0F172A; font-weight: 500; }
+        .opes-pl-row dd {
+            margin: 0; font-size: 15.5px; font-weight: 700; color: #0A0C19;
+            white-space: nowrap; font-variant-numeric: tabular-nums;
+        }
+        .opes-pl-row dd .per { font-weight: 500; color: #7B8797; font-size: 13px; }
+        .opes-pl-row dd.quote { font-weight: 500; color: #5A6675; }
+        .opes-modal-note { margin-top: 18px; font-size: 13px; line-height: 1.6; color: #7B8797; }
+        .opes-pl-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+        .opes-pl-tag {
+            font-size: 12.5px; color: #475569; padding: 7px 13px;
+            border: 1px solid #E2E8F0; border-radius: 999px;
+        }
+        .opes-modal-cta { padding: 16px 26px; border-top: 1px solid #E7ECF2; background: #F8FAFC; }
+        .opes-modal-cta a { width: 100%; }
+        /* Browsers without showModal() get a fixed, centred panel instead of
+           nothing at all. */
+        .opes-modal.is-fallback {
+            display: block; position: fixed; z-index: 9999;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+        }
+        @media (max-width: 640px) {
+            .opes-modal { max-height: 86vh; border-radius: 16px; }
+            .opes-modal-top { padding: 20px 20px 15px; }
+            .opes-modal-body { padding: 4px 20px 20px; }
+            .opes-modal-cta { padding: 14px 20px; }
+        }
+    </style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
     <div id="page-loader">
-        <img src="favicon.png" alt="Loading..." class="loader-logo">
+        <img src="images/Icon-Load.png" alt="Loading..." class="loader-logo">
     </div>
 
     <!-- Header Navbar -->
@@ -413,7 +493,7 @@
                         </div>
                         <div>
                             <div class="text-2xl font-bold text-brand mb-6">Bespoke Scope</div>
-                            <a href="#contact" class="custom-stroked-button w-full">Enquire About Projects</a>
+                            <button type="button" data-modal="pm-custom" class="custom-stroked-button w-full">See custom builds</button>
                         </div>
                     </div>
 
@@ -442,8 +522,8 @@
                             </ul>
                         </div>
                         <div>
-                            <div class="text-2xl font-bold text-brand mb-6">Custom /mo</div>
-                            <a href="#contact" class="custom-filled-button w-full">Browse Subscriptions</a>
+                            <div class="text-2xl font-bold text-brand mb-6">From &pound;299 <span style="font-size:1rem;font-weight:500;color:#7B8797">/mo</span></div>
+                            <button type="button" data-modal="pm-subscriptions" class="custom-filled-button w-full">See the tiers</button>
                         </div>
                     </div>
 
@@ -469,8 +549,8 @@
                             </ul>
                         </div>
                         <div>
-                            <div class="text-2xl font-bold text-brand mb-6">Fixed Pricing</div>
-                            <a href="#contact" class="custom-stroked-button w-full">View Packages</a>
+                            <div class="text-2xl font-bold text-brand mb-6">From &pound;200</div>
+                            <button type="button" data-modal="pm-packages" class="custom-stroked-button w-full">See the packages</button>
                         </div>
                     </div>
 
@@ -635,5 +715,101 @@
         });
     </script>
 
+
+
+    <dialog id="pm-packages" class="opes-modal" aria-labelledby="pm-packages-t">
+        <div class="opes-modal-in">
+            <div class="opes-modal-top">
+                <div>
+                    <h3 id="pm-packages-t">Set packages</h3>
+                    <p>Fixed-scope builds. Email Foundation is a bundle of flows; the pipeline work is priced on the size of your list.</p>
+                </div>
+                <button type="button" class="opes-modal-x" data-close aria-label="Close">&times;</button>
+            </div>
+            <div class="opes-modal-body"><div class="opes-modal-sub">Email Foundation</div><dl>
+                        <div class="opes-pl-row"><dt>Pre-purchase flows</dt><dd>&pound;500</dd></div>
+                        <div class="opes-pl-row"><dt>Post-purchase flows</dt><dd>&pound;500</dd></div>
+                        <div class="opes-pl-row"><dt>B2B &mdash; where the model shifts</dt><dd>&pound;500</dd></div>
+                        <div class="opes-pl-row"><dt>Pre-sale &amp; lead nurture</dt><dd>&pound;200</dd></div>
+                        <div class="opes-pl-row"><dt>Post-sale &amp; retention flow</dt><dd>&pound;200</dd></div></dl><div class="opes-modal-sub">Lead nurture &amp; eCRM pipeline &mdash; B2B</div><dl>
+                        <div class="opes-pl-row"><dt>0 &ndash; 10k leads</dt><dd>&pound;599</dd></div>
+                        <div class="opes-pl-row"><dt>10k &ndash; 100k leads</dt><dd>&pound;799</dd></div>
+                        <div class="opes-pl-row"><dt>100k &ndash; 250k leads</dt><dd>&pound;999</dd></div>
+                        <div class="opes-pl-row"><dt>250k+ leads</dt><dd class="quote">Custom</dd></div></dl><div class="opes-modal-sub">Lead nurture &amp; eCRM pipeline &mdash; eCommerce</div><dl>
+                        <div class="opes-pl-row"><dt>0 &ndash; 10k leads</dt><dd>&pound;399</dd></div>
+                        <div class="opes-pl-row"><dt>10k &ndash; 100k leads</dt><dd>&pound;599</dd></div>
+                        <div class="opes-pl-row"><dt>100k &ndash; 250k leads</dt><dd>&pound;799</dd></div>
+                        <div class="opes-pl-row"><dt>250k+ leads</dt><dd class="quote">Custom</dd></div></dl><p class="opes-modal-note">B2B pipelines carry more logic than eCommerce ones, so they sit higher.</p></div>
+            <div class="opes-modal-cta">
+                <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener" class="custom-filled-button">Book a call</a>
+            </div>
+        </div>
+    </dialog>
+    <dialog id="pm-subscriptions" class="opes-modal" aria-labelledby="pm-subscriptions-t">
+        <div class="opes-modal-in">
+            <div class="opes-modal-top">
+                <div>
+                    <h3 id="pm-subscriptions-t">Retainers</h3>
+                    <p>An ongoing eCRM team rather than a one-off build.</p>
+                </div>
+                <button type="button" class="opes-modal-x" data-close aria-label="Close">&times;</button>
+            </div>
+            <div class="opes-modal-body"><dl>
+                        <div class="opes-pl-row"><dt>Tier 1</dt><dd>&pound;299 <span class="per">/mo</span></dd></div>
+                        <div class="opes-pl-row"><dt>Tier 2</dt><dd>&pound;499 <span class="per">/mo</span></dd></div>
+                        <div class="opes-pl-row"><dt>Tier 3 &mdash; exclusive</dt><dd class="quote">Custom</dd></div></dl></div>
+            <div class="opes-modal-cta">
+                <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener" class="custom-filled-button">Book a call</a>
+            </div>
+        </div>
+    </dialog>
+    <dialog id="pm-custom" class="opes-modal" aria-labelledby="pm-custom-t">
+        <div class="opes-modal-in">
+            <div class="opes-modal-top">
+                <div>
+                    <h3 id="pm-custom-t">Custom builds</h3>
+                    <p>Anything built around how your business actually runs, or anything outside the set packages.</p>
+                </div>
+                <button type="button" class="opes-modal-x" data-close aria-label="Close">&times;</button>
+            </div>
+            <div class="opes-modal-body"><p class="opes-modal-note" style="margin-top:12px">No set price &mdash; it has to be scoped against what you need, and you get the number before anything starts.</p><div class="opes-pl-tags"><span class="opes-pl-tag">N8N</span><span class="opes-pl-tag">Make.com</span><span class="opes-pl-tag">Zapier</span><span class="opes-pl-tag">Websites</span><span class="opes-pl-tag">API integrations</span><span class="opes-pl-tag">eCRM integrations</span><span class="opes-pl-tag">Webhooks</span><span class="opes-pl-tag">Custom email architecture</span></div></div>
+            <div class="opes-modal-cta">
+                <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener" class="custom-filled-button">Book a call</a>
+            </div>
+        </div>
+    </dialog>
+    <script>
+    (function () {
+        /* Native <dialog> handles Esc, the backdrop, the focus move and the
+           background scroll lock. The only things left are opening it from the
+           right button, closing on a backdrop click, and a fallback for
+           browsers without showModal(). */
+        function open(d) {
+            if (!d) return;
+            if (typeof d.showModal === "function") { d.showModal(); }
+            else { d.classList.add("is-fallback"); d.setAttribute("open", ""); }
+        }
+        function close(d) {
+            if (!d) return;
+            if (typeof d.close === "function" && d.open && !d.classList.contains("is-fallback")) d.close();
+            else { d.classList.remove("is-fallback"); d.removeAttribute("open"); }
+        }
+        document.addEventListener("click", function (e) {
+            var opener = e.target.closest("[data-modal]");
+            if (opener) {
+                e.preventDefault();
+                open(document.getElementById(opener.getAttribute("data-modal")));
+                return;
+            }
+            if (e.target.closest("[data-close]")) {
+                close(e.target.closest("dialog"));
+                return;
+            }
+            /* A click that lands on the dialog element itself rather than on
+               anything inside it is a click on the backdrop. */
+            if (e.target.tagName === "DIALOG") close(e.target);
+        });
+    })();
+    </script>
 
 </body></html>
