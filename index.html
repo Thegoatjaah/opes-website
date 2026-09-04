@@ -136,11 +136,30 @@
             padding-top: clamp(3.5rem, 7vh, 6rem);
             padding-bottom: clamp(3.5rem, 7vh, 6rem);
         }
+        /* On iPhone Safari, 100vh is the height with the address bar HIDDEN —
+           bigger than what you can actually see when the page loads. A section
+           sized to it is taller than the screen, and its centred content gets
+           pushed under the browser chrome, which is the other half of "only one
+           strip shows". svh is the height with the bar visible, which is the
+           honest number. Guarded by @supports so older browsers keep the vh
+           version rather than losing the rule entirely. */
+        @supports (height: 100svh) {
+            .opes-full { min-height: calc(100svh - 96px); }
+        }
         /* Anchor targets stop hiding under the sticky header. */
         section[id] { scroll-margin-top: 104px; }
         /* Short viewports (laptops, landscape phones) would get cramped
            rather than airy, so the rule steps aside below 720px tall. */
         @media (max-height: 719px) { .opes-full { min-height: 0; } }
+        /* A phone has no room to spend 56px of air at both ends of every
+           section. Trimming it is what brings the reviews — heading and both
+           rows — inside a single iPhone screen rather than 16px over. */
+        /* !important because the sections carry Tailwind's py-16 (64px each
+           end), which is the same specificity as .opes-full and lands later in
+           the cascade — the padding here was being ignored without it. */
+        @media (max-width: 640px) {
+            .opes-full { padding-top: 2.25rem !important; padding-bottom: 2.25rem !important; }
+        }
 
         /* The work marquee travels -50% of its track. Capping the images at
            300px shortened that track from ~10,000px to ~1,270px, so at the
@@ -211,6 +230,28 @@
             .services-card, .services-card.small { min-width: 100% !important; padding: 36px 26px !important; }
             .service-card-imagery, .service-card-imagery.small { width: 100% !important; max-width: 290px; }
         }
+        /* On a phone these cards stack into a column — title, four bullets,
+           then a 290x370 image block — which came to well over a screen each.
+           Everything comes down a size so a whole card is visible at once. */
+        @media (max-width: 640px) {
+            .services-card, .services-card.small { padding: 26px 20px !important; gap: 20px !important; }
+            .service-card-h2 { font-size: 1.4rem !important; margin-bottom: 16px !important; }
+            .service-card-services-list { gap: 11px !important; }
+            .service-link { font-size: 14px !important; }
+            .service-card-icon { width: 16px !important; height: 16px !important; }
+            /* .first-image and .second-image are absolutely positioned inside
+               this box, pinned top-left and bottom-right. So it needs a real
+               height — collapsing it lets both images fall out of the card and
+               land on top of the heading. Height = image height + the offset
+               between the two, scaled from the desktop proportions. */
+            .service-card-imagery, .service-card-imagery.small {
+                width: 212px !important; max-width: 212px !important;
+                height: 266px !important; min-height: 266px !important;
+                margin: 4px auto 0 !important;
+            }
+            .first-image, .second-image { width: 150px !important; height: 210px !important; }
+            .only-image { max-height: 240px !important; }
+        }
 
         /* REVIEWS — two rows drifting in opposite directions, edge to edge.
            The heading stays in the 1200px column; only the rows break out,
@@ -228,15 +269,38 @@
            exactly twice one set, so -50% lands half a gap out and the loop
            visibly jumps. On the margin the seam is exact. */
         .opes-rev-track > * { flex: 0 0 372px; width: 372px; margin-right: 30px; }
-        .opes-rev-right { animation: opes-rev-r 74s linear infinite; }
-        .opes-rev-left  { animation: opes-rev-l 74s linear infinite; }
-        .opes-rev:hover .opes-rev-track { animation-play-state: paused; }
+        /* The duration here is only a fallback — the script sets it from the
+           measured track so the rows travel at one speed on every screen. */
+        .opes-rev-right { animation: opes-rev-r 148s linear infinite; }
+        .opes-rev-left  { animation: opes-rev-l 148s linear infinite; }
+        /* Press and hold anywhere on the reviews to stop them; let go and they
+           carry on. Hover-to-pause is deliberately gone: it does nothing on a
+           phone, and on a desktop it made the press feel like it had no effect
+           because the mouse had already paused things on the way in. */
+        .opes-rev.is-held .opes-rev-track { animation-play-state: paused; }
+        .opes-rev { cursor: grab; }
+        .opes-rev.is-held { cursor: grabbing; }
         @keyframes opes-rev-l { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
         @keyframes opes-rev-r { from { transform: translateX(-50%); } to { transform: translateX(0); } }
         @media (prefers-reduced-motion: reduce) { .opes-rev-track { animation: none; } }
+        /* On a phone the quotes wrap to ten or eleven lines, which made each
+           row ~350px tall and pushed the second one off the bottom of the
+           screen — Aran only ever saw one. Smaller type and tighter leading
+           bring both rows back into view. */
         @media (max-width: 640px) {
-            .opes-rev-track > * { flex: 0 0 300px; width: 300px; margin-right: 20px; }
-            .opes-rev { gap: 18px; }
+            .opes-rev-track > * { flex: 0 0 320px; width: 320px; margin-right: 16px; }
+            .opes-rev { gap: 14px; }
+            .opes-rev-head { margin-bottom: 2rem !important; }
+            /* body prefix on purpose: the quote's 1.02rem is set with
+               !important further down this stylesheet, and at equal
+               specificity the later rule wins. This one has to outrank it. */
+            body .testimonial-card.opes-quote { padding-left: 15px !important; }
+            body .testimonial-card.opes-quote p.text-slate-700 {
+                font-size: .88rem !important; line-height: 1.45 !important;
+            }
+            body .testimonial-card.opes-quote .opes-stars { margin-bottom: .5rem !important; }
+            body .testimonial-card.opes-quote .testimonial-author { margin-top: .6rem !important; }
+            body .testimonial-card.opes-quote .testimonial-author h4 { font-size: 12px !important; }
         }
 
         /* SYSTEMS THAT DRIVE GROWTH — this is the work, so it gets the
@@ -1100,7 +1164,7 @@
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
     <div id="page-loader">
-        <img src="favicon.png" alt="Loading..." class="loader-logo">
+        <img src="images/Icon-Load.png" alt="Loading..." class="loader-logo">
     </div>
 
     <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
@@ -1853,6 +1917,54 @@
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
+                                "Opes is technically strong, easy to work with, and very dependable. He handled challenges calmly, stayed responsive across time zones, and consistently delivered high-quality work with a problem-solving mindset."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Damir</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Opes exceeded expectations, building well-designed email templates and fully functional automations with precise personalisation, timing, and testing. He delivered on time and often suggested improvements that made the final result even better."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Morgan</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Opes combines strong technical ability with a professional, collaborative approach. He handled complex automations, communicated clearly, met deadlines, and helped streamline our marketing processes, saving valuable time."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Nathan</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Opes is one of the best professionals I’ve worked with. Highly skilled, responsive, and consistently outstanding in delivery—every project felt smooth and well handled from start to finish."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Darius</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
                                 "We hired Opes to build 13 automated email journeys in Brevo and the whole process was seamless. He turned our copy and requirements into fully tested, branded, personalised flows, communicated clearly throughout, and delivered everything with excellent attention to detail. I’d happily recommend him for any email automation project."
                             </p>
                             <div class="mt-4 testimonial-author">
@@ -1893,6 +2005,54 @@
                             </p>
                             <div class="mt-4 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Tori</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Opes is technically strong, easy to work with, and very dependable. He handled challenges calmly, stayed responsive across time zones, and consistently delivered high-quality work with a problem-solving mindset."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Damir</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Opes exceeded expectations, building well-designed email templates and fully functional automations with precise personalisation, timing, and testing. He delivered on time and often suggested improvements that made the final result even better."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Morgan</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Opes combines strong technical ability with a professional, collaborative approach. He handled complex automations, communicated clearly, met deadlines, and helped streamline our marketing processes, saving valuable time."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Nathan</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Opes is one of the best professionals I’ve worked with. Highly skilled, responsive, and consistently outstanding in delivery—every project felt smooth and well handled from start to finish."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Darius</h4>
                                 <p class="text-xs text-slate-500 font-medium">Verified Review</p>
                             </div>
                         </div>
@@ -1953,6 +2113,54 @@
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
+                                "We hired Opes to build 13 automated email journeys in Brevo and the whole process was seamless. He turned our copy and requirements into fully tested, branded, personalised flows, communicated clearly throughout, and delivered everything with excellent attention to detail. I’d happily recommend him for any email automation project."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Teresa</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Opes set up our Brevo automations flawlessly, from onboarding to re-engagement journeys with dynamic personalisation working exactly as needed. He worked efficiently, delivered on time, and ensured everything was fully tested before launch, saving us a huge amount of time."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Ammira</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Working with Opes was a great experience. He quickly translated our requirements into polished automated journeys, built strong-looking templates, and ensured everything worked perfectly. He communicated well throughout and improved the final result with thoughtful recommendations."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Naomi</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Opes is a knowledgeable media buyer with strong technical skills and a calm, professional approach. He was responsive, open to feedback, and consistently improved the work, despite occasional time zone challenges. A fast learner with strong potential in performance marketing."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Tori</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is technically strong, easy to work with, and very dependable. He handled challenges calmly, stayed responsive across time zones, and consistently delivered high-quality work with a problem-solving mindset."
                             </p>
                             <div class="mt-4 testimonial-author">
@@ -1993,6 +2201,54 @@
                             </p>
                             <div class="mt-4 testimonial-author">
                                 <h4 class="font-bold text-slate-900">Darius</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "We hired Opes to build 13 automated email journeys in Brevo and the whole process was seamless. He turned our copy and requirements into fully tested, branded, personalised flows, communicated clearly throughout, and delivered everything with excellent attention to detail. I’d happily recommend him for any email automation project."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Teresa</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Opes set up our Brevo automations flawlessly, from onboarding to re-engagement journeys with dynamic personalisation working exactly as needed. He worked efficiently, delivered on time, and ensured everything was fully tested before launch, saving us a huge amount of time."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Ammira</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Working with Opes was a great experience. He quickly translated our requirements into polished automated journeys, built strong-looking templates, and ensured everything worked perfectly. He communicated well throughout and improved the final result with thoughtful recommendations."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Naomi</h4>
+                                <p class="text-xs text-slate-500 font-medium">Verified Review</p>
+                            </div>
+                        </div>
+                    <div class="flex flex-col testimonial-card opes-quote">
+                            <div class="flex opes-stars mb-4 gap-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-700 font-medium flex-grow">
+                                "Opes is a knowledgeable media buyer with strong technical skills and a calm, professional approach. He was responsive, open to feedback, and consistently improved the work, despite occasional time zone challenges. A fast learner with strong potential in performance marketing."
+                            </p>
+                            <div class="mt-4 testimonial-author">
+                                <h4 class="font-bold text-slate-900">Tori</h4>
                                 <p class="text-xs text-slate-500 font-medium">Verified Review</p>
                             </div>
                         </div>
@@ -2757,6 +3013,48 @@
 })();
 </script>
 <!-- ===================== end newsletter pop-up ===================== -->
+
+    <!-- Reviews: keep every row wider than the screen, and hold to pause. -->
+    <script>
+    (function () {
+        var wrap = document.querySelector('.opes-rev');
+        if (!wrap) return;
+        var rows  = [].slice.call(wrap.querySelectorAll('.opes-rev-row'));
+        var SPEED = 22;   /* pixels per second, the same on every screen */
+
+        function fit(row) {
+            var track = row.querySelector('.opes-rev-track');
+            if (!track) return;
+            /* Doubling the whole track keeps the -50% seam exact, and each
+               pass doubles the width of one copy — so this ends after one or
+               two rounds even on a very wide monitor. The cap is a guard
+               against a zero-width measurement looping forever. */
+            var guard = 0;
+            while (track.scrollWidth / 2 < row.clientWidth * 1.15 && guard++ < 6) {
+                var copy = [].slice.call(track.children).map(function (n) { return n.cloneNode(true); });
+                copy.forEach(function (n) { track.appendChild(n); });
+            }
+            /* Speed, not duration, is the thing to hold constant: a longer
+               track at a fixed duration would simply scroll faster. */
+            track.style.animationDuration = ((track.scrollWidth / 2) / SPEED).toFixed(1) + 's';
+        }
+
+        rows.forEach(fit);
+        addEventListener('resize', function () { rows.forEach(fit); });
+
+        /* Hold to pause. Pointer events cover mouse and touch in one path.
+           pointercancel matters most: it is what fires when the browser takes
+           the gesture over to scroll the page, and without it a scroll that
+           began on the reviews would leave them stopped for good. */
+        var hold   = function () { wrap.classList.add('is-held'); };
+        var unhold = function () { wrap.classList.remove('is-held'); };
+        wrap.addEventListener('pointerdown', hold);
+        ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (e) {
+            wrap.addEventListener(e, unhold);
+        });
+        addEventListener('blur', unhold);
+    })();
+    </script>
 
     <!-- Nightfall — see the .opes-night block in the stylesheet. -->
     <div id="opes-night" aria-hidden="true"></div>
