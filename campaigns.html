@@ -308,6 +308,34 @@
             .custom-filled-button:hover { transform: none; }
         }
 
+
+        /* ---------------------------------------------------------------
+           THE GUARANTEE
+           The claim and the condition it rests on travel together, always.
+           A bare "you pay nothing" is a promise nobody can hold you to and
+           nobody quite believes; naming where the number comes from is what
+           makes it land — and under UK advertising rules a guarantee's
+           significant condition has to sit AT the claim, not on some other
+           page. So the two lines are one component, used everywhere.
+           --------------------------------------------------------------- */
+        .opes-promise { max-width: 56ch; margin: 30px auto 26px; text-align: center; }
+        .opes-promise b {
+            display: inline-flex; align-items: center; gap: 9px;
+            font-family: 'DM Sans', 'Aspekta', sans-serif;
+            font-weight: 700; font-size: 15.5px; line-height: 1.35; color: #0A0C19;
+        }
+        .opes-promise svg { flex: 0 0 auto; width: 17px; height: 17px; color: #0094FF; }
+        .opes-promise em {
+            display: block; margin-top: 5px; font-style: normal;
+            font-size: 13px; line-height: 1.5; color: #5A6675;
+        }
+        @media (max-width: 640px) {
+            .opes-promise { margin: 24px auto 20px; }
+            .opes-promise b { font-size: 14.5px; gap: 7px; }
+            .opes-promise em { font-size: 12.5px; }
+        }
+        .opes-promise.is-dark b { color: #F3F8FF; }
+        .opes-promise.is-dark em { color: #A9BDD6; }
     </style>
 </head>
 <body class="text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
@@ -409,6 +437,10 @@
                     Thirty minutes. We will look at what you sell, how people buy it and
                     what your lifecycle programme does today.
                 </p>
+                <div class="opes-promise is-dark">
+                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>We hit the number, or you don&rsquo;t pay.</b>
+                    <em>Your baseline and the target we take it to, agreed with you on the call &mdash; in writing, before any work starts.</em>
+                </div>
                 <div class="ec-btns">
                     <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener" class="custom-filled-button">Book a call</a>
                     <a href="pricing.html" class="custom-stroked-button">View pricing</a>
@@ -624,6 +656,11 @@
             var rowBot  = bottomA + (bottomB - bottomA) * kReveal;
             var cardH   = startH + (finalH - startH) * kReveal;
             var rowTop  = rowBot - cardH;
+            /* On a short screen the card at its natural height is taller than
+               the space between the header and the closing copy, and anchoring
+               it by the bottom would slide its top up behind the header. The
+               card gives way, not the header. */
+            if (rowTop < topPad) { rowTop = topPad; cardH = Math.max(60, rowBot - topPad); }
 
             field.style.transform = 'translate3d(0,' + rowTop.toFixed(1) + 'px,0)';
 

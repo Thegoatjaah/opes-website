@@ -228,12 +228,40 @@
             #opes-night, .opes-end::before { transition: none; }
             .custom-filled-button:hover { transform: none; }
         }
+
+        /* ---------------------------------------------------------------
+           THE GUARANTEE
+           The claim and the condition it rests on travel together, always.
+           A bare "you pay nothing" is a promise nobody can hold you to and
+           nobody quite believes; naming where the number comes from is what
+           makes it land — and under UK advertising rules a guarantee's
+           significant condition has to sit AT the claim, not on some other
+           page. So the two lines are one component, used everywhere.
+           --------------------------------------------------------------- */
+        .opes-promise { max-width: 56ch; margin: 30px auto 26px; text-align: center; }
+        .opes-promise b {
+            display: inline-flex; align-items: center; gap: 9px;
+            font-family: 'DM Sans', 'Aspekta', sans-serif;
+            font-weight: 700; font-size: 15.5px; line-height: 1.35; color: #0A0C19;
+        }
+        .opes-promise svg { flex: 0 0 auto; width: 17px; height: 17px; color: #0094FF; }
+        .opes-promise em {
+            display: block; margin-top: 5px; font-style: normal;
+            font-size: 13px; line-height: 1.5; color: #5A6675;
+        }
+        @media (max-width: 640px) {
+            .opes-promise { margin: 24px auto 20px; }
+            .opes-promise b { font-size: 14.5px; gap: 7px; }
+            .opes-promise em { font-size: 12.5px; }
+        }
+        .opes-promise.is-dark b { color: #F3F8FF; }
+        .opes-promise.is-dark em { color: #A9BDD6; }
     </style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
 <div id="page-loader">
-    <img src="favicon.png" alt="Loading..." class="loader-logo">
+    <img src="images/Icon-Load.png" alt="Loading..." class="loader-logo">
 </div>
 
 <!-- Header Navbar -->
@@ -242,10 +270,11 @@
         <a href="index.html" class="flex items-center focus:outline-none">
             <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-16 md:h-12 w-auto object-contain">
         </a>
-        <div class="hidden xl:flex items-center gap-6 ml-auto">
-            <nav class="flex items-center gap-6 font-medium text-[15px] tracking-wide text-slate-800">
+        <div class="hidden xl:flex items-center gap-5 ml-auto">
+            <nav class="flex items-center gap-5 font-medium text-[14.5px] tracking-wide text-slate-800">
                 <a href="index.html#services" class="nav-link hover:text-brand">Services</a>
                 <a href="process.html" class="nav-link text-brand">Process</a>
+                <a href="campaigns.html" class="nav-link hover:text-brand">Campaigns</a>
                 <a href="https://opes-consultancy-london---free-resources.pages.dev/" target="_blank" rel="noopener" class="nav-link hover:text-brand">Free Resource</a>
                 <a href="work.html" class="nav-link hover:text-brand">Work</a>
                 <a href="pricing.html" class="nav-link hover:text-brand">Pricing</a>
@@ -266,6 +295,7 @@
         <div class="flex flex-col px-6 py-8 gap-5">
             <div><a href="index.html#services" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Services</a></div>
             <div><a href="process.html" class="nav-link text-[16px] font-medium text-brand">Process</a></div>
+            <div><a href="campaigns.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Campaigns</a></div>
             <div><a href="https://opes-consultancy-london---free-resources.pages.dev/" target="_blank" rel="noopener" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Free Resource</a></div>
             <div><a href="work.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Work</a></div>
             <div><a href="pricing.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Pricing</a></div>
@@ -288,7 +318,8 @@
                 What happens after you book the call.
             </h1>
             <p class="text-lg md:text-xl text-slate-600 font-medium max-w-[62ch] leading-relaxed">
-                Two tracks, depending on what you need. Both start with an audit, Fully transparent. Week by week.
+                Two tracks, depending on what you need. Both start with an audit, and neither
+                asks you to guess what comes next. Here is the whole thing, week by week.
             </p>
         </div>
     </section>
@@ -458,6 +489,10 @@
                 lifecycle programme currently does. You will leave with at least one thing
                 worth fixing, whether or not you work with us.
             </p>
+            <div class="opes-promise">
+                <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>We hit the number, or you don&rsquo;t pay.</b>
+                <em>Your baseline and the target we take it to, agreed with you on the call &mdash; in writing, before any work starts.</em>
+            </div>
             <div class="mt-9 flex flex-wrap gap-3 justify-center">
                 <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener" class="custom-filled-button">Book a strategy call</a>
                 <a href="pricing.html" class="custom-stroked-button">View pricing</a>

@@ -176,6 +176,35 @@
             background: #0077CC !important; border-color: #0077CC !important; color: #fff !important;
         }
 
+
+        /* ---------------------------------------------------------------
+           THE GUARANTEE
+           The claim and the condition it rests on travel together, always.
+           A bare "you pay nothing" is a promise nobody can hold you to and
+           nobody quite believes; naming where the number comes from is what
+           makes it land — and under UK advertising rules a guarantee's
+           significant condition has to sit AT the claim, not on some other
+           page. So the two lines are one component, used everywhere.
+           --------------------------------------------------------------- */
+        .opes-promise { max-width: 56ch; margin: 30px auto 26px; text-align: center; }
+        .opes-promise b {
+            display: inline-flex; align-items: center; gap: 9px;
+            font-family: 'DM Sans', 'Aspekta', sans-serif;
+            font-weight: 700; font-size: 15.5px; line-height: 1.35; color: #0A0C19;
+        }
+        .opes-promise svg { flex: 0 0 auto; width: 17px; height: 17px; color: #0094FF; }
+        .opes-promise em {
+            display: block; margin-top: 5px; font-style: normal;
+            font-size: 13px; line-height: 1.5; color: #5A6675;
+        }
+        @media (max-width: 640px) {
+            .opes-promise { margin: 24px auto 20px; }
+            .opes-promise b { font-size: 14.5px; gap: 7px; }
+            .opes-promise em { font-size: 12.5px; }
+        }
+        .opes-promise.is-dark b { color: #F3F8FF; }
+        .opes-promise.is-dark em { color: #A9BDD6; }
+
         /* CTA band between the free resource and the work showcase. */
         .opes-cta-band { padding: clamp(4rem, 9vh, 7rem) 0; background: #fff; text-align: center; }
         .opes-cta-band h2 {
@@ -213,6 +242,12 @@
         .opes-cta-band { padding-bottom: clamp(2rem, 4vh, 3rem) !important; }
         #work.opes-full { padding-top: clamp(1.25rem, 2.5vh, 2rem) !important; }
         .opes-work-head { margin-bottom: 34px !important; }
+
+        /* The other two service images are transparent PNGs on the light
+           plate .only-image provides. The n8n logo comes with its own dark
+           ground baked in, so it gets that ground on the plate too rather
+           than a pale rim around a dark rectangle. */
+        .opes-n8n-plate { background-color: #0E0918 !important; }
 
         /* SERVICE CARDS — bigger, so they fill the full-height section
            instead of floating in it. */
@@ -1164,7 +1199,7 @@
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
     <div id="page-loader">
-        <img src="favicon.png" alt="Loading..." class="loader-logo">
+        <img src="images/Icon-Load.png" alt="Loading..." class="loader-logo">
     </div>
 
     <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
@@ -1174,13 +1209,13 @@
                 <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-16 md:h-12 w-auto object-contain">
             </a>
             
-            <div class="hidden xl:flex items-center gap-8 ml-auto">
-                <nav class="flex items-center gap-6 font-medium text-[15px] tracking-wide text-slate-800">
+            <div class="hidden xl:flex items-center gap-5 ml-auto">
+                <nav class="flex items-center gap-5 font-medium text-[14.5px] tracking-wide text-slate-800">
                     <a href="#services" class="nav-link hover:text-brand">Services</a>
                     <a href="process.html" class="nav-link hover:text-brand">Process</a>
+                    <a href="campaigns.html" class="nav-link hover:text-brand">Campaigns</a>
                     <a href="https://opes-consultancy-london---free-resources.pages.dev/" target="_blank" rel="noopener" class="nav-link hover:text-brand">Free Resource</a>
                     <a href="work.html" class="nav-link hover:text-brand">Work</a>
-                    <a href="campaigns.html" class="nav-link hover:text-brand">Campaigns</a>
                     <a href="pricing.html" class="nav-link hover:text-brand">Pricing</a>
                     <a href="#testimonials" class="nav-link hover:text-brand">Testimonials</a>
                     <a href="#faq" class="nav-link hover:text-brand">FAQ</a>
@@ -1204,9 +1239,9 @@
             <div class="flex flex-col px-6 py-8 gap-5">
                 <div><a href="#services" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Services</a></div>
                 <div><a href="process.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Process</a></div>
+                <div><a href="campaigns.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Campaigns</a></div>
                 <div><a href="https://opes-consultancy-london---free-resources.pages.dev/" target="_blank" rel="noopener" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Free Resource</a></div>
                 <div><a href="work.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Work</a></div>
-                <div><a href="campaigns.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Campaigns</a></div>
                 <div><a href="pricing.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Pricing</a></div>
                 <div><a href="#testimonials" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
                 <div><a href="#faq" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">FAQ</a></div>
@@ -1233,6 +1268,11 @@
                     email systems that turn an audience into repeat buyers.
                 </p>
 
+                <div class="opes-promise">
+                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>We hit the number, or you don&rsquo;t pay.</b>
+                    <em>Your baseline and the target we take it to, agreed with you on the call &mdash; in writing, before any work starts.</em>
+                </div>
+
                 <div class="opes-hero-cta">
                     <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener"
                        class="custom-filled-button">Book a Strategy Call</a>
@@ -1243,7 +1283,7 @@
         </section>
         <!-- note 9 — moving product list -->
         <div class="opes-marquee" aria-hidden="true">
-            <div class="opes-marquee-track"><span class="opes-chip">Lifecycle Flows</span><span class="opes-chip">Welcome Series</span><span class="opes-chip">Abandoned Cart</span><span class="opes-chip">Abandoned Checkout</span><span class="opes-chip">Browse Abandonment</span><span class="opes-chip">Post-Purchase</span><span class="opes-chip">Replenishment</span><span class="opes-chip">Winback</span><span class="opes-chip">Sunset Policy</span><span class="opes-chip">RFM Segmentation</span><span class="opes-chip">Engagement Tiers</span><span class="opes-chip">Deliverability</span><span class="opes-chip">Domain Warming</span><span class="opes-chip">DMARC</span><span class="opes-chip">Seed Testing</span><span class="opes-chip">List Hygiene</span><span class="opes-chip">ESP Migration</span><span class="opes-chip">Klaviyo</span><span class="opes-chip">Brevo</span><span class="opes-chip">HubSpot</span><span class="opes-chip">GoHighLevel</span><span class="opes-chip">N8N Automation</span><span class="opes-chip">API Integration</span><span class="opes-chip">Cloudflare Pages</span><span class="opes-chip">Lifecycle Flows</span><span class="opes-chip">Welcome Series</span><span class="opes-chip">Abandoned Cart</span><span class="opes-chip">Abandoned Checkout</span><span class="opes-chip">Browse Abandonment</span><span class="opes-chip">Post-Purchase</span><span class="opes-chip">Replenishment</span><span class="opes-chip">Winback</span><span class="opes-chip">Sunset Policy</span><span class="opes-chip">RFM Segmentation</span><span class="opes-chip">Engagement Tiers</span><span class="opes-chip">Deliverability</span><span class="opes-chip">Domain Warming</span><span class="opes-chip">DMARC</span><span class="opes-chip">Seed Testing</span><span class="opes-chip">List Hygiene</span><span class="opes-chip">ESP Migration</span><span class="opes-chip">Klaviyo</span><span class="opes-chip">Brevo</span><span class="opes-chip">HubSpot</span><span class="opes-chip">GoHighLevel</span><span class="opes-chip">WorkFlow Automations & API integrations</span><span class="opes-chip">API Integration</span><span class="opes-chip">Cloudflare Pages</span></div>
+            <div class="opes-marquee-track"><span class="opes-chip">Lifecycle Flows</span><span class="opes-chip">Welcome Series</span><span class="opes-chip">Abandoned Cart</span><span class="opes-chip">Abandoned Checkout</span><span class="opes-chip">Browse Abandonment</span><span class="opes-chip">Post-Purchase</span><span class="opes-chip">Replenishment</span><span class="opes-chip">Winback</span><span class="opes-chip">Sunset Policy</span><span class="opes-chip">RFM Segmentation</span><span class="opes-chip">Engagement Tiers</span><span class="opes-chip">Deliverability</span><span class="opes-chip">Domain Warming</span><span class="opes-chip">DMARC</span><span class="opes-chip">Seed Testing</span><span class="opes-chip">List Hygiene</span><span class="opes-chip">ESP Migration</span><span class="opes-chip">Klaviyo</span><span class="opes-chip">Brevo</span><span class="opes-chip">HubSpot</span><span class="opes-chip">GoHighLevel</span><span class="opes-chip">N8N Automation</span><span class="opes-chip">API Integration</span><span class="opes-chip">Cloudflare Pages</span><span class="opes-chip">Lifecycle Flows</span><span class="opes-chip">Welcome Series</span><span class="opes-chip">Abandoned Cart</span><span class="opes-chip">Abandoned Checkout</span><span class="opes-chip">Browse Abandonment</span><span class="opes-chip">Post-Purchase</span><span class="opes-chip">Replenishment</span><span class="opes-chip">Winback</span><span class="opes-chip">Sunset Policy</span><span class="opes-chip">RFM Segmentation</span><span class="opes-chip">Engagement Tiers</span><span class="opes-chip">Deliverability</span><span class="opes-chip">Domain Warming</span><span class="opes-chip">DMARC</span><span class="opes-chip">Seed Testing</span><span class="opes-chip">List Hygiene</span><span class="opes-chip">ESP Migration</span><span class="opes-chip">Klaviyo</span><span class="opes-chip">Brevo</span><span class="opes-chip">HubSpot</span><span class="opes-chip">GoHighLevel</span><span class="opes-chip">N8N Automation</span><span class="opes-chip">API Integration</span><span class="opes-chip">Cloudflare Pages</span></div>
         </div>
 
 
@@ -1272,28 +1312,28 @@
                             <div class="w-dyn-list">
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
-                                        <a href="campaigns.html" class="service-link w-inline-block">
+                                        <div class="service-link w-inline-block cursor-default">
                                             <i class="fa-solid fa-circle-check service-card-icon"></i>
                                             <div class="services-card-link-text">High-Converting Campaign Design</div>
-                                        </a>
+                                        </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
-                                        <a href="campaigns.html" class="service-link w-inline-block">
+                                        <div class="service-link w-inline-block cursor-default">
                                             <i class="fa-solid fa-circle-check service-card-icon"></i>
                                             <div class="services-card-link-text">Mobile-First & Dark-Mode HTML</div>
-                                        </a>
+                                        </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
-                                        <a href="campaigns.html" class="service-link w-inline-block">
+                                        <div class="service-link w-inline-block cursor-default">
                                             <i class="fa-solid fa-circle-check service-card-icon"></i>
                                             <div class="services-card-link-text">Deliverability & Inbox Optimization</div>
-                                        </a>
+                                        </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
-                                        <a href="campaigns.html" class="service-link w-inline-block">
+                                        <div class="service-link w-inline-block cursor-default">
                                             <i class="fa-solid fa-circle-check service-card-icon"></i>
                                             <div class="services-card-link-text">A/B Testing & ROI Tracking</div>
-                                        </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1380,7 +1420,7 @@
 
                     <div class="services-card small">
                         <div class="service-card-info">
-                            <h2 class="service-card-h2">Workflow Automation & API Integration</h2>
+                            <h2 class="service-card-h2">N8N</h2>
                             <div class="w-dyn-list">
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
@@ -1411,7 +1451,7 @@
                             </div>
                         </div>
                         <div class="service-card-imagery small">
-                            <img src="images/N8N.jpg" loading="eager" alt="N8N Automation Project" class="only-image" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22220%22%3E%3Crect fill=%22%23F1F5F9%22 width=%22220%22 height=%22220%22 rx=%2214%22/%3E%3Crect x=%220.5%22 y=%220.5%22 width=%22219%22 height=%22219%22 rx=%2213.5%22 fill=%22none%22 stroke=%22%23DDE4ED%22/%3E%3Ctext x=%22110%22 y=%22115%22 text-anchor=%22middle%22 fill=%22%237B8797%22 font-family=%22sans-serif%22 font-size=%2215%22%3EN8N%3C/text%3E%3C/svg%3E'"/>
+                            <img src="images/service-n8n.png" loading="eager" alt="N8N Automation Project" class="only-image opes-n8n-plate" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22220%22%3E%3Crect fill=%22%23F1F5F9%22 width=%22220%22 height=%22220%22 rx=%2214%22/%3E%3Crect x=%220.5%22 y=%220.5%22 width=%22219%22 height=%22219%22 rx=%2213.5%22 fill=%22none%22 stroke=%22%23DDE4ED%22/%3E%3Ctext x=%22110%22 y=%22115%22 text-anchor=%22middle%22 fill=%22%237B8797%22 font-family=%22sans-serif%22 font-size=%2215%22%3EN8N%3C/text%3E%3C/svg%3E'"/>
                         </div>
                     </div>
 
@@ -1737,6 +1777,10 @@
         <section class="opes-cta-band">
             <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8">
                 <h2>We work across the whole customer lifecycle.</h2>
+                <div class="opes-promise">
+                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>We hit the number, or you don&rsquo;t pay.</b>
+                    <em>Your baseline and the target we take it to, agreed with you on the call &mdash; in writing, before any work starts.</em>
+                </div>
                 <div class="opes-hero-cta">
                     <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener"
                        class="custom-filled-button">Book a call</a>
@@ -1757,70 +1801,70 @@
                     <div class="work-col">
                         <div class="scrolling-work scroll-up">
                             <div class="scrolling-work-wrapper">
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-1.jpg" alt="Client work 1" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-6.jpg" alt="Client work 6" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-11.jpg" alt="Client work 11" class="work-preview"></a>
+                                <img src="images/work-1.jpg" alt="Client work 1" class="work-preview">
+                                <img src="images/work-6.jpg" alt="Client work 6" class="work-preview">
+                                <img src="images/work-11.jpg" alt="Client work 11" class="work-preview">
                             </div>
                             <div class="scrolling-work-wrapper">
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-1.jpg" alt="Client work 1" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-6.jpg" alt="Client work 6" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-11.jpg" alt="Client work 11" class="work-preview"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="work-col">
-                        <div class="scrolling-work scroll-down">
-                            <div class="scrolling-work-wrapper">
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-2.jpg" alt="Client work 2" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-7.jpg" alt="Client work 7" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-12.jpg" alt="Client work 12" class="work-preview"></a>
-                            </div>
-                            <div class="scrolling-work-wrapper">
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-2.jpg" alt="Client work 2" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-7.jpg" alt="Client work 7" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-12.jpg" alt="Client work 12" class="work-preview"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="work-col">
-                        <div class="scrolling-work scroll-up">
-                            <div class="scrolling-work-wrapper">
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-3.jpg" alt="Client work 3" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-8.jpg" alt="Client work 8" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-4.jpg" alt="Client work 4" class="work-preview"></a>
-                            </div>
-                            <div class="scrolling-work-wrapper">
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-3.jpg" alt="Client work 3" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-8.jpg" alt="Client work 8" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-4.jpg" alt="Client work 4" class="work-preview"></a>
+                                <img src="images/work-1.jpg" alt="Client work 1" class="work-preview">
+                                <img src="images/work-6.jpg" alt="Client work 6" class="work-preview">
+                                <img src="images/work-11.jpg" alt="Client work 11" class="work-preview">
                             </div>
                         </div>
                     </div>
                     <div class="work-col">
                         <div class="scrolling-work scroll-down">
                             <div class="scrolling-work-wrapper">
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-9.jpg" alt="Client work 9" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-5.jpg" alt="Client work 5" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-10.jpg" alt="Client work 10" class="work-preview"></a>
+                                <img src="images/work-2.jpg" alt="Client work 2" class="work-preview">
+                                <img src="images/work-7.jpg" alt="Client work 7" class="work-preview">
+                                <img src="images/work-12.jpg" alt="Client work 12" class="work-preview">
                             </div>
                             <div class="scrolling-work-wrapper">
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-9.jpg" alt="Client work 9" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-5.jpg" alt="Client work 5" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-10.jpg" alt="Client work 10" class="work-preview"></a>
+                                <img src="images/work-2.jpg" alt="Client work 2" class="work-preview">
+                                <img src="images/work-7.jpg" alt="Client work 7" class="work-preview">
+                                <img src="images/work-12.jpg" alt="Client work 12" class="work-preview">
                             </div>
                         </div>
                     </div>
                     <div class="work-col">
                         <div class="scrolling-work scroll-up">
                             <div class="scrolling-work-wrapper">
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-11.jpg" alt="Client work 11" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-2.jpg" alt="Client work 2" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-6.jpg" alt="Client work 6" class="work-preview"></a>
+                                <img src="images/work-3.jpg" alt="Client work 3" class="work-preview">
+                                <img src="images/work-8.jpg" alt="Client work 8" class="work-preview">
+                                <img src="images/work-4.jpg" alt="Client work 4" class="work-preview">
                             </div>
                             <div class="scrolling-work-wrapper">
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-11.jpg" alt="Client work 11" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-2.jpg" alt="Client work 2" class="work-preview"></a>
-                                <a href="campaigns.html" style="display:block;"><img src="images/work-6.jpg" alt="Client work 6" class="work-preview"></a>
+                                <img src="images/work-3.jpg" alt="Client work 3" class="work-preview">
+                                <img src="images/work-8.jpg" alt="Client work 8" class="work-preview">
+                                <img src="images/work-4.jpg" alt="Client work 4" class="work-preview">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-col">
+                        <div class="scrolling-work scroll-down">
+                            <div class="scrolling-work-wrapper">
+                                <img src="images/work-9.jpg" alt="Client work 9" class="work-preview">
+                                <img src="images/work-5.jpg" alt="Client work 5" class="work-preview">
+                                <img src="images/work-10.jpg" alt="Client work 10" class="work-preview">
+                            </div>
+                            <div class="scrolling-work-wrapper">
+                                <img src="images/work-9.jpg" alt="Client work 9" class="work-preview">
+                                <img src="images/work-5.jpg" alt="Client work 5" class="work-preview">
+                                <img src="images/work-10.jpg" alt="Client work 10" class="work-preview">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-col">
+                        <div class="scrolling-work scroll-up">
+                            <div class="scrolling-work-wrapper">
+                                <img src="images/work-11.jpg" alt="Client work 11" class="work-preview">
+                                <img src="images/work-2.jpg" alt="Client work 2" class="work-preview">
+                                <img src="images/work-6.jpg" alt="Client work 6" class="work-preview">
+                            </div>
+                            <div class="scrolling-work-wrapper">
+                                <img src="images/work-11.jpg" alt="Client work 11" class="work-preview">
+                                <img src="images/work-2.jpg" alt="Client work 2" class="work-preview">
+                                <img src="images/work-6.jpg" alt="Client work 6" class="work-preview">
                             </div>
                         </div>
                     </div>
@@ -2404,6 +2448,11 @@
                     lifecycle programme currently does. You will leave with at least one thing worth
                     fixing, whether or not you work with us.
                 </p>
+
+                <div class="opes-promise">
+                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>We hit the number, or you don&rsquo;t pay.</b>
+                    <em>Your baseline and the target we take it to, agreed with you on the call &mdash; in writing, before any work starts.</em>
+                </div>
 
                 <div class="opes-hero-cta">
                     <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener"
@@ -3024,25 +3073,55 @@
         var rows  = [].slice.call(wrap.querySelectorAll('.opes-rev-row'));
         var SPEED = 22;   /* pixels per second, the same on every screen */
 
+        /* The markup already ships sixteen reviews per row (3,216px a copy),
+           which covers every screen up to about 3,200px on CSS alone. This
+           script is an ENHANCEMENT for wider monitors, so its first duty is to
+           do nothing when it cannot measure properly — an earlier version set
+           animationDuration from a measurement it never sanity-checked, and a
+           zero reading gave '0.0s', which stops the marquee dead. That is the
+           frozen single row seen in Firefox. */
         function fit(row) {
             var track = row.querySelector('.opes-rev-track');
             if (!track) return;
-            /* Doubling the whole track keeps the -50% seam exact, and each
-               pass doubles the width of one copy — so this ends after one or
-               two rounds even on a very wide monitor. The cap is a guard
-               against a zero-width measurement looping forever. */
-            var guard = 0;
-            while (track.scrollWidth / 2 < row.clientWidth * 1.15 && guard++ < 6) {
+
+            var visible = row.clientWidth;
+            var copyW   = track.scrollWidth / 2;
+
+            /* No credible measurement — layout not settled, the tab was
+               opened in the background, whatever. Leave the CSS alone: it is
+               already correct for normal screens. */
+            if (!(visible > 0) || !(copyW > 0)) return;
+
+            /* Two doublings is 64 cards, ~12,800px a copy — past any real
+               display. Capping it means a bad reading can never run the DOM
+               away, which is the other half of what went wrong. */
+            var passes = 0;
+            while (copyW < visible * 1.15 && passes++ < 2) {
                 var copy = [].slice.call(track.children).map(function (n) { return n.cloneNode(true); });
                 copy.forEach(function (n) { track.appendChild(n); });
+                copyW = track.scrollWidth / 2;
+                if (!(copyW > 0)) return;
             }
+
             /* Speed, not duration, is the thing to hold constant: a longer
-               track at a fixed duration would simply scroll faster. */
-            track.style.animationDuration = ((track.scrollWidth / 2) / SPEED).toFixed(1) + 's';
+               track at a fixed duration would simply scroll faster. Clamped so
+               no measurement can produce a marquee that is either frozen or
+               a blur. */
+            var secs = copyW / SPEED;
+            if (secs < 30 || secs > 600) return;
+            track.style.animationDuration = secs.toFixed(1) + 's';
         }
 
-        rows.forEach(fit);
-        addEventListener('resize', function () { rows.forEach(fit); });
+        function fitAll() { try { rows.forEach(fit); } catch (e) { /* CSS defaults stand */ } }
+
+        /* Measure once layout is real, not at parse time. Firefox in
+           particular can report a zero width for a flex track that the
+           stylesheet has not been applied to yet. */
+        if (document.readyState === 'complete') fitAll();
+        else addEventListener('load', fitAll);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+        requestAnimationFrame(function () { requestAnimationFrame(fitAll); });
+        addEventListener('resize', fitAll);
 
         /* Hold to pause. Pointer events cover mouse and touch in one path.
            pointercancel matters most: it is what fires when the browser takes
