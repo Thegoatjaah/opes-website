@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Email campaigns built by Opes Consulting — design, copy and lifecycle logic for eCommerce and B2B brands.">
+    <title>Campaigns | Opes Consulting</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap">
+    <link rel="stylesheet" href="./images/all.min.css">
+
+    <script src="./images/saved_resource"></script>
+    <script>
+        /* The vendored Tailwind above is what the repo uses. If this file is ever
+           opened somewhere that folder is not beside it, every class on the page
+           silently stops working. document.write is deliberate: it is synchronous
+           during parse, so tailwind.config below still runs after the fallback. */
+        if (typeof tailwind === "undefined") {
+            document.write('<scr' + 'ipt src="https://cdn.tailwindcss.com"><\/scr' + 'ipt>');
+        }
+    </script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brand: '#0094ff', ink: '#0A0C19' },
+                    fontFamily: {
+                        sans: ['DM Sans', 'Aspekta', 'sans-serif'],
+                        display: ['Newsreader', 'Georgia', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- ASPEKTA FONT FACE SETUP --- */
+        @font-face { font-family:'Aspekta'; src:url('Aspekta-Regular.woff2') format('woff2');  font-weight:400; font-display:swap; }
+        @font-face { font-family:'Aspekta'; src:url('Aspekta-Medium.woff2') format('woff2');   font-weight:500; font-display:swap; }
+        @font-face { font-family:'Aspekta'; src:url('Aspekta-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+        @font-face { font-family:'Aspekta'; src:url('Aspekta-Bold.woff2') format('woff2');     font-weight:700; font-display:swap; }
+
+        /* --- PAGE LOADER --- */
+        #page-loader {
+            position: fixed; inset: 0; background: #ffffff; z-index: 99999;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity .5s ease-out, visibility .5s ease-out;
+        }
+        .loader-logo { width: 120px; height: auto; animation: logo-wheel-pulse 1.5s cubic-bezier(.16,1,.3,1) forwards; }
+        @keyframes logo-wheel-pulse {
+            0%   { transform: rotate(-180deg) scale(.2); opacity: 0; }
+            70%  { transform: rotate(0deg) scale(1.15);  opacity: 1; }
+            100% { transform: rotate(0deg) scale(1);     opacity: 1; }
+        }
+        #page-loader.loader-hidden { opacity: 0; visibility: hidden; }
+
+        body { font-family: 'DM Sans', 'Aspekta', sans-serif; background: #ffffff; }
+        h1, h2, h3 {
+            font-family: 'Newsreader', Georgia, serif !important;
+            font-weight: 400 !important; letter-spacing: -.02em;
+        }
+        .hero-gradient { background: linear-gradient(180deg, rgba(0,148,255,.08) 0%, rgba(0,148,255,.02) 55%, #fff 100%) #ffffff; }
+
+        .header-outline-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 8px 16px; font-size: 13px; font-weight: 600;
+            border: 1px solid #0094FF; border-radius: 999px;
+            background: #0094FF; color: #fff; transition: background .2s, border-color .2s;
+        }
+        .header-outline-btn:hover { background: #0077CC; border-color: #0077CC; }
+        .mobile-contact-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 11px 21px; font-size: 14px; font-weight: 600;
+            border-radius: 999px; background: #0094FF; color: #fff;
+        }
+        .custom-filled-button {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 12px 24px; font-size: 14px; font-weight: 600;
+            border-radius: 999px; background: #0094FF; color: #fff;
+            transition: transform .3s ease-out, box-shadow .3s ease-out, background .2s;
+        }
+        .custom-filled-button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,148,255,.25); }
+        .custom-stroked-button {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 12px 24px; font-size: 14px; font-weight: 600;
+            border: 1px solid #DDE4ED; border-radius: 999px; color: #0F172A;
+            transition: background .2s, border-color .2s;
+        }
+        .custom-stroked-button:hover { background: #F8FAFC; border-color: #C9D4E2; }
+
+        .menu-icon1 { width: 24px; height: 16px; position: relative; }
+        .menu-icon1 div { position: absolute; left: 0; width: 100%; height: 2px; background: #0F172A; transition: transform .3s, opacity .3s; }
+        .menu-icon1_line-top { top: 0; } .menu-icon1_line-middle { top: 7px; } .menu-icon1_line-bottom { top: 14px; }
+        .menu-icon1.is-open .menu-icon1_line-top { transform: translateY(7px) rotate(45deg); }
+        .menu-icon1.is-open .menu-icon1_line-middle { opacity: 0; }
+        .menu-icon1.is-open .menu-icon1_line-bottom { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ================================================================
+           THE JOURNEY
+           One pinned screen carries the whole thing. A tall wrapper drives the
+           scroll; the stage inside it is sticky, so the page holds still while
+           four things happen in sequence off a single progress number:
+
+             0.00 - 0.14   hero copy, campaigns scattered around it
+             0.14 - 0.60   they descend, straighten and line up
+             0.34 - 0.74   the ground turns from white to the closing navy
+             0.66 - 1.00   the row rises and the cards lengthen, revealing
+                           the rest of each email as the Book a Call copy
+                           arrives beneath them
+
+           Scroll is the TARGET, never the position: what is drawn chases it a
+           fraction of the remaining distance each frame, so nothing stops dead
+           when the wheel does. Everything reverses for free on the way up.
+           ================================================================ */
+        /* Pulled up under the header. The header is sticky, so it holds a
+           band of flow at the top of the document: without this the pinned
+           screen sits 97px lower before the first scroll than it does once it
+           has stuck, and the bottom of the composition is cut off in the very
+           first frame anyone sees. The script already leaves room for the
+           header, so it belongs over the top. */
+        .ec-journey {
+            position: relative; height: 420vh;
+            margin-top: -81px;
+        }
+        @media (min-width: 768px) { .ec-journey { margin-top: -97px; } }
+        @supports (height: 100svh) { .ec-journey { height: 420svh; } }
+
+        .ec-pin {
+            position: sticky; top: 0; height: 100vh;
+            overflow: hidden;
+        }
+        @supports (height: 100svh) { .ec-pin { height: 100svh; } }
+
+        /* ---- the ground -------------------------------------------------
+           A fixed sheet of the closing navy, faded in rather than a colour
+           animated on the body: one compositor property, no repaint of the
+           page behind it, and it covers the area under the header too. */
+        #ec-night {
+            position: fixed; inset: 0; z-index: -1;
+            background: #0A0C19; opacity: 0; pointer-events: none;
+        }
+        html { background: #ffffff; }
+        body { background: transparent; }
+
+        /* The header rides over the pin, so it has to turn with the ground.
+           A threshold with a transition rather than a per-frame value: the
+           bar is text and borders, and repainting those every frame is what
+           makes a scroll feel heavy. */
+        html.ec-dark header {
+            background: rgba(10, 12, 25, .82) !important;
+            border-color: rgba(255, 255, 255, .10) !important;
+        }
+        html.ec-dark header .nav-link,
+        html.ec-dark #mobile-menu-btn .menu-icon1 div { color: #C8D6E8; }
+        html.ec-dark #mobile-menu-btn .menu-icon1 div { background: #C8D6E8; }
+        html.ec-dark header .nav-link:hover { color: #fff; }
+        html.ec-dark header img { filter: brightness(0) invert(1); }
+        header, header .nav-link, header img {
+            transition: background-color .55s ease, border-color .55s ease,
+                        color .55s ease, filter .55s ease;
+        }
+
+        /* ---- the two blocks of copy ------------------------------------- */
+        .ec-copy {
+            position: absolute; left: 0; right: 0;
+            padding: 0 24px; text-align: center;
+            will-change: opacity, transform;
+        }
+        .ec-copy-hero { top: clamp(104px, 15vh, 168px); }
+        .ec-copy-hero .ec-pill {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 16px; margin-bottom: 26px;
+            background: #fff; border: 1px solid #E9EFF6; border-radius: 999px;
+            box-shadow: 0 1px 2px rgba(10, 20, 45, .05);
+            font-size: 12px; font-weight: 600; letter-spacing: .08em;
+            text-transform: uppercase; color: #0094FF;
+        }
+        .ec-copy-hero h1 {
+            font-size: clamp(2rem, 4.4vw, 3.35rem); line-height: 1.12;
+            color: #0A0C19; max-width: 18ch; margin: 0 auto;
+        }
+        .ec-copy-hero p {
+            margin: 22px auto 0; max-width: 56ch;
+            font-size: clamp(15px, 1.25vw, 19px); line-height: 1.6;
+            font-weight: 500; color: #4B586A;
+        }
+
+        /* One line for the middle of the run. Without it there is a long
+           stretch — nearly half the scroll — with no words on screen at all,
+           which reads as something having gone wrong rather than as a beat.
+           It takes its colour from the ground like the header does. */
+        .ec-copy-mid { top: 0; opacity: 0; }
+        .ec-copy-mid h2 {
+            font-size: clamp(1.4rem, 2.7vw, 2.2rem); line-height: 1.15;
+            color: #0A0C19; transition: color .55s ease;
+        }
+        html.ec-dark .ec-copy-mid h2 { color: #F3F8FF; }
+
+        /* The closing copy sits at the bottom of the same screen, so the whole
+           length of a campaign and the button that books the call are in front
+           of someone at the same moment. */
+        .ec-copy-cta { bottom: clamp(44px, 8vh, 84px); opacity: 0; }
+        .ec-copy-cta h2 {
+            font-size: clamp(1.35rem, 2.5vw, 2.05rem); line-height: 1.18; color: #F3F8FF;
+        }
+        .ec-copy-cta p {
+            margin: 10px auto 0; max-width: 62ch;
+            font-size: clamp(13.5px, 1.05vw, 15.5px); line-height: 1.55; color: #A9BDD6;
+        }
+        .ec-copy-cta .ec-btns {
+            margin-top: 18px; display: flex; gap: 12px;
+            justify-content: center; align-items: center; flex-wrap: wrap;
+        }
+        /* Book a call is the thing to do here, so it is visibly the larger of
+           the two rather than one of a matching pair. */
+        .ec-copy-cta .ec-btns .custom-filled-button {
+            padding: 15px 34px; font-size: 15.5px; font-weight: 700;
+        }
+        .ec-copy-cta .ec-btns .custom-stroked-button {
+            padding: 10px 19px; font-size: 13.5px;
+        }
+        /* On a short screen the sentence costs more height than it is worth —
+           it is what the cards would otherwise be using. */
+        @media (max-height: 760px) { .ec-copy-cta p { display: none; } }
+        .ec-copy-cta .custom-stroked-button { color: #CFE6FF; border-color: rgba(255,255,255,.24); }
+        .ec-copy-cta .custom-stroked-button:hover { background: #0094FF; border-color: #0094FF; color: #fff; }
+
+        /* ---- the campaigns ----------------------------------------------
+           A flex row, not absolute positioning: flex:1 divides the width
+           between however many cards are on screen, so the row fills the
+           screen exactly at every size without a table of widths to keep in
+           step, and hiding a card re-divides it automatically. The scatter is
+           transforms on top of that, which cost no layout. */
+        .ec-field {
+            position: absolute; left: 0; right: 0; top: 0;
+            display: flex; align-items: flex-start; justify-content: center;
+            gap: clamp(8px, 0.9vw, 13px);
+            padding: 0 clamp(12px, 1.4vw, 20px);
+            will-change: transform;
+        }
+        .ec-card {
+            flex: 1 1 0; min-width: 0;
+            /* Height comes from the width until the reveal, when the script
+               takes it over and grows it. The image is anchored to the top,
+               so growing the card uncovers more of the email rather than
+               rescaling what is already showing. */
+            aspect-ratio: 1 / 1.8;
+            position: relative; border-radius: 11px; overflow: hidden;
+            background: #fff; border: 1px solid #E7ECF2;
+            box-shadow: 0 14px 34px -20px rgba(10, 20, 45, .34);
+            will-change: transform;
+            backface-visibility: hidden;
+        }
+        html.ec-dark .ec-card {
+            border-color: rgba(255, 255, 255, .10);
+            box-shadow: 0 22px 50px -24px rgba(0, 0, 0, .75);
+        }
+        .ec-shot {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: top center; display: block;
+        }
+
+        /* How many are on screen. The card width follows from it, because
+           flex:1 splits whatever is left after the gaps — each tier starts
+           where its card would be about 165px wide and grows to about 210
+           before the next one takes over, so a card is never far off the
+           200px it was. */
+        .ec-card:nth-child(n+4) { display: none; }
+        @media (min-width:  560px) { .ec-card:nth-child(-n+4 ) { display: block; } }
+        @media (min-width:  917px) { .ec-card:nth-child(-n+5 ) { display: block; } }
+        @media (min-width: 1095px) { .ec-card:nth-child(-n+6 ) { display: block; } }
+        @media (min-width: 1273px) { .ec-card:nth-child(-n+7 ) { display: block; } }
+        @media (min-width: 1451px) { .ec-card:nth-child(-n+8 ) { display: block; } }
+        @media (min-width: 1629px) { .ec-card:nth-child(-n+9 ) { display: block; } }
+        @media (min-width: 1807px) { .ec-card:nth-child(-n+10) { display: block; } }
+        @media (min-width: 1985px) { .ec-card:nth-child(-n+11) { display: block; } }
+        @media (min-width: 2163px) { .ec-card:nth-child(-n+12) { display: block; } }
+
+        .ec-hint {
+            position: absolute; left: 0; right: 0; bottom: clamp(16px, 3vh, 30px);
+            text-align: center;
+            font-size: 12px; font-weight: 600; letter-spacing: .12em;
+            text-transform: uppercase; color: #9AA8B8;
+            transition: opacity .4s ease;
+        }
+
+        .opes-footer { background: #0094FF; }
+        .opes-footer p, .opes-footer a { color: rgba(255,255,255,.88); }
+        .opes-footer a:hover { color: #fff; }
+        .opes-footer img { opacity: .92; filter: brightness(0) invert(1); }
+
+        /* Someone who has asked for less motion gets the three states stacked
+           as ordinary sections — no pin, no scatter, nothing moving, and the
+           cards already at their full length. */
+        @media (prefers-reduced-motion: reduce) {
+            .ec-journey { height: auto; }
+            .ec-pin { position: static; height: auto; overflow: visible;
+                      display: flex; flex-direction: column; gap: clamp(2rem, 6vh, 4rem);
+                      padding: clamp(2.5rem, 7vh, 5rem) 0; }
+            .ec-copy, .ec-field { position: static; }
+            .ec-copy-cta { opacity: 1; }
+            .ec-card { aspect-ratio: 1 / 3.4; }
+            .ec-hint, .loader-logo { display: none; }
+            #ec-night { position: absolute; }
+            .custom-filled-button:hover { transform: none; }
+        }
+
+
+        /* ---------------------------------------------------------------
+           THE GUARANTEE
+           The claim and the condition it rests on travel together, always.
+           A bare "you pay nothing" is a promise nobody can hold you to and
+           nobody quite believes; naming where the number comes from is what
+           makes it land — and under UK advertising rules a guarantee's
+           significant condition has to sit AT the claim, not on some other
+           page. So the two lines are one component, used everywhere.
+           --------------------------------------------------------------- */
+        .opes-promise { max-width: 56ch; margin: 30px auto 26px; text-align: center; }
+        .opes-promise b {
+            display: inline-flex; align-items: center; gap: 9px;
+            font-family: 'DM Sans', 'Aspekta', sans-serif;
+            font-weight: 700; font-size: 15.5px; line-height: 1.35; color: #0A0C19;
+        }
+        .opes-promise svg { flex: 0 0 auto; width: 17px; height: 17px; color: #0094FF; }
+        .opes-promise em {
+            display: block; margin-top: 5px; font-style: normal;
+            font-size: 13px; line-height: 1.5; color: #5A6675;
+        }
+        @media (max-width: 640px) {
+            .opes-promise { margin: 24px auto 20px; }
+            .opes-promise b { font-size: 14.5px; gap: 7px; }
+            .opes-promise em { font-size: 12.5px; }
+        }
+        .opes-promise.is-dark b { color: #F3F8FF; }
+        .opes-promise.is-dark em { color: #A9BDD6; }
+    </style>
+</head>
+<body class="text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
+
+<div id="ec-night"></div>
+
+<div id="page-loader">
+    <img src="images/Icon-Load.png" alt="Loading..." class="loader-logo">
+</div>
+
+<!-- Header Navbar -->
+<header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
+    <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-20 md:h-24 flex items-center justify-between">
+        <a href="index.html" class="flex items-center focus:outline-none">
+            <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-16 md:h-12 w-auto object-contain">
+        </a>
+        <div class="hidden xl:flex items-center gap-5 ml-auto">
+            <nav class="flex items-center gap-5 font-medium text-[14.5px] tracking-wide text-slate-800">
+                <a href="index.html#services" class="nav-link hover:text-brand">Services</a>
+                <a href="process.html" class="nav-link hover:text-brand">Process</a>
+                <a href="campaigns.html" class="nav-link text-brand">Campaigns</a>
+                <a href="https://opes-consultancy-london---free-resources.pages.dev/" target="_blank" rel="noopener" class="nav-link hover:text-brand">Free Resource</a>
+                <a href="work.html" class="nav-link hover:text-brand">Work</a>
+                <a href="pricing.html" class="nav-link hover:text-brand">Pricing</a>
+                <a href="index.html#testimonials" class="nav-link hover:text-brand">Testimonials</a>
+                <a href="index.html#faq" class="nav-link hover:text-brand">FAQ</a>
+            </nav>
+            <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener" class="header-outline-btn ml-2">Book a Call</a>
+        </div>
+        <button id="mobile-menu-btn" class="xl:hidden focus:outline-none ml-auto p-2" aria-label="Toggle Menu">
+            <div class="menu-icon1">
+                <div class="menu-icon1_line-top"></div>
+                <div class="menu-icon1_line-middle"></div>
+                <div class="menu-icon1_line-bottom"></div>
+            </div>
+        </button>
+    </div>
+    <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-[#f8fafc] border-b border-slate-200 shadow-xl z-40">
+        <div class="flex flex-col px-6 py-8 gap-5">
+            <div><a href="index.html#services" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Services</a></div>
+            <div><a href="process.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Process</a></div>
+            <div><a href="campaigns.html" class="nav-link text-[16px] font-medium text-brand">Campaigns</a></div>
+            <div><a href="https://opes-consultancy-london---free-resources.pages.dev/" target="_blank" rel="noopener" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Free Resource</a></div>
+            <div><a href="work.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Work</a></div>
+            <div><a href="pricing.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Pricing</a></div>
+            <div><a href="index.html#testimonials" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
+            <div><a href="index.html#faq" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">FAQ</a></div>
+            <div class="mt-4"><a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener" class="mobile-contact-btn">Book a Call</a></div>
+        </div>
+    </div>
+</header>
+
+<main class="flex-grow">
+
+    <!-- ===================== THE JOURNEY =====================
+         Hero, campaigns and the closing call are three states of one pinned
+         screen rather than three sections. Everything below is the resting
+         state: if the script never runs you get the copy, a full-length row
+         of campaigns and a working Book a Call button, stacked. -->
+    <div class="ec-journey" id="ec-journey">
+        <div class="ec-pin" id="ec-pin">
+
+            <div class="ec-copy ec-copy-hero" id="ec-hero">
+                <span class="ec-pill">Campaigns</span>
+                <h1>Every email has a job to do.</h1>
+                <p>
+                    Design, copy and lifecycle logic, built to earn a place in an inbox
+                    that is already full. Here is a selection.
+                </p>
+            </div>
+
+            <!-- Twelve campaigns. How many show is decided by the screen: the
+                 row divides the width between whichever are visible, so adding
+                 or removing one needs nothing else changed. -->
+            <div class="ec-field" id="ec-field">
+                <div class="ec-card"><img src="images/campaign-1-dior.jpg" alt="Dior — account welcome email" class="ec-shot" width="480" height="1632" decoding="async"></div>
+                <div class="ec-card"><img src="images/campaign-2-fenty.jpg" alt="Fenty Beauty — Valentine's campaign" class="ec-shot" width="480" height="1632" decoding="async"></div>
+                <div class="ec-card"><img src="images/campaign-3-mackage.jpg" alt="Mackage — men's ski collection launch" class="ec-shot" width="480" height="1632" decoding="async"></div>
+                <div class="ec-card"><img src="images/campaign-4-sidemen.jpg" alt="Sidemen Clothing — welcome email" class="ec-shot" width="480" height="1632" decoding="async"></div>
+                <div class="ec-card"><img src="images/campaign-5-crepslocker.jpg" alt="Crepslocker — welcome email" class="ec-shot" width="480" height="1632" decoding="async"></div>
+                <div class="ec-card"><img src="images/campaign-6-reigning.jpg" alt="Reigning Champ — the classics collection" class="ec-shot" width="480" height="1632" decoding="async"></div>
+                <div class="ec-card"><img src="images/campaign-7-frankoak.jpg" alt="Frank And Oak — welcome email" class="ec-shot" width="480" height="1632" decoding="async"></div>
+                <div class="ec-card"><img src="images/campaign-8-lostmary.jpg" alt="Lost Mary — Quasar OS25000 launch" class="ec-shot" width="480" height="1632" decoding="async"></div>
+                <div class="ec-card"><img src="images/campaign-9-bulldog.jpg" alt="Bulldog Gear — resistance band campaign" class="ec-shot" width="480" height="1632" decoding="async"></div>
+                <div class="ec-card"><img src="images/campaign-10-boustan.jpg" alt="Boustan — menu campaign" class="ec-shot" width="480" height="1632" decoding="async"></div>
+                <div class="ec-card"><img src="images/campaign-11-ctrne.jpg" alt="CTRNE — sneaker campaign" class="ec-shot" width="480" height="1632" decoding="async"></div>
+                <div class="ec-card"><img src="images/campaign-12-lumi.jpg" alt="Lumi — breathwork and ice baths" class="ec-shot" width="480" height="1632" decoding="async"></div>
+            </div>
+
+            <div class="ec-copy ec-copy-mid" id="ec-mid">
+                <h2>Scattered work, one system.</h2>
+            </div>
+
+            <div class="ec-hint" id="ec-hint">Scroll</div>
+
+            <div class="ec-copy ec-copy-cta" id="ec-cta">
+                <h2>Want your inbox presence to look like this?</h2>
+                <p>
+                    Thirty minutes. We will look at what you sell, how people buy it and
+                    what your lifecycle programme does today.
+                </p>
+                <div class="opes-promise is-dark">
+                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>We hit the number, or you don&rsquo;t pay.</b>
+                    <em>Your baseline and the target we take it to, agreed with you on the call &mdash; in writing, before any work starts.</em>
+                </div>
+                <div class="ec-btns">
+                    <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" target="_blank" rel="noopener" class="custom-filled-button">Book a call</a>
+                    <a href="pricing.html" class="custom-stroked-button">View pricing</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+<footer class="opes-footer py-10">
+    <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <a href="index.html" class="flex items-center focus:outline-none">
+            <img src="images/logo-footer.png" alt="Opes Consulting Logo Footer" class="h-10 md:h-12 w-auto transition-opacity">
+        </a>
+        <p class="text-xs md:text-sm font-medium text-center md:text-left">
+            &copy; 2026 Opes Consulting. All rights reserved.
+        </p>
+        <div class="flex gap-5">
+            <a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" aria-label="Opes Consulting on Instagram" class="transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    /* loader */
+    window.addEventListener('load', function () {
+        var l = document.getElementById('page-loader');
+        if (l) setTimeout(function () { l.classList.add('loader-hidden'); }, 400);
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        /* mobile menu */
+        var btn = document.getElementById('mobile-menu-btn');
+        var menu = document.getElementById('mobile-menu');
+        var icon = btn ? btn.querySelector('.menu-icon1') : null;
+        if (btn && menu && icon) {
+            btn.addEventListener('click', function () {
+                menu.classList.toggle('hidden');
+                icon.classList.toggle('is-open');
+            });
+        }
+
+        /* ---------------------------------------------------------------
+           THE JOURNEY
+           One progress number, 0 to 1, drives everything. Scroll sets the
+           TARGET; what is drawn chases it a fraction of the remaining
+           distance each frame, so the cards keep travelling after the wheel
+           stops and settle rather than freezing mid-air. EASE is the tuning
+           knob — lower is a longer, lazier glide.
+           --------------------------------------------------------------- */
+        var journey = document.getElementById('ec-journey');
+        var pin     = document.getElementById('ec-pin');
+        var field   = document.getElementById('ec-field');
+        var heroC   = document.getElementById('ec-hero');
+        var midC    = document.getElementById('ec-mid');
+        var ctaC    = document.getElementById('ec-cta');
+        var hintC   = document.getElementById('ec-hint');
+        var night   = document.getElementById('ec-night');
+        var headerEl = document.querySelector('header');
+        if (!journey || !pin || !field) return;
+
+        var cards = [].slice.call(field.querySelectorAll('.ec-card'));
+        if (!cards.length) return;
+
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var root   = document.documentElement;
+
+        var EASE = 0.085, target = 0, current = 0, raf = 0, last = 0, near = true;
+        var dark = false;
+
+        /* Phase boundaries. Overlapping on purpose: the ground starts turning
+           while the row is still assembling, so there is never a moment where
+           one thing has finished and the next has not begun. */
+        var P_GATHER = [0.14, 0.60];
+        var P_NIGHT  = [0.28, 0.68];
+        var P_REVEAL = [0.66, 1.00];
+
+        function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+        function span(t, a, b) { return clamp((t - a) / (b - a)); }
+        function ease(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; }
+        function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+        /* Positions are random, but only WITHIN a zone. Free randomness
+           clumps and overlaps as often as not, and a bad roll would ship to a
+           real visitor with no way to reproduce it; this way every roll is
+           composed — a few down each flank of the headline, the rest across
+           the space beneath — and no two visits look the same. Rolled once per
+           page load, not per frame, or the cards would boil. */
+        var RND = [];
+        (function () { for (var q = 0; q < 96; q++) RND.push(Math.random()); })();
+        function rnd(i) { return RND[((i % 96) + 96) % 96]; }
+
+        var POS = null, POSKEY = '';
+
+        function layout(n, vw, vh, cw, ch, headerH) {
+            /* The copy's real bounds, not its full-width container: the block
+               is centred text inside an edge-to-edge box, so measuring the box
+               says the headline is 1440px wide and pushes every card away. */
+            var L = vw, R = 0, T = vh, B = headerH;
+            if (heroC) {
+                [].forEach.call(heroC.children, function (el) {
+                    var b = el.getBoundingClientRect();
+                    if (b.width > 0) {
+                        if (b.left < L) L = b.left;
+                        if (b.right > R) R = b.right;
+                        if (b.top < T) T = b.top;
+                        if (b.bottom > B) B = b.bottom;
+                    }
+                });
+            }
+            if (R <= L) { L = R = vw / 2; T = B = headerH; }
+
+            var s0 = 0.81;                       /* representative card size */
+            var hw = cw * s0 / 2, hh = ch * s0 / 2;
+            var x0 = 8 + hw, x1 = vw - 8 - hw;
+            var y0 = headerH + 8 + hh, y1 = vh - 10 - hh;
+            if (x1 < x0) { x0 = x1 = vw / 2; }
+            if (y1 < y0) { y0 = y1 = (headerH + vh) / 2; }
+
+            /* A grid of slots across the whole area, sized so neighbours do
+               not sit on top of each other, then one card per slot with a free
+               position INSIDE its slot. Spread is guaranteed by the grid; the
+               randomness lives in the jitter, so every roll is composed and no
+               two are the same. Slots the headline is standing in are taken
+               last, so the cards step around it while there is room to. */
+            var rows = Math.max(1, Math.min(3, Math.floor((y1 - y0) / (ch * s0 * 0.72))));
+            var cols = Math.max(2, Math.min(8, Math.ceil(n / rows) + 2));
+            var px = cols > 1 ? (x1 - x0) / (cols - 1) : 0;
+            var py = rows > 1 ? (y1 - y0) / (rows - 1) : 0;
+
+            var free = [], taken = [], r, c;
+            for (r = 0; r < rows; r++) {
+                for (c = 0; c < cols; c++) {
+                    var cx = cols > 1 ? x0 + px * c : (x0 + x1) / 2;
+                    var cy = rows > 1 ? y0 + py * r : (y0 + y1) / 2;
+                    var hits = (cx + hw > L - 12) && (cx - hw < R + 12) &&
+                               (cy + hh > T - 12) && (cy - hh < B + 12);
+                    (hits ? taken : free).push([cx, cy]);
+                }
+            }
+            function shuffle(a, seed) {
+                for (var i = a.length - 1; i > 0; i--) {
+                    var j = Math.floor(rnd(seed + i) * (i + 1));
+                    var t = a[i]; a[i] = a[j]; a[j] = t;
+                }
+                return a;
+            }
+            var slots = shuffle(free, 40).concat(shuffle(taken, 70));
+
+            var order = shuffle((function () {
+                var o = []; for (var i = 0; i < n; i++) o.push(i); return o;
+            })(), 12);
+
+            var out = new Array(n);
+            for (var k = 0; k < n; k++) {
+                var idx = order[k];
+                var sl = slots[k % slots.length];
+                out[idx] = {
+                    x: Math.max(x0, Math.min(x1, sl[0] + (rnd(idx * 5) - 0.5) * px * 0.72)),
+                    y: Math.max(y0, Math.min(y1, sl[1] + (rnd(idx * 5 + 1) - 0.5) * py * 0.66)),
+                    r: (rnd(idx * 5 + 2) - 0.5) * 24,
+                    s: 0.72 + rnd(idx * 5 + 3) * 0.18
+                };
+            }
+            return out;
+        }
+
+        function progress() {
+            var vh = window.innerHeight || 1;
+            var travel = journey.offsetHeight - vh;
+            if (travel <= 0) return 0;
+            return clamp(-journey.getBoundingClientRect().top / travel);
+        }
+
+        function render(t) {
+            var vw = pin.clientWidth, vh = pin.clientHeight;
+            if (!(vw > 0) || !(vh > 0)) return;
+
+            var vis = cards.filter(function (c) { return c.offsetParent !== null; });
+            if (!vis.length) return;
+            var n  = vis.length;
+            var cw = vis[0].offsetWidth;
+            if (!(cw > 0)) return;
+
+            var headerH = headerEl ? headerEl.offsetHeight : 96;
+            var startH  = cw * 1.8;
+
+            /* Where the row can end up: everything the closing copy and the
+               header are not using. Capped at 1:3.4 because that is as much of
+               each email as the crop holds. */
+            /* Read where the closing copy actually sits rather than
+               subtracting a magic number: move it in the CSS and the cards
+               give up exactly the height it took, so the gap between them
+               stays put instead of closing into an overlap. */
+            var ctaH   = ctaC ? ctaC.offsetHeight : 0;
+            var ctaOff = ctaC ? (parseFloat(getComputedStyle(ctaC).bottom) || 0) : 0;
+            var topPad = headerH + 16;
+
+            var kGather = ease(span(t, P_GATHER[0], P_GATHER[1]));
+            var kReveal = easeOut(span(t, P_REVEAL[0], P_REVEAL[1]));
+            var kNight  = ease(span(t, P_NIGHT[0], P_NIGHT[1]));
+
+            /* The row is anchored by its BOTTOM edge, not its top: it lines up
+               low on the screen and then grows upward, so the reveal opens out
+               of the space above it instead of pushing down into the closing
+               copy. The bottom lifts a little at the same time to make room
+               for that copy, but most of the travel is the top rising. */
+            var bottomA = vh - 34;
+            var bottomB = vh - ctaOff - ctaH - 18;
+            var finalH  = Math.max(startH, Math.min(cw * 3.4, bottomB - topPad));
+            var rowBot  = bottomA + (bottomB - bottomA) * kReveal;
+            var cardH   = startH + (finalH - startH) * kReveal;
+            var rowTop  = rowBot - cardH;
+            /* On a short screen the card at its natural height is taller than
+               the space between the header and the closing copy, and anchoring
+               it by the bottom would slide its top up behind the header. The
+               card gives way, not the header. */
+            if (rowTop < topPad) { rowTop = topPad; cardH = Math.max(60, rowBot - topPad); }
+
+            field.style.transform = 'translate3d(0,' + rowTop.toFixed(1) + 'px,0)';
+
+            /* Rolled once per geometry, not per frame — the positions are
+               random and recomputing them every frame would shake the cards
+               apart. Keyed on the start height so the reveal does not
+               invalidate it. */
+            var key = n + '|' + vw + '|' + vh + '|' + Math.round(cw);
+            if (key !== POSKEY) { POS = layout(n, vw, vh, cw, startH, headerH); POSKEY = key; }
+
+            for (var i = 0; i < vis.length; i++) {
+                var c = vis[i];
+                var sc = POS[i];
+
+                /* Each card lands a little after the one before it, so the row
+                   assembles rather than snapping into place at once. */
+                var lead = (i / n) * 0.30;
+                var k = ease(clamp((kGather - lead) / (1 - lead)));
+
+                /* Nothing is allowed off the edge of the screen. A tilted
+                   card is wider than it is — a 151x273 card at 10 degrees
+                   reaches 196px across — so the bound is the rotated, scaled
+                   box, and it is easiest to clamp its CENTRE: scale and
+                   rotation both work about the centre, so that is the one
+                   point the maths stays simple around. */
+                var rad = Math.abs(sc.r) * Math.PI / 180;
+                var co  = Math.cos(rad), si = Math.sin(rad);
+                var halfW = (cw * co + cardH * si) * sc.s / 2;
+                var halfH = (cw * si + cardH * co) * sc.s / 2;
+
+                var cx = sc.x;
+                var loX = halfW + 8, hiX = vw - halfW - 8;
+                cx = hiX < loX ? vw / 2 : Math.max(loX, Math.min(hiX, cx));
+
+                var cy = sc.y;
+                var loY = headerH + 8 + halfH, hiY = vh - 10 - halfH;
+                cy = hiY < loY ? (headerH + vh) / 2 : Math.max(loY, Math.min(hiY, cy));
+
+                var alignedX = c.offsetLeft + cw / 2;
+                var x = (cx - alignedX) * (1 - k);
+                var y = (cy - cardH / 2 - rowTop) * (1 - k);
+                var r = sc.r * (1 - k);
+                var z = sc.s + (1 - sc.s) * k;
+
+                c.style.height = cardH.toFixed(1) + 'px';
+                c.style.transform =
+                    'translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px,0)' +
+                    ' rotate(' + r.toFixed(2) + 'deg) scale(' + z.toFixed(3) + ')';
+            }
+
+            if (heroC) {
+                var out = span(t, 0.05, 0.30);
+                heroC.style.opacity = (1 - out).toFixed(3);
+                heroC.style.transform = 'translate3d(0,' + (-38 * out).toFixed(1) + 'px,0)';
+            }
+            if (hintC) hintC.style.opacity = (1 - span(t, 0.02, 0.14)).toFixed(3);
+            if (midC) {
+                var m = span(t, 0.42, 0.55) * (1 - span(t, 0.64, 0.72));
+                /* Sits just above the row rather than at a fixed height: with
+                   the row anchored low, a heading pinned under the header is
+                   stranded half a screen away from what it is naming. */
+                var my = Math.max(headerH + 16, rowTop - midC.offsetHeight - 30);
+                midC.style.opacity = m.toFixed(3);
+                midC.style.transform = 'translate3d(0,' + (my + 14 * (1 - m)).toFixed(1) + 'px,0)';
+            }
+            if (ctaC) {
+                var inn = easeOut(span(t, 0.74, 0.94));
+                ctaC.style.opacity = inn.toFixed(3);
+                ctaC.style.transform = 'translate3d(0,' + (26 * (1 - inn)).toFixed(1) + 'px,0)';
+            }
+            if (night) night.style.opacity = kNight.toFixed(3);
+
+            /* The header turns on a threshold with a transition rather than a
+               value per frame: it is text, borders and a logo, and repainting
+               those sixty times a second is what makes a scroll feel heavy.
+               The two edges are apart so it cannot flicker on a jittery wheel. */
+            if (!dark && kNight > 0.55)      { dark = true;  root.classList.add('ec-dark'); }
+            else if (dark && kNight < 0.42)  { dark = false; root.classList.remove('ec-dark'); }
+        }
+
+        /* Reduced motion takes the pin away, so there is no scroll travel to
+           read. Paint the finished state once and bind nothing that moves. */
+        if (reduce) {
+            var still = function () {
+                cards.forEach(function (c) { c.style.height = ''; c.style.transform = ''; });
+                field.style.transform = '';
+                if (night) night.style.opacity = '1';
+                if (midC) midC.style.opacity = '1';
+                root.classList.add('ec-dark');
+            };
+            still();
+            addEventListener('resize', still);
+            return;
+        }
+
+        function frame(now) {
+            raf = 0;
+            var dt = last ? Math.min(64, now - last) : 16.7;
+            last = now;
+            target = progress();
+
+            /* Raised to dt/16.67 so the glide takes the same TIME on a 120Hz
+               display as on a 60Hz one. A plain per-frame lerp would arrive
+               twice as fast on the faster screen. */
+            var k = 1 - Math.pow(1 - EASE, dt / 16.67);
+            current += (target - current) * k;
+            if (Math.abs(target - current) < 0.0003) current = target;
+
+            render(current);
+
+            if (near && current !== target) raf = requestAnimationFrame(frame);
+            else last = 0;
+        }
+        function kick() { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } }
+
+        addEventListener('scroll', kick, { passive: true });
+        addEventListener('resize', kick);
+        addEventListener('load', kick);
+        /* The headline is what the cards are placed around, and it is not its
+           final size until the webfont lands. Without this the first painted
+           frame is laid out around a fallback font and never corrected,
+           because nothing has scrolled yet. */
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function () { current = target = progress(); render(current); });
+        }
+
+        /* No point running a loop for a section nobody is looking at. */
+        if (window.IntersectionObserver) {
+            new IntersectionObserver(function (e) {
+                near = e[0].isIntersecting;
+                if (near) kick();
+            }, { rootMargin: '200px' }).observe(journey);
+        }
+
+        current = target = progress();
+        render(current);
+    });
+</script>
+
+</body>
+</html>
