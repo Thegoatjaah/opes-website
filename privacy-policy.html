@@ -94,7 +94,7 @@
             <p class="text-xs font-bold tracking-[.15em] uppercase text-brand mb-4">Legal</p>
             <h1 class="text-3xl md:text-4xl lg:text-[44px] tracking-tight text-ink mb-3">Privacy Policy</h1>
             <p class="text-slate-500 text-sm mb-10">
-                Last updated <span class="fill">[ DATE ]</span> &middot; Applies to the Opes Consulting newsletter and website
+                Last updated 10 September 2026 &middot; Applies to the Opes Consulting newsletter and website
             </p>
 
             <div class="policy">
@@ -135,6 +135,31 @@
                 lifecycle and email marketing, roughly once a month. We do not sell your data, and we do not share it
                 for anyone else's marketing.</p>
 
+                <h3>The free lifecycle guide</h3>
+                <p>The guide at our free-resources site is behind a sign-in. To read it you create
+                an account, which collects:</p>
+                <ul>
+                    <li><strong>Your name</strong> <span class="fill">[ CONFIRM: does the sign-up form ask for first and last name, or only email? ]</span></li>
+                    <li><strong>Your email address</strong> — your sign-in, and where the confirmation link goes</li>
+                    <li><strong>A password</strong> — handled by Supabase Auth, which stores it hashed. It is never
+                    sent to us in a readable form and we cannot see it</li>
+                    <li><strong>Your account status</strong> — whether access is active, and when you signed up</li>
+                </ul>
+                <p>We ask you to confirm your address by clicking a link we email you. That is what keeps
+                invented addresses out of the list.</p>
+                <p>Creating the account and sending that confirmation is necessary to give you the guide
+                you asked for. <strong>Using your address afterwards to send you the newsletter is a
+                separate thing and needs its own permission</strong> — see the box below.</p>
+
+                <div class="draft-note">
+                    <p><strong>Aran — decide this before publishing.</strong> Signing up for a free guide
+                    is not by itself consent to be marketed to. If addresses captured by the guide go
+                    onto the newsletter list, the sign-up form needs its own unticked opt-in box, worded
+                    like the pop-up's. Without it you would be relying on the PECR &ldquo;soft opt-in&rdquo;,
+                    which applies to people who bought something from you &mdash; not to people who
+                    downloaded a free resource. Either add the box, or keep the two lists apart.</p>
+                </div>
+
                 <h3>Enquiries</h3>
                 <p>If you contact us or book a call, we process the details you give us in order to reply and, if it
                 goes further, to discuss working together.</p>
@@ -144,6 +169,9 @@
                 You give it by ticking the box on the sign-up form. You can withdraw it at any time — see
                 <a href="#rights">Your rights</a> — and withdrawing it does not affect anything we did with your data
                 before you withdrew it.</p>
+                <p>For the guide account, our lawful basis is <strong>performance of a contract</strong>
+                (Article 6(1)(b)) — you asked for the guide and the account is how we give it to you.
+                Marketing to that address afterwards would rest on consent, separately given.</p>
                 <p>For enquiries, our lawful basis is <strong>legitimate interests</strong> (Article 6(1)(f)):
                 responding to someone who has contacted us about our services.</p>
 
@@ -151,9 +179,9 @@
                 <p>We use a small number of processors to run the newsletter. Each one only handles your data on our
                 instructions.</p>
                 <dl>
-                    <div><dt>Supabase</dt><dd>Stores the subscriber list. <span class="fill">[ CONFIRM YOUR PROJECT'S REGION ]</span></dd></div>
-                    <div><dt>Brevo</dt><dd>Sends the newsletter, where enabled. EU-based (France).</dd></div>
-                    <div><dt>Cloudflare</dt><dd>Hosts and serves this website.</dd></div>
+                    <div><dt>Supabase</dt><dd>Stores the subscriber list, the guide accounts and the
+                    guide content, and runs the sign-in. <span class="fill">[ CONFIRM YOUR PROJECT'S REGION ]</span></dd></div>
+                    <div><dt>Cloudflare</dt><dd>Hosts and serves this website and the free-resources site.</dd></div>
                 </dl>
                 <p>Where a processor is outside the UK, the transfer is covered by the safeguards UK GDPR requires,
                 such as the International Data Transfer Agreement or an adequacy decision.
@@ -164,6 +192,8 @@
                 we keep a minimal suppression record — your email address and the fact you opted out — so that we do
                 not accidentally email you again. That record is kept indefinitely, because deleting it would defeat
                 its purpose.</p>
+                <p>Your guide account stays until you ask us to delete it. Ask and we remove the account,
+                the profile row behind it and your access, and you lose the guide with it.</p>
                 <p>Enquiry correspondence is kept for <span class="fill">[ e.g. 24 months ]</span> after our last
                 contact, unless it becomes part of a client relationship with its own retention terms.</p>
 
@@ -184,14 +214,32 @@
                 Commissioner&rsquo;s Office at <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener">ico.org.uk</a>
                 or on 0303 123 1113. We would rather you came to us first so we can put it right.</p>
 
-                <h2>Cookies and analytics</h2>
-                <p><span class="fill">[ THIS SECTION NEEDS YOUR INPUT. If the site sets no cookies and runs no
-                analytics, say so plainly and delete the rest. If you add Google Analytics, Meta Pixel, or anything
-                similar, you need a cookie banner and this section must list each one, what it does and how long it
-                lasts. ]</span></p>
-                <p>The newsletter pop-up stores a small flag in your browser to remember that you have already seen
-                or joined it, so it does not keep reappearing. It stays in your browser, is not sent to us, and holds
-                no personal data.</p>
+                <h2>Cookies and storage</h2>
+                <p><strong>Nothing that tracks you runs unless you say yes.</strong> When you first
+                arrive we ask, in a bar at the bottom of the page, whether we may use the Meta
+                advertising pixel. Decline it, or ignore it, and the pixel never loads &mdash; Meta is
+                told nothing about your visit. Nothing on this site needs it in order to work.</p>
+                <p>If you accept, the pixel lets us see which of our ads brought people here and which
+                of those people went on to get in touch. That data goes to Meta, whose
+                <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">privacy
+                policy</a> covers what they do with it, and the pixel sets its own cookies on your device.</p>
+                <p>These are kept in your own browser, on your own device:</p>
+                <ul>
+                    <li><strong>Your cookie choice</strong> &mdash; so we do not ask again on every page.
+                    Records only whether you accepted or declined.</li>
+                    <li><strong>A newsletter pop-up flag</strong> &mdash; so it does not reappear once you have
+                    dismissed or joined it. Cleared when you clear your browser data.</li>
+                    <li><strong>A sign-in session for the free guide</strong> &mdash; so you stay signed in
+                    between pages and visits. This one is strictly necessary: without it the sign-in
+                    could not work at all. Signing out removes it.</li>
+                    <li><strong>Which ad you came from</strong> &mdash; if you arrived by clicking one of our
+                    ads, we keep the campaign details so we can tell which ad led to an enquiry. Only
+                    stored if you accepted the pixel.</li>
+                </ul>
+                <p><strong>Changed your mind?</strong> Clearing this site&rsquo;s data in your browser
+                resets your choice and we will ask again next time. You can also manage what Meta shows
+                you in your <a href="https://www.facebook.com/adpreferences/ad_settings" target="_blank" rel="noopener">Meta
+                ad settings</a>.</p>
 
                 <h2>Changes to this policy</h2>
                 <p>If we change this policy we will update the date at the top. If the change is significant, we will
@@ -215,6 +263,141 @@
         </div>
     </div>
 </footer>
+
+<!-- Tracking with consent gate — Opes Consulting -->
+<!-- Nothing loads and nothing is stored until the visitor accepts. -->
+<style>
+  #opes-consent{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:none;
+    background:#fff;border-top:1px solid #e2e8f0;box-shadow:0 -6px 24px rgba(15,23,42,.08);
+    font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#0A0C19}
+  #opes-consent[data-show="1"]{display:block}
+  .opes-consent-in{max-width:1100px;margin:0 auto;padding:16px 20px;
+    display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .opes-consent-tx{flex:1 1 320px;font-size:14px;line-height:1.5;margin:0}
+  .opes-consent-tx a{color:#0077CC;text-decoration:underline}
+  .opes-consent-bt{display:flex;gap:10px;flex-wrap:wrap}
+  .opes-consent-bt button{font:inherit;font-size:14px;font-weight:600;cursor:pointer;
+    padding:10px 20px;border-radius:8px;border:1px solid #cbd5e1;background:#fff;color:#0A0C19}
+  .opes-consent-bt button:hover{border-color:#94a3b8}
+  .opes-consent-bt button.opes-yes{background:#0094ff;border-color:#0094ff;color:#fff}
+  .opes-consent-bt button.opes-yes:hover{background:#0077CC;border-color:#0077CC}
+  @media(max-width:600px){.opes-consent-in{padding:14px 16px}
+    .opes-consent-bt{width:100%}.opes-consent-bt button{flex:1}}
+</style>
+
+<div id="opes-consent" role="region" aria-label="Cookie choices">
+  <div class="opes-consent-in">
+    <p class="opes-consent-tx">
+      We'd like to use the Meta advertising pixel and HubSpot analytics to measure how well
+      our ads work. Both are off unless you say yes, and neither is needed for anything on
+      this site to function. See our <a href="privacy-policy.html">privacy policy</a>.
+    </p>
+    <div class="opes-consent-bt">
+      <button type="button" id="opes-no">Decline</button>
+      <button type="button" id="opes-yes" class="opes-yes">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var PIXEL_ID  = '1110937994798113';
+  var HS_PORTAL = '149303097';
+  var CONSENT   = 'opes_consent_v1';
+  var ATTRIB    = 'opes_attribution_v1';
+  var started   = false;
+
+  function get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+  function set(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+
+  /* Keeps the ad click id and UTMs so a booking made later can be traced back to
+     the specific ad that produced it. Exposed as window.opesAttribution. */
+  function captureAttribution() {
+    try {
+      var q = new URLSearchParams(window.location.search);
+      var keys = ['fbclid','utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+      var out = {}, any = false;
+      keys.forEach(function(k){ var v = q.get(k); if (v) { out[k] = v; any = true; } });
+      if (any) {
+        out.landed_at    = new Date().toISOString();
+        out.landing_page = window.location.pathname;
+        set(ATTRIB, JSON.stringify(out));
+      }
+      var saved = get(ATTRIB);
+      window.opesAttribution = saved ? JSON.parse(saved) : null;
+    } catch(e){}
+  }
+
+  /* Clicking through to the booking page is intent, not a booking. Contact, so
+     that Schedule below stays a clean signal for people who actually booked. */
+  function wireBookingIntent() {
+    var links = document.querySelectorAll('a[href*="book.html"]');
+    Array.prototype.forEach.call(links, function (a) {
+      a.addEventListener('click', function () {
+        if (window.fbq) fbq('track', 'Contact', { content_name: 'Book a Call' });
+      });
+    });
+  }
+
+  /* The real conversion. HubSpot's meetings embed posts this to the parent page
+     when someone completes a booking, so it fires on our own domain. */
+  function wireBookingSuccess() {
+    window.addEventListener('message', function (e) {
+      if (!e.data || e.data.meetingBookSucceeded !== true) return;
+      if (window.fbq) fbq('track', 'Schedule', { content_name: 'Discovery Call' });
+    });
+  }
+
+  function loadHubSpot() {
+    var s = document.createElement('script');
+    s.id = 'hs-script-loader'; s.async = true; s.defer = true;
+    s.src = 'https://js-eu1.hs-scripts.com/' + HS_PORTAL + '.js';
+    document.head.appendChild(s);
+  }
+
+  function startTracking() {
+    if (started) return;
+    started = true;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', PIXEL_ID);
+    fbq('track', 'PageView');
+    loadHubSpot();
+    captureAttribution();
+    wireBookingIntent();
+    wireBookingSuccess();
+  }
+
+  function ready(fn){
+    if (document.readyState === 'loading')
+      document.addEventListener('DOMContentLoaded', fn);
+    else fn();
+  }
+
+  ready(function () {
+    var choice = get(CONSENT);
+    if (choice === 'yes') { startTracking(); return; }
+    if (choice === 'no')  { return; }
+
+    var bar = document.getElementById('opes-consent');
+    if (!bar) return;
+    bar.setAttribute('data-show','1');
+
+    document.getElementById('opes-yes').addEventListener('click', function(){
+      set(CONSENT,'yes'); bar.removeAttribute('data-show'); startTracking();
+    });
+    document.getElementById('opes-no').addEventListener('click', function(){
+      set(CONSENT,'no'); bar.removeAttribute('data-show');
+    });
+  });
+})();
+</script>
+<!-- End tracking with consent gate -->
 
 </body>
 </html>

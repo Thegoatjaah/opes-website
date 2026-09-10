@@ -356,7 +356,7 @@
         <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-20 md:h-24 flex items-center justify-between">
             
             <a href="index.html" class="flex items-center focus:outline-none">
-                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-14 md:h-12 w-auto" onerror="this.onerror=null;this.src=&#39;images/logo-header.png&#39;;">
+                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-20 md:h-12 w-auto" onerror="this.onerror=null;this.src=&#39;images/logo-header.png&#39;;">
             </a>
             
             <div class="hidden xl:flex items-center gap-5 ml-auto">
@@ -371,7 +371,7 @@
                     <a href="index.html#faq" class="nav-link hover:text-brand">FAQ</a>
                 </nav>
                 
-                <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" class="header-outline-btn ml-2" target="_blank" rel="noopener">
+                <a href="book.html" class="header-outline-btn ml-2">
                     Book a Call
                 </a>
             </div>
@@ -397,7 +397,7 @@
                 <div><a href="index.html#faq" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">FAQ</a></div>
                 
                 <div class="mt-4">
-                    <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" class="mobile-contact-btn" target="_blank" rel="noopener">Contact</a>
+                    <a href="book.html" class="mobile-contact-btn">Contact</a>
                 </div>
             </div>
         </div>
@@ -583,7 +583,7 @@
                         <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>We hit the number, or you don&rsquo;t pay.</b>
                         <em>Your baseline and the target we take it to, agreed with you on the call &mdash; in writing, before any work starts.</em>
                     </div>
-                    <a href="https://calendar.app.google/MZ5z6iwfWEdghky58" class="reverse-hover-btn">Book a Strategy Call</a>
+                    <a href="book.html" class="reverse-hover-btn">Book a Strategy Call</a>
                 </div>
             </div>
         </section>
@@ -787,5 +787,140 @@ requestAnimationFrame(animateHorizontalScroll);
     </script>
 
 
+
+<!-- Tracking with consent gate — Opes Consulting -->
+<!-- Nothing loads and nothing is stored until the visitor accepts. -->
+<style>
+  #opes-consent{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:none;
+    background:#fff;border-top:1px solid #e2e8f0;box-shadow:0 -6px 24px rgba(15,23,42,.08);
+    font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#0A0C19}
+  #opes-consent[data-show="1"]{display:block}
+  .opes-consent-in{max-width:1100px;margin:0 auto;padding:16px 20px;
+    display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .opes-consent-tx{flex:1 1 320px;font-size:14px;line-height:1.5;margin:0}
+  .opes-consent-tx a{color:#0077CC;text-decoration:underline}
+  .opes-consent-bt{display:flex;gap:10px;flex-wrap:wrap}
+  .opes-consent-bt button{font:inherit;font-size:14px;font-weight:600;cursor:pointer;
+    padding:10px 20px;border-radius:8px;border:1px solid #cbd5e1;background:#fff;color:#0A0C19}
+  .opes-consent-bt button:hover{border-color:#94a3b8}
+  .opes-consent-bt button.opes-yes{background:#0094ff;border-color:#0094ff;color:#fff}
+  .opes-consent-bt button.opes-yes:hover{background:#0077CC;border-color:#0077CC}
+  @media(max-width:600px){.opes-consent-in{padding:14px 16px}
+    .opes-consent-bt{width:100%}.opes-consent-bt button{flex:1}}
+</style>
+
+<div id="opes-consent" role="region" aria-label="Cookie choices">
+  <div class="opes-consent-in">
+    <p class="opes-consent-tx">
+      We'd like to use the Meta advertising pixel and HubSpot analytics to measure how well
+      our ads work. Both are off unless you say yes, and neither is needed for anything on
+      this site to function. See our <a href="privacy-policy.html">privacy policy</a>.
+    </p>
+    <div class="opes-consent-bt">
+      <button type="button" id="opes-no">Decline</button>
+      <button type="button" id="opes-yes" class="opes-yes">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var PIXEL_ID  = '1110937994798113';
+  var HS_PORTAL = '149303097';
+  var CONSENT   = 'opes_consent_v1';
+  var ATTRIB    = 'opes_attribution_v1';
+  var started   = false;
+
+  function get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+  function set(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+
+  /* Keeps the ad click id and UTMs so a booking made later can be traced back to
+     the specific ad that produced it. Exposed as window.opesAttribution. */
+  function captureAttribution() {
+    try {
+      var q = new URLSearchParams(window.location.search);
+      var keys = ['fbclid','utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+      var out = {}, any = false;
+      keys.forEach(function(k){ var v = q.get(k); if (v) { out[k] = v; any = true; } });
+      if (any) {
+        out.landed_at    = new Date().toISOString();
+        out.landing_page = window.location.pathname;
+        set(ATTRIB, JSON.stringify(out));
+      }
+      var saved = get(ATTRIB);
+      window.opesAttribution = saved ? JSON.parse(saved) : null;
+    } catch(e){}
+  }
+
+  /* Clicking through to the booking page is intent, not a booking. Contact, so
+     that Schedule below stays a clean signal for people who actually booked. */
+  function wireBookingIntent() {
+    var links = document.querySelectorAll('a[href*="book.html"]');
+    Array.prototype.forEach.call(links, function (a) {
+      a.addEventListener('click', function () {
+        if (window.fbq) fbq('track', 'Contact', { content_name: 'Book a Call' });
+      });
+    });
+  }
+
+  /* The real conversion. HubSpot's meetings embed posts this to the parent page
+     when someone completes a booking, so it fires on our own domain. */
+  function wireBookingSuccess() {
+    window.addEventListener('message', function (e) {
+      if (!e.data || e.data.meetingBookSucceeded !== true) return;
+      if (window.fbq) fbq('track', 'Schedule', { content_name: 'Discovery Call' });
+    });
+  }
+
+  function loadHubSpot() {
+    var s = document.createElement('script');
+    s.id = 'hs-script-loader'; s.async = true; s.defer = true;
+    s.src = 'https://js-eu1.hs-scripts.com/' + HS_PORTAL + '.js';
+    document.head.appendChild(s);
+  }
+
+  function startTracking() {
+    if (started) return;
+    started = true;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', PIXEL_ID);
+    fbq('track', 'PageView');
+    loadHubSpot();
+    captureAttribution();
+    wireBookingIntent();
+    wireBookingSuccess();
+  }
+
+  function ready(fn){
+    if (document.readyState === 'loading')
+      document.addEventListener('DOMContentLoaded', fn);
+    else fn();
+  }
+
+  ready(function () {
+    var choice = get(CONSENT);
+    if (choice === 'yes') { startTracking(); return; }
+    if (choice === 'no')  { return; }
+
+    var bar = document.getElementById('opes-consent');
+    if (!bar) return;
+    bar.setAttribute('data-show','1');
+
+    document.getElementById('opes-yes').addEventListener('click', function(){
+      set(CONSENT,'yes'); bar.removeAttribute('data-show'); startTracking();
+    });
+    document.getElementById('opes-no').addEventListener('click', function(){
+      set(CONSENT,'no'); bar.removeAttribute('data-show');
+    });
+  });
+})();
+</script>
+<!-- End tracking with consent gate -->
 
 </body></html>

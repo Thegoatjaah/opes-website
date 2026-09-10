@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Book a 30-minute discovery call with Opes Consulting. We'll review your email and lifecycle setup and tell you where the revenue is leaking.">
+    <meta name="robots" content="noindex">
+    <title>Book a Discovery Call | Opes Consulting</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap">
+    <link rel="stylesheet" href="./images/all.min.css">
+
+    <script src="./images/saved_resource"></script>
+    <script>
+        /* Vendored Tailwind, same as the rest of the repo. Fallback keeps the page
+           working if this file is ever opened away from the images/ folder. */
+        if (typeof tailwind === "undefined") {
+            document.write('<scr' + 'ipt src="https://cdn.tailwindcss.com"><\/scr' + 'ipt>');
+        }
+    </script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brand: '#0094ff', ink: '#0A0C19' },
+                    fontFamily: {
+                        sans: ['DM Sans', 'Aspekta', 'sans-serif'],
+                        display: ['Newsreader', 'Georgia', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @font-face { font-family:'Aspekta'; src:url('Aspekta-Regular.woff2') format('woff2');  font-weight:400; font-display:swap; }
+        @font-face { font-family:'Aspekta'; src:url('Aspekta-Medium.woff2') format('woff2');   font-weight:500; font-display:swap; }
+        @font-face { font-family:'Aspekta'; src:url('Aspekta-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+        @font-face { font-family:'Aspekta'; src:url('Aspekta-Bold.woff2') format('woff2');     font-weight:700; font-display:swap; }
+
+        /* The embed sets its own height; this stops it collapsing before it loads. */
+        .meetings-iframe-container { min-height: 690px; }
+        .meetings-iframe-container iframe { width: 100%; border: 0; }
+    </style>
+</head>
+
+<body class="bg-white text-ink font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Deliberately no navigation. This page has one job. -->
+    <header class="border-b border-slate-100">
+        <div class="max-w-6xl mx-auto px-6 py-5">
+            <a href="index.html" class="inline-flex items-center focus:outline-none" aria-label="Opes Consulting home">
+                <img src="images/logo-header.png" alt="Opes Consulting" class="h-10 w-auto object-contain">
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-1">
+        <div class="max-w-6xl mx-auto px-6 py-10 md:py-16">
+            <div class="grid md:grid-cols-12 gap-10 lg:gap-16 items-start">
+
+                <!-- Left: the pitch -->
+                <div class="md:col-span-5">
+                    <h1 class="font-display text-4xl md:text-5xl leading-tight tracking-tight">
+                        Book a 30&#8209;minute discovery call
+                    </h1>
+                    <p class="mt-5 text-lg text-slate-600 leading-relaxed">
+                        We'll go through your current email and lifecycle setup, find where
+                        revenue is leaking, and give you a straight answer on whether we can help.
+                    </p>
+
+                    <h2 class="mt-10 text-sm font-semibold uppercase tracking-wider text-slate-500">
+                        What happens on the call
+                    </h2>
+                    <ul class="mt-4 space-y-3 text-slate-700">
+                        <li class="flex gap-3">
+                            <span class="text-brand mt-1">&#10003;</span>
+                            <span>We look at what you're sending now &mdash; flows, campaigns, segmentation &mdash; and where it's falling short.</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-brand mt-1">&#10003;</span>
+                            <span>You leave with at least one thing you can fix yourself, whether or not we work together.</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-brand mt-1">&#10003;</span>
+                            <span>If we're not the right fit, we'll say so on the call rather than send a proposal.</span>
+                        </li>
+                    </ul>
+
+                    <p class="mt-10 text-sm text-slate-500 leading-relaxed">
+                        30 minutes, no obligation, no pitch deck. If something comes up you can
+                        reschedule from the confirmation email.
+                    </p>
+                </div>
+
+                <!-- Right: the booking widget -->
+                <div class="md:col-span-7">
+                    <div class="rounded-2xl border border-slate-200 shadow-sm p-2 sm:p-4 bg-white">
+                        <div class="meetings-iframe-container"
+                             data-src="https://meetings-eu1.hubspot.com/aran-patel?embed=true"></div>
+                        <noscript>
+                            <p class="p-6 text-slate-700">
+                                The booking calendar needs JavaScript. You can email us at
+                                <a href="mailto:aran@opesconsulting.online" class="text-brand underline">aran@opesconsulting.online</a>
+                                and we'll find a time.
+                            </p>
+                        </noscript>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-100 mt-auto">
+        <div class="max-w-6xl mx-auto px-6 py-8 flex flex-wrap gap-4 justify-between items-center text-sm text-slate-500">
+            <p>&copy; 2026 Opes Consulting</p>
+            <nav class="flex gap-6">
+                <a href="index.html" class="hover:text-brand">Home</a>
+                <a href="privacy-policy.html" class="hover:text-brand">Privacy</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- HubSpot meetings embed. Loads regardless of cookie choice: it IS the
+         service the visitor came for, not analytics. -->
+    <script src="https://static-eu1.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
+
+<!-- Tracking with consent gate — Opes Consulting -->
+<!-- Nothing loads and nothing is stored until the visitor accepts. -->
+<style>
+  #opes-consent{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:none;
+    background:#fff;border-top:1px solid #e2e8f0;box-shadow:0 -6px 24px rgba(15,23,42,.08);
+    font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#0A0C19}
+  #opes-consent[data-show="1"]{display:block}
+  .opes-consent-in{max-width:1100px;margin:0 auto;padding:16px 20px;
+    display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .opes-consent-tx{flex:1 1 320px;font-size:14px;line-height:1.5;margin:0}
+  .opes-consent-tx a{color:#0077CC;text-decoration:underline}
+  .opes-consent-bt{display:flex;gap:10px;flex-wrap:wrap}
+  .opes-consent-bt button{font:inherit;font-size:14px;font-weight:600;cursor:pointer;
+    padding:10px 20px;border-radius:8px;border:1px solid #cbd5e1;background:#fff;color:#0A0C19}
+  .opes-consent-bt button:hover{border-color:#94a3b8}
+  .opes-consent-bt button.opes-yes{background:#0094ff;border-color:#0094ff;color:#fff}
+  .opes-consent-bt button.opes-yes:hover{background:#0077CC;border-color:#0077CC}
+  @media(max-width:600px){.opes-consent-in{padding:14px 16px}
+    .opes-consent-bt{width:100%}.opes-consent-bt button{flex:1}}
+</style>
+
+<div id="opes-consent" role="region" aria-label="Cookie choices">
+  <div class="opes-consent-in">
+    <p class="opes-consent-tx">
+      We'd like to use the Meta advertising pixel and HubSpot analytics to measure how well
+      our ads work. Both are off unless you say yes, and neither is needed for anything on
+      this site to function. See our <a href="privacy-policy.html">privacy policy</a>.
+    </p>
+    <div class="opes-consent-bt">
+      <button type="button" id="opes-no">Decline</button>
+      <button type="button" id="opes-yes" class="opes-yes">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var PIXEL_ID  = '1110937994798113';
+  var HS_PORTAL = '149303097';
+  var CONSENT   = 'opes_consent_v1';
+  var ATTRIB    = 'opes_attribution_v1';
+  var started   = false;
+
+  function get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+  function set(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+
+  /* Keeps the ad click id and UTMs so a booking made later can be traced back to
+     the specific ad that produced it. Exposed as window.opesAttribution. */
+  function captureAttribution() {
+    try {
+      var q = new URLSearchParams(window.location.search);
+      var keys = ['fbclid','utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+      var out = {}, any = false;
+      keys.forEach(function(k){ var v = q.get(k); if (v) { out[k] = v; any = true; } });
+      if (any) {
+        out.landed_at    = new Date().toISOString();
+        out.landing_page = window.location.pathname;
+        set(ATTRIB, JSON.stringify(out));
+      }
+      var saved = get(ATTRIB);
+      window.opesAttribution = saved ? JSON.parse(saved) : null;
+    } catch(e){}
+  }
+
+  /* Clicking through to the booking page is intent, not a booking. Contact, so
+     that Schedule below stays a clean signal for people who actually booked. */
+  function wireBookingIntent() {
+    var links = document.querySelectorAll('a[href*="book.html"]');
+    Array.prototype.forEach.call(links, function (a) {
+      a.addEventListener('click', function () {
+        if (window.fbq) fbq('track', 'Contact', { content_name: 'Book a Call' });
+      });
+    });
+  }
+
+  /* The real conversion. HubSpot's meetings embed posts this to the parent page
+     when someone completes a booking, so it fires on our own domain. */
+  function wireBookingSuccess() {
+    window.addEventListener('message', function (e) {
+      if (!e.data || e.data.meetingBookSucceeded !== true) return;
+      if (window.fbq) fbq('track', 'Schedule', { content_name: 'Discovery Call' });
+    });
+  }
+
+  function loadHubSpot() {
+    var s = document.createElement('script');
+    s.id = 'hs-script-loader'; s.async = true; s.defer = true;
+    s.src = 'https://js-eu1.hs-scripts.com/' + HS_PORTAL + '.js';
+    document.head.appendChild(s);
+  }
+
+  function startTracking() {
+    if (started) return;
+    started = true;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', PIXEL_ID);
+    fbq('track', 'PageView');
+    loadHubSpot();
+    captureAttribution();
+    wireBookingIntent();
+    wireBookingSuccess();
+  }
+
+  function ready(fn){
+    if (document.readyState === 'loading')
+      document.addEventListener('DOMContentLoaded', fn);
+    else fn();
+  }
+
+  ready(function () {
+    var choice = get(CONSENT);
+    if (choice === 'yes') { startTracking(); return; }
+    if (choice === 'no')  { return; }
+
+    var bar = document.getElementById('opes-consent');
+    if (!bar) return;
+    bar.setAttribute('data-show','1');
+
+    document.getElementById('opes-yes').addEventListener('click', function(){
+      set(CONSENT,'yes'); bar.removeAttribute('data-show'); startTracking();
+    });
+    document.getElementById('opes-no').addEventListener('click', function(){
+      set(CONSENT,'no'); bar.removeAttribute('data-show');
+    });
+  });
+})();
+</script>
+<!-- End tracking with consent gate -->
+
+</body>
+</html>
