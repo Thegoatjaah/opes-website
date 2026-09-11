@@ -101,6 +101,25 @@
                     <div class="rounded-2xl border border-slate-200 shadow-sm p-2 sm:p-4 bg-white">
                         <div class="meetings-iframe-container"
                              data-src="https://meetings-eu1.hubspot.com/aran-patel?embed=true"></div>
+
+                        <!-- Ad blockers list HubSpot's embed script, so a real slice of
+                             visitors would otherwise sit looking at an empty box. -->
+                        <div id="booking-fallback" hidden class="p-8 text-center">
+                            <p class="text-lg font-medium">The calendar didn't load</p>
+                            <p class="mt-2 text-slate-600">
+                                Usually an ad blocker. You can book on the calendar directly &mdash;
+                                same times, same 30 minutes.
+                            </p>
+                            <a href="https://meetings-eu1.hubspot.com/aran-patel"
+                               class="inline-block mt-6 px-6 py-3 rounded-lg bg-brand text-white font-semibold hover:bg-[#0077CC]">
+                                Open the booking calendar
+                            </a>
+                            <p class="mt-6 text-sm text-slate-500">
+                                Or email <a href="mailto:aran@opesconsulting.online" class="text-brand underline">aran@opesconsulting.online</a>
+                                and we'll find a time.
+                            </p>
+                        </div>
+
                         <noscript>
                             <p class="p-6 text-slate-700">
                                 The booking calendar needs JavaScript. You can email us at
@@ -127,7 +146,19 @@
 
     <!-- HubSpot meetings embed. Loads regardless of cookie choice: it IS the
          service the visitor came for, not analytics. -->
-    <script src="https://static-eu1.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
+    <script src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
+    <script>
+        /* If the embed hasn't produced an iframe by now it was blocked or failed.
+           Swap in a direct link rather than leaving an empty box on the page. */
+        setTimeout(function () {
+            var box = document.querySelector('.meetings-iframe-container');
+            if (!box || box.querySelector('iframe')) return;
+            var fallback = document.getElementById('booking-fallback');
+            box.style.display = 'none';
+            box.style.minHeight = '0';
+            if (fallback) fallback.hidden = false;
+        }, 2500);
+    </script>
 
 <!-- Tracking with consent gate — Opes Consulting -->
 <!-- Nothing loads and nothing is stored until the visitor accepts. -->
