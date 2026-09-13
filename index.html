@@ -4,7 +4,6 @@
     <link rel="icon" type="image/x-icon" href="/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="facebook-domain-verification" content="9v15u4dbdw3tpusf9lg09qwdkfpm0q" />
     <meta name="description" content="Opes Consulting - Email Marketing, Website Creation, and CRM Automation">
     <title> Top Rated Email Marketing & eCRM Agency | UK | Europe | USA </title>
     
@@ -34,7 +33,7 @@
                         ink: '#0A0C19',        /* = free-resource ground */
                     },
                     fontFamily: {
-                        sans: ['DM Sans', 'Aspekta', 'sans-serif'],
+                        sans: ['Aspekta', 'DM Sans', 'sans-serif'],
                         display: ['Newsreader', 'Georgia', 'serif'],
                     }
                 }
@@ -52,7 +51,7 @@
            fallback, so deleting this block returns the site to Aspekta. */
         body, .custom-filled-button, .custom-stroked-button,
         .header-outline-btn, .mobile-contact-btn {
-            font-family: 'DM Sans', 'Aspekta', sans-serif;
+            font-family: 'Aspekta', 'DM Sans', sans-serif;
         }
         /* No bold headings. Tailwind's font-bold utility (0,1,0) outranks a
            bare h2 selector, so these have to be !important to actually win —
@@ -71,9 +70,9 @@
            and it sat in Aspekta while everything around it moved to DM Sans.
            Overridden here rather than inside the section, so the section
            stays a drop-in block. */
-        body .opes-fr, body .opes-fr * { font-family: 'DM Sans', 'Aspekta', sans-serif; }
+        body .opes-fr, body .opes-fr * { font-family: 'Aspekta', 'DM Sans', sans-serif; }
         body .opes-fr h2 { font-family: 'Newsreader', Georgia, serif; font-weight: 500; }
-        body .opes-np, body .opes-np * { font-family: 'DM Sans', 'Aspekta', sans-serif; }
+        body .opes-np, body .opes-np * { font-family: 'Aspekta', 'DM Sans', sans-serif; }
         body .opes-np h2 { font-family: 'Newsreader', Georgia, serif; font-weight: 500; }
 
         /* HERO — rebuilt to the artifact's treatment: centred, the statement
@@ -98,7 +97,7 @@
             color: #0A0C19; margin: 0 auto; max-width: 20ch; text-wrap: balance;
         }
         .opes-hero-attrib {
-            margin-top: 30px; font-family: 'DM Sans', sans-serif;
+            margin-top: 30px; font-family: 'Aspekta', 'DM Sans', sans-serif;
             font-size: clamp(1rem, 1.5vw, 1.18rem); font-weight: 700;
             letter-spacing: -.02em; color: #0F172A;
         }
@@ -186,24 +185,38 @@
            significant condition has to sit AT the claim, not on some other
            page. So the two lines are one component, used everywhere.
            --------------------------------------------------------------- */
-        .opes-promise { max-width: 56ch; margin: 30px auto 26px; text-align: center; }
+        .opes-promise { max-width: 60ch; margin: 34px auto 30px; text-align: center; }
         .opes-promise b {
-            display: inline-flex; align-items: center; gap: 9px;
-            font-family: 'DM Sans', 'Aspekta', sans-serif;
-            font-weight: 700; font-size: 15.5px; line-height: 1.35; color: #0A0C19;
+            display: inline-flex; align-items: center; gap: 10px;
+            font-family: 'Aspekta', 'DM Sans', sans-serif;
+            font-weight: 700; font-size: 19px; line-height: 1.3; color: #0A0C19;
         }
-        .opes-promise svg { flex: 0 0 auto; width: 17px; height: 17px; color: #0094FF; }
-        .opes-promise em {
-            display: block; margin-top: 5px; font-style: normal;
-            font-size: 13px; line-height: 1.5; color: #5A6675;
+        .opes-promise svg { flex: 0 0 auto; width: 20px; height: 20px; color: #0094FF; }
+        /* The qualifier. It defines what the claim is measured against, so it
+           travels with the claim on every page rather than living only in the
+           explainer section. Quiet, but present. */
+        .opes-promise-terms {
+            display: block; margin-top: 9px;
+            font-size: 12.5px; line-height: 1.55; color: #667487;
         }
+        .opes-promise-terms a { color: #0077CC; text-decoration: underline; white-space: nowrap; }
         @media (max-width: 640px) {
-            .opes-promise { margin: 24px auto 20px; }
-            .opes-promise b { font-size: 14.5px; gap: 7px; }
-            .opes-promise em { font-size: 12.5px; }
+            .opes-promise { margin: 26px auto 24px; }
+            .opes-promise b { font-size: 17px; gap: 8px; line-height: 1.32; }
+            .opes-promise svg { width: 18px; height: 18px; }
+            .opes-promise-terms { font-size: 12px; }
         }
         .opes-promise.is-dark b { color: #F3F8FF; }
-        .opes-promise.is-dark em { color: #A9BDD6; }
+        .opes-promise.is-dark .opes-promise-terms { color: #8FA3BC; }
+        .opes-promise.is-dark .opes-promise-terms a { color: #9CD2FF; }
+        /* The guarantee block sits in sections that turn dark, but it only
+           switches palette on the .is-dark class, which these sections do not
+           carry because they are light until night mode. Without this the
+           claim is #0A0C19 on #0A0C19 and simply is not there. */
+        html.night #contact .opes-promise b { color: #F3F8FF !important; }
+        html.night #contact .opes-promise-terms { color: #8FA3BC !important; }
+        html.night #contact .opes-promise-terms a { color: #9CD2FF !important; }
+
 
         /* CTA band between the free resource and the work showcase. */
         .opes-cta-band { padding: clamp(4rem, 9vh, 7rem) 0; background: #fff; text-align: center; }
@@ -492,13 +505,14 @@
         .opes-marquee { background: #ffffff; }
         #work { background: #ffffff; }
         /* The three sections that ride the change let the layer through. */
-        #testimonials, #faq, #contact {
+        #testimonials, #opes-guarantee, #faq, #contact {
             background: transparent !important; background-color: transparent !important;
             border-color: transparent !important;
         }
         /* The text crosses over on a short transition, so it reads as one
            move rather than a snap in the middle of the fade. */
-        #testimonials, #faq, #contact, #testimonials *, #faq *, #contact * {
+        #testimonials, #opes-guarantee, #faq, #contact,
+        #testimonials *, #opes-guarantee *, #faq *, #contact * {
             transition: color .5s cubic-bezier(.4,0,.2,1), border-color .5s cubic-bezier(.4,0,.2,1),
                         background-color .5s cubic-bezier(.4,0,.2,1);
         }
@@ -537,6 +551,73 @@
             background: #0A0C19 !important; border-color: rgba(255,255,255,.08) !important;
         }
         html.night #mobile-menu a { color: #CFE0F2 !important; }
+
+        /* THE GUARANTEE explainer, added 13/09. The claim block states the
+           promise; this states what it is measured against. Numbered, because
+           the order is the reassurance: the number is agreed before the work,
+           not argued about after it. */
+        .opes-guar { padding: clamp(4rem, 9vh, 6.5rem) 0; text-align: center; }
+        .opes-guar-eyebrow {
+            display: inline-block; font-family: 'Aspekta', 'DM Sans', sans-serif;
+            font-size: 12px; font-weight: 700; letter-spacing: .14em;
+            text-transform: uppercase; color: #0094FF;
+            border: 1px solid rgba(0,148,255,.28); border-radius: 999px;
+            padding: 8px 17px; margin-bottom: 22px;
+        }
+        /* 2.25rem lands on 36px, which is what every other section heading on
+           this page resolves to (text-3xl md:text-4xl). Matching it by hand
+           because this section is custom CSS, not Tailwind utilities. */
+        .opes-guar h2 {
+            font-size: clamp(1.75rem, 3vw, 2.25rem); line-height: 1.16;
+            font-weight: 700; letter-spacing: -.01em; color: #0A0C19;
+            max-width: 24ch; margin: 0 auto;
+        }
+        .opes-guar-lede {
+            font-size: clamp(1rem, 1.25vw, 1.1rem); line-height: 1.6;
+            color: #5A6675; max-width: 52ch; margin: 18px auto 0;
+        }
+        .opes-guar-steps {
+            list-style: none; counter-reset: guar; padding: 0;
+            margin: 42px auto 0; max-width: 1000px; text-align: left;
+            display: grid; gap: 20px; grid-template-columns: 1fr;
+        }
+        @media (min-width: 900px) { .opes-guar-steps { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+        .opes-guar-steps li {
+            counter-increment: guar; position: relative;
+            background: #fff; border: 1px solid #E4EAF2; border-radius: 16px;
+            padding: 26px 24px 24px; box-shadow: 0 1px 2px rgba(15,23,42,.04);
+        }
+        .opes-guar-steps li::before {
+            content: counter(guar); display: flex; align-items: center; justify-content: center;
+            width: 30px; height: 30px; border-radius: 50%;
+            background: #0094FF; color: #fff;
+            font-family: 'Aspekta', 'DM Sans', sans-serif; font-size: 14px; font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .opes-guar-steps b {
+            display: block; font-size: 1.06rem; font-weight: 700;
+            color: #0A0C19; margin-bottom: 8px; line-height: 1.3;
+        }
+        .opes-guar-steps span {
+            display: block; font-size: .95rem; line-height: 1.62; color: #5A6675;
+        }
+        .opes-guar-cta {
+            display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        html.night .opes-guar h2 { color: #F3F8FF !important; }
+        html.night .opes-guar h2 .text-brand { color: #61C6FF !important; }
+        html.night .opes-guar-lede { color: #A9BDD6 !important; }
+        html.night .opes-guar-steps li {
+            background: rgba(255,255,255,.045) !important;
+            border-color: rgba(255,255,255,.13) !important;
+            box-shadow: none !important;
+        }
+        html.night .opes-guar-steps b { color: #EDF5FF !important; }
+        html.night .opes-guar-steps span { color: #A9BDD6 !important; }
+        html.night .opes-guar-eyebrow { color: #61C6FF !important; border-color: rgba(97,198,255,.34) !important; }
+
 
         /* note 4 — footer on the Opes brand blue.
            White at 88% rather than pure white: on a mid-blue, full white
@@ -967,6 +1048,22 @@
             transform: translateX(4px);
         }
 
+
+        /* Inline replacements for Font Awesome, 13/09. images/all.min.css
+           fails on the live site, so every fa- glyph rendered as nothing:
+           the testimonial ratings were blank and the FAQ had no arrows.
+           Sizes come from the classes the existing CSS already targets, so
+           .opes-stars' font-size and the service-card-icon breakpoints keep
+           working untouched. */
+        .opes-star { width: 1em; height: 1em; flex: 0 0 auto; }
+        /* An <svg> is a flex item in a way the old <i> was not, so without
+           this it gets shrunk narrower than its own height in the service
+           card rows. Measured 16x20 before, square after. */
+        svg.service-card-icon { flex: 0 0 auto; }
+        .opes-chev { display: inline-flex; width: 15px; height: 15px; }
+        .opes-chev svg { width: 100%; height: 100%; }
+        .opes-ig { display: inline-flex; width: 19px; height: 19px; }
+        .opes-ig svg { width: 100%; height: 100%; }
         .service-card-icon {
             width: 18px;
             height: 18px;
@@ -1195,6 +1292,20 @@
             .second-image { right: 0; left: auto; bottom: 0; }
         }
     </style>
+<style>
+    /* Guarantee sits last in the nav, next to Book a Call, in brand blue so it
+       reads as the one link that is not just another page. Semibold rather
+       than a second button: two pills side by side would compete, and the
+       filled Book a Call has to stay the obvious primary action. */
+    .nav-guarantee { color: #0094FF !important; font-weight: 600; }
+    .nav-guarantee:hover { color: #0077CC !important; }
+    .mobile-guarantee { color: #0094FF !important; font-weight: 600; }
+    /* html.night header .nav-link is (0,2,2) and also !important, so this has
+       to out-specify it rather than just repeat !important. */
+    html.night header nav a.nav-guarantee { color: #61C6FF !important; }
+    html.night header nav a.nav-guarantee:hover { color: #9CD2FF !important; }
+    html.night #mobile-menu a.mobile-guarantee { color: #61C6FF !important; }
+</style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
@@ -1203,14 +1314,14 @@
     </div>
 
     <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
-        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-20 md:h-24 flex items-center justify-between">
+        <div class="max-w-[1200px] w-full mx-auto px-4 sm:px-6 lg:px-8 h-20 md:h-24 flex items-center justify-between">
             
             <a href="index.html" class="flex items-center focus:outline-none">
-                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-16 md:h-12 w-auto object-contain">
+                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-7 md:h-7 w-auto object-contain max-w-[296px] sm:max-w-none">
             </a>
             
             <div class="hidden xl:flex items-center gap-5 ml-auto">
-                <nav class="flex items-center gap-5 font-medium text-[14.5px] tracking-wide text-slate-800">
+                <nav class="flex items-center gap-3 font-medium text-[13.5px] tracking-wide text-slate-800 whitespace-nowrap">
                     <a href="#services" class="nav-link hover:text-brand">Services</a>
                     <a href="process.html" class="nav-link hover:text-brand">Process</a>
                     <a href="campaigns.html" class="nav-link hover:text-brand">Campaigns</a>
@@ -1219,6 +1330,7 @@
                     <a href="pricing.html" class="nav-link hover:text-brand">Pricing</a>
                     <a href="#testimonials" class="nav-link hover:text-brand">Testimonials</a>
                     <a href="#faq" class="nav-link hover:text-brand">FAQ</a>
+                    <a href="pricing.html#opes-guarantee" class="nav-link nav-guarantee">Guarantee</a>
                 </nav>
                 
                 <a href="book.html" class="header-outline-btn ml-2">
@@ -1246,6 +1358,8 @@
                 <div><a href="#testimonials" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
                 <div><a href="#faq" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">FAQ</a></div>
                 
+                <div><a href="pricing.html#opes-guarantee" class="nav-link mobile-guarantee text-[16px]">Guarantee</a></div>
+                
                 <div class="mt-4">
                     <a href="book.html" class="mobile-contact-btn">Book a Call</a>
                 </div>
@@ -1269,8 +1383,8 @@
                 </p>
 
                 <div class="opes-promise">
-                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>We hit the number, or you don&rsquo;t pay.</b>
-                    <em>Your baseline and the target we take it to, agreed with you on the call &mdash; in writing, before any work starts.</em>
+                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>You don&rsquo;t pay unless we deliver on our promise.</b>
+                    <span class="opes-promise-terms">We agree your baseline and your Performance Threshold together on the call, in writing, before any work starts, and we have 90 days to get you there. <a href="#opes-guarantee">How the guarantee works</a></span>
                 </div>
 
                 <div class="opes-hero-cta">
@@ -1313,25 +1427,25 @@
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">High-Converting Campaign Design</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">Mobile-First & Dark-Mode HTML</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">Deliverability & Inbox Optimization</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">A/B Testing & ROI Tracking</div>
                                         </div>
                                     </div>
@@ -1351,25 +1465,25 @@
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">Custom HTML & Tailwind CSS</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">Cloudflare Pages Deployment</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">Performance-Optimized Architecture</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">Responsive & Conversion-Focused</div>
                                         </div>
                                     </div>
@@ -1388,25 +1502,25 @@
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">eCRM & Lifecycle Automation</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">Lead Nurturing & Scoring Flows</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">Cart Recovery & Win-Back Sequences</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">GoHighLevel, Klaviyo & HubSpot</div>
                                         </div>
                                     </div>
@@ -1425,25 +1539,25 @@
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">RAG Systems Bridging LLMs to Your CRM</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">Automated Lead Scoring & Outreach Bots</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">Custom API Bridges & Data Scraping</div>
                                         </div>
                                     </div>
                                     <div role="listitem" class="w-dyn-item">
                                         <div class="service-link w-inline-block cursor-default">
-                                            <i class="fa-solid fa-circle-check service-card-icon"></i>
+                                            <svg class="service-card-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                             <div class="services-card-link-text">Enterprise CRM Sync & Data Integrity</div>
                                         </div>
                                     </div>
@@ -1778,8 +1892,8 @@
             <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8">
                 <h2>We work across the whole customer lifecycle.</h2>
                 <div class="opes-promise">
-                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>We hit the number, or you don&rsquo;t pay.</b>
-                    <em>Your baseline and the target we take it to, agreed with you on the call &mdash; in writing, before any work starts.</em>
+                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>You don&rsquo;t pay unless we deliver on our promise.</b>
+                    <span class="opes-promise-terms">We agree your baseline and your Performance Threshold together on the call, in writing, before any work starts, and we have 90 days to get you there. <a href="#opes-guarantee">How the guarantee works</a></span>
                 </div>
                 <div class="opes-hero-cta">
                     <a href="book.html"
@@ -1911,8 +2025,8 @@
             <div class="opes-rev-row">
                 <div class="opes-rev-track opes-rev-right">
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "We hired Opes to build 13 automated email journeys in Brevo and the whole process was seamless. He turned our copy and requirements into fully tested, branded, personalised flows, communicated clearly throughout, and delivered everything with excellent attention to detail. I’d happily recommend him for any email automation project."
@@ -1923,8 +2037,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes set up our Brevo automations flawlessly, from onboarding to re-engagement journeys with dynamic personalisation working exactly as needed. He worked efficiently, delivered on time, and ensured everything was fully tested before launch, saving us a huge amount of time."
@@ -1935,8 +2049,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Working with Opes was a great experience. He quickly translated our requirements into polished automated journeys, built strong-looking templates, and ensured everything worked perfectly. He communicated well throughout and improved the final result with thoughtful recommendations."
@@ -1947,8 +2061,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is a knowledgeable media buyer with strong technical skills and a calm, professional approach. He was responsive, open to feedback, and consistently improved the work, despite occasional time zone challenges. A fast learner with strong potential in performance marketing."
@@ -1959,8 +2073,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is technically strong, easy to work with, and very dependable. He handled challenges calmly, stayed responsive across time zones, and consistently delivered high-quality work with a problem-solving mindset."
@@ -1971,8 +2085,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes exceeded expectations, building well-designed email templates and fully functional automations with precise personalisation, timing, and testing. He delivered on time and often suggested improvements that made the final result even better."
@@ -1983,8 +2097,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes combines strong technical ability with a professional, collaborative approach. He handled complex automations, communicated clearly, met deadlines, and helped streamline our marketing processes, saving valuable time."
@@ -1995,8 +2109,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is one of the best professionals I’ve worked with. Highly skilled, responsive, and consistently outstanding in delivery—every project felt smooth and well handled from start to finish."
@@ -2007,8 +2121,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "We hired Opes to build 13 automated email journeys in Brevo and the whole process was seamless. He turned our copy and requirements into fully tested, branded, personalised flows, communicated clearly throughout, and delivered everything with excellent attention to detail. I’d happily recommend him for any email automation project."
@@ -2019,8 +2133,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes set up our Brevo automations flawlessly, from onboarding to re-engagement journeys with dynamic personalisation working exactly as needed. He worked efficiently, delivered on time, and ensured everything was fully tested before launch, saving us a huge amount of time."
@@ -2031,8 +2145,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Working with Opes was a great experience. He quickly translated our requirements into polished automated journeys, built strong-looking templates, and ensured everything worked perfectly. He communicated well throughout and improved the final result with thoughtful recommendations."
@@ -2043,8 +2157,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is a knowledgeable media buyer with strong technical skills and a calm, professional approach. He was responsive, open to feedback, and consistently improved the work, despite occasional time zone challenges. A fast learner with strong potential in performance marketing."
@@ -2055,8 +2169,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is technically strong, easy to work with, and very dependable. He handled challenges calmly, stayed responsive across time zones, and consistently delivered high-quality work with a problem-solving mindset."
@@ -2067,8 +2181,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes exceeded expectations, building well-designed email templates and fully functional automations with precise personalisation, timing, and testing. He delivered on time and often suggested improvements that made the final result even better."
@@ -2079,8 +2193,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes combines strong technical ability with a professional, collaborative approach. He handled complex automations, communicated clearly, met deadlines, and helped streamline our marketing processes, saving valuable time."
@@ -2091,8 +2205,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is one of the best professionals I’ve worked with. Highly skilled, responsive, and consistently outstanding in delivery—every project felt smooth and well handled from start to finish."
@@ -2107,8 +2221,8 @@
             <div class="opes-rev-row">
                 <div class="opes-rev-track opes-rev-left">
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is technically strong, easy to work with, and very dependable. He handled challenges calmly, stayed responsive across time zones, and consistently delivered high-quality work with a problem-solving mindset."
@@ -2119,8 +2233,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes exceeded expectations, building well-designed email templates and fully functional automations with precise personalisation, timing, and testing. He delivered on time and often suggested improvements that made the final result even better."
@@ -2131,8 +2245,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes combines strong technical ability with a professional, collaborative approach. He handled complex automations, communicated clearly, met deadlines, and helped streamline our marketing processes, saving valuable time."
@@ -2143,8 +2257,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is one of the best professionals I’ve worked with. Highly skilled, responsive, and consistently outstanding in delivery—every project felt smooth and well handled from start to finish."
@@ -2155,8 +2269,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "We hired Opes to build 13 automated email journeys in Brevo and the whole process was seamless. He turned our copy and requirements into fully tested, branded, personalised flows, communicated clearly throughout, and delivered everything with excellent attention to detail. I’d happily recommend him for any email automation project."
@@ -2167,8 +2281,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes set up our Brevo automations flawlessly, from onboarding to re-engagement journeys with dynamic personalisation working exactly as needed. He worked efficiently, delivered on time, and ensured everything was fully tested before launch, saving us a huge amount of time."
@@ -2179,8 +2293,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Working with Opes was a great experience. He quickly translated our requirements into polished automated journeys, built strong-looking templates, and ensured everything worked perfectly. He communicated well throughout and improved the final result with thoughtful recommendations."
@@ -2191,8 +2305,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is a knowledgeable media buyer with strong technical skills and a calm, professional approach. He was responsive, open to feedback, and consistently improved the work, despite occasional time zone challenges. A fast learner with strong potential in performance marketing."
@@ -2203,8 +2317,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is technically strong, easy to work with, and very dependable. He handled challenges calmly, stayed responsive across time zones, and consistently delivered high-quality work with a problem-solving mindset."
@@ -2215,8 +2329,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes exceeded expectations, building well-designed email templates and fully functional automations with precise personalisation, timing, and testing. He delivered on time and often suggested improvements that made the final result even better."
@@ -2227,8 +2341,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes combines strong technical ability with a professional, collaborative approach. He handled complex automations, communicated clearly, met deadlines, and helped streamline our marketing processes, saving valuable time."
@@ -2239,8 +2353,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is one of the best professionals I’ve worked with. Highly skilled, responsive, and consistently outstanding in delivery—every project felt smooth and well handled from start to finish."
@@ -2251,8 +2365,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "We hired Opes to build 13 automated email journeys in Brevo and the whole process was seamless. He turned our copy and requirements into fully tested, branded, personalised flows, communicated clearly throughout, and delivered everything with excellent attention to detail. I’d happily recommend him for any email automation project."
@@ -2263,8 +2377,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes set up our Brevo automations flawlessly, from onboarding to re-engagement journeys with dynamic personalisation working exactly as needed. He worked efficiently, delivered on time, and ensured everything was fully tested before launch, saving us a huge amount of time."
@@ -2275,8 +2389,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Working with Opes was a great experience. He quickly translated our requirements into polished automated journeys, built strong-looking templates, and ensured everything worked perfectly. He communicated well throughout and improved the final result with thoughtful recommendations."
@@ -2287,8 +2401,8 @@
                             </div>
                         </div>
                     <div class="flex flex-col testimonial-card opes-quote">
-                            <div class="flex opes-stars mb-4 gap-1">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <div class="flex opes-stars mb-4 gap-1" role="img" aria-label="Rated 5 out of 5">
+                                <svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg class="opes-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             </div>
                             <p class="text-slate-700 font-medium flex-grow">
                                 "Opes is a knowledgeable media buyer with strong technical skills and a calm, professional approach. He was responsive, open to feedback, and consistently improved the work, despite occasional time zone challenges. A fast learner with strong potential in performance marketing."
@@ -2305,6 +2419,37 @@
         </section>
 
         <!-- FAQ Section -->
+        <!-- THE GUARANTEE, short version. Placed after the testimonials and
+             before the FAQs deliberately: the visitor has just read the proof,
+             so "and what if it doesn't work" is the next thing they think.
+             The terms live on the pricing page; this links through rather than
+             restating them in two places that can drift apart. -->
+        <section id="opes-guarantee" class="opes-guar opes-full" aria-labelledby="opes-guar-title">
+            <div class="container mx-auto px-6">
+                <span class="opes-guar-eyebrow">The guarantee</span>
+                <h2 id="opes-guar-title">What the promise <span class="text-brand">actually means</span></h2>
+                <p class="opes-guar-lede">Every agency says it gets results. Here is the part most of them leave out.</p>
+                <ol class="opes-guar-steps">
+                    <li>
+                        <b>We agree the number</b>
+                        <span>On the call we look at where your revenue sits today. That is your baseline. Then we agree the number we are taking it to. That number is your Performance Threshold.</span>
+                    </li>
+                    <li>
+                        <b>We put it in writing</b>
+                        <span>Your baseline, your Performance Threshold and the 90 days we have to reach it are written down before any work starts, so there is nothing left to reinterpret later.</span>
+                    </li>
+                    <li>
+                        <b>Miss it and you don&rsquo;t pay</b>
+                        <span>Reach the threshold inside 90 days and we have done what we said we would. Fall short of it and you do not pay us for the work.</span>
+                    </li>
+                </ol>
+                <div class="opes-guar-cta">
+                    <a href="pricing.html#opes-guarantee" class="custom-filled-button">Read the full guarantee</a>
+                    <a href="book.html" class="custom-stroked-button">Book a Strategy Call</a>
+                </div>
+            </div>
+        </section>
+
         <section id="faq" class="bg-slate-50 border-y border-slate-100 opes-full py-16 md:py-24">
             <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8">
                 <div class="text-center md:text-left mb-8">
@@ -2320,7 +2465,7 @@
                     <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">What makes you different from every other email agency?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
@@ -2332,7 +2477,7 @@
                     <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">What size brand is this for?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
@@ -2344,7 +2489,7 @@
                     <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">How fast do you get started?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
@@ -2356,7 +2501,7 @@
                     <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">What if it's not working?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
@@ -2368,7 +2513,7 @@
                     <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">Do you use AI?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
@@ -2382,7 +2527,7 @@
                     <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">Who's actually working on my account?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
@@ -2394,7 +2539,7 @@
                     <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">What if I want more emails, or need CRM and API work too?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
@@ -2406,7 +2551,7 @@
                     <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">Do you build websites from scratch, or use templates?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
@@ -2418,7 +2563,7 @@
                     <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">What if I don't like the emails?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
@@ -2430,7 +2575,7 @@
                     <div class="border-b border-slate-200 py-5 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-lg font-semibold text-slate-900 group-hover:text-brand transition-colors">How do we get started?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-3 text-slate-600 font-medium text-base leading-relaxed">
@@ -2450,8 +2595,8 @@
                 </p>
 
                 <div class="opes-promise">
-                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>We hit the number, or you don&rsquo;t pay.</b>
-                    <em>Your baseline and the target we take it to, agreed with you on the call &mdash; in writing, before any work starts.</em>
+                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>You don&rsquo;t pay unless we deliver on our promise.</b>
+                    <span class="opes-promise-terms">We agree your baseline and your Performance Threshold together on the call, in writing, before any work starts, and we have 90 days to get you there. <a href="#opes-guarantee">How the guarantee works</a></span>
                 </div>
 
                 <div class="opes-hero-cta">
@@ -2477,7 +2622,7 @@
             </p>
             
             <div class="flex gap-5">
-                <a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" aria-label="Opes Consulting on Instagram" class="hover:text-brand transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+                <a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" aria-label="Opes Consulting on Instagram" class="hover:text-brand transition-colors"><i class="opes-ig"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 6.19a3.65 3.65 0 1 0 0 7.3 3.65 3.65 0 0 0 0-7.3Zm0 6.02a2.37 2.37 0 1 1 0-4.74 2.37 2.37 0 0 1 0 4.74Zm4.65-6.15a.85.85 0 1 1-1.7 0 .85.85 0 0 1 1.7 0Z"/></svg></i></a>
             </div>
         </div>
     </footer>
@@ -3188,7 +3333,7 @@
 <style>
   #opes-consent{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:none;
     background:#fff;border-top:1px solid #e2e8f0;box-shadow:0 -6px 24px rgba(15,23,42,.08);
-    font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#0A0C19}
+    font-family:'Aspekta','DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#0A0C19}
   #opes-consent[data-show="1"]{display:block}
   .opes-consent-in{max-width:1100px;margin:0 auto;padding:16px 20px;
     display:flex;gap:16px;align-items:center;flex-wrap:wrap}

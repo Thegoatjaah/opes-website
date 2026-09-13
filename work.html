@@ -32,7 +32,7 @@
                         ink: '#0A0C19',
                     },
                     fontFamily: {
-                        sans: ['DM Sans', 'Aspekta', 'sans-serif'],
+                        sans: ['Aspekta', 'DM Sans', 'sans-serif'],
                         display: ['Newsreader', 'Georgia', 'serif'],
                     }
                 }
@@ -47,7 +47,7 @@
     <style>
         body, .custom-filled-button, .custom-stroked-button,
         .header-outline-btn, .mobile-contact-btn {
-            font-family: 'DM Sans', 'Aspekta', sans-serif;
+            font-family: 'Aspekta', 'DM Sans', sans-serif;
         }
         /* No bold headings anywhere. Tailwind's font-bold utility (0,1,0)
            outranks a bare h1/h2 selector, so this has to be !important to
@@ -112,24 +112,55 @@
            significant condition has to sit AT the claim, not on some other
            page. So the two lines are one component, used everywhere.
            --------------------------------------------------------------- */
-        .opes-promise { max-width: 56ch; margin: 30px auto 26px; text-align: center; }
+        .opes-promise { max-width: 60ch; margin: 34px auto 30px; text-align: center; }
         .opes-promise b {
-            display: inline-flex; align-items: center; gap: 9px;
-            font-family: 'DM Sans', 'Aspekta', sans-serif;
-            font-weight: 700; font-size: 15.5px; line-height: 1.35; color: #0A0C19;
+            display: inline-flex; align-items: center; gap: 10px;
+            font-family: 'Aspekta', 'DM Sans', sans-serif;
+            font-weight: 700; font-size: 19px; line-height: 1.3; color: #0A0C19;
         }
-        .opes-promise svg { flex: 0 0 auto; width: 17px; height: 17px; color: #0094FF; }
-        .opes-promise em {
-            display: block; margin-top: 5px; font-style: normal;
-            font-size: 13px; line-height: 1.5; color: #5A6675;
+        .opes-promise svg { flex: 0 0 auto; width: 20px; height: 20px; color: #0094FF; }
+        /* The qualifier. It defines what the claim is measured against, so it
+           travels with the claim on every page rather than living only in the
+           explainer section. Quiet, but present. */
+        .opes-promise-terms {
+            display: block; margin-top: 9px;
+            font-size: 12.5px; line-height: 1.55; color: #667487;
         }
+        .opes-promise-terms a { color: #0077CC; text-decoration: underline; white-space: nowrap; }
         @media (max-width: 640px) {
-            .opes-promise { margin: 24px auto 20px; }
-            .opes-promise b { font-size: 14.5px; gap: 7px; }
-            .opes-promise em { font-size: 12.5px; }
+            .opes-promise { margin: 26px auto 24px; }
+            .opes-promise b { font-size: 17px; gap: 8px; line-height: 1.32; }
+            .opes-promise svg { width: 18px; height: 18px; }
+            .opes-promise-terms { font-size: 12px; }
         }
         .opes-promise.is-dark b { color: #F3F8FF; }
-        .opes-promise.is-dark em { color: #A9BDD6; }
+        .opes-promise.is-dark .opes-promise-terms { color: #8FA3BC; }
+        .opes-promise.is-dark .opes-promise-terms a { color: #9CD2FF; }
+        /* WORK CAROUSEL, mobile. See README for why this is unpinned rather
+           than shrunk. Restoring the pin below lg reintroduces the crop. */
+        @media (max-width: 1023px) {
+            #horizontal-scroll-section { height: auto !important; }
+            #horizontal-scroll-section > .sticky {
+                position: static !important;
+                height: auto !important;
+                overflow: visible !important;
+                display: block !important;
+            }
+            #horizontal-track {
+                flex-direction: column !important;
+                width: 100% !important;
+                height: auto !important;
+                transform: none !important;
+            }
+            #horizontal-track > div {
+                width: 100% !important;
+                height: auto !important;
+                min-height: 0 !important;
+                padding-top: 4.5rem !important;
+                padding-bottom: 3.5rem !important;
+            }
+        }
+
     </style>
 
 
@@ -344,6 +375,26 @@
             scrollbar-width: none;
         }
     </style>
+<style>
+    /* Inline replacements for the last Font Awesome glyphs, 13/09.
+       images/all.min.css fails on the live site, so each of these was
+       rendering as nothing. Sizes are in em so they inherit the font-size
+       the surrounding Tailwind classes already set (text-sm on the View
+       project arrows, text-4xl on the lightbox close). */
+    .opes-arr { width: 1em; height: 1em; flex: 0 0 auto; }
+    .opes-x   { width: .8em; height: .8em; display: block; }
+    .opes-ig-sm { width: 19px; height: 19px; display: inline-block; vertical-align: middle; }
+    .opes-ig-lg { width: 21px; height: 21px; display: inline-block; vertical-align: middle; }
+</style>
+<style>
+    /* Guarantee sits last in the nav, next to Book a Call, in brand blue so it
+       reads as the one link that is not just another page. Semibold rather
+       than a second button: two pills side by side would compete, and the
+       filled Book a Call has to stay the obvious primary action. */
+    .nav-guarantee { color: #0094FF !important; font-weight: 600; }
+    .nav-guarantee:hover { color: #0077CC !important; }
+    .mobile-guarantee { color: #0094FF !important; font-weight: 600; }
+</style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
@@ -353,14 +404,14 @@
 
     <!-- Header Navbar -->
     <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
-        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-20 md:h-24 flex items-center justify-between">
+        <div class="max-w-[1200px] w-full mx-auto px-4 sm:px-6 lg:px-8 h-20 md:h-24 flex items-center justify-between">
             
             <a href="index.html" class="flex items-center focus:outline-none">
-                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-20 md:h-12 w-auto" onerror="this.onerror=null;this.src=&#39;images/logo-header.png&#39;;">
+                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-7 md:h-7 w-auto object-contain max-w-[296px] sm:max-w-none" onerror="this.onerror=null;this.src=&#39;images/logo-header.png&#39;;">
             </a>
             
             <div class="hidden xl:flex items-center gap-5 ml-auto">
-                <nav class="flex items-center gap-5 font-medium text-[14.5px] tracking-wide text-slate-800">
+                <nav class="flex items-center gap-3 font-medium text-[13.5px] tracking-wide text-slate-800 whitespace-nowrap">
                     <a href="index.html#services" class="nav-link hover:text-brand">Services</a>
                     <a href="process.html" class="nav-link hover:text-brand">Process</a>
                     <a href="campaigns.html" class="nav-link hover:text-brand">Campaigns</a>
@@ -369,6 +420,7 @@
                     <a href="pricing.html" class="nav-link hover:text-brand">Pricing</a>
                     <a href="index.html#testimonials" class="nav-link hover:text-brand">Testimonials</a>
                     <a href="index.html#faq" class="nav-link hover:text-brand">FAQ</a>
+                    <a href="pricing.html#opes-guarantee" class="nav-link nav-guarantee">Guarantee</a>
                 </nav>
                 
                 <a href="book.html" class="header-outline-btn ml-2">
@@ -395,6 +447,8 @@
                 <div><a href="pricing.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Pricing</a></div>
                 <div><a href="index.html#testimonials" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
                 <div><a href="index.html#faq" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">FAQ</a></div>
+                
+                <div><a href="pricing.html#opes-guarantee" class="nav-link mobile-guarantee text-[16px]">Guarantee</a></div>
                 
                 <div class="mt-4">
                     <a href="book.html" class="mobile-contact-btn">Contact</a>
@@ -450,7 +504,7 @@
                                 <div>
                                     <button class="view-project-btn group inline-flex items-center gap-3 font-bold text-brand text-lg pb-1 border-b-2 border-brand hover:text-white hover:border-white transition-all duration-300" data-img="images/bchex-project.jpg">
                                         <span>View project</span>
-                                        <i class="fa-solid fa-arrow-right text-sm transform group-hover:translate-x-1 transition-transform"></i>
+                                        <svg class="opes-arr text-sm transform group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                                     </button>
                                 </div>
                             </div>
@@ -481,7 +535,7 @@
                                 <div>
                                     <button class="view-project-btn group inline-flex items-center gap-3 font-bold text-brand text-lg pb-1 border-b-2 border-brand hover:text-white hover:border-white transition-all duration-300" data-img="images/korra-project.jpg">
                                         <span>View project</span>
-                                        <i class="fa-solid fa-arrow-right text-sm transform group-hover:translate-x-1 transition-transform"></i>
+                                        <svg class="opes-arr text-sm transform group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                                     </button>
                                 </div>
                             </div>
@@ -515,7 +569,7 @@
                                 <div>
                                     <button class="view-project-btn group inline-flex items-center gap-3 font-bold text-brand text-lg pb-1 border-b-2 border-brand hover:text-white hover:border-white transition-all duration-300" data-img="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect fill=%22%230F1626%22 width=%22800%22 height=%22600%22/%3E%3Crect x=%220.5%22 y=%220.5%22 width=%22799%22 height=%22599%22 fill=%22none%22 stroke=%22%232A3550%22/%3E%3Ctext x=%22400%22 y=%22308%22 text-anchor=%22middle%22 fill=%22%237F93AC%22 font-family=%22sans-serif%22 font-size=%2226%22%3EN8N Automations%3C/text%3E%3C/svg%3E">
                                         <span>View project</span>
-                                        <i class="fa-solid fa-arrow-right text-sm transform group-hover:translate-x-1 transition-transform"></i>
+                                        <svg class="opes-arr text-sm transform group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                                     </button>
                                 </div>
                             </div>
@@ -558,7 +612,7 @@
                                 <div>
                                     <button class="view-project-btn group inline-flex items-center gap-3 font-bold text-brand text-lg pb-1 border-b-2 border-brand hover:text-white hover:border-white transition-all duration-300" data-img="images/damirindubai-project.jpg">
                                         <span>View project</span>
-                                        <i class="fa-solid fa-arrow-right text-sm transform group-hover:translate-x-1 transition-transform"></i>
+                                        <svg class="opes-arr text-sm transform group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                                     </button>
                                 </div>
                             </div>
@@ -580,8 +634,8 @@
                     <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Want results like <span class="text-brand">these</span>?</h2>
                     <p class="text-lg md:text-xl text-slate-600 mb-10 font-medium">Book a call to discuss how we can architect a system tailored specifically for your brand.</p>
                     <div class="opes-promise">
-                        <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>We hit the number, or you don&rsquo;t pay.</b>
-                        <em>Your baseline and the target we take it to, agreed with you on the call &mdash; in writing, before any work starts.</em>
+                        <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>You don&rsquo;t pay unless we deliver on our promise.</b>
+                        <span class="opes-promise-terms">We agree your baseline and your Performance Threshold together on the call, in writing, before any work starts, and we have 90 days to get you there. <a href="pricing.html#opes-guarantee">How the guarantee works</a></span>
                     </div>
                     <a href="book.html" class="reverse-hover-btn">Book a Strategy Call</a>
                 </div>
@@ -600,7 +654,7 @@
                 © 2026 Opes Consulting. All rights reserved.
             </p>
             <div class="flex gap-6">
-                <a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" aria-label="Opes Consulting on Instagram" class="hover:text-brand transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" aria-label="Opes Consulting on Instagram" class="hover:text-brand transition-colors"><svg class="opes-ig-lg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 6.19a3.65 3.65 0 1 0 0 7.3 3.65 3.65 0 0 0 0-7.3Zm0 6.02a2.37 2.37 0 1 1 0-4.74 2.37 2.37 0 0 1 0 4.74Zm4.65-6.15a.85.85 0 1 1-1.7 0 .85.85 0 0 1 1.7 0Z"/></svg></a>
             </div>
         </div>
     </footer>
@@ -608,7 +662,7 @@
     <!-- LIGHTBOX OVERLAY -->
     <div id="project-lightbox" class="fixed inset-0 z-[99999] bg-slate-950/95 transition-opacity duration-300 flex items-center justify-center p-6 md:p-12 opacity-0 pointer-events-none">
         <button id="close-lightbox" class="absolute top-6 right-6 md:top-10 md:right-10 text-white/60 hover:text-white transition-colors text-4xl cursor-pointer z-10">
-            <i class="fa-solid fa-xmark"></i>
+            <svg class="opes-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
         </button>
         <div class="w-full h-full max-w-6xl flex items-center justify-center perspective-1200">
             <img id="lightbox-img" src="images/damirindubai-project.jpg" alt="Project Presentation" class="max-w-full max-h-full object-contain rounded-2xl shadow-2xl transition-all duration-700 ease-out rotate-y-90">
@@ -793,7 +847,7 @@ requestAnimationFrame(animateHorizontalScroll);
 <style>
   #opes-consent{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:none;
     background:#fff;border-top:1px solid #e2e8f0;box-shadow:0 -6px 24px rgba(15,23,42,.08);
-    font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#0A0C19}
+    font-family:'Aspekta','DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#0A0C19}
   #opes-consent[data-show="1"]{display:block}
   .opes-consent-in{max-width:1100px;margin:0 auto;padding:16px 20px;
     display:flex;gap:16px;align-items:center;flex-wrap:wrap}

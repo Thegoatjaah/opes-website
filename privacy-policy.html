@@ -23,7 +23,7 @@
                         ink: '#0A0C19',
                     },
                     fontFamily: {
-                        sans: ['DM Sans', 'Aspekta', 'sans-serif'],
+                        sans: ['Aspekta', 'DM Sans', 'sans-serif'],
                         display: ['Newsreader', 'Georgia', 'serif'],
                     }
                 }
@@ -37,7 +37,7 @@
         @font-face { font-family:'Aspekta'; src:url('Aspekta-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
         @font-face { font-family:'Aspekta'; src:url('Aspekta-Bold.woff2') format('woff2');     font-weight:700; font-display:swap; }
 
-        body { font-family:'DM Sans','Aspekta',sans-serif; }
+        body { font-family:'Aspekta','DM Sans',sans-serif; }
         h1, h2 { font-family:'Newsreader', Georgia, serif; font-weight:500; letter-spacing:-.02em; }
 
         .policy { max-width: 68ch; }
@@ -73,13 +73,24 @@
         .opes-footer a:hover { color:#fff; }
         .opes-footer img { opacity:.85; filter:brightness(0) invert(1); }
     </style>
+<style>
+    /* Inline replacements for the last Font Awesome glyphs, 13/09.
+       images/all.min.css fails on the live site, so each of these was
+       rendering as nothing. Sizes are in em so they inherit the font-size
+       the surrounding Tailwind classes already set (text-sm on the View
+       project arrows, text-4xl on the lightbox close). */
+    .opes-arr { width: 1em; height: 1em; flex: 0 0 auto; }
+    .opes-x   { width: .8em; height: .8em; display: block; }
+    .opes-ig-sm { width: 19px; height: 19px; display: inline-block; vertical-align: middle; }
+    .opes-ig-lg { width: 21px; height: 21px; display: inline-block; vertical-align: middle; }
+</style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
 <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100">
-    <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-20 md:h-24 flex items-center justify-between">
+    <div class="max-w-[1200px] w-full mx-auto px-4 sm:px-6 lg:px-8 h-20 md:h-24 flex items-center justify-between">
         <a href="index.html" class="flex items-center focus:outline-none">
-            <img src="./images/logo-header.png" alt="Opes Consulting" class="h-16 md:h-12 w-auto object-contain">
+            <img src="./images/logo-header.png" alt="Opes Consulting" class="h-7 md:h-7 w-auto object-contain max-w-[296px] sm:max-w-none">
         </a>
         <a href="index.html" class="header-outline-btn text-sm font-semibold text-brand border-2 border-brand rounded-[10px] px-5 py-2.5 hover:bg-slate-50 transition-all">
             Back to site
@@ -259,7 +270,7 @@
             &copy; 2026 Opes Consulting. All rights reserved.
         </p>
         <div class="flex gap-5">
-            <a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" aria-label="Opes Consulting on Instagram" class="transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+            <a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" aria-label="Opes Consulting on Instagram" class="transition-colors"><svg class="opes-ig-sm" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 6.19a3.65 3.65 0 1 0 0 7.3 3.65 3.65 0 0 0 0-7.3Zm0 6.02a2.37 2.37 0 1 1 0-4.74 2.37 2.37 0 0 1 0 4.74Zm4.65-6.15a.85.85 0 1 1-1.7 0 .85.85 0 0 1 1.7 0Z"/></svg></a>
         </div>
     </div>
 </footer>
@@ -269,7 +280,7 @@
 <style>
   #opes-consent{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:none;
     background:#fff;border-top:1px solid #e2e8f0;box-shadow:0 -6px 24px rgba(15,23,42,.08);
-    font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#0A0C19}
+    font-family:'Aspekta','DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#0A0C19}
   #opes-consent[data-show="1"]{display:block}
   .opes-consent-in{max-width:1100px;margin:0 auto;padding:16px 20px;
     display:flex;gap:16px;align-items:center;flex-wrap:wrap}

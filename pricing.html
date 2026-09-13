@@ -32,7 +32,7 @@
                         ink: '#0A0C19',
                     },
                     fontFamily: {
-                        sans: ['DM Sans', 'Aspekta', 'sans-serif'],
+                        sans: ['Aspekta', 'DM Sans', 'sans-serif'],
                         display: ['Newsreader', 'Georgia', 'serif'],
                     }
                 }
@@ -47,7 +47,7 @@
     <style>
         body, .custom-filled-button, .custom-stroked-button,
         .header-outline-btn, .mobile-contact-btn {
-            font-family: 'DM Sans', 'Aspekta', sans-serif;
+            font-family: 'Aspekta', 'DM Sans', sans-serif;
         }
         /* No bold headings anywhere. Tailwind's font-bold utility (0,1,0)
            outranks a bare h1/h2 selector, so this has to be !important to
@@ -112,24 +112,213 @@
            significant condition has to sit AT the claim, not on some other
            page. So the two lines are one component, used everywhere.
            --------------------------------------------------------------- */
-        .opes-promise { max-width: 56ch; margin: 30px auto 26px; text-align: center; }
+        .opes-promise { max-width: 60ch; margin: 34px auto 30px; text-align: center; }
         .opes-promise b {
-            display: inline-flex; align-items: center; gap: 9px;
-            font-family: 'DM Sans', 'Aspekta', sans-serif;
-            font-weight: 700; font-size: 15.5px; line-height: 1.35; color: #0A0C19;
+            display: inline-flex; align-items: center; gap: 10px;
+            font-family: 'Aspekta', 'DM Sans', sans-serif;
+            font-weight: 700; font-size: 19px; line-height: 1.3; color: #0A0C19;
         }
-        .opes-promise svg { flex: 0 0 auto; width: 17px; height: 17px; color: #0094FF; }
-        .opes-promise em {
-            display: block; margin-top: 5px; font-style: normal;
-            font-size: 13px; line-height: 1.5; color: #5A6675;
+        .opes-promise svg { flex: 0 0 auto; width: 20px; height: 20px; color: #0094FF; }
+        /* The qualifier. It defines what the claim is measured against, so it
+           travels with the claim on every page rather than living only in the
+           explainer section. Quiet, but present. */
+        .opes-promise-terms {
+            display: block; margin-top: 9px;
+            font-size: 12.5px; line-height: 1.55; color: #667487;
         }
+        .opes-promise-terms a { color: #0077CC; text-decoration: underline; white-space: nowrap; }
         @media (max-width: 640px) {
-            .opes-promise { margin: 24px auto 20px; }
-            .opes-promise b { font-size: 14.5px; gap: 7px; }
-            .opes-promise em { font-size: 12.5px; }
+            .opes-promise { margin: 26px auto 24px; }
+            .opes-promise b { font-size: 17px; gap: 8px; line-height: 1.32; }
+            .opes-promise svg { width: 18px; height: 18px; }
+            .opes-promise-terms { font-size: 12px; }
         }
         .opes-promise.is-dark b { color: #F3F8FF; }
-        .opes-promise.is-dark em { color: #A9BDD6; }
+        .opes-promise.is-dark .opes-promise-terms { color: #8FA3BC; }
+        .opes-promise.is-dark .opes-promise-terms a { color: #9CD2FF; }
+        /* ---- PRICES ON THE PAGE -------------------------------------------
+           Replaces the three dialogs, 13/09. The numbers are the reason people
+           come to this page, so they are now something you scroll to and can
+           link to, not something you have to press a button to see.
+
+           Ticks are inline SVG, not Font Awesome: images/all.min.css fails on
+           the live site, so fa-circle-check has been rendering as nothing.
+           Anything load-bearing on this page draws its own shape. */
+        .opes-tick { flex: 0 0 auto; color: #0094FF; }
+        /* Inline replacements for the last Font Awesome glyphs on this page.
+           The <i> wrapper stays because the FAQ script rotates it by tag. */
+        .opes-chev { display: inline-flex; width: 15px; height: 15px; }
+        .opes-chev svg { width: 100%; height: 100%; }
+        .opes-ig { display: inline-flex; width: 21px; height: 21px; }
+        .opes-ig svg { width: 100%; height: 100%; }
+
+        .opes-tick-li { width: 17px; height: 17px; margin-top: 2px; }
+        .opes-tick-price { width: 20px; height: 20px; margin-right: 8px; vertical-align: -3px; }
+        .opes-plan-price {
+            display: flex; align-items: center;
+            font-size: 1.5rem; font-weight: 700; color: #0094FF; margin-bottom: 1.5rem;
+        }
+        .opes-plan-per { font-size: 1rem; font-weight: 500; color: #7B8797; margin-left: 5px; }
+
+        .opes-prices { padding: clamp(4rem, 9vh, 6.5rem) 0; background: #fff; }
+        .opes-prices-head { text-align: center; max-width: 60ch; margin: 0 auto 42px; }
+        .opes-prices-head h2 {
+            font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.16;
+            font-weight: 700; letter-spacing: -.01em; color: #0A0C19; margin: 0;
+        }
+        .opes-prices-head p {
+            font-size: clamp(1rem, 1.25vw, 1.1rem); line-height: 1.6;
+            color: #5A6675; margin: 16px auto 0;
+        }
+        /* Segment switcher. Three buttons rather than a select: the options are
+           few, and a visitor should be able to see that their own kind of
+           business is covered without opening anything. */
+        .opes-seg {
+            display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+            margin: 0 auto 34px; max-width: 560px;
+        }
+        .opes-seg button {
+            font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+            padding: 11px 22px; border-radius: 999px;
+            border: 1px solid #D8E0EA; background: #fff; color: #5A6675;
+            transition: background .18s, color .18s, border-color .18s;
+        }
+        .opes-seg button:hover { border-color: #0094FF; color: #0A0C19; }
+        .opes-seg button[aria-selected="true"] {
+            background: #0094FF; border-color: #0094FF; color: #fff;
+        }
+        .opes-panel[hidden] { display: none; }
+
+        .opes-tbl { max-width: 760px; margin: 0 auto; }
+        .opes-tbl + .opes-tbl { margin-top: 34px; }
+        .opes-tbl h3 {
+            font-size: 1.15rem; font-weight: 600; color: #0A0C19;
+            margin: 0 0 4px; letter-spacing: -.01em;
+        }
+        .opes-tbl > p {
+            font-size: .92rem; line-height: 1.6; color: #5A6675; margin: 0 0 16px;
+        }
+        .opes-rows {
+            border: 1px solid #E4EAF2; border-radius: 14px; overflow: hidden; background: #fff;
+        }
+        .opes-row {
+            display: flex; align-items: baseline; gap: 16px;
+            padding: 14px 18px; border-bottom: 1px solid #EEF2F7;
+        }
+        .opes-row:last-child { border-bottom: 0; }
+        .opes-row dt { flex: 1 1 auto; font-size: .95rem; color: #3F4C5C; }
+        .opes-row dd {
+            flex: 0 0 auto; margin: 0; font-size: 1rem; font-weight: 700; color: #0A0C19;
+            font-variant-numeric: tabular-nums;
+        }
+        .opes-row dd.quote { font-weight: 600; color: #5A6675; }
+        .opes-note { margin-top: 14px; font-size: 13px; line-height: 1.6; color: #667487; }
+        .opes-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+        .opes-tag {
+            font-size: 12.5px; font-weight: 500; color: #3F4C5C;
+            background: #F1F5F9; border: 1px solid #E4EAF2;
+            padding: 6px 12px; border-radius: 999px;
+        }
+        .opes-prices-cta { text-align: center; margin-top: 40px; }
+        @media (max-width: 640px) {
+            .opes-seg button { padding: 10px 16px; font-size: 13.5px; }
+            .opes-row { padding: 13px 15px; gap: 12px; }
+            .opes-row dt { font-size: .9rem; }
+        }
+
+        .opes-cta-band { padding: clamp(3.5rem, 8vh, 5.5rem) 0; background: #F8FAFC; border-top: 1px solid #EEF2F7; }
+        .opes-cta-band h2 {
+            font-size: clamp(1.6rem, 3vw, 2.25rem); line-height: 1.2; color: #0A0C19;
+            max-width: 22ch; margin: 0 auto; font-weight: 700; letter-spacing: -.01em;
+        }
+        .opes-cta-lede {
+            font-size: clamp(.98rem, 1.2vw, 1.05rem); line-height: 1.6;
+            color: #5A6675; max-width: 50ch; margin: 14px auto 0;
+        }
+
+
+        /* THE GUARANTEE explainer, added 13/09. The claim block states the
+           promise; this states what it is measured against. Numbered, because
+           the order is the reassurance: the number is agreed before the work,
+           not argued about after it. */
+        .opes-guar { padding: clamp(4rem, 9vh, 6.5rem) 0; text-align: center; }
+        .opes-guar-eyebrow {
+            display: inline-block; font-family: 'Aspekta', 'DM Sans', sans-serif;
+            font-size: 12px; font-weight: 700; letter-spacing: .14em;
+            text-transform: uppercase; color: #0094FF;
+            border: 1px solid rgba(0,148,255,.28); border-radius: 999px;
+            padding: 8px 17px; margin-bottom: 22px;
+        }
+        /* 3rem lands on 48px to match this page's FAQ heading (text-4xl
+           md:text-5xl). Pricing runs a larger heading scale than the homepage,
+           so the shared component is sized per page rather than globally. */
+        .opes-guar h2 {
+            font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.16;
+            font-weight: 700; letter-spacing: -.01em; color: #0A0C19;
+            max-width: 24ch; margin: 0 auto;
+        }
+        .opes-guar-lede {
+            font-size: clamp(1rem, 1.25vw, 1.1rem); line-height: 1.6;
+            color: #5A6675; max-width: 52ch; margin: 18px auto 0;
+        }
+        .opes-guar-steps {
+            list-style: none; counter-reset: guar; padding: 0;
+            margin: 42px auto 0; max-width: 1000px; text-align: left;
+            display: grid; gap: 20px; grid-template-columns: 1fr;
+        }
+        @media (min-width: 900px) { .opes-guar-steps { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+        .opes-guar-steps li {
+            counter-increment: guar; position: relative;
+            background: #fff; border: 1px solid #E4EAF2; border-radius: 16px;
+            padding: 26px 24px 24px; box-shadow: 0 1px 2px rgba(15,23,42,.04);
+        }
+        .opes-guar-steps li::before {
+            content: counter(guar); display: flex; align-items: center; justify-content: center;
+            width: 30px; height: 30px; border-radius: 50%;
+            background: #0094FF; color: #fff;
+            font-family: 'Aspekta', 'DM Sans', sans-serif; font-size: 14px; font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .opes-guar-steps b {
+            display: block; font-size: 1.06rem; font-weight: 700;
+            color: #0A0C19; margin-bottom: 8px; line-height: 1.3;
+        }
+        .opes-guar-steps span {
+            display: block; font-size: .95rem; line-height: 1.62; color: #5A6675;
+        }
+        .opes-guar-cta {
+            display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        /* The full version carries the definition and the terms, so it gets a
+           plate of its own under the three steps rather than ending on them. */
+        .opes-guar-def {
+            max-width: 760px; margin: 40px auto 0; text-align: left;
+            background: #0A0C19; border-radius: 18px; padding: 32px 30px;
+        }
+        .opes-guar-def h3 {
+            font-size: 1.3rem; font-weight: 700; color: #fff; margin: 0 0 12px;
+            line-height: 1.3;
+        }
+        .opes-guar-def p { font-size: .98rem; line-height: 1.65; color: #C3D6EC; margin: 0 0 14px; }
+        .opes-guar-def p:last-child { margin-bottom: 0; }
+        .opes-guar-def b { color: #61C6FF; font-weight: 600; }
+        .opes-guar-terms {
+            max-width: 760px; margin: 26px auto 0; text-align: left;
+            list-style: none; padding: 0; display: grid; gap: 13px;
+        }
+        .opes-guar-terms li {
+            position: relative; padding-left: 30px;
+            font-size: .95rem; line-height: 1.6; color: #5A6675;
+        }
+        .opes-guar-terms li::before {
+            content: ""; position: absolute; left: 0; top: .28em;
+            width: 19px; height: 19px; border-radius: 50%;
+            background: rgba(0,148,255,.12) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230094FF'%3E%3Cpath d='M8.2 14.3 4.1 10.2a1 1 0 0 1 1.42-1.42l2.7 2.7 6.28-6.28a1 1 0 0 1 1.42 1.42l-7 7a1 1 0 0 1-1.42 0Z'/%3E%3C/svg%3E") center/11px 11px no-repeat;
+        }
+        .opes-guar-terms li b { color: #0A0C19; font-weight: 600; }
+
     </style>
 
 
@@ -343,86 +532,15 @@
             background: linear-gradient(180deg, rgba(0,148,255,0.08) 0%, rgba(0,148,255,0.02) 50%, rgba(255,255,255,1) 100%);
         }
     </style>
-    <style>
-        /* ---- THE PRICE MODALS ---------------------------------------------
-           The numbers live behind the three buttons rather than in a long list
-           under them: the cards stay the thing you read, and the detail is one
-           press away for whoever wants it.
-
-           Native <dialog> on purpose — it gives Esc, the backdrop, the focus
-           move and the background scroll lock without any of them being my
-           code to get wrong. The fallback below covers browsers without
-           showModal(). */
-        .opes-modal {
-            border: 0; padding: 0; max-width: 560px; width: calc(100% - 32px);
-            max-height: min(78vh, 720px); border-radius: 20px;
-            background: #fff; color: #0F172A;
-            box-shadow: 0 40px 90px -30px rgba(0, 20, 50, .45);
-            overflow: hidden;
-        }
-        .opes-modal::backdrop { background: rgba(10, 12, 25, .55); backdrop-filter: blur(3px); }
-        .opes-modal-in { display: flex; flex-direction: column; max-height: inherit; }
-        .opes-modal-top {
-            display: flex; align-items: flex-start; gap: 16px;
-            padding: 26px 26px 18px; border-bottom: 1px solid #E7ECF2;
-        }
-        /* flex:1 belongs on the text COLUMN, not the h3 inside it. On the h3 it
-           does nothing to the wrapper, so a short lede left the wrapper narrow
-           and the close button sat wherever the text ended rather than in the
-           corner — obvious on Retainers, which has the shortest lede. */
-        .opes-modal-top > div:first-child { flex: 1 1 auto; min-width: 0; }
-        .opes-modal-x { margin-left: auto; }
-        .opes-modal-top h3 {
-            font-family: 'Newsreader', Georgia, serif !important; font-weight: 400 !important;
-            font-size: 1.55rem; color: #0A0C19; letter-spacing: -.02em;
-        }
-        .opes-modal-top p { margin-top: 7px; font-size: 14px; line-height: 1.6; color: #5A6675; }
-        .opes-modal-x {
-            appearance: none; border: 1px solid #E2E8F0; background: #fff; cursor: pointer;
-            width: 32px; height: 32px; border-radius: 999px; flex: none;
-            font-size: 16px; line-height: 1; color: #5A6675;
-            display: flex; align-items: center; justify-content: center;
-            transition: background .2s, color .2s;
-        }
-        .opes-modal-x:hover { background: #F1F5F9; color: #0A0C19; }
-        .opes-modal-body { padding: 6px 26px 24px; overflow-y: auto; }
-        .opes-modal-sub {
-            font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-            color: #0077CC; margin: 22px 0 2px;
-        }
-        .opes-pl-row {
-            display: flex; align-items: baseline; justify-content: space-between; gap: 18px;
-            padding: 13px 0; border-bottom: 1px solid #EEF2F7;
-        }
-        .opes-pl-row:last-child { border-bottom: 0; }
-        .opes-pl-row dt { font-size: 15px; color: #0F172A; font-weight: 500; }
-        .opes-pl-row dd {
-            margin: 0; font-size: 15.5px; font-weight: 700; color: #0A0C19;
-            white-space: nowrap; font-variant-numeric: tabular-nums;
-        }
-        .opes-pl-row dd .per { font-weight: 500; color: #7B8797; font-size: 13px; }
-        .opes-pl-row dd.quote { font-weight: 500; color: #5A6675; }
-        .opes-modal-note { margin-top: 18px; font-size: 13px; line-height: 1.6; color: #7B8797; }
-        .opes-pl-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-        .opes-pl-tag {
-            font-size: 12.5px; color: #475569; padding: 7px 13px;
-            border: 1px solid #E2E8F0; border-radius: 999px;
-        }
-        .opes-modal-cta { padding: 16px 26px; border-top: 1px solid #E7ECF2; background: #F8FAFC; }
-        .opes-modal-cta a { width: 100%; }
-        /* Browsers without showModal() get a fixed, centred panel instead of
-           nothing at all. */
-        .opes-modal.is-fallback {
-            display: block; position: fixed; z-index: 9999;
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-        }
-        @media (max-width: 640px) {
-            .opes-modal { max-height: 86vh; border-radius: 16px; }
-            .opes-modal-top { padding: 20px 20px 15px; }
-            .opes-modal-body { padding: 4px 20px 20px; }
-            .opes-modal-cta { padding: 14px 20px; }
-        }
-    </style>
+<style>
+    /* Guarantee sits last in the nav, next to Book a Call, in brand blue so it
+       reads as the one link that is not just another page. Semibold rather
+       than a second button: two pills side by side would compete, and the
+       filled Book a Call has to stay the obvious primary action. */
+    .nav-guarantee { color: #0094FF !important; font-weight: 600; }
+    .nav-guarantee:hover { color: #0077CC !important; }
+    .mobile-guarantee { color: #0094FF !important; font-weight: 600; }
+</style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
@@ -432,14 +550,14 @@
 
     <!-- Header Navbar -->
     <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100 transition-colors">
-        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8 h-24 flex items-center justify-between">
+        <div class="max-w-[1200px] w-full mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
             
             <a href="index.html" class="flex items-center focus:outline-none">
-                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-20 md:h-12 w-auto">
+                <img src="images/logo-header.png" alt="Opes Consulting Logo" class="h-7 md:h-7 w-auto object-contain max-w-[296px] sm:max-w-none">
             </a>
             
             <div class="hidden xl:flex items-center gap-5 ml-auto">
-                <nav class="flex items-center gap-5 font-medium text-[14.5px] tracking-wide text-slate-800">
+                <nav class="flex items-center gap-3 font-medium text-[13.5px] tracking-wide text-slate-800 whitespace-nowrap">
                     <a href="index.html#services" class="nav-link hover:text-brand">Services</a>
                     <a href="process.html" class="nav-link hover:text-brand">Process</a>
                     <a href="campaigns.html" class="nav-link hover:text-brand">Campaigns</a>
@@ -448,6 +566,7 @@
                     <a href="pricing.html" class="nav-link hover:text-brand text-brand">Pricing</a>
                     <a href="index.html#testimonials" class="nav-link hover:text-brand">Testimonials</a>
                     <a href="#faq" class="nav-link hover:text-brand">FAQ</a>
+                    <a href="#opes-guarantee" class="nav-link nav-guarantee">Guarantee</a>
                 </nav>
                 
                 <a href="book.html" class="header-outline-btn">
@@ -475,6 +594,8 @@
                 <div><a href="index.html#testimonials" class="nav-link text-[18px] font-medium text-slate-800 hover:text-brand">Testimonials</a></div>
                 <div><a href="#faq" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">FAQ</a></div>
                 
+                <div><a href="#opes-guarantee" class="nav-link mobile-guarantee text-[16px]">Guarantee</a></div>
+                
                 <div class="mt-6">
                     <a href="book.html" class="mobile-contact-btn">Contact</a>
                 </div>
@@ -500,87 +621,83 @@
                 <!-- 3 Card Grid -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 text-left">
                     
-                    <!-- Card 1: Custom Projects -->
+                    <!-- Order is Subscriptions, Custom, Packages so the featured card
+                         sits centre. Most Popular moved to Custom Projects 13/09. -->
                     <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between relative hover:shadow-md transition-shadow">
-                        <div>
-                            <div class="opes-plan-title text-xl mb-2">Custom Projects</div>
-                            <p class="text-slate-600 text-sm mb-6 font-medium">Tackle specific challenges or full program overhauls with a dedicated scope:</p>
-                            
-                            <ul class="space-y-4 mb-8 text-slate-700 text-sm font-medium">
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
-                                    <span>Comprehensive email audits &amp; complete program overhauls</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
-                                    <span>Deliverability optimization &amp; domain authentication</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
-                                    <span>ESP migration (Klaviyo, HubSpot, Brevo, GHL)</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold text-brand mb-6">Bespoke Scope</div>
-                            <button type="button" data-modal="pm-custom" class="custom-stroked-button w-full">See custom builds</button>
-                        </div>
-                    </div>
-
-                    <!-- Card 2: Monthly Subscriptions (Featured) -->
-                    <div class="bg-white rounded-3xl p-8 border-2 border-brand shadow-xl flex flex-col justify-between relative transform lg:-translate-y-2">
-                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full">
-                            Most Popular
-                        </div>
                         <div>
                             <div class="opes-plan-title text-xl mb-2">Monthly Subscriptions</div>
                             <p class="text-slate-600 text-sm mb-6 font-medium">Unlimited access to your own dedicated eCRM team as an extension of your company:</p>
-                            
                             <ul class="space-y-4 mb-8 text-slate-700 text-sm font-medium">
                                 <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-li"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                     <span>Always-on support for email marketing &amp; automation flows</span>
                                 </li>
                                 <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-li"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                     <span>Access specialized designers, developers, and strategists</span>
                                 </li>
                                 <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-li"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                     <span>Continuous A/B testing, campaign builds, &amp; data tracking</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <div class="text-2xl font-bold text-brand mb-6">From &pound;299 <span style="font-size:1rem;font-weight:500;color:#7B8797">/mo</span></div>
-                            <button type="button" data-modal="pm-subscriptions" class="custom-filled-button w-full">See the tiers</button>
+                            <div class="opes-plan-price"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-price"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>From &pound;299 <span class="opes-plan-per">/mo</span></div>
+                            <a href="#opes-retainers" class="custom-stroked-button w-full">See the tiers</a>
                         </div>
                     </div>
 
-                    <!-- Card 3: Set Packages -->
+                    <div class="bg-white rounded-3xl p-8 border-2 border-brand shadow-xl flex flex-col justify-between relative transform lg:-translate-y-2">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full">
+                            Most Popular
+                        </div>
+                        <div>
+                            <div class="opes-plan-title text-xl mb-2">Custom Projects</div>
+                            <p class="text-slate-600 text-sm mb-6 font-medium">Tackle specific challenges or full program overhauls with a dedicated scope:</p>
+                            <ul class="space-y-4 mb-8 text-slate-700 text-sm font-medium">
+                                <li class="flex items-start gap-3">
+                                    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-li"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
+                                    <span>Comprehensive email audits &amp; complete program overhauls</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-li"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
+                                    <span>Deliverability optimization &amp; domain authentication</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-li"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
+                                    <span>ESP migration (Klaviyo, HubSpot, Brevo, GHL)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="opes-plan-price"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-price"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>Bespoke Scope</div>
+                            <a href="book.html" class="custom-filled-button w-full">Book a call</a>
+                        </div>
+                    </div>
+
                     <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between relative hover:shadow-md transition-shadow">
                         <div>
                             <div class="opes-plan-title text-xl mb-2">Set Packages</div>
                             <p class="text-slate-600 text-sm mb-6 font-medium">Fixed-scope packages created for fast, impactful deliverables:</p>
-                            
                             <ul class="space-y-4 mb-8 text-slate-700 text-sm font-medium">
                                 <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-li"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                     <span>Flows &amp; automation setup (strategy + technical implementation)</span>
                                 </li>
                                 <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-li"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                     <span>Mobile-first &amp; dark-mode pixel-perfect HTML email templates</span>
                                 </li>
                                 <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-circle-check text-brand mt-1 flex-shrink-0"></i>
+                                    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-li"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
                                     <span>Lead nurturing &amp; CRM pipeline configuration</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <div class="text-2xl font-bold text-brand mb-6">From &pound;200</div>
-                            <button type="button" data-modal="pm-packages" class="custom-stroked-button w-full">See the packages</button>
+                            <div class="opes-plan-price"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-price"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>From &pound;200</div>
+                            <a href="#opes-packages" class="custom-stroked-button w-full">See the packages</a>
                         </div>
                     </div>
 
@@ -590,6 +707,193 @@
         </section>
 
         <!-- FAQ Section -->
+        <!-- THE GUARANTEE, full version. The homepage explainer and the third
+             line of every guarantee block both point here, so this is the one
+             place the terms are written out. Keep it the single source: if the
+             window or the definition changes, it changes here first. -->
+        <!-- PRICES. Was three <dialog> modals until 13/09. Segment tabs cover
+             the part of the pricing that changes by business type; retainers and
+             custom builds are the same whoever you are, so they sit below the
+             switcher rather than being repeated inside all three panels. -->
+        <section id="opes-prices" class="opes-prices" aria-labelledby="opes-prices-t">
+            <div class="container mx-auto px-6">
+                <div class="opes-prices-head">
+                    <h2 id="opes-prices-t">Every number, <span class="text-brand">in one place</span></h2>
+                    <p>Pick the one that sounds like your business. Prices are what you pay to start;
+                       anything beyond the package is quoted after the onboarding audit, in writing.</p>
+                </div>
+
+                <div class="opes-seg" role="tablist" aria-label="Business type">
+                    <button type="button" role="tab" id="seg-b2b-t"  aria-controls="seg-b2b"  aria-selected="true">B2B</button>
+                    <button type="button" role="tab" id="seg-b2c-t"  aria-controls="seg-b2c"  aria-selected="false">B2C</button>
+                    <button type="button" role="tab" id="seg-ecom-t" aria-controls="seg-ecom" aria-selected="false">eCommerce</button>
+                </div>
+
+                <div class="opes-panel" id="seg-b2b" role="tabpanel" aria-labelledby="seg-b2b-t">
+                <div class="opes-tbl">
+                    <h3>Email foundation</h3>
+                    <p>The flows that carry a B2B buyer from first contact through to a repeat account.</p>
+                    <dl class="opes-rows">
+                        <div class="opes-row"><dt>Pre-sale &amp; lead nurture</dt><dd>&pound;200</dd></div>
+                        <div class="opes-row"><dt>Post-sale &amp; retention flow</dt><dd>&pound;200</dd></div>
+                    </dl>
+                </div>
+                <div class="opes-tbl">
+                    <h3>Lead nurture &amp; eCRM pipeline</h3>
+                    <p>Priced on the size of your list, because that is what drives the build.</p>
+                    <dl class="opes-rows">
+                        <div class="opes-row"><dt>0 &ndash; 10k leads</dt><dd>&pound;599</dd></div>
+                        <div class="opes-row"><dt>10k &ndash; 100k leads</dt><dd>&pound;799</dd></div>
+                        <div class="opes-row"><dt>100k &ndash; 250k leads</dt><dd>&pound;999</dd></div>
+                        <div class="opes-row"><dt>250k+ leads</dt><dd class="quote">Custom</dd></div>
+                    </dl>
+                    <p class="opes-note">B2B pipelines carry more logic than eCommerce ones, so they sit higher.</p>
+                </div>
+                </div>
+                <div class="opes-panel" id="seg-b2c" role="tabpanel" aria-labelledby="seg-b2c-t" hidden>
+                <div class="opes-tbl">
+                    <h3>B2C</h3>
+                    <p>B2C programmes are priced on the call rather than from a list, because
+                       the shape of the work varies more here than it does in B2B or eCommerce.
+                       You get the number before anything starts, the same as every other package.</p>
+                    <div class="opes-prices-cta" style="margin-top:20px">
+                        <a href="book.html" class="custom-filled-button">Book a call</a>
+                    </div>
+                </div>
+                </div>
+                <div class="opes-panel" id="seg-ecom" role="tabpanel" aria-labelledby="seg-ecom-t" hidden>
+                <div class="opes-tbl">
+                    <h3>Email foundation</h3>
+                    <p>The flows either side of a purchase: winning the first one, then earning the next.</p>
+                    <dl class="opes-rows">
+                        <div class="opes-row"><dt>Pre-purchase flows</dt><dd>&pound;500</dd></div>
+                        <div class="opes-row"><dt>Post-purchase flows</dt><dd>&pound;500</dd></div>
+                    </dl>
+                </div>
+                <div class="opes-tbl">
+                    <h3>Lead nurture &amp; eCRM pipeline</h3>
+                    <p>Priced on the size of your list, because that is what drives the build.</p>
+                    <dl class="opes-rows">
+                        <div class="opes-row"><dt>0 &ndash; 10k leads</dt><dd>&pound;399</dd></div>
+                        <div class="opes-row"><dt>10k &ndash; 100k leads</dt><dd>&pound;599</dd></div>
+                        <div class="opes-row"><dt>100k &ndash; 250k leads</dt><dd>&pound;799</dd></div>
+                        <div class="opes-row"><dt>250k+ leads</dt><dd class="quote">Custom</dd></div>
+                    </dl>
+                </div>
+                </div>
+
+                <div class="opes-tbl" id="opes-retainers">
+                    <h3>Retainers</h3>
+                    <p>An ongoing team rather than a piece of work. Same tiers whatever your business type.</p>
+                    <dl class="opes-rows">
+                        <div class="opes-row"><dt>Tier 1</dt><dd>&pound;299 /mo</dd></div>
+                        <div class="opes-row"><dt>Tier 2</dt><dd>&pound;499 /mo</dd></div>
+                        <div class="opes-row"><dt>Tier 3 &mdash; exclusive</dt><dd class="quote">Custom</dd></div>
+                    </dl>
+                </div>
+
+                <div class="opes-tbl" id="opes-custom">
+                    <h3>Custom builds</h3>
+                    <p>Anything built around how your business actually runs, or anything outside
+                       the set packages. No set price: it has to be scoped against what you need,
+                       and you get the number before anything starts.</p>
+                    <div class="opes-tags">
+                        <span class="opes-tag">N8N</span><span class="opes-tag">Make.com</span>
+                        <span class="opes-tag">Zapier</span><span class="opes-tag">Websites</span>
+                        <span class="opes-tag">API integrations</span><span class="opes-tag">eCRM integrations</span>
+                        <span class="opes-tag">Webhooks</span><span class="opes-tag">Custom email architecture</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Anchors for the two cards that link straight to their own block. -->
+        <script>
+        (function () {
+            var tabs = [].slice.call(document.querySelectorAll('.opes-seg [role="tab"]'));
+            function show(tab) {
+                tabs.forEach(function (t) {
+                    var sel = t === tab;
+                    t.setAttribute('aria-selected', sel ? 'true' : 'false');
+                    document.getElementById(t.getAttribute('aria-controls')).hidden = !sel;
+                });
+            }
+            tabs.forEach(function (t) {
+                t.addEventListener('click', function () { show(t); });
+                t.addEventListener('keydown', function (e) {
+                    var i = tabs.indexOf(t), n = null;
+                    if (e.key === 'ArrowRight') n = tabs[(i + 1) % tabs.length];
+                    if (e.key === 'ArrowLeft')  n = tabs[(i - 1 + tabs.length) % tabs.length];
+                    if (n) { e.preventDefault(); n.focus(); show(n); }
+                });
+            });
+            /* A link to #opes-packages means "the packages", which is whichever
+               segment panel is open, so it resolves to the switcher. */
+            var pk = document.getElementById('opes-packages');
+            if (!pk) {
+                var s = document.querySelector('.opes-seg');
+                if (s) s.id = 'opes-packages';
+            }
+        })();
+        </script>
+
+        <!-- Book a call, between the prices and the FAQs. Someone who has just
+             read the numbers either has a question, which the FAQ answers, or is
+             ready, and should not have to scroll past the FAQ to act on it. -->
+        <section class="opes-cta-band" aria-labelledby="opes-price-cta-t">
+            <div class="container mx-auto px-6 text-center">
+                <h2 id="opes-price-cta-t">Not sure which one you are?</h2>
+                <p class="opes-cta-lede">That is what the call is for. Thirty minutes, and you
+                   leave knowing what your programme should cost and what it should do.</p>
+                <div class="opes-promise">
+                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" ><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>You don&rsquo;t pay unless we deliver on our promise.</b>
+                    <span class="opes-promise-terms">We agree your baseline and your Performance Threshold together on the call, in writing, before any work starts, and we have 90 days to get you there. <a href="#opes-guarantee">How the guarantee works</a></span>
+                </div>
+                <div class="opes-hero-cta" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+                    <a href="book.html" class="custom-filled-button">Book a Strategy Call</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="opes-guarantee" class="opes-guar" aria-labelledby="opes-guarfull-title">
+            <div class="container mx-auto px-6">
+                <span class="opes-guar-eyebrow">The guarantee</span>
+                <h2 id="opes-guarfull-title">You don&rsquo;t pay unless we <span class="text-brand">deliver on our promise</span></h2>
+                <p class="opes-guar-lede">A promise with no number behind it is just a sentence. Here is the number, and how we agree it with you.</p>
+
+                <div class="opes-guar-def">
+                    <h3>Your Performance Threshold</h3>
+                    <p>Your <b>Performance Threshold</b> is the single number your work with us is judged against. It is not a figure we hand you. We set it together on the discovery call, starting from where your revenue actually sits today.</p>
+                    <p>That starting point is your <b>baseline</b>. The threshold is the number we commit to taking it to, and we have <b>90 days</b> from the start of the work to get there.</p>
+                </div>
+
+                <ol class="opes-guar-steps">
+                    <li>
+                        <b>We agree the number</b>
+                        <span>On the call we look at your current figures together and settle on a baseline we both recognise, then on the threshold we are taking it to.</span>
+                    </li>
+                    <li>
+                        <b>We put it in writing</b>
+                        <span>Your baseline, your threshold and the 90 day window go in writing before any work starts. No work begins on a number that has not been agreed.</span>
+                    </li>
+                    <li>
+                        <b>Miss it and you don&rsquo;t pay</b>
+                        <span>Reach the threshold inside the window and we have done what we said. Fall short of it and you do not pay us for the work.</span>
+                    </li>
+                </ol>
+
+                <ul class="opes-guar-terms">
+                    <li><b>The number is yours, not ours.</b> We do not set a threshold you have not agreed to, and we will tell you on the call if we think a number is not reachable in 90 days rather than sign up to it.</li>
+                    <li><b>The window starts when the work does.</b> Not at the call, and not at the contract. The 90 days run from the day we begin.</li>
+                    <li><b>It is written down first.</b> If it is not in writing before work starts, it is not the threshold.</li>
+                </ul>
+
+                <div class="opes-guar-cta">
+                    <a href="book.html" class="custom-filled-button">Book a Strategy Call</a>
+                </div>
+            </div>
+        </section>
+
         <section id="faq" class="bg-slate-50 border-y border-slate-100 py-24 md:py-32">
             <div class="max-w-[800px] w-full mx-auto px-6 lg:px-8">
                 <div class="text-center md:text-left mb-12">
@@ -605,7 +909,7 @@
                     <div class="border-b border-slate-200 py-6 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">What is included in each subscription plan?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
@@ -618,7 +922,7 @@
                     <div class="border-b border-slate-200 py-6 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">How fast can we get started after choosing a plan?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
@@ -631,7 +935,7 @@
                     <div class="border-b border-slate-200 py-6 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">Can I upgrade or change my plan later?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
@@ -644,7 +948,7 @@
                     <div class="border-b border-slate-200 py-6 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
                             <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">What platforms do you support?</span>
-                            <i class="fa-solid fa-chevron-down text-slate-400 group-hover:text-brand transition-transform duration-300 text-sm ml-4 flex-shrink-0"></i>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
                         </button>
                         <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
                             <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
@@ -663,8 +967,8 @@
                 <h2 class="text-4xl font-bold tracking-tight mb-6 text-slate-900">Ready to <span class="text-brand">Scale Your Revenue</span>?</h2>
                 <p class="text-lg text-slate-600 mb-10 font-medium">Book a discovery call with our team to discuss your store's requirements and determine the right engagement model.</p>
                 <div class="opes-promise">
-                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>We hit the number, or you don&rsquo;t pay.</b>
-                    <em>Your baseline and the target we take it to, agreed with you on the call &mdash; in writing, before any work starts.</em>
+                    <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>You don&rsquo;t pay unless we deliver on our promise.</b>
+                    <span class="opes-promise-terms">We agree your baseline and your Performance Threshold together on the call, in writing, before any work starts, and we have 90 days to get you there. <a href="#opes-guarantee">How the guarantee works</a></span>
                 </div>
                 <a href="book.html" class="custom-filled-button">Book a Strategy Call</a>
             </div>
@@ -682,7 +986,7 @@
                 © 2026 Opes Consulting. All rights reserved.
             </p>
             <div class="flex gap-6">
-                <a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" aria-label="Opes Consulting on Instagram" class="hover:text-brand transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" aria-label="Opes Consulting on Instagram" class="hover:text-brand transition-colors"><i class="opes-ig"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 6.19a3.65 3.65 0 1 0 0 7.3 3.65 3.65 0 0 0 0-7.3Zm0 6.02a2.37 2.37 0 1 1 0-4.74 2.37 2.37 0 0 1 0 4.74Zm4.65-6.15a.85.85 0 1 1-1.7 0 .85.85 0 0 1 1.7 0Z"/></svg></i></a>
             </div>
         </div>
     </footer>
@@ -751,107 +1055,13 @@
 
 
 
-    <dialog id="pm-packages" class="opes-modal" aria-labelledby="pm-packages-t">
-        <div class="opes-modal-in">
-            <div class="opes-modal-top">
-                <div>
-                    <h3 id="pm-packages-t">Set packages</h3>
-                    <p>Fixed-scope builds. Email Foundation is a bundle of flows; the pipeline work is priced on the size of your list.</p>
-                </div>
-                <button type="button" class="opes-modal-x" data-close aria-label="Close">&times;</button>
-            </div>
-            <div class="opes-modal-body"><div class="opes-modal-sub">Email Foundation</div><dl>
-                        <div class="opes-pl-row"><dt>Pre-purchase flows</dt><dd>&pound;500</dd></div>
-                        <div class="opes-pl-row"><dt>Post-purchase flows</dt><dd>&pound;500</dd></div>
-                        <div class="opes-pl-row"><dt>B2B &mdash; where the model shifts</dt><dd>&pound;500</dd></div>
-                        <div class="opes-pl-row"><dt>Pre-sale &amp; lead nurture</dt><dd>&pound;200</dd></div>
-                        <div class="opes-pl-row"><dt>Post-sale &amp; retention flow</dt><dd>&pound;200</dd></div></dl><div class="opes-modal-sub">Lead nurture &amp; eCRM pipeline &mdash; B2B</div><dl>
-                        <div class="opes-pl-row"><dt>0 &ndash; 10k leads</dt><dd>&pound;599</dd></div>
-                        <div class="opes-pl-row"><dt>10k &ndash; 100k leads</dt><dd>&pound;799</dd></div>
-                        <div class="opes-pl-row"><dt>100k &ndash; 250k leads</dt><dd>&pound;999</dd></div>
-                        <div class="opes-pl-row"><dt>250k+ leads</dt><dd class="quote">Custom</dd></div></dl><div class="opes-modal-sub">Lead nurture &amp; eCRM pipeline &mdash; eCommerce</div><dl>
-                        <div class="opes-pl-row"><dt>0 &ndash; 10k leads</dt><dd>&pound;399</dd></div>
-                        <div class="opes-pl-row"><dt>10k &ndash; 100k leads</dt><dd>&pound;599</dd></div>
-                        <div class="opes-pl-row"><dt>100k &ndash; 250k leads</dt><dd>&pound;799</dd></div>
-                        <div class="opes-pl-row"><dt>250k+ leads</dt><dd class="quote">Custom</dd></div></dl><p class="opes-modal-note">B2B pipelines carry more logic than eCommerce ones, so they sit higher.</p></div>
-            <div class="opes-modal-cta">
-                <a href="book.html" class="custom-filled-button">Book a call</a>
-            </div>
-        </div>
-    </dialog>
-    <dialog id="pm-subscriptions" class="opes-modal" aria-labelledby="pm-subscriptions-t">
-        <div class="opes-modal-in">
-            <div class="opes-modal-top">
-                <div>
-                    <h3 id="pm-subscriptions-t">Retainers</h3>
-                    <p>An ongoing eCRM team rather than a one-off build.</p>
-                </div>
-                <button type="button" class="opes-modal-x" data-close aria-label="Close">&times;</button>
-            </div>
-            <div class="opes-modal-body"><dl>
-                        <div class="opes-pl-row"><dt>Tier 1</dt><dd>&pound;299 <span class="per">/mo</span></dd></div>
-                        <div class="opes-pl-row"><dt>Tier 2</dt><dd>&pound;499 <span class="per">/mo</span></dd></div>
-                        <div class="opes-pl-row"><dt>Tier 3 &mdash; exclusive</dt><dd class="quote">Custom</dd></div></dl></div>
-            <div class="opes-modal-cta">
-                <a href="book.html" class="custom-filled-button">Book a call</a>
-            </div>
-        </div>
-    </dialog>
-    <dialog id="pm-custom" class="opes-modal" aria-labelledby="pm-custom-t">
-        <div class="opes-modal-in">
-            <div class="opes-modal-top">
-                <div>
-                    <h3 id="pm-custom-t">Custom builds</h3>
-                    <p>Anything built around how your business actually runs, or anything outside the set packages.</p>
-                </div>
-                <button type="button" class="opes-modal-x" data-close aria-label="Close">&times;</button>
-            </div>
-            <div class="opes-modal-body"><p class="opes-modal-note" style="margin-top:12px">No set price &mdash; it has to be scoped against what you need, and you get the number before anything starts.</p><div class="opes-pl-tags"><span class="opes-pl-tag">N8N</span><span class="opes-pl-tag">Make.com</span><span class="opes-pl-tag">Zapier</span><span class="opes-pl-tag">Websites</span><span class="opes-pl-tag">API integrations</span><span class="opes-pl-tag">eCRM integrations</span><span class="opes-pl-tag">Webhooks</span><span class="opes-pl-tag">Custom email architecture</span></div></div>
-            <div class="opes-modal-cta">
-                <a href="book.html" class="custom-filled-button">Book a call</a>
-            </div>
-        </div>
-    </dialog>
-    <script>
-    (function () {
-        /* Native <dialog> handles Esc, the backdrop, the focus move and the
-           background scroll lock. The only things left are opening it from the
-           right button, closing on a backdrop click, and a fallback for
-           browsers without showModal(). */
-        function open(d) {
-            if (!d) return;
-            if (typeof d.showModal === "function") { d.showModal(); }
-            else { d.classList.add("is-fallback"); d.setAttribute("open", ""); }
-        }
-        function close(d) {
-            if (!d) return;
-            if (typeof d.close === "function" && d.open && !d.classList.contains("is-fallback")) d.close();
-            else { d.classList.remove("is-fallback"); d.removeAttribute("open"); }
-        }
-        document.addEventListener("click", function (e) {
-            var opener = e.target.closest("[data-modal]");
-            if (opener) {
-                e.preventDefault();
-                open(document.getElementById(opener.getAttribute("data-modal")));
-                return;
-            }
-            if (e.target.closest("[data-close]")) {
-                close(e.target.closest("dialog"));
-                return;
-            }
-            /* A click that lands on the dialog element itself rather than on
-               anything inside it is a click on the backdrop. */
-            if (e.target.tagName === "DIALOG") close(e.target);
-        });
-    })();
-    </script>
 
 <!-- Tracking with consent gate — Opes Consulting -->
 <!-- Nothing loads and nothing is stored until the visitor accepts. -->
 <style>
   #opes-consent{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:none;
     background:#fff;border-top:1px solid #e2e8f0;box-shadow:0 -6px 24px rgba(15,23,42,.08);
-    font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#0A0C19}
+    font-family:'Aspekta','DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#0A0C19}
   #opes-consent[data-show="1"]{display:block}
   .opes-consent-in{max-width:1100px;margin:0 auto;padding:16px 20px;
     display:flex;gap:16px;align-items:center;flex-wrap:wrap}
