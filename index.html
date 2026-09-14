@@ -1306,6 +1306,37 @@
     html.night header nav a.nav-guarantee:hover { color: #9CD2FF !important; }
     html.night #mobile-menu a.mobile-guarantee { color: #61C6FF !important; }
 </style>
+<style>
+    /* Tighter run from the reviews down to Book a strategy call, 14/09.
+       The gaps were NOT padding. These sections carry .opes-full, which is
+       min-height: calc(100vh - 96px) with the content flex-centred, so each
+       one is a full viewport tall however short its content is and the spare
+       height splits above and below it. Measured at 1440x900: Book a strategy
+       call was 331px of content in an 804px box, so 473px of empty. Reducing
+       padding did nothing because the box never shrank to meet it.
+       So: let these four size to their content at md and up, and set the
+       spacing explicitly. Mobile is untouched, it already drops min-height at
+       short viewports and uses its own 2.25rem padding under 640px. */
+    @media (min-width: 768px) {
+        #testimonials, #opes-guarantee, #faq, #contact {
+            min-height: 0 !important;
+            padding-top: 4rem !important;
+            padding-bottom: 4rem !important;
+        }
+        /* Two adjustments so all three boundaries land near 130px measured
+           content edge to content edge, rather than section edge to section
+           edge: the reviews carousel runs to its section edge, and the FAQ
+           accordion's last row sits hard against the bottom padding. */
+        #testimonials { padding-bottom: 4.5rem !important; }
+        #contact { padding-top: 7rem !important; }
+    }
+    /* Dropping .opes-full from the guarantee section also dropped the 2.25rem
+       mobile padding that class carries under 640px, which made the phone
+       layout 72px TALLER. Put that back explicitly. */
+    @media (max-width: 640px) {
+        .opes-guar { padding-top: 2.25rem !important; padding-bottom: 2.25rem !important; }
+    }
+</style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
@@ -2424,7 +2455,7 @@
              so "and what if it doesn't work" is the next thing they think.
              The terms live on the pricing page; this links through rather than
              restating them in two places that can drift apart. -->
-        <section id="opes-guarantee" class="opes-guar opes-full" aria-labelledby="opes-guar-title">
+        <section id="opes-guarantee" class="opes-guar" aria-labelledby="opes-guar-title">
             <div class="container mx-auto px-6">
                 <span class="opes-guar-eyebrow">The guarantee</span>
                 <h2 id="opes-guar-title">What the promise <span class="text-brand">actually means</span></h2>
@@ -3365,7 +3396,7 @@
 
 <script>
 (function () {
-  var PIXEL_ID  = '1110937994798113';
+  var PIXEL_ID  = '2045760476144618';
   var HS_PORTAL = '149303097';
   var CONSENT   = 'opes_consent_v1';
   var ATTRIB    = 'opes_attribution_v1';
