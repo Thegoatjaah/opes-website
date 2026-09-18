@@ -44,6 +44,15 @@
         /* The embed sets its own height; this stops it collapsing before it loads. */
         .meetings-iframe-container { min-height: 690px; }
         .meetings-iframe-container iframe { width: 100%; border: 0; }
+
+        /* Step 1 questions */
+        .q-label { display:block; font-size:14px; font-weight:500; color:#0A0C19; margin-bottom:6px; }
+        .q-label .opt { font-weight:400; color:#64748b; }
+        .q-input { width:100%; font:inherit; font-size:15px; color:#0A0C19; background:#fff;
+                   border:1px solid #cbd5e1; border-radius:8px; padding:10px 12px; }
+        .q-input:focus { outline:none; border-color:#0094ff; box-shadow:0 0 0 3px rgba(0,148,255,.15); }
+        textarea.q-input { min-height:84px; resize:vertical; }
+        .q-input[aria-invalid="true"] { border-color:#dc2626; }
     </style>
 </head>
 
@@ -90,8 +99,6 @@
                         </li>
                     </ul>
 
-                    <p class="mt-10 text-sm text-slate-500 leading-relaxed"> Calendar not loading? An ad blocker will sometimes stop it. <a href="https://meetings-eu1.hubspot.com/aran-patel" target="_blank" rel="noopener noreferrer" class="text-brand font-medium hover:underline"> Open the booking page directly </a> , or email <a href="mailto:aran@opesconsulting.online" class="text-brand font-medium hover:underline"> aran@opesconsulting.online </a> and we'll find you a time. </p>
-
                     <p class="mt-10 text-sm text-slate-500 leading-relaxed">
                         30 minutes, no obligation, no pitch deck. If something comes up you can
                         reschedule from the confirmation email.
@@ -101,8 +108,72 @@
                 <!-- Right: the booking widget -->
                 <div class="md:col-span-7">
                     <div class="rounded-2xl border border-slate-200 shadow-sm p-2 sm:p-4 bg-white">
-                        <div class="meetings-iframe-container"
-                             data-src="https://meetings-eu1.hubspot.com/aran-patel?embed=true"></div>
+
+                        <!-- Step 1: the qualifying questions (same as the old Google Calendar
+                             booking form). Free HubSpot Meetings can't ask custom questions, so
+                             they are asked here and sent to the HubSpot form
+                             "Discovery Call questions (book.html)". Answers land on the contact
+                             under the "Discovery call" property group. -->
+                        <form id="discovery-form" class="p-4 sm:p-6 space-y-5" novalidate>
+                            <div>
+                                <p class="text-sm font-semibold uppercase tracking-wider text-brand">Step 1 of 2</p>
+                                <h2 class="mt-1 text-2xl font-display">A few questions first</h2>
+                                <p class="mt-1 text-slate-600">So we can come to the call prepared. Then you pick a time.</p>
+                            </div>
+
+                            <div class="grid sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="q-label" for="q-firstname">First name</label>
+                                    <input class="q-input" id="q-firstname" name="firstname" type="text" autocomplete="given-name" required>
+                                </div>
+                                <div>
+                                    <label class="q-label" for="q-lastname">Surname</label>
+                                    <input class="q-input" id="q-lastname" name="lastname" type="text" autocomplete="family-name" required>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="q-label" for="q-email">Email address</label>
+                                <input class="q-input" id="q-email" name="email" type="email" autocomplete="email" required>
+                            </div>
+                            <div>
+                                <label class="q-label" for="q-phone">Phone number</label>
+                                <input class="q-input" id="q-phone" name="phone" type="tel" autocomplete="tel" required>
+                            </div>
+                            <div>
+                                <label class="q-label" for="q-website">Your Website URL</label>
+                                <input class="q-input" id="q-website" name="website" type="text" inputmode="url" autocomplete="url" placeholder="yourbrand.com" required>
+                            </div>
+                            <div>
+                                <label class="q-label" for="q-revenue">What is your estimated revenue (monthly)?</label>
+                                <input class="q-input" id="q-revenue" name="discovery_monthly_revenue" type="text" required>
+                            </div>
+                            <div>
+                                <label class="q-label" for="q-goals">What context can you provide on your current business goals and challenges?</label>
+                                <textarea class="q-input" id="q-goals" name="discovery_goals_challenges" required></textarea>
+                            </div>
+                            <div>
+                                <label class="q-label" for="q-why">What made you book this call?</label>
+                                <textarea class="q-input" id="q-why" name="discovery_why_booked" required></textarea>
+                            </div>
+                            <div>
+                                <label class="q-label" for="q-heard">Where did you first hear about us? <span class="opt">(optional)</span></label>
+                                <textarea class="q-input" id="q-heard" name="discovery_heard_about_us"></textarea>
+                            </div>
+
+                            <p id="q-error" class="text-sm text-red-600" hidden>Please fill in the fields marked in red.</p>
+
+                            <button type="submit" id="q-submit"
+                                    class="w-full sm:w-auto px-6 py-3 rounded-lg bg-brand text-white font-semibold hover:bg-[#0077CC] disabled:opacity-60">
+                                Continue to pick a time
+                            </button>
+                        </form>
+
+                        <!-- Step 2: the calendar. Created by the script below once step 1 is
+                             done, with name and email passed through so they aren't asked twice. -->
+                        <div id="discovery-step2" hidden>
+                            <p class="px-4 pt-4 text-sm font-semibold uppercase tracking-wider text-brand">Step 2 of 2 &middot; pick a time</p>
+                            <div id="meetings-slot"></div>
+                        </div>
 
                         <!-- Ad blockers list HubSpot's embed script, so a real slice of
                              visitors would otherwise sit looking at an empty box. -->
@@ -148,18 +219,104 @@
 
     <!-- HubSpot meetings embed. Loads regardless of cookie choice: it IS the
          service the visitor came for, not analytics. -->
-    <script src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
     <script>
-        /* If the embed hasn't produced an iframe by now it was blocked or failed.
-           Swap in a direct link rather than leaving an empty box on the page. */
-        setTimeout(function () {
-            var box = document.querySelector('.meetings-iframe-container');
-            if (!box || box.querySelector('iframe')) return;
-            var fallback = document.getElementById('booking-fallback');
-            box.style.display = 'none';
-            box.style.minHeight = '0';
-            if (fallback) fallback.hidden = false;
-        }, 2500);
+    (function () {
+        var PORTAL    = '149303097';
+        var FORM_GUID = 'c88ffe36-c411-4fca-8d90-070558b03076';
+        var MEETING   = 'https://meetings-eu1.hubspot.com/aran-patel';
+
+        var form   = document.getElementById('discovery-form');
+        var step2  = document.getElementById('discovery-step2');
+        var slot   = document.getElementById('meetings-slot');
+        var errMsg = document.getElementById('q-error');
+        var btn    = document.getElementById('q-submit');
+
+        function val(name) { return (form.elements[name].value || '').trim(); }
+
+        function valid() {
+            var ok = true, first = null;
+            Array.prototype.forEach.call(form.querySelectorAll('[required]'), function (el) {
+                var v = el.value.trim();
+                var bad = !v || (el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+                el.setAttribute('aria-invalid', bad ? 'true' : 'false');
+                if (bad) { ok = false; if (!first) first = el; }
+            });
+            errMsg.hidden = ok;
+            if (first) first.focus();
+            return ok;
+        }
+
+        function hutk() {
+            var m = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/);
+            return m ? m[1] : undefined;
+        }
+
+        /* Send the answers to HubSpot. Never blocks the booking: if it fails
+           (ad blocker, network), the visitor still gets the calendar. */
+        function sendAnswers() {
+            var names = ['firstname','lastname','email','phone','website',
+                         'discovery_monthly_revenue','discovery_goals_challenges',
+                         'discovery_why_booked','discovery_heard_about_us'];
+            var fields = names.filter(function (n) { return val(n); })
+                              .map(function (n) { return { objectTypeId: '0-1', name: n, value: val(n) }; });
+            var context = { pageUri: location.href, pageName: document.title };
+            var t = hutk(); if (t) context.hutk = t;
+            try {
+                return fetch('https://api-eu1.hsforms.com/submissions/v3/integration/submit/' + PORTAL + '/' + FORM_GUID, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fields: fields, context: context })
+                }).catch(function () {});
+            } catch (e) { return Promise.resolve(); }
+        }
+
+        function calendarUrl(embed) {
+            var q = new URLSearchParams();
+            if (embed) q.set('embed', 'true');
+            q.set('firstName', val('firstname'));
+            q.set('lastName', val('lastname'));
+            q.set('email', val('email'));
+            return MEETING + '?' + q.toString();
+        }
+
+        function showCalendar() {
+            form.hidden = true;
+            step2.hidden = false;
+            var fbLink = document.querySelector('#booking-fallback a[href^="' + MEETING + '"]');
+            if (fbLink) fbLink.href = calendarUrl(false);
+
+            var box = document.createElement('div');
+            box.className = 'meetings-iframe-container';
+            box.setAttribute('data-src', calendarUrl(true));
+            slot.appendChild(box);
+
+            var s = document.createElement('script');
+            s.src = 'https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js';
+            document.body.appendChild(s);
+
+            /* If the embed hasn't produced an iframe by now it was blocked or failed.
+               Swap in a direct link rather than leaving an empty box on the page. */
+            setTimeout(function () {
+                if (box.querySelector('iframe')) return;
+                box.style.display = 'none';
+                box.style.minHeight = '0';
+                document.getElementById('booking-fallback').hidden = false;
+            }, 3500);
+
+            step2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (!valid()) return;
+            btn.disabled = true;
+            btn.textContent = 'One moment…';
+            var done = false;
+            function go() { if (done) return; done = true; showCalendar(); }
+            sendAnswers().then(go);
+            setTimeout(go, 4000);
+        });
+    })();
     </script>
 
 <!-- Tracking with consent gate — Opes Consulting -->
