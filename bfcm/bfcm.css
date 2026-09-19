@@ -1,0 +1,113 @@
+/* Opes Black Friday gift. Loaded on every page by bfcm/bfcm.js. Remove both files after Cyber Monday. */
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap');
+.obf,.obf-gift{
+  --navy:#0A0C19;
+  --navy-2:#141830;
+  --navy-3:#1E2444;
+  --blue:#0094FF;
+  --blue-deep:#0077CC;
+  --neon:#5CC6FF;
+  --ink:#0F172A;
+  --ink-2:#475569;
+  --mist:#EEF5FC;
+  --paper:#FFFFFF;
+  --line:#DCE6F0;
+  --on-navy:#EAF2FB;
+  --on-navy-dim:#9DB0C8;
+  --sans:'Aspekta',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+
+.obf,.obf *{box-sizing:border-box}
+.obf{font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;text-align:left;letter-spacing:normal}
+.obf [hidden],.obf-gift[hidden],.obf[hidden]{display:none!important}
+.obf button{font:inherit;color:inherit;margin:0}
+.obf p,.obf h2{margin:0}
+.obf :focus-visible,.obf-gift:focus-visible{outline:2px solid var(--neon);outline-offset:3px;border-radius:6px}
+.obf-pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;font-weight:600;text-decoration:none;border:0;cursor:pointer;transition:transform .2s var(--ease-out),background .2s}
+.obf-pill:hover{transform:translateY(-1px)}
+/* the hidden gift */
+.obf-gift{position:absolute;z-index:60;width:58px;height:58px;padding:0;border:0;background:none;cursor:pointer;transform-origin:50% 90%;animation:obf-gift-idle 7s var(--ease-out) infinite}
+.obf-gift svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 1.5px rgba(255,255,255,.9)) drop-shadow(0 0 6px rgba(92,198,255,.55)) drop-shadow(0 8px 10px rgba(10,12,25,.25))}
+.obf-gift .obf-tag{position:absolute;left:50%;top:-34px;transform:translateX(-50%) translateY(4px);opacity:0;white-space:nowrap;background:var(--navy);color:#fff;font-size:12px;font-weight:600;letter-spacing:.02em;padding:5px 10px;border-radius:999px;pointer-events:none;transition:opacity .2s,transform .3s var(--ease-out)}
+.obf-gift:hover .obf-tag,.obf-gift:focus-visible .obf-tag,.obf-gift.obf-found .obf-tag{opacity:1;transform:translateX(-50%) translateY(0)}
+.obf-gift:hover{animation:obf-gift-hover .6s var(--ease-out)}
+.obf-gift.obf-found{animation:obf-gift-found 1.1s var(--ease-out) 2}
+@keyframes obf-gift-idle{0%,86%,100%{transform:rotate(0)}89%{transform:rotate(-9deg)}92%{transform:rotate(7deg)}95%{transform:rotate(-4deg)}98%{transform:rotate(2deg)}}
+@keyframes obf-gift-hover{0%{transform:scale(1)}40%{transform:scale(1.12) rotate(-6deg)}100%{transform:scale(1.06)}}
+@keyframes obf-gift-found{0%{transform:scale(1)}30%{transform:scale(1.5) rotate(-8deg)}60%{transform:scale(1.3) rotate(6deg)}100%{transform:scale(1)}}
+
+/* ---------- The reveal ---------- */
+.obf{position:fixed;inset:0;z-index:2147483000;background:var(--navy);color:var(--on-navy);overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;opacity:0;transition:opacity .35s}
+.obf.obf-on{opacity:1}
+.obf ::selection{background:var(--neon);color:var(--navy)}
+.obf-stage{position:relative;height:100vh;height:100dvh;min-height:520px;display:flex;flex-direction:column}
+.obf-stage canvas.obf-gl{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
+.obf-stage .obf-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 50% at 50% 42%,rgba(0,148,255,.20),transparent 70%)}
+.obf-channels{position:absolute;left:0;right:0;bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;gap:8px;padding-inline:16px;flex-wrap:wrap;opacity:0;transform:translateY(12px);transition:opacity .6s .3s,transform .8s .3s var(--ease-out)}
+.obf-revealed .obf-channels{opacity:1;transform:none}
+.obf-channels button{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px 0 10px;border-radius:999px;border:1px solid rgba(157,176,200,.28);background:rgba(20,24,48,.72);color:var(--on-navy);font-size:14px;font-weight:500;cursor:pointer;backdrop-filter:blur(8px);transition:background .2s,border-color .2s}
+.obf-channels button span.obf-short{display:none}
+.obf-channels button b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--navy-3);font-size:12px;font-weight:700;color:var(--on-navy-dim)}
+.obf-channels button:hover{border-color:rgba(92,198,255,.6)}
+.obf-channels button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:var(--navy);font-weight:600}
+.obf-channels button[aria-pressed="true"] b{background:var(--navy);color:#fff}
+.obf-topbar{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));left:16px;right:16px;display:flex;justify-content:space-between;align-items:center;z-index:6;pointer-events:none}
+.obf-topbar > *{pointer-events:auto}
+.obf-mark{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.14em;font-size:13px;color:var(--on-navy)}
+.obf-mark svg{width:26px;height:26px}
+.obf-close{width:44px;height:44px;border-radius:50%;border:1px solid rgba(157,176,200,.3);background:rgba(20,24,48,.7);color:#fff;display:grid;place-items:center;cursor:pointer}
+.obf-close:hover{background:var(--navy-3)}
+.obf-drag-note{position:absolute;top:calc(74px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);font-size:13px;color:var(--on-navy-dim);opacity:0;transition:opacity .6s 1.2s;white-space:nowrap;pointer-events:none}
+.obf-revealed .obf-drag-note{opacity:1}
+
+/* wrapping paper */
+.obf-paper{position:absolute;inset:0;z-index:5;touch-action:none;cursor:grab}
+.obf-paper canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.obf-paper.obf-dragging{cursor:grabbing}
+.obf-paper.obf-wrap-in canvas{animation:obf-wrap-in .9s var(--ease-out) both}
+.obf-paper.obf-falling canvas{transition:transform 1s cubic-bezier(.55,0,.8,.4),opacity 1s;transform:translateY(115%) rotate(7deg);opacity:.2}
+@keyframes obf-wrap-in{from{transform:translateY(-100%)}to{transform:none}}
+.obf-tear-hint{position:absolute;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:7;display:flex;align-items:center;gap:6px;padding:6px 6px 6px 16px;border-radius:999px;background:var(--navy);color:#fff;font-size:14px;font-weight:600;box-shadow:0 12px 30px -8px rgba(10,12,25,.6);white-space:nowrap;transition:opacity .3s}
+.obf-tear-hint svg{width:20px;height:20px;margin-right:4px}
+.obf-tear-hint button{border:0;border-radius:999px;background:#fff;color:var(--navy);font-weight:600;font-size:13px;height:32px;padding:0 14px;cursor:pointer}
+.obf-tear-hint.obf-gone{opacity:0;pointer-events:none}
+.obf-hand{position:absolute;z-index:6;width:46px;height:46px;pointer-events:none;opacity:0}
+.obf-hand.obf-play{animation:obf-hand-drag 2.6s var(--ease-out) .9s 2}
+@keyframes obf-hand-drag{0%{opacity:0;transform:translate(0,0)}15%{opacity:1;transform:translate(0,0) scale(.9)}70%{opacity:1;transform:translate(200px,-80px) scale(.9)}100%{opacity:0;transform:translate(220px,-88px)}}
+
+/* offer */
+.obf-offer{background:var(--blue);color:var(--navy);padding-block:clamp(64px,10vw,120px);padding-inline:max(16px,6vw)}
+.obf-offer-in{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(32px,6vw,88px);align-items:end}
+.obf-offer h2{font-family:var(--serif);font-weight:400;font-size:clamp(44px,7.6vw,112px);line-height:.95;letter-spacing:-.03em;margin:0;text-wrap:balance}
+.obf-offer h2 em{font-style:italic}
+.obf-offer .obf-big{font-family:var(--serif);font-size:clamp(88px,14vw,200px);line-height:.85;letter-spacing:-.04em;display:block;margin-bottom:10px}
+.obf-offer p{margin:0 0 18px;font-size:18px;line-height:1.55;max-width:44ch;color:#06122A}
+.obf-offer .obf-terms{font-size:14px;color:#0B2A4A;margin-top:18px}
+.obf-offer .obf-guarantee{display:flex;gap:12px;align-items:flex-start;padding-top:18px;margin-top:22px;border-top:1px solid rgba(10,12,25,.25);font-size:15px}
+.obf-offer .obf-guarantee strong{display:block;font-weight:600;font-size:16px}
+.obf-pill-navy{background:var(--navy);color:#fff;height:54px;padding:0 28px;font-size:16px}
+.obf-pill-navy:hover{background:#1B2140}
+.obf-offer .obf-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.obf-offer .obf-ghost-link{background:none;border:0;font-weight:600;text-decoration:underline;text-underline-offset:4px;cursor:pointer;padding:0 10px;height:54px;color:var(--navy)}
+.obf-foot{padding-block:28px calc(28px + env(safe-area-inset-bottom,0px));padding-inline:max(16px,6vw);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--on-navy-dim)}
+@media (max-width:860px){
+  .obf-offer-in{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .obf-channels button{height:36px;font-size:13px;padding:0 12px 0 8px}
+  .obf-channels button b{display:none}
+  .obf-channels button{padding:0 12px;font-size:13px}
+  .obf-channels{gap:6px}
+  .obf-channels button span.obf-long{display:none}
+  .obf-channels button span.obf-short{display:inline}
+  .obf-tear-hint{font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){
+  .obf-gift,.obf-gift:hover,.obf-gift.obf-found{animation:none}
+  .obf-paper.obf-wrap-in canvas{animation:none}
+  .obf-paper.obf-falling canvas{transition:opacity .3s;transform:none;opacity:0}
+  .obf-hand.obf-play{animation:none}
+}
+.obf-foot{background:var(--navy)}
