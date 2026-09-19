@@ -1,6 +1,6 @@
 /* Opes Black Friday gift. Loaded on every page by bfcm/bfcm.js. Remove both files after Cyber Monday. */
 @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap');
-.obf,.obf-gift{
+.obf,.obf-gift,.obf-home{
   --navy:#0A0C19;
   --navy-2:#141830;
   --navy-3:#1E2444;
@@ -111,3 +111,13 @@
   .obf-hand.obf-play{animation:none}
 }
 .obf-foot{background:var(--navy)}
+
+/* homepage Black Friday section (index.html) */
+.obf-home{font-family:var(--sans);-webkit-font-smoothing:antialiased;text-align:left}
+.obf-home[hidden]{display:none!important}
+.obf-home .obf-lead{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.2vw,44px);line-height:1.08;letter-spacing:-.015em;color:var(--navy);margin:0 0 22px;text-wrap:balance}
+.obf-home .obf-lead em{font-style:italic}
+.obf-home p{margin:0 0 18px}
+.obf-pill-line{background:transparent;color:var(--navy);border:1.5px solid var(--navy);height:54px;padding:0 24px;font-size:16px}
+.obf-pill-line:hover{background:var(--navy);color:#fff}
+.obf-home :focus-visible{outline:2px solid var(--navy);outline-offset:3px;border-radius:999px}

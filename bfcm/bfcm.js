@@ -1,6 +1,6 @@
 /* Opes Black Friday gift, 2026.
-   Adds a hidden gift to the page. Opening it shows wrapping paper to tear and a 3D monitor with the BFCM plan.
-   Needs bfcm/bfcm.css. Loads three.js from jsDelivr only when someone opens the gift.
+   Hides three gifts on the page. Opening one shows wrapping paper to tear and a 3D monitor with the BFCM plan.
+   Needs bfcm/bfcm.css. Loads three.js from jsDelivr only when someone opens a gift.
    Switches itself off after Cyber Monday (1 Dec 2026). */
 (() => {
 const GIFT_HTML = "<button class=\"obf-gift\" id=\"obf-gift\" type=\"button\" aria-label=\"Open the Opes Black Friday gift\" hidden>\n    <span class=\"obf-tag\">Black Friday</span>\n    <svg viewBox=\"0 0 64 64\" aria-hidden=\"true\">\n      <rect x=\"9\" y=\"27\" width=\"46\" height=\"31\" rx=\"3\" fill=\"#0A0C19\"/>\n      <rect x=\"6\" y=\"19\" width=\"52\" height=\"11\" rx=\"3\" fill=\"#141830\"/>\n      <rect x=\"28\" y=\"19\" width=\"8\" height=\"39\" fill=\"#0094FF\"/>\n            <path d=\"M32 19c-3-8-14-12-15-5-1 5 9 6 15 5z\" fill=\"#0094FF\"/>\n      <path d=\"M32 19c3-8 14-12 15-5 1 5-9 6-15 5z\" fill=\"#0094FF\"/>\n      <path d=\"M32 19c-2.6-5.4-9.6-8.4-10.6-4.6-.6 2.8 5.6 4.3 10.6 4.6z\" fill=\"#5CC6FF\" opacity=\".55\"/>\n      <circle cx=\"32\" cy=\"19\" r=\"3.4\" fill=\"#0077CC\"/>\n      <path d=\"M13 30v25\" stroke=\"#fff\" stroke-opacity=\".08\" stroke-width=\"3\"/>\n    </svg>\n  </button>";
@@ -868,8 +868,12 @@ function makeMonitor() { window.MONITOR = (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const wrap = document.createElement('div');
   wrap.innerHTML = GIFT_HTML + OVERLAY_HTML;
-  const gift = wrap.querySelector('.obf-gift'), bf = wrap.querySelector('.obf');
-  document.body.appendChild(gift); document.body.appendChild(bf);
+  const COUNT = 3; // how many gifts hide on each page
+  const gift0 = wrap.querySelector('.obf-gift'), bf = wrap.querySelector('.obf');
+  const gifts = [gift0];
+  for (let i = 1; i < COUNT; i++) gifts.push(gift0.cloneNode(true));
+  gifts.forEach(g => { g.removeAttribute('id'); document.body.appendChild(g); });
+  document.body.appendChild(bf);
   const $ = s => bf.querySelector(s);
   const stage = $('#obf-stage'), gl = $('#obf-gl'), paperEl = $('#obf-paper'), tearHint = $('#obf-tearHint'), hand = $('#obf-hand');
   const chans = [...bf.querySelectorAll('#obf-channels button')];
@@ -884,7 +888,7 @@ function makeMonitor() { window.MONITOR = (() => {
   /* ---- hide the gift somewhere new on every page load, away from text, images and controls ---- */
   const AVOID = 'h1,h2,h3,h4,h5,h6,p,a,button,img,picture,video,iframe,input,textarea,select,label,li,blockquote,figure,table,nav,header,footer,span,small,strong,em,svg,i,[role="button"]';
   function placeGift() {
-    gift.hidden = true;
+    gifts.forEach(g => { g.hidden = true; });
     const sx = scrollX, sy = scrollY, W = document.documentElement.clientWidth, H = document.documentElement.scrollHeight, s = 58;
     const avoid = [];
     document.querySelectorAll(AVOID).forEach(el => {
@@ -892,14 +896,19 @@ function makeMonitor() { window.MONITOR = (() => {
       const r = el.getBoundingClientRect(); if (!r.width || !r.height) return;
       avoid.push({ x: r.left + sx - 16, y: r.top + sy - 16, w: r.width + 32, h: r.height + 32 });
     });
-    let best = null;
-    for (let i = 0; i < 160; i++) {
-      const x = 16 + Math.random() * (W - s - 32), y = 120 + Math.random() * Math.max(10, H - s - 400);
-      if (!avoid.some(a => x < a.x + a.w && x + s > a.x && y < a.y + a.h && y + s > a.y)) { best = { x, y }; break; }
-    }
-    if (!best) best = { x: W - s - 24, y: 140 + Math.random() * 400 };
-    gift.style.left = best.x + 'px'; gift.style.top = best.y + 'px';
-    gift.hidden = false;
+    // spread the gifts out: each one gets its own band of the page
+    const top = 120, span = Math.max(10, H - s - 400) / gifts.length;
+    gifts.forEach((g, k) => {
+      let best = null;
+      for (let i = 0; i < 200; i++) {
+        const x = 16 + Math.random() * (W - s - 32), y = top + k * span + Math.random() * span;
+        if (!avoid.some(a => x < a.x + a.w && x + s > a.x && y < a.y + a.h && y + s > a.y)) { best = { x, y }; break; }
+      }
+      if (!best) best = { x: k % 2 ? 24 : W - s - 24, y: top + k * span + span / 2 };
+      avoid.push({ x: best.x - 40, y: best.y - 40, w: s + 80, h: s + 80 });
+      g.style.left = best.x + 'px'; g.style.top = best.y + 'px';
+      g.hidden = false;
+    });
   }
   if (document.readyState === 'complete') setTimeout(placeGift, 600); else addEventListener('load', () => setTimeout(placeGift, 600));
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (!opened) placeGift(); else resize(); }, 200); });
@@ -914,8 +923,7 @@ function makeMonitor() { window.MONITOR = (() => {
     return threeReady;
   }
   // start fetching the 3D library when someone gets close to the gift
-  gift.addEventListener('pointerenter', loadThree, { once: true });
-  gift.addEventListener('focus', loadThree, { once: true });
+  gifts.forEach(g => { g.addEventListener('pointerenter', loadThree, { once: true }); g.addEventListener('focus', loadThree, { once: true }); });
 
   /* ---- open and close ---- */
   async function open() {
@@ -939,6 +947,7 @@ function makeMonitor() { window.MONITOR = (() => {
     setTimeout(() => { bf.hidden = true; cancelAnimationFrame(raf); }, 350);
     if (location.hash === '#black-friday') history.replaceState(null, '', location.pathname + location.search);
     lastFocus?.focus?.();
+    placeGift();
   }
   function reveal() {
     stage.classList.add('obf-revealed'); tearHint.classList.add('obf-gone'); hand.classList.remove('obf-play');
@@ -948,7 +957,7 @@ function makeMonitor() { window.MONITOR = (() => {
     setTimeout(() => chans[0].focus({ preventScroll: true }), 900);
     try { window.fbq && fbq('trackCustom', 'BlackFridayGiftOpened'); } catch (e) {}
   }
-  gift.addEventListener('click', open);
+  gifts.forEach(g => g.addEventListener('click', open));
   $('#obf-bfClose').addEventListener('click', close);
   $('#obf-backToSite').addEventListener('click', close);
   $('#obf-autoTear').addEventListener('click', () => { tearHint.classList.add('obf-gone'); PAPER.auto(); });
