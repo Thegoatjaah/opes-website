@@ -1,0 +1,19 @@
+# Cloudflare Pages reads this file automatically. Caching and a few safe security headers.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/images/*
+  Cache-Control: public, max-age=604800
+
+/webfonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/bfcm/*
+  Cache-Control: public, max-age=86400
+
+/favicon.ico
+  Cache-Control: public, max-age=604800
+
+/favicon.png
+  Cache-Control: public, max-age=604800

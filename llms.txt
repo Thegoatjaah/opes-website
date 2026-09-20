@@ -1,0 +1,21 @@
+# Opes Consulting
+
+> Opes Consulting is an eCRM and lifecycle email marketing agency based in London, working with B2B, B2C and eCommerce brands across the UK, Europe and the USA. We build email marketing programmes, CRM automation, N8N workflow automation and custom websites. Work is backed by a guarantee: you don't pay unless we deliver on the Performance Threshold agreed in writing before any work starts.
+
+Platforms we work in: Klaviyo, HubSpot, Brevo, GoHighLevel, N8N. Contact: hello@opesconsulting.online. Instagram: @weareopes.
+
+## Main pages
+
+- [Home](https://opesconsulting.london/): services, how we work, testimonials and FAQs
+- [Process](https://opesconsulting.london/process): the first ninety days after you book, week by week
+- [Campaigns](https://opesconsulting.london/campaigns): email campaigns we have designed and written
+- [Our Work](https://opesconsulting.london/work): case studies
+- [Pricing](https://opesconsulting.london/pricing): modules from $500, bundles from $4,700 (Pipeline, Loyalty and Revenue), retainers from $299 a month, custom projects quoted, and how the guarantee works
+- [Book a call](https://opesconsulting.london/book): a free 30 minute discovery call
+- [Free resource](https://opesconsulting.london/free-resource): the lifecycle email blueprint, with 9 flows, 43 emails and 18 campaign types
+
+## Guides
+
+- [Abandoned cart emails that actually win the sale back](https://opesconsulting.london/abandoned-cart-emails)
+- [The nine email flows every ecommerce brand should have running](https://opesconsulting.london/ecommerce-email-flows)
+- [Your Black Friday email plan for 2026, week by week](https://opesconsulting.london/black-friday-email-marketing)

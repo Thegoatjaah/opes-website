@@ -14,7 +14,7 @@
   --line:#DCE6F0;
   --on-navy:#EAF2FB;
   --on-navy-dim:#9DB0C8;
-  --sans:'Aspekta',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --sans:'DM Sans',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --serif:'Newsreader',Georgia,'Times New Roman',serif;
   --ease-out:cubic-bezier(.16,1,.3,1);
 }
@@ -23,7 +23,7 @@
 .obf{font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;text-align:left;letter-spacing:normal}
 .obf [hidden],.obf-gift[hidden],.obf[hidden]{display:none!important}
 .obf button{font:inherit;color:inherit;margin:0}
-.obf p,.obf h2{margin:0}
+.obf p,.obf h1,.obf h2{margin:0}
 .obf :focus-visible,.obf-gift:focus-visible{outline:2px solid var(--neon);outline-offset:3px;border-radius:6px}
 .obf-pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;font-weight:600;text-decoration:none;border:0;cursor:pointer;transition:transform .2s var(--ease-out),background .2s}
 .obf-pill:hover{transform:translateY(-1px)}
@@ -80,8 +80,8 @@
 /* offer */
 .obf-offer{background:var(--blue);color:var(--navy);padding-block:clamp(64px,10vw,120px);padding-inline:max(16px,6vw)}
 .obf-offer-in{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(32px,6vw,88px);align-items:end}
-.obf-offer h2{font-family:var(--serif);font-weight:400;font-size:clamp(44px,7.6vw,112px);line-height:.95;letter-spacing:-.03em;margin:0;text-wrap:balance}
-.obf-offer h2 em{font-style:italic}
+.obf-offer h1,.obf-offer h2{font-family:var(--serif);font-weight:400;font-size:clamp(44px,7.6vw,112px);line-height:.95;letter-spacing:-.03em;margin:0;text-wrap:balance}
+.obf-offer h1 em,.obf-offer h2 em{font-style:italic}
 .obf-offer .obf-big{font-family:var(--serif);font-size:clamp(88px,14vw,200px);line-height:.85;letter-spacing:-.04em;display:block;margin-bottom:10px}
 .obf-offer p{margin:0 0 18px;font-size:18px;line-height:1.55;max-width:44ch;color:#06122A}
 .obf-offer .obf-terms{font-size:14px;color:#0B2A4A;margin-top:18px}

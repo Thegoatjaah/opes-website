@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Page not found | Opes Consulting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
+    <style>
+        :root { --ink: #0A0C19; --brand: #0094FF; --muted: #475569; --line: #E7ECF2; }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; background: #fff; color: var(--ink); }
+        body { font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+        header { max-width: 1200px; width: 100%; margin: 0 auto; padding: 24px; }
+        header img { height: 22px; width: auto; display: block; }
+        main { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 8vh 24px 80px; }
+        .code { font-size: 14px; font-weight: 600; letter-spacing: .12em; color: var(--brand); margin: 0 0 20px; }
+        h1 { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(40px, 7vw, 84px); line-height: 1; letter-spacing: -.025em; margin: 0 0 24px; max-width: 14ch; }
+        h1 em { color: var(--brand); }
+        p.lead { font-size: 18px; line-height: 1.6; color: var(--muted); max-width: 46ch; margin: 0 0 36px; }
+        .row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 56px; }
+        .pill { display: inline-flex; align-items: center; justify-content: center; text-align: center; padding: 14px 26px; border-radius: 999px; font-weight: 600; font-size: 15px; text-decoration: none; }
+        .pill-blue { background: var(--brand); color: #fff; }
+        .pill-blue:hover { background: #0077CC; }
+        .pill-line { border: 1px solid #CBD5E1; color: var(--ink); }
+        .pill-line:hover { border-color: var(--ink); }
+        ul { list-style: none; padding: 24px 0 0; margin: 0; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px 32px; }
+        ul a { color: var(--ink); text-decoration: none; font-weight: 500; }
+        ul a:hover { color: var(--brand); }
+        a:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+        @media (max-width: 600px) { .pill { flex: 1; text-align: center; } }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" aria-label="Opes Consulting home"><img src="/images/logo-header.png" alt="Opes Consulting" width="1915" height="160"></a>
+    </header>
+    <main>
+        <p class="code">404</p>
+        <h1>This page has <em>unsubscribed.</em></h1>
+        <p class="lead">The link may be old or mistyped. Everything else is where you left it.</p>
+        <div class="row">
+            <a class="pill pill-blue" href="/">Back to the homepage</a>
+            <a class="pill pill-line" href="/book.html">Book a call</a>
+        </div>
+        <ul>
+            <li><a href="/process.html">Process</a></li>
+            <li><a href="/campaigns.html">Campaigns</a></li>
+            <li><a href="/work.html">Our Work</a></li>
+            <li><a href="/pricing.html">Pricing</a></li>
+            <li><a href="/guides.html">Guides</a></li>
+            <li><a href="/black-friday.html">Black Friday</a></li>
+        </ul>
+    </main>
+</body>
+</html>

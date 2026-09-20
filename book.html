@@ -1,16 +1,80 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en-GB" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Book a 30-minute discovery call with Opes Consulting. We'll review your email and lifecycle setup and tell you where the revenue is leaking.">
-    <meta name="robots" content="noindex">
+    <meta name="description" content="Book a 30 minute discovery call with Opes Consulting. We'll review your email and lifecycle setup and tell you where the revenue is leaking.">
+    
     <title>Book a Discovery Call | Opes Consulting</title>
+    <!-- SEO: canonical, social cards and structured data (added 20/09) -->
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#0094FF">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://opesconsulting.london/book">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Opes Consulting">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:url" content="https://opesconsulting.london/book">
+    <meta property="og:title" content="Book a Discovery Call | Opes Consulting">
+    <meta property="og:description" content="Book a 30 minute discovery call with Opes Consulting. We'll review your email and lifecycle setup and tell you where the revenue is leaking.">
+    <meta property="og:image" content="https://opesconsulting.london/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Opes Consulting">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Book a Discovery Call | Opes Consulting">
+    <meta name="twitter:description" content="Book a 30 minute discovery call with Opes Consulting. We'll review your email and lifecycle setup and tell you where the revenue is leaking.">
+    <meta name="twitter:image" content="https://opesconsulting.london/images/og-image.jpg">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://opesconsulting.london/book#webpage",
+      "url": "https://opesconsulting.london/book",
+      "name": "Book a Discovery Call | Opes Consulting",
+      "isPartOf": {
+        "@id": "https://opesconsulting.london/#website"
+      },
+      "about": {
+        "@id": "https://opesconsulting.london/#organization"
+      },
+      "inLanguage": "en-GB",
+      "description": "Book a 30 minute discovery call with Opes Consulting. We'll review your email and lifecycle setup and tell you where the revenue is leaking."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://opesconsulting.london/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Book a Call",
+          "item": "https://opesconsulting.london/book"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <!-- /SEO -->
+
+
+
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap">
     <link rel="stylesheet" href="./images/all.min.css">
 
     <script src="./images/saved_resource"></script>
@@ -27,8 +91,8 @@
                 extend: {
                     colors: { brand: '#0094ff', ink: '#0A0C19' },
                     fontFamily: {
-                        sans: ['Aspekta', 'DM Sans', 'sans-serif'],
-                        display: ['Newsreader', 'Georgia', 'serif'],
+                        sans: ['DM Sans', 'sans-serif'],
+                        display: ['DM Sans', 'sans-serif'],
                     }
                 }
             }
@@ -36,10 +100,6 @@
     </script>
 
     <style>
-        @font-face { font-family:'Aspekta'; src:url('Aspekta-Regular.woff2') format('woff2');  font-weight:400; font-display:swap; }
-        @font-face { font-family:'Aspekta'; src:url('Aspekta-Medium.woff2') format('woff2');   font-weight:500; font-display:swap; }
-        @font-face { font-family:'Aspekta'; src:url('Aspekta-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
-        @font-face { font-family:'Aspekta'; src:url('Aspekta-Bold.woff2') format('woff2');     font-weight:700; font-display:swap; }
 
         /* The embed sets its own height; this stops it collapsing before it loads. */
         .meetings-iframe-container { min-height: 690px; }
@@ -54,6 +114,42 @@
         textarea.q-input { min-height:84px; resize:vertical; }
         .q-input[aria-invalid="true"] { border-color:#dc2626; }
     </style>
+
+<!-- DM Sans across the site, 19/09. The homepage hero statement and the Black Friday
+     titles keep Newsreader on purpose. The footer below is the new navy footer. -->
+<style id="opes-dmsans">
+  body { font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  h1, h2, .service-card-h2 { font-weight: 500 !important; letter-spacing: -0.025em; }
+  .opes-hero h1,
+  .obf-offer h2, .obf-offer h2 *, .obf-home .obf-lead, .obf-home .obf-lead * {
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif !important;
+  }
+  .opes-hero h1, .obf-offer h2, .obf-home .obf-lead { font-weight: 400 !important; }
+  .testimonial-card.opes-quote .opes-stars { color: #0094FF; }
+  ::selection { background: #0094FF; color: #fff; }
+  a:focus-visible, button:focus-visible { outline: 2px solid #0094FF; outline-offset: 3px; }
+
+  .opes-footer.opes-footer-x { background: #0A0C19 !important; color: #C9CFDC; padding: 72px 0 32px; }
+  .ofx { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  @media (min-width: 1024px) { .ofx { padding: 0 32px; } }
+  .ofx-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .opes-footer .ofx-line { font-size: clamp(24px, 3vw, 36px); line-height: 1.15; letter-spacing: -.025em; color: #fff; max-width: 22ch; margin: 0; font-weight: 500; text-wrap: balance; }
+  .ofx-line span { color: #0094FF; }
+  .opes-footer a.ofx-cta { background: #0094FF; color: #fff; border-radius: 999px; padding: 12px 22px; font-weight: 600; font-size: 15px; transition: background .2s; }
+  .opes-footer a.ofx-cta:hover { background: #0077CC; color: #fff; }
+  .ofx-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; padding: 48px 0; }
+  @media (max-width: 640px) { .ofx-cols { grid-template-columns: 1fr 1fr; } .ofx-cols > div:last-child { grid-column: 1 / -1; } }
+  .opes-footer .ofx-h { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #7F879B; margin: 0 0 16px; font-weight: 600; }
+  .ofx ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; font-size: 15px; }
+  .opes-footer .ofx a { color: #C9CFDC; text-decoration: none; }
+  .opes-footer .ofx a:hover { color: #fff; }
+  .ofx-muted { color: #7F879B; }
+  .ofx-ig { display: inline-flex; align-items: center; gap: 8px; }
+  .ofx-ig i, .ofx-ig svg { width: 16px; height: 16px; display: inline-block; }
+  .ofx-base { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.1); font-size: 13px; }
+  .opes-footer .ofx-base p { color: #7F879B; margin: 0; }
+  .ofx-base img { height: 20px; width: auto; }
+</style>
 </head>
 
 <body class="bg-white text-ink font-sans antialiased flex flex-col min-h-screen">
@@ -87,7 +183,7 @@
                     <ul class="mt-4 space-y-3 text-slate-700">
                         <li class="flex gap-3">
                             <span class="text-brand mt-1">&#10003;</span>
-                            <span>We look at what you're sending now &mdash; flows, campaigns, segmentation &mdash; and where it's falling short.</span>
+                            <span>We look at what you're sending now (flows, campaigns, segmentation) and where it's falling short.</span>
                         </li>
                         <li class="flex gap-3">
                             <span class="text-brand mt-1">&#10003;</span>
@@ -180,8 +276,8 @@
                         <div id="booking-fallback" hidden class="p-8 text-center">
                             <p class="text-lg font-medium">The calendar didn't load</p>
                             <p class="mt-2 text-slate-600">
-                                Usually an ad blocker. You can book on the calendar directly &mdash;
-                                same times, same 30 minutes.
+                                Usually an ad blocker. You can book on the calendar directly.
+                                Same times, same 30 minutes.
                             </p>
                             <a href="https://meetings-eu1.hubspot.com/aran-patel"
                                class="inline-block mt-6 px-6 py-3 rounded-lg bg-brand text-white font-semibold hover:bg-[#0077CC]">
@@ -324,7 +420,7 @@
 <style>
   #opes-consent{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:none;
     background:#fff;border-top:1px solid #e2e8f0;box-shadow:0 -6px 24px rgba(15,23,42,.08);
-    font-family:'Aspekta','DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#0A0C19}
+    font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;color:#0A0C19}
   #opes-consent[data-show="1"]{display:block}
   .opes-consent-in{max-width:1100px;margin:0 auto;padding:16px 20px;
     display:flex;gap:16px;align-items:center;flex-wrap:wrap}

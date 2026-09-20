@@ -863,18 +863,28 @@ function makeMonitor() { window.MONITOR = (() => {
 (() => {
   const END = Date.UTC(2026, 11, 1, 0);            // the gift disappears after Cyber Monday
   const THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js';
-  if (Date.now() >= END && location.hash !== '#black-friday') return;
+  // black-friday.html carries data-bfcm-page: there the wrapping paper IS the page,
+  // so no hidden gifts, it opens on load, and closing goes back to the homepage.
+  const PAGE = document.body.hasAttribute('data-bfcm-page');
+  if (!PAGE && Date.now() >= END && location.hash !== '#black-friday') return;
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const wrap = document.createElement('div');
   wrap.innerHTML = GIFT_HTML + OVERLAY_HTML;
-  const COUNT = 3; // how many gifts hide on each page
+  // How many gifts hide on a page: set with data-bfcm-gifts on <body>. Big pages use 2, everything else 1.
+  const COUNT = Math.max(1, Math.min(2, parseInt(document.body.dataset.bfcmGifts, 10) || 1));
   const gift0 = wrap.querySelector('.obf-gift'), bf = wrap.querySelector('.obf');
   const gifts = [gift0];
   for (let i = 1; i < COUNT; i++) gifts.push(gift0.cloneNode(true));
-  gifts.forEach(g => { g.removeAttribute('id'); document.body.appendChild(g); });
+  gifts.forEach(g => { g.removeAttribute('id'); if (!PAGE) document.body.appendChild(g); });
   document.body.appendChild(bf);
   const $ = s => bf.querySelector(s);
+  if (PAGE) {
+    // On black-friday.html the offer title is the page's main heading, and booking stays in the same tab.
+    const h2 = bf.querySelector('#obf-offerTitle');
+    if (h2) { const h1 = document.createElement('h1'); h1.id = h2.id; h1.className = h2.className; h1.innerHTML = h2.innerHTML; h2.replaceWith(h1); }
+    bf.querySelectorAll('a[target="_blank"][href*="book.html"]').forEach(a => { a.removeAttribute('target'); a.removeAttribute('rel'); a.setAttribute('href', 'book.html'); });
+  }
   const stage = $('#obf-stage'), gl = $('#obf-gl'), paperEl = $('#obf-paper'), tearHint = $('#obf-tearHint'), hand = $('#obf-hand');
   const chans = [...bf.querySelectorAll('#obf-channels button')];
   let opened = false, started = false, paperReady = false, raf = 0, lastFocus = null, threeReady = null;
@@ -910,8 +920,8 @@ function makeMonitor() { window.MONITOR = (() => {
       g.hidden = false;
     });
   }
-  if (document.readyState === 'complete') setTimeout(placeGift, 600); else addEventListener('load', () => setTimeout(placeGift, 600));
-  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (!opened) placeGift(); else resize(); }, 200); });
+  if (!PAGE) { if (document.readyState === 'complete') setTimeout(placeGift, 600); else addEventListener('load', () => setTimeout(placeGift, 600)); }
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (!opened) { if (!PAGE) placeGift(); } else resize(); }, 200); });
 
   function loadThree() {
     if (window.THREE) return Promise.resolve();
@@ -942,6 +952,7 @@ function makeMonitor() { window.MONITOR = (() => {
     MONITOR.resize(); loop();
   }
   function close() {
+    if (PAGE) { location.href = 'index.html'; return; }
     if (!opened) return; opened = false;
     bf.classList.remove('obf-on'); document.documentElement.style.overflow = '';
     setTimeout(() => { bf.hidden = true; cancelAnimationFrame(raf); }, 350);
@@ -964,7 +975,7 @@ function makeMonitor() { window.MONITOR = (() => {
   document.addEventListener('paper:start', () => { tearHint.classList.add('obf-gone'); hand.classList.remove('obf-play'); });
   addEventListener('keydown', e => {
     if (!opened) return;
-    if (e.key === 'Escape') close();
+    if (e.key === 'Escape' && !PAGE) close();
     if (PAPER.done && /^[1-4]$/.test(e.key) && !e.metaKey && !e.ctrlKey) setChannel(+e.key - 1);
   });
   bf.addEventListener('keydown', e => {
@@ -1027,7 +1038,7 @@ function makeMonitor() { window.MONITOR = (() => {
   foot(); setInterval(foot, 30000);
 
   // opesconsulting.london/#black-friday opens the gift straight away (handy for ads and emails)
-  const fromHash = () => { if (location.hash === '#black-friday') open(); };
+  const fromHash = () => { if (PAGE || location.hash === '#black-friday') open(); };
   addEventListener('hashchange', fromHash);
   if (document.readyState === 'complete') setTimeout(fromHash, 300); else addEventListener('load', () => setTimeout(fromHash, 300));
 })();
