@@ -412,6 +412,43 @@
             sendAnswers().then(go);
             setTimeout(go, 4000);
         });
+
+        /* BOOKING AUTOMATION, added 25/09. When the HubSpot calendar confirms a
+           booking, send the answers and the call time to Zapier ("Discovery call
+           booked" Zap: HubSpot deal, Slack alert, prep email). Not behind the
+           cookie banner: it is part of delivering the call they just booked,
+           not tracking. Fires once per page load and never blocks anything. */
+        var ZAP_HOOK = 'https://hooks.zapier.com/hooks/catch/28944400/4m3rba1/';
+        var zapSent = false;
+        window.addEventListener('message', function (e) {
+            if (zapSent || !e.data || e.data.meetingBookSucceeded !== true) return;
+            if (!/\.hubspot\.com$/.test((e.origin || '').replace(/^https?:\/\//, ''))) return;
+            zapSent = true;
+            var p = e.data.meetingsPayload || {};
+            var ev = (p.bookingResponse && p.bookingResponse.event) || {};
+            var who = (p.bookingResponse && p.bookingResponse.postResponse &&
+                       p.bookingResponse.postResponse.contact) || {};
+            var startMs = Number(ev.dateTime) || 0;
+            var data = new URLSearchParams({
+                source: 'book.html',
+                firstname: val('firstname') || who.firstName || '',
+                lastname:  val('lastname')  || who.lastName  || '',
+                email:     val('email')     || who.email     || '',
+                phone:     val('phone'),
+                website:   val('website'),
+                discovery_monthly_revenue:  val('discovery_monthly_revenue'),
+                discovery_goals_challenges: val('discovery_goals_challenges'),
+                discovery_why_booked:       val('discovery_why_booked'),
+                discovery_heard_about_us:   val('discovery_heard_about_us'),
+                meeting_start:    startMs ? new Date(startMs).toISOString() : '',
+                meeting_start_ms: startMs ? String(startMs) : '',
+                meeting_duration_mins: ev.duration ? String(Math.round(Number(ev.duration) / 60000)) : ''
+            });
+            try {
+                if (navigator.sendBeacon) navigator.sendBeacon(ZAP_HOOK, data);
+                else fetch(ZAP_HOOK, { method: 'POST', mode: 'no-cors', body: data });
+            } catch (err) {}
+        });
     })();
     </script>
 

@@ -406,6 +406,16 @@
   html.night header nav a.nav-guarantee:hover { color: #FFD2A1 !important; background: rgba(255,138,0,.22); }
   html.night #mobile-menu a.mobile-guarantee { color: #FFB86B !important; }
 </style>
+<style id="opes-nav-space">
+/* NAV SPACING, added 25/09. The desktop header was packed into the 1200px
+   column with 12px between links. It now runs wider and the gaps grow with
+   the screen: about 18px at 1280px, up to 30px on big monitors. */
+@media (min-width: 1280px) {
+  header > div:first-child { max-width: 1440px !important; }
+  header nav.whitespace-nowrap { gap: clamp(16px, 1.55vw, 30px) !important; }
+  header .ml-auto.xl\:flex { gap: clamp(20px, 2vw, 36px) !important; }
+}
+</style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
