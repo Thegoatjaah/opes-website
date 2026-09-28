@@ -1,10 +1,319 @@
 /* Opes Black Friday gift, 2026.
    Hides three gifts on the page. Opening one shows wrapping paper to tear and a 3D monitor with the BFCM plan.
    Needs bfcm/bfcm.css. Loads three.js from jsDelivr only when someone opens a gift.
-   Switches itself off after Cyber Monday (1 Dec 2026). */
+   Switches itself off after Cyber Monday (1 Dec 2026).
+   Project button (900px and wider): the monitor moves left and projects its screen as a hologram. */
 (() => {
 const GIFT_HTML = "<button class=\"obf-gift\" id=\"obf-gift\" type=\"button\" aria-label=\"Open the Opes Black Friday gift\" hidden>\n    <span class=\"obf-tag\">Black Friday</span>\n    <svg viewBox=\"0 0 64 64\" aria-hidden=\"true\">\n      <rect x=\"9\" y=\"27\" width=\"46\" height=\"31\" rx=\"3\" fill=\"#0A0C19\"/>\n      <rect x=\"6\" y=\"19\" width=\"52\" height=\"11\" rx=\"3\" fill=\"#141830\"/>\n      <rect x=\"28\" y=\"19\" width=\"8\" height=\"39\" fill=\"#0094FF\"/>\n            <path d=\"M32 19c-3-8-14-12-15-5-1 5 9 6 15 5z\" fill=\"#0094FF\"/>\n      <path d=\"M32 19c3-8 14-12 15-5 1 5-9 6-15 5z\" fill=\"#0094FF\"/>\n      <path d=\"M32 19c-2.6-5.4-9.6-8.4-10.6-4.6-.6 2.8 5.6 4.3 10.6 4.6z\" fill=\"#5CC6FF\" opacity=\".55\"/>\n      <circle cx=\"32\" cy=\"19\" r=\"3.4\" fill=\"#0077CC\"/>\n      <path d=\"M13 30v25\" stroke=\"#fff\" stroke-opacity=\".08\" stroke-width=\"3\"/>\n    </svg>\n  </button>";
-const OVERLAY_HTML = "<div class=\"obf\" id=\"obf-bf\" role=\"dialog\" aria-modal=\"true\" aria-label=\"Opes Black Friday\" hidden>\n  <section class=\"obf-stage\" id=\"obf-stage\">\n    <canvas class=\"obf-gl\" id=\"obf-gl\" aria-label=\"A retro Opes monitor showing the Black Friday and Cyber Monday plan. Use the channel buttons below to change what it shows.\"></canvas>\n    <div class=\"obf-glow\"></div>\n    <div class=\"obf-topbar\">\n      <div class=\"obf-mark\"><svg viewBox=\"0 0 64 64\" aria-hidden=\"true\" id=\"obf-markSvg\"></svg>OPES \u00b7 BFCM 2026</div>\n      <button class=\"obf-close\" id=\"obf-bfClose\" type=\"button\" aria-label=\"Close and go back to the site\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 3l10 10M13 3L3 13\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg></button>\n    </div>\n    <p class=\"obf-drag-note\">Drag the monitor to turn it \u00b7 press its buttons to change channel</p>\n    <div class=\"obf-channels\" role=\"group\" aria-label=\"Monitor channels\" id=\"obf-channels\">\n      <button type=\"button\" data-ch=\"0\" aria-pressed=\"true\"><b>1</b>Countdown</button>\n      <button type=\"button\" data-ch=\"1\" aria-pressed=\"false\"><b>2</b><span class=\"obf-long\">The flows</span><span class=\"obf-short\">Flows</span></button>\n      <button type=\"button\" data-ch=\"2\" aria-pressed=\"false\"><b>3</b><span class=\"obf-long\">Before and after purchase</span><span class=\"obf-short\">Purchase</span></button>\n      <button type=\"button\" data-ch=\"3\" aria-pressed=\"false\"><b>4</b>November</button>\n    </div>\n\n    <div class=\"obf-paper obf-wrap-in\" id=\"obf-paper\">\n      <canvas id=\"obf-paperCanvas\"></canvas>\n    </div>\n    <svg class=\"obf-hand\" id=\"obf-hand\" viewBox=\"0 0 48 48\" aria-hidden=\"true\"><circle cx=\"16\" cy=\"14\" r=\"12\" fill=\"#fff\" opacity=\".35\"/><path d=\"M14 8c0-2 3-2 3 0v14l1-6c.4-2 3.3-1.7 3 .3l-.5 6 1.6-4.4c.7-1.9 3.4-1 2.9.9l-1.3 5 1.8-3c1-1.7 3.4-.4 2.6 1.4L24.6 34c-1.6 4-5 6-9 6-5 0-8-3-9-8l-1.8-7c-.5-2 2.2-3 3.1-1.1L10 29V8z\" fill=\"#fff\" stroke=\"#0A0C19\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>\n    <div class=\"obf-tear-hint\" id=\"obf-tearHint\">\n      <svg viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M3 12l4-4 3 3 7-7\" stroke=\"#5CC6FF\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M12 4h5v5\" stroke=\"#5CC6FF\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n      Drag across the paper to tear it\n      <button type=\"button\" id=\"obf-autoTear\">Open it for me</button>\n    </div>\n  </section>\n\n  <section class=\"obf-offer\" id=\"obf-offer\" aria-labelledby=\"obf-offerTitle\">\n    <div class=\"obf-offer-in\">\n      <h2 id=\"obf-offerTitle\"><span class=\"obf-big\" id=\"obf-offerBig\">20% off</span>your whole <em>Black Friday</em> programme.</h2>\n      <div>\n        <p>We plan, write, design and automate the lot: early access, Black Friday, the weekend, Cyber Monday, and every flow before and after the purchase. You just watch the orders come in.</p>\n        <p id=\"obf-offerDeadline\">Book your BFCM call before Friday 6 November to lock in 20% off and give us time to warm up your list.</p>\n        <div class=\"obf-row\">\n          <a class=\"obf-pill obf-pill-navy\" href=\"https://opesconsulting.london/book.html\" target=\"_blank\" rel=\"noopener\">Book a BFCM call</a>\n          <button type=\"button\" class=\"obf-ghost-link\" id=\"obf-backToSite\">Back to the site</button>\n        </div>\n        <div class=\"obf-guarantee\">\n          <svg width=\"22\" height=\"22\" viewBox=\"0 0 20 20\" aria-hidden=\"true\" style=\"flex:none;margin-top:2px\"><circle cx=\"10\" cy=\"10\" r=\"10\" fill=\"#0A0C19\"/><path d=\"M5.5 10.2l3 3 6-6.4\" stroke=\"#fff\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n          <div><strong>You don\u2019t pay unless we deliver on our promise.</strong>Your Performance Threshold is agreed on the call, in writing, before any work starts.</div>\n        </div>\n        <p class=\"obf-terms\">Black Friday is Friday 27 November 2026. Cyber Monday is Monday 30 November 2026.</p>\n      </div>\n    </div>\n  </section>\n  <footer class=\"obf-foot\">\n    <span>Opes Consulting \u00b7 London</span>\n    <span id=\"obf-footCount\"></span>\n  </footer>\n</div>\n";
+const OVERLAY_HTML = "<div class=\"obf\" id=\"obf-bf\" role=\"dialog\" aria-modal=\"true\" aria-label=\"Opes Black Friday\" hidden>\n  <div class=\"obf-pin\" id=\"obf-pin\">\n  <section class=\"obf-stage\" id=\"obf-stage\">\n    <canvas class=\"obf-gl\" id=\"obf-gl\" aria-label=\"A retro Opes monitor showing the Black Friday and Cyber Monday plan. Use the channel buttons below to change what it shows.\"></canvas>\n    <div class=\"obf-glow\"></div>\n    <div class=\"obf-topbar\">\n      <div class=\"obf-mark\"><svg viewBox=\"0 0 64 64\" aria-hidden=\"true\" id=\"obf-markSvg\"></svg>OPES \u00b7 BFCM 2026</div>\n      <button class=\"obf-close\" id=\"obf-bfClose\" type=\"button\" aria-label=\"Close and go back to the site\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 3l10 10M13 3L3 13\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg></button>\n    </div>\n    <p class=\"obf-drag-note\">Drag the monitor to turn it \u00b7 press its buttons to change channel</p>\n    <div class=\"obf-channels\" role=\"group\" aria-label=\"Monitor channels\" id=\"obf-channels\">\n      <button type=\"button\" data-ch=\"0\" aria-pressed=\"true\"><b>1</b>Countdown</button>\n      <button type=\"button\" data-ch=\"1\" aria-pressed=\"false\"><b>2</b><span class=\"obf-long\">The campaign</span><span class=\"obf-short\">Campaign</span></button>\n      <button type=\"button\" data-ch=\"2\" aria-pressed=\"false\"><b>3</b><span class=\"obf-long\">Automations</span><span class=\"obf-short\">Flows</span></button>\n      <button type=\"button\" data-ch=\"3\" aria-pressed=\"false\"><b>4</b>November</button>\n    </div>\n\n    <div class=\"obf-paper obf-wrap-in\" id=\"obf-paper\">\n      <canvas id=\"obf-paperCanvas\"></canvas>\n    </div>\n    <svg class=\"obf-hand\" id=\"obf-hand\" viewBox=\"0 0 48 48\" aria-hidden=\"true\"><circle cx=\"16\" cy=\"14\" r=\"12\" fill=\"#fff\" opacity=\".35\"/><path d=\"M14 8c0-2 3-2 3 0v14l1-6c.4-2 3.3-1.7 3 .3l-.5 6 1.6-4.4c.7-1.9 3.4-1 2.9.9l-1.3 5 1.8-3c1-1.7 3.4-.4 2.6 1.4L24.6 34c-1.6 4-5 6-9 6-5 0-8-3-9-8l-1.8-7c-.5-2 2.2-3 3.1-1.1L10 29V8z\" fill=\"#fff\" stroke=\"#0A0C19\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>\n    <div class=\"obf-tear-hint\" id=\"obf-tearHint\">\n      <svg viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M3 12l4-4 3 3 7-7\" stroke=\"#5CC6FF\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M12 4h5v5\" stroke=\"#5CC6FF\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n      Drag across the paper to tear it\n      <button type=\"button\" id=\"obf-autoTear\">Open it for me</button>\n    </div>\n    <button type=\"button\" class=\"obf-scroll-cue\" id=\"obf-scrollCue\">The full plan<svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M8 3v10M3.5 8.5 8 13l4.5-4.5\" stroke=\"currentColor\" stroke-width=\"1.8\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button>\n  </section>\n  </div>\n__PLAYBOOK__\n  <section class=\"obf-offer\" id=\"obf-offer\" aria-labelledby=\"obf-offerTitle\">\n    <div class=\"obf-offer-in\">\n      <h2 id=\"obf-offerTitle\"><span class=\"obf-big\" id=\"obf-offerBig\">20% off</span>your whole <em>Black Friday</em> programme.</h2>\n      <div>\n        <p>We plan, write, design and automate the lot: the VIP list, the teaser, early access, doors open, the weekend, the last call and Cyber Monday, plus the browse, cart and back in stock automations running underneath. You just watch the orders come in.</p>\n        <p id=\"obf-offerDeadline\">Book your BFCM call before Friday 6 November to lock in 20% off and give us time to warm up your list.</p>\n        <div class=\"obf-row\">\n          <a class=\"obf-pill obf-pill-navy\" href=\"https://opesconsulting.london/book.html\" target=\"_blank\" rel=\"noopener\">Book a BFCM call</a>\n          <button type=\"button\" class=\"obf-ghost-link\" id=\"obf-backToSite\">Back to the site</button>\n        </div>\n        <div class=\"obf-guarantee\">\n          <svg width=\"22\" height=\"22\" viewBox=\"0 0 20 20\" aria-hidden=\"true\" style=\"flex:none;margin-top:2px\"><circle cx=\"10\" cy=\"10\" r=\"10\" fill=\"#0A0C19\"/><path d=\"M5.5 10.2l3 3 6-6.4\" stroke=\"#fff\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n          <div><strong>You don\u2019t pay unless we deliver on our promise.</strong>Your Performance Threshold is agreed on the call, in writing, before any work starts.</div>\n        </div>\n        <p class=\"obf-terms\">Black Friday is Friday 27 November 2026. Cyber Monday is Monday 30 November 2026.</p>\n      </div>\n    </div>\n  </section>\n  <footer class=\"obf-foot\">\n    <span>Opes Consulting \u00b7 London</span>\n    <span id=\"obf-footCount\"></span>\n  </footer>\n</div>\n";
+/* ============ The full BFCM plan, shown under the monitor (from the BFCM 2026 strategy doc) ============
+   Edit the wording in the lists below. Keep hyphens and dashes out of the copy. */
+const PLAYBOOK_HTML = (() => {
+  const li = a => a.map(x => `<li>${x}</li>`).join('');
+  const CAMPAIGN = [
+    { when: 'Mon 16 Nov', name: 'VIP list opens', hero: 'Black Friday is coming.', heat: 1,
+      job: 'Turn subscribers into a high intent Black Friday audience before anything goes public. One job: something is coming, and VIPs get in first.',
+      cta: ['Join the VIP list'],
+      audience: ['Existing email subscribers', 'Subscribers who aren’t VIPs yet', 'Engaged subscribers', 'Previous customers where it fits'],
+      exclude: ['People already on the VIP list', 'Anyone who has opted out', 'Recent buyers, where the offer could cause regret'],
+      content: ['Early access', 'First chance to shop', 'Any VIP only extra', 'Priority before the wider launch'],
+      subjects: ['Black Friday starts here...', 'Want first access to Black Friday?', 'Get on the Black Friday VIP list', 'VIP access is coming', 'Black Friday: get in early'],
+      note: 'Don’t reveal everything. This email exists to spark curiosity and make the next one worth opening.' },
+    { when: 'Fri 20 Nov', name: 'Black Friday teaser', hero: 'Black Friday is coming', heat: 2,
+      job: 'Build anticipation without giving the promotion away. Subscribers should leave knowing which dates to remember.',
+      cta: ['Get VIP access', 'Save the date'],
+      audience: ['The main email list', 'VIPs, with a version that recognises their status'],
+      exclude: ['Unsubscribed or otherwise ineligible contacts', 'Recent buyers where it fits'],
+      content: ['VIP early access: Thursday 26 November, 6pm', 'Black Friday opens: Friday 27 November, 7am'],
+      subjects: ['Something big is coming...', 'Black Friday is almost here', 'You haven’t seen the full picture yet', 'Save this date: 27 November', 'Your Black Friday heads up'],
+      note: 'Keep it shorter than the launch email. Curiosity, then the date, then anticipation.' },
+    { when: 'Thu 26 Nov, 6pm', name: 'VIP early access', hero: 'Black Friday VIP access is live', heat: 3,
+      job: 'The first big revenue moment. VIPs shop before the public, driven by exclusivity and scarcity.',
+      cta: ['Shop VIP early access'],
+      audience: ['VIPs only'],
+      exclude: ['Subscribers who aren’t VIPs', 'Anyone not eligible for the VIP offer'],
+      content: ['The offer, revealed', 'Products included', 'Restrictions', 'End date and time', 'A code, if one is needed', 'A reminder that public access opens Friday at 7am'],
+      subjects: ['VIP access is LIVE', 'You’re in: Black Friday starts now', 'Your Black Friday early access', 'VIPs shop first', 'You’re officially invited'],
+      note: 'Exclude buyers the moment they convert, so they stop getting acquisition messages.' },
+    { when: 'Fri 27 Nov, 7am', name: 'Doors open', hero: 'Black Friday is here', heat: 4, hot: true,
+      job: 'The main public launch. Get as many eligible subscribers as possible to see the offer and walk into the store.',
+      cta: ['Shop Black Friday'],
+      audience: ['The wider eligible database', 'VIPs who haven’t bought yet, with adjusted messaging'],
+      exclude: ['Customers who have already bought', 'Unsubscribed contacts', 'Any other excluded audiences'],
+      content: ['A clear offer', 'Key products and categories', 'Benefits', 'A real deadline', 'One primary CTA'],
+      subjects: ['Black Friday is LIVE', 'It’s here: Black Friday starts now', 'Black Friday starts now', 'The doors are open', 'Your Black Friday offer is live'],
+      note: 'The first screen answers four questions. What’s the offer? Who is it for? What should I do? When does it end?' },
+    { when: 'Sat 28 Nov', tag: 'Optional', name: 'Still deciding?', hero: 'Still deciding?', heat: 4,
+      job: 'Convert people who were interested but haven’t bought, with help choosing instead of another generic announcement.',
+      cta: ['Shop now'],
+      audience: ['Non buyers', 'Engaged subscribers', 'People who opened or clicked earlier BFCM emails'],
+      exclude: ['Buyers', 'Unsubscribed contacts', 'Any other excluded audiences'],
+      content: ['Best sellers', 'Most popular products', 'Customer favourites', 'Gift guide', 'Product comparison', 'FAQs', 'Popular stock that’s still left'],
+      subjects: ['Still deciding?', 'What people are buying this Black Friday', 'The products customers are choosing', 'Not sure what to buy?'],
+      note: 'This is the consideration step. The launch builds awareness, Saturday helps them decide, the final call brings the urgency.' },
+    { when: 'Sun 29 Nov, ends 8pm', name: 'Last chance', hero: 'Last chance', heat: 5, last: true,
+      job: 'Convert the high intent subscribers who are left, with a real and credible deadline.',
+      cta: ['Shop before 8pm'],
+      audience: ['Openers of earlier BFCM emails', 'Clickers', 'Relevant site and product visitors', 'Cart abandoners who haven’t bought', 'Engaged subscribers'],
+      exclude: ['Anyone who has bought', 'Unsubscribed contacts', 'Any other excluded contacts'],
+      content: ['The exact end time', 'The offer or code', 'Product or cart context where it fits', 'One strong CTA'],
+      subjects: ['Last chance: Black Friday ends tonight', 'Final hours', 'Black Friday ends tonight', '8PM: that’s the deadline', 'Don’t miss the final hours'],
+      note: 'Keep it short. By now they know the brand, the offer and the products. Offer, deadline, CTA.' }
+  ];
+  const FLOWS = [
+    { when: '1 hour after a product view', name: 'Browse abandonment', hero: 'You were looking at this...', code: 'No code', codeKind: 'none',
+      job: 'Bring back a subscriber who viewed a product but didn’t add it to cart or buy.',
+      cta: ['View product'],
+      audience: ['Product viewers we can identify and email', 'No purchase since they browsed'],
+      exclude: ['Anyone who added to cart', 'Buyers', 'Unsubscribed contacts'],
+      content: ['Dynamic product image', 'Product name', 'Price', 'CTA'],
+      subjects: ['You were looking at this...', 'Still thinking about it?'],
+      note: 'Leave the Black Friday code out unless the commercial plan needs it. Browse stays separate from cart and code.' },
+    { when: '30 minutes after the cart', name: 'Cart reminder', hero: 'Your cart is waiting.', code: 'No code', codeKind: 'none',
+      job: 'Recover purchase intent straight away, without teaching customers to wait for a discount.',
+      cta: ['Return to cart'],
+      audience: ['Cart abandoners who haven’t bought'],
+      exclude: ['Buyers', 'Customers whose cart no longer qualifies'],
+      content: ['Dynamic cart contents', 'Product image', 'Product name', 'Price', 'Return to cart CTA'],
+      subjects: ['Your cart is waiting.', 'You left something behind.'],
+      note: 'No code yet. They’ve already shown strong intent.' },
+    { when: '4 hours after the cart', name: 'Second cart nudge', hero: 'Still thinking about it?', code: 'BF code', codeKind: 'code',
+      job: 'Step it up by bringing in the Black Friday incentive.',
+      cta: ['Complete your order'],
+      audience: ['Cart abandoners still without a purchase after the first reminder'],
+      exclude: ['Buyers', 'Contacts no longer eligible for the cart'],
+      content: ['Black Friday code', 'Discount', 'Eligible products', 'Expiry', 'CTA'],
+      subjects: ['Still thinking about it?', 'Your Black Friday code is here', 'A little something for your cart', 'Your cart just got better', 'Come back for [offer]'],
+      note: 'The progression: email one is the reminder, email two is the incentive.' },
+    { when: '20 hours after the cart', name: 'Final cart call', hero: 'Final call', code: 'Code ends tonight', codeKind: 'end',
+      job: 'Convert customers who have shown intent again and again but haven’t finished checking out.',
+      cta: ['Use my code'],
+      audience: ['Cart abandoners still without a purchase'],
+      exclude: ['Buyers', 'Ineligible contacts'],
+      content: ['Cart or product', 'Code', 'Exact deadline', 'CTA'],
+      subjects: ['Final call: your code ends tonight', 'Your Black Friday code expires tonight', 'Last chance to use your code', 'Your cart won’t wait forever', 'Ends tonight: [offer]'],
+      note: 'Strong urgency, but true. The code deadline has to be real.' },
+    { when: 'The moment stock lands', name: 'Back in stock', hero: 'It’s back', code: 'BF offer if eligible', codeKind: 'stock',
+      job: 'Catch the demand from customers who were waiting on a product that sold out.',
+      cta: ['Shop now'],
+      audience: ['Customers who showed interest in the product and can be emailed'],
+      exclude: ['Customers who already bought it, where it’s no longer relevant', 'Unsubscribed contacts'],
+      content: ['Dynamic product image', 'Product name', 'Price', 'Shop CTA', 'A BFCM offer note if the product qualifies and the sale is live'],
+      subjects: ['It’s back', 'It’s back in stock', 'The wait is over', '[Product] is back', 'You asked. It’s back.'],
+      note: 'Send as soon as stock lands. If the product is in the sale, say it’s back while the offer is live.' }
+  ];
+  const TABLE = [
+    ['Mon 16 Nov', 'VIP list opens', 'Scheduled', 'Main database', 'Not yet', 'Join VIP'],
+    ['Fri 20 Nov', 'Black Friday teaser', 'Scheduled', 'Main database', 'Not yet', 'Black Friday is coming'],
+    ['Thu 26 Nov, 6pm', 'VIP early access', 'Scheduled', 'VIPs', 'Revealed', 'You’re in first'],
+    ['Fri 27 Nov, 7am', 'Black Friday launch', 'Scheduled', 'Main database', 'Live', 'Black Friday is live'],
+    ['Sat 28 Nov', 'Consideration', 'Scheduled', 'Non buyers', 'Live', 'What to buy, best sellers'],
+    ['Sun 29 Nov, 8pm', 'Last chance', 'Scheduled', 'Non buyers', 'Ends 8pm', 'Final opportunity'],
+    ['1 hour after browse', 'Browse abandonment', 'Behaviour', 'Product viewers', 'None at first', 'You were looking at this'],
+    ['30 min after cart', 'Cart reminder', 'Behaviour', 'Cart abandoners', 'None', 'Your cart is waiting'],
+    ['4 hours after cart', 'Second cart nudge', 'Behaviour', 'Cart abandoners', 'BF code', 'Here’s your code'],
+    ['20 hours after cart', 'Final cart call', 'Behaviour', 'Cart abandoners', 'BF code', 'Code ends tonight'],
+    ['Immediately', 'Back in stock', 'Stock', 'Interested customers', 'BF offer if it applies', 'It’s back']
+  ];
+  const SEGMENTS = [
+    ['A', 'Never purchased', 'Lead with discovery: introduce the products, what the brand stands for and the BFCM offer.'],
+    ['B', 'Existing customers', 'Use familiarity: favourites, restocks, upgrades and the categories they already buy.'],
+    ['C', 'VIP, not bought yet', 'Acknowledge that early access is already open and push the chance to shop.'],
+    ['D', 'VIP who bought', 'Take them out of acquisition emails and move them into the right post purchase messages.']
+  ];
+  const RULES = [
+    ['Purchase', 'Buyers leave browse and cart flows straight away.'],
+    ['Purchase', 'Buyers skip acquisition Black Friday emails where it fits.'],
+    ['Browse to cart', 'Adding to cart ends browse abandonment and moves them into the cart journey.'],
+    ['Cart to purchase', 'A purchase ends every remaining cart reminder and nudge.'],
+    ['VIP', 'VIPs get their own early access experience, never the same treatment as the general list.'],
+    ['Last chance', 'Non buyers come first. Buyers are suppressed.'],
+    ['Back in stock', 'Only sent while the product is relevant and available. No stale stock alerts.']
+  ];
+  const MESSAGES = [
+    ['Early campaign', 'Get access.', 'Exclusivity, list growth'],
+    ['Teaser', 'Something is coming.', 'Curiosity, anticipation'],
+    ['VIP early access', 'You’re in first.', 'Exclusivity, early revenue'],
+    ['Public launch', 'It’s live.', 'Awareness, conversion'],
+    ['Consideration', 'Here’s what to consider.', 'Decision support'],
+    ['Final call', 'It’s ending.', 'Urgency, conversion'],
+    ['Browse', 'You were looking at this.', 'Bringing them back'],
+    ['Cart reminder', 'You left this behind.', 'Recovery'],
+    ['Cart nudge', 'Here’s your code.', 'Incentive'],
+    ['Final cart', 'Your code ends tonight.', 'Deadline'],
+    ['Back in stock', 'It’s back.', 'Availability, immediate intent']
+  ];
+  const TONE = [
+    ['Early campaign', 'Curiosity, exclusivity, anticipation, first access.'],
+    ['Launch', 'Clarity, offer, product, immediate action.'],
+    ['Mid campaign', 'Product discovery, best sellers, benefits, decision support.'],
+    ['Final hours', 'Deadline, specific time, code, immediate action.'],
+    ['Cart', 'Personalisation, product, rising urgency.']
+  ];
+  const MODULES = [
+    ['Hero', 'Large image, headline and CTA.'],
+    ['Offer', 'Discount or code mechanics and the key conditions.'],
+    ['Product grid', '2 to 4 products with short supporting copy.'],
+    ['Urgency bar', 'For example: ENDS 29 NOVEMBER, 8PM or VIP ACCESS NOW LIVE.'],
+    ['Dynamic product', 'Used in the browse and cart emails.'],
+    ['Social proof', 'Reviews and testimonials where they fit.'],
+    ['Final CTA', 'One clear action, repeated at the bottom.']
+  ];
+  const CHECK = [
+    ['Offer and segments', ['Confirm the final offer, eligibility rules, code mechanics and a genuine expiry time', 'Define VIP eligibility and build the VIP segment before 16 November', 'Build the VIP sign up email and the landing or confirmation journey if needed']],
+    ['Campaign emails', ['Build the 20 November teaser', 'Build the 26 November VIP early access email', 'Build the 27 November launch in three versions: new prospects, existing customers and VIP non buyers', 'Decide whether the optional 28 November email goes out', 'Build the 29 November final call']],
+    ['Automations', ['Browse abandonment at 1 hour', 'Cart reminder at 30 minutes, no code', 'Second cart nudge at 4 hours, with the Black Friday code', 'Final cart call at 20 hours, with a real deadline', 'Back in stock, sent immediately']],
+    ['Logic and QA', ['Purchase suppression across campaigns and flows', 'Browse to cart transition logic', 'Cart to purchase exit logic', 'QA every dynamic product and cart block', 'QA every discount code and expiry rule', 'QA every date and time, especially 26 Nov 6pm, 27 Nov 7am and 29 Nov 8pm']],
+    ['Reporting', ['Campaign and flow reporting set up before launch', 'Unsubscribe rate and frequency watched during the live period']]
+  ];
+
+  const more = e => `
+        <details class="obf-more">
+          <summary>Audience and subject lines</summary>
+          <div class="obf-more-in">
+            <div><h4>Who gets it</h4><ul>${li(e.audience)}</ul></div>
+            <div><h4>Leave out</h4><ul class="obf-x">${li(e.exclude)}</ul></div>
+            <div><h4>What goes in</h4><ul>${li(e.content)}</ul></div>
+            <div><h4>Subject line ideas</h4><ul class="obf-subj">${li(e.subjects)}</ul></div>
+          </div>
+        </details>`;
+  const card = (e, i, kind) => `
+      <article class="obf-card obf-rise${e.hot ? ' obf-card-hot' : ''}${e.last ? ' obf-card-last' : ''}" style="--i:${i}">
+        <div class="obf-card-top">
+          <span class="obf-when">${e.when}</span>
+          ${e.tag ? `<span class="obf-tag-soft">${e.tag}</span>` : ''}
+          ${kind === 'flow' ? `<span class="obf-code obf-code-${e.codeKind}">${e.code}</span>` : `<span class="obf-heat" aria-label="Urgency ${e.heat} of 5">${[1, 2, 3, 4, 5].map(n => `<i${n <= e.heat ? ' class="on"' : ''}></i>`).join('')}</span>`}
+        </div>
+        <h3>${e.name}</h3>
+        <p class="obf-hero-line">“${e.hero}”</p>
+        <p class="obf-job">${e.job}</p>
+        <div class="obf-ctas">${e.cta.map(c => `<span class="obf-cta">${c}</span>`).join('')}</div>
+        <p class="obf-note"><b>The thinking</b>${e.note}</p>${more(e)}
+      </article>`;
+
+  return `
+  <div class="obf-pb" id="obf-plan">
+    <section class="obf-pb-sec obf-pb-intro" aria-labelledby="obf-pb-title">
+      <p class="obf-eyebrow obf-rise">The BFCM 2026 plan</p>
+      <h2 id="obf-pb-title" class="obf-rise">One connected system, <em>not</em> a pile of promo sends.</h2>
+      <p class="obf-lede obf-rise">Scheduled campaign emails and automations triggered by behaviour and stock work as one. Subscribers move from anticipation to purchase, and every high intent moment gets caught along the way.</p>
+      <ol class="obf-stages">
+        <li class="obf-rise" style="--i:0"><b>01</b><span>Build the list and set up VIP access.</span></li>
+        <li class="obf-rise" style="--i:1"><b>02</b><span>Build anticipation and share the key dates.</span></li>
+        <li class="obf-rise" style="--i:2"><b>03</b><span>Open the offer: VIP early access, then the public launch.</span></li>
+        <li class="obf-rise" style="--i:3"><b>04</b><span>Recover missed sales with browse, cart, deadline and back in stock automation.</span></li>
+      </ol>
+      <div class="obf-layers">
+        <div class="obf-layer obf-rise" style="--i:0"><span class="obf-layer-n">Layer 1</span><h3>Event emails</h3><p>Create the BFCM moment.</p><p class="obf-chain">VIP → anticipation → early access → launch → consideration → deadline</p></div>
+        <div class="obf-layer obf-rise" style="--i:1"><span class="obf-layer-n">Layer 2</span><h3>Behaviour emails</h3><p>Turn the intent that moment creates into orders.</p><p class="obf-chain">Browse → cart → incentive → final deadline</p></div>
+        <div class="obf-layer obf-rise" style="--i:2"><span class="obf-layer-n">Layer 3</span><h3>Availability emails</h3><p>Catch the people waiting on stock.</p><p class="obf-chain">Wanted it → unavailable → available → purchase</p></div>
+      </div>
+    </section>
+
+    <section class="obf-pb-sec" aria-labelledby="obf-pb-cal">
+      <p class="obf-eyebrow obf-rise">The calendar</p>
+      <h2 id="obf-pb-cal" class="obf-rise">Low pressure first. <em>High urgency</em> last.</h2>
+      <ol class="obf-track obf-rise">
+        <li><span>16 Nov</span><b>Get access.</b></li>
+        <li><span>20 Nov</span><b>Something is coming.</b></li>
+        <li><span>26 Nov, 6pm</span><b>You’re in first.</b></li>
+        <li class="obf-track-hot"><span>27 Nov, 7am</span><b>It’s live.</b></li>
+        <li><span>28 Nov</span><b>Here’s what to consider.</b></li>
+        <li class="obf-track-last"><span>29 Nov, 8pm</span><b>It’s ending.</b></li>
+      </ol>
+      <p class="obf-under obf-rise">Running underneath the whole time: browse, cart reminder, code, final deadline, with a separate back in stock flow.</p>
+      <details class="obf-more obf-more-wide obf-rise">
+        <summary>See every send in one table</summary>
+        <div class="obf-table-wrap">
+          <table class="obf-table">
+            <thead><tr><th>When</th><th>Email</th><th>Trigger</th><th>Who</th><th>Offer</th><th>Main message</th></tr></thead>
+            <tbody>${TABLE.map(r => `<tr${r[2] !== 'Scheduled' ? ' class="obf-auto"' : ''}>${r.map((c, i) => `<td data-l="${['When', 'Email', 'Trigger', 'Who', 'Offer', 'Message'][i]}">${c}</td>`).join('')}</tr>`).join('')}</tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <section class="obf-pb-sec" aria-labelledby="obf-pb-camp">
+      <p class="obf-eyebrow obf-rise">The campaign</p>
+      <h2 id="obf-pb-camp" class="obf-rise">Six scheduled emails, <em>each with one job.</em></h2>
+      <div class="obf-cards">${CAMPAIGN.map((e, i) => card(e, i, 'camp')).join('')}
+      </div>
+    </section>
+
+    <section class="obf-pb-sec" aria-labelledby="obf-pb-auto">
+      <p class="obf-eyebrow obf-rise">The automations</p>
+      <h2 id="obf-pb-auto" class="obf-rise">Automations that <em>follow intent.</em></h2>
+      <p class="obf-lede obf-rise">The code is used progressively, never handed out straight away. First a reminder, then the incentive, then a deadline that’s real.</p>
+      <div class="obf-codebar obf-rise" aria-hidden="true"><span class="none">Browse: no code</span><span class="none">Cart 30 min: no code</span><span class="code">Cart 4 hours: BF code</span><span class="end">Cart 20 hours: code ends tonight</span></div>
+      <div class="obf-cards">${FLOWS.map((e, i) => card(e, i, 'flow')).join('')}
+      </div>
+    </section>
+
+    <section class="obf-pb-sec" aria-labelledby="obf-pb-seg">
+      <p class="obf-eyebrow obf-rise">Segments and suppression</p>
+      <h2 id="obf-pb-seg" class="obf-rise">Nobody gets the <em>wrong</em> email.</h2>
+      <p class="obf-lede obf-rise">At the very least, the 27 November launch is split by customer status.</p>
+      <div class="obf-segs">${SEGMENTS.map(([k, n, d], i) => `
+        <div class="obf-seg obf-rise" style="--i:${i}"><span class="obf-seg-k">${k}</span><h3>${n}</h3><p>${d}</p></div>`).join('')}
+      </div>
+      <div class="obf-rules obf-rise">
+        <div class="obf-rules-head">
+          <h3>Suppression rules, set before launch</h3>
+          <p>One subscriber can qualify for several campaigns and automations at once, so frequency climbs fast during BFCM.</p>
+          <p class="obf-progress"><span>Browse</span><i>→</i><span>Cart</span><i>→</i><span>Purchase</span></p>
+          <p class="obf-small">Customers move down the funnel instead of getting competing messages from several stages.</p>
+        </div>
+        <ul>${RULES.map(([k, d]) => `<li><b>${k}</b><span>${d}</span></li>`).join('')}</ul>
+      </div>
+    </section>
+
+    <section class="obf-pb-sec" aria-labelledby="obf-pb-msg">
+      <p class="obf-eyebrow obf-rise">Messaging and creative</p>
+      <h2 id="obf-pb-msg" class="obf-rise">Every message has <em>one clear job.</em></h2>
+      <div class="obf-msgs obf-rise">${MESSAGES.map(([s, m]) => `<div><span>${s}</span><b>${m}</b></div>`).join('')}</div>
+      <details class="obf-more obf-more-wide obf-rise">
+        <summary>See the emotional and commercial job of each stage</summary>
+        <div class="obf-table-wrap">
+          <table class="obf-table obf-table-3">
+            <thead><tr><th>Stage</th><th>Main message</th><th>The job</th></tr></thead>
+            <tbody>${MESSAGES.map(r => `<tr>${r.map((c, i) => `<td data-l="${['Stage', 'Message', 'Job'][i]}">${c}</td>`).join('')}</tr>`).join('')}</tbody>
+          </table>
+        </div>
+      </details>
+      <div class="obf-two">
+        <div class="obf-rise">
+          <h3 class="obf-h3">Tone by phase</h3>
+          <dl class="obf-tone">${TONE.map(([p, d]) => `<div><dt>${p}</dt><dd>${d}</dd></div>`).join('')}</dl>
+          <p class="obf-small">They shouldn’t all feel the same. Each phase gets its own emotional tone.</p>
+        </div>
+        <div class="obf-rise">
+          <h3 class="obf-h3">Reusable email modules</h3>
+          <p class="obf-small obf-small-top">So the team can build the whole campaign consistently, without designing every email from scratch.</p>
+          <div class="obf-mods">${MODULES.map(([n, d]) => `<div><b>${n}</b><span>${d}</span></div>`).join('')}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="obf-pb-sec" aria-labelledby="obf-pb-kpi">
+      <p class="obf-eyebrow obf-rise">Measurement</p>
+      <h2 id="obf-pb-kpi" class="obf-rise">Judged on <em>revenue per recipient,</em> not opens.</h2>
+      <div class="obf-kpis">
+        <div class="obf-kpi obf-kpi-main obf-rise"><span class="obf-layer-n">The number that matters</span><h3>Email attributed revenue per recipient</h3><p>The key commercial metric for the whole of BFCM, ahead of simply chasing a higher open rate.</p></div>
+        <div class="obf-kpi obf-rise"><h3>Campaign emails</h3><ul>${li(['Delivered', 'Open rate', 'Click rate', 'Click to open rate', 'Conversion rate', 'Revenue', 'Revenue per recipient', 'Unsubscribe rate'])}</ul></div>
+        <div class="obf-kpi obf-rise"><h3>Automated flows</h3><ul>${li(['Flow conversion rate', 'Revenue per recipient', 'Revenue per email', 'Recovery rate', 'Time to purchase'])}</ul><p class="obf-small">Browse to purchase and cart to purchase are tracked separately where the platform allows.</p></div>
+      </div>
+    </section>
+
+    <section class="obf-pb-sec" aria-labelledby="obf-pb-check">
+      <p class="obf-eyebrow obf-rise">Before we go live</p>
+      <h2 id="obf-pb-check" class="obf-rise">The launch <em>checklist.</em></h2>
+      <div class="obf-checks">${CHECK.map(([g, items], i) => `
+        <div class="obf-check obf-rise" style="--i:${i}"><h3>${g}</h3><ul>${li(items)}</ul></div>`).join('')}
+      </div>
+    </section>
+  </div>`;
+})();
+
 /* ============ CRT screen UI, drawn into a canvas that becomes the monitor's glass ============ */
 const SCREEN = (() => {
   const W = 1280, H = 960;
@@ -15,11 +324,24 @@ const SCREEN = (() => {
     bg: '#06101E', text: '#EAF4FF', dim: '#8FA9C6', faint: 'rgba(143,169,198,.35)',
     blue: '#0094FF', neon: '#5CC6FF', amber: '#FFB547', navy: '#0A0C19'
   };
-  const SANS = 'Aspekta, system-ui, sans-serif';
+  const SANS = "'DM Sans', system-ui, sans-serif";
   const SERIF = 'Newsreader, Georgia, serif';
-  const TABS = ['Countdown', 'Flows', 'Before and after', 'November'];
-  const EA = Date.UTC(2026, 10, 26, 18), BF = Date.UTC(2026, 10, 27, 0), BF_OPEN = Date.UTC(2026, 10, 27, 7),
-        CM = Date.UTC(2026, 10, 30, 0), CM_END = Date.UTC(2026, 11, 1, 0);
+  const TABS = ['Countdown', 'Campaign', 'Automations', 'November'];
+  // UK times: November is GMT, so these UTC times are the local ones
+  const EA = Date.UTC(2026, 10, 26, 18), BF_OPEN = Date.UTC(2026, 10, 27, 7), BF_END = Date.UTC(2026, 10, 29, 20);
+  const DAY = (d, h = 0) => Date.UTC(2026, 10, d, h);
+  // fit a line of text into a width by stepping the font size down (cached, so it is cheap per frame)
+  const fitCache = new Map();
+  function fit(c, s, max, size, weight = 600, fam = SANS) {
+    const key = s + '|' + max + '|' + size + '|' + weight + fam;
+    let f = fitCache.get(key);
+    if (!f) {
+      let z = size; c.font = `${weight} ${z}px ${fam}`;
+      while (z > 12 && c.measureText(s).width > max) { z -= 1; c.font = `${weight} ${z}px ${fam}`; }
+      f = `${weight} ${z}px ${fam}`; fitCache.set(key, f);
+    }
+    return f;
+  }
 
   let tab = 0, compact = false, hits = [], flip = 0;
   let power = 1, powerTarget = 1, switchT = 0, osdT = 0, switchEnd = 0, osdEnd = 0;
@@ -99,11 +421,19 @@ const SCREEN = (() => {
   }
 
   /* ---------- 1. countdown ---------- */
+  const MOMENTS = [
+    ['Mon 16 Nov', 'VIP list', 'Get access', DAY(16, 8), DAY(20)],
+    ['Fri 20 Nov', 'Teaser', 'Something is coming', DAY(20, 8), EA],
+    ['Thu 26 Nov', 'Early access', '6pm, VIPs first', EA, BF_OPEN],
+    ['Fri 27 Nov', 'Doors open', '7am, it’s live', BF_OPEN, DAY(28)],
+    ['Sat 28 Nov', 'Still deciding', 'What to consider', DAY(28, 8), DAY(29)],
+    ['Sun 29 Nov', 'Last chance', 'Ends 8pm', DAY(29, 8), BF_END]
+  ];
   function drawCountdown() {
-    const r = remain(BF - Date.now());
-    const live = Date.now() >= BF;
+    const r = remain(BF_OPEN - Date.now());
+    const live = Date.now() >= BF_OPEN, over = Date.now() >= BF_END;
     if (!compact) {
-      t(u, live ? 'Black Friday is live' : 'Black Friday opens in', 640, 214, `italic 400 48px ${SERIF}`, C.dim, 'center');
+      t(u, over ? 'That’s a wrap for Black Friday' : live ? 'Black Friday is live' : 'Black Friday doors open in', 640, 214, `italic 400 48px ${SERIF}`, C.dim, 'center');
       const vals = [[r.d, 'DAYS'], [r.h, 'HOURS'], [r.m, 'MINUTES'], [r.s, 'SECONDS']];
       const bw = 236, gap = 26, x0 = (W - (bw * 4 + gap * 3)) / 2, y = 250, bh = 290;
       vals.forEach(([v, l], i) => {
@@ -114,27 +444,23 @@ const SCREEN = (() => {
         t(u, s, x + bw / 2, y + 190, `400 ${s.length > 2 ? 150 : 184}px ${SERIF}`, i === 3 ? C.neon : C.text, 'center');
         tracked(u, l, x + bw / 2, y + 252, 22, C.dim, 'center');
       });
-      // key moments
-      const items = [
-        ['Thu 26 Nov', 'Early access', '6pm for VIPs', EA, BF],
-        ['Fri 27 Nov', 'Black Friday', 'Doors open 7am', BF, Date.UTC(2026, 10, 28)],
-        ['Sat 28 and Sun 29', 'The weekend', 'Last chance Sunday', Date.UTC(2026, 10, 28), CM],
-        ['Mon 30 Nov', 'Cyber Monday', 'Ends midnight', CM, CM_END]
-      ];
-      const ly = 680, lx0 = 150, lx1 = 1130;
-      u.strokeStyle = C.faint; u.lineWidth = 2; u.beginPath(); u.moveTo(90, ly); u.lineTo(1190, ly); u.stroke();
-      items.forEach(([d, n, sub, s, e], i) => {
-        const x = lx0 + i * (lx1 - lx0) / 3, big = i === 1 || i === 3;
-        u.beginPath(); u.arc(x, ly, big ? 13 : 9, 0, 7); u.fillStyle = i === 3 ? C.neon : (big ? C.blue : C.text); u.fill();
-        t(u, d, x, ly - 34, `600 26px ${SANS}`, C.text, 'center');
-        t(u, n, x, ly + 52, `400 34px ${SERIF}`, C.text, 'center');
-        t(u, sub, x, ly + 88, `500 22px ${SANS}`, C.dim, 'center');
-        t(u, whenLabel(s, e), x, ly + 124, `600 22px ${SANS}`, C.neon, 'center');
+      // the six campaign moments, low pressure on the left to high urgency on the right
+      const ly = 680, lx0 = 140, step = 200;
+      const heat = u.createLinearGradient(90, 0, 1190, 0);
+      heat.addColorStop(0, 'rgba(143,169,198,.35)'); heat.addColorStop(.5, C.blue); heat.addColorStop(1, C.amber);
+      u.strokeStyle = heat; u.lineWidth = 3; u.beginPath(); u.moveTo(90, ly); u.lineTo(1190, ly); u.stroke();
+      MOMENTS.forEach(([d, n, sub, s, e], i) => {
+        const x = lx0 + i * step, big = i === 2 || i === 3;
+        u.beginPath(); u.arc(x, ly, big ? 13 : 9, 0, 7); u.fillStyle = i === 5 ? C.amber : (big ? C.blue : C.text); u.fill();
+        t(u, d, x, ly - 32, fit(u, d, 186, 23), C.text, 'center');
+        t(u, n, x, ly + 50, fit(u, n, 190, 31, 400, SERIF), C.text, 'center');
+        t(u, sub, x, ly + 84, fit(u, sub, 190, 20, 500), C.dim, 'center');
+        t(u, whenLabel(s, e), x, ly + 118, `600 20px ${SANS}`, i === 5 ? C.amber : C.neon, 'center');
       });
       u.beginPath(); u.arc(452, 874, 7, 0, 7); u.fillStyle = C.amber; u.fill();
       t(u, 'Book by Fri 6 Nov to be live for early access', 470, 882, `600 26px ${SANS}`, C.amber);
     } else {
-      t(u, live ? 'Black Friday is live' : 'Black Friday opens in', 640, 226, `italic 400 64px ${SERIF}`, C.dim, 'center');
+      t(u, over ? 'That’s a wrap' : live ? 'Black Friday is live' : 'Doors open in', 640, 226, `italic 400 64px ${SERIF}`, C.dim, 'center');
       const vals = [[r.d, 'DAYS'], [r.h, 'HOURS'], [r.m, 'MINUTES'], [r.s, 'SECONDS']];
       vals.forEach(([v, l], i) => {
         const col = i % 2, row = Math.floor(i / 2), x = 110 + col * 540, y = 270 + row * 290, w = 520, h = 270;
@@ -143,13 +469,20 @@ const SCREEN = (() => {
         t(u, i === 0 ? String(v) : pad(v), x + w / 2, y + 180, `400 190px ${SERIF}`, i === 3 ? C.neon : C.text, 'center');
         tracked(u, l, x + w / 2, y + 240, 34, C.dim, 'center');
       });
-      t(u, 'Fri 27 Nov · Cyber Monday 30 Nov', 640, 900, `600 44px ${SANS}`, C.text, 'center');
+      t(u, 'VIPs Thu 6pm · Everyone Fri 7am', 640, 900, fit(u, 'VIPs Thu 6pm · Everyone Fri 7am', 1080, 44), C.text, 'center');
     }
   }
 
-  /* ---------- 2. flows ---------- */
-  const BF_FLOW = [['VIP list opens', 'Mon 16 Nov'], ['Teaser', 'Fri 20 Nov'], ['Early access', 'Thu 26 Nov 6pm'], ['Doors open', 'Fri 27 Nov 7am'], ['Last chance', 'Sun 29 Nov 8pm']];
-  const CM_FLOW = [['Cyber Monday', 'Mon 30 Nov 7am'], ['Skip buyers', 'bought on Friday'], ['Final hours', 'Mon 30 Nov 8pm'], ['Extension', 'Tue 1 Dec'], ['Post purchase', 'every buyer']];
+  /* ---------- 2. the campaign: six scheduled emails ---------- */
+  const EMAILS = [
+    ['VIP list', 'Mon 16 Nov', 'Main list', 'Not yet', 'Get access'],
+    ['Teaser', 'Fri 20 Nov', 'Main list', 'Not yet', 'Something is coming'],
+    ['Early access', 'Thu 26, 6pm', 'VIPs only', 'Revealed', 'You’re in first'],
+    ['Doors open', 'Fri 27, 7am', 'Everyone', 'Live', 'It’s live'],
+    ['Still deciding', 'Sat 28 Nov', 'Non buyers', 'Live', 'Best sellers'],
+    ['Last chance', 'Sun 29 Nov', 'Non buyers', 'Ends 8pm', 'It’s ending']
+  ];
+  const OFFER_COL = { 'Not yet': ['rgba(143,169,198,.16)', C.dim], 'Revealed': ['rgba(92,198,255,.2)', C.neon], 'Live': ['rgba(0,148,255,.9)', '#fff'], 'Ends 8pm': ['rgba(255,181,71,.95)', C.navy] };
   function node(x, y, w, h, title, sub, style) {
     rr(u, x, y, w, h, 16);
     if (style === 'exit') { u.setLineDash([8, 7]); u.strokeStyle = C.amber; u.lineWidth = 2.5; u.stroke(); u.setLineDash([]); }
@@ -157,8 +490,8 @@ const SCREEN = (() => {
     else if (style === 'cm') { u.fillStyle = C.neon; u.fill(); }
     else { u.fillStyle = 'rgba(234,244,255,.06)'; u.fill(); u.strokeStyle = C.faint; u.lineWidth = 2; u.stroke(); }
     const dark = style === 'cm';
-    t(u, title, x + 18, y + 46, `600 25px ${SANS}`, dark ? C.navy : (style === 'exit' ? C.amber : C.text));
-    t(u, sub, x + 18, y + 82, `500 21px ${SANS}`, dark ? '#0B2A4A' : (style === 'hot' ? '#E6F4FF' : C.dim));
+    t(u, title, x + 16, y + 46, fit(u, title, w - 30, 25), dark ? C.navy : (style === 'exit' ? C.amber : C.text));
+    t(u, sub, x + 16, y + 80, fit(u, sub, w - 30, 21, 500), dark ? '#0B2A4A' : (style === 'hot' ? '#E6F4FF' : C.dim));
   }
   function pulse(x, y, color) {
     const g = u.createRadialGradient(x, y, 0, x, y, 22);
@@ -166,118 +499,122 @@ const SCREEN = (() => {
     u.fillStyle = g; u.beginPath(); u.arc(x, y, 22, 0, 7); u.fill();
     u.fillStyle = '#fff'; u.beginPath(); u.arc(x, y, 5, 0, 7); u.fill();
   }
-  function drawFlows(time) {
+  function pill(x, y, s, fill, ink, size = 19) {
+    u.font = `600 ${size}px ${SANS}`; const w = u.measureText(s).width + 26;
+    rr(u, x, y, w, size + 16, (size + 16) / 2); u.fillStyle = fill; u.fill();
+    t(u, s, x + 13, y + (size + 16) / 2 + 1, `600 ${size}px ${SANS}`, ink, 'left', 'middle');
+    return w;
+  }
+  function drawCampaign(time) {
     if (!compact) {
-      t(u, 'Black Friday and Cyber Monday flows', 64, 214, `400 50px ${SERIF}`, C.text);
-      const nw = 204, nh = 104, gap = 33, x0 = 64;
-      tracked(u, 'BLACK FRIDAY', x0, 278, 20, C.blue);
-      const y1 = 308;
-      BF_FLOW.forEach(([a, b], i) => {
+      t(u, 'The campaign: low pressure to high urgency', 64, 214, `400 48px ${SERIF}`, C.text);
+      const nw = 176, nh = 108, gap = 18, x0 = 64, y1 = 300, span = 6 * nw + 5 * gap;
+      tracked(u, 'SIX SCHEDULED EMAILS', x0, 268, 18, C.blue);
+      // a customer travelling through the week
+      u.strokeStyle = 'rgba(143,169,198,.18)'; u.lineWidth = 2; u.beginPath(); u.moveTo(x0, y1 - 14); u.lineTo(x0 + span, y1 - 14); u.stroke();
+      pulse(x0 + ((time / 7000) % 1) * span, y1 - 14, 'rgba(0,148,255,.9)');
+      EMAILS.forEach(([a, b], i) => {
         const x = x0 + i * (nw + gap);
-        node(x, y1, nw, nh, a, b, i === 3 ? 'hot' : '');
-        if (i < 4) arrow(u, x + nw + 3, y1 + nh / 2, x + nw + gap - 3, y1 + nh / 2, C.dim);
+        node(x, y1, nw, nh, a, b, i === 3 ? 'hot' : i === 5 ? 'exit' : '');
+        if (i < 5) arrow(u, x + nw + 2, y1 + nh / 2, x + nw + gap - 1, y1 + nh / 2, C.dim);
       });
-      // decision under early access
-      const ex = x0 + 2 * (nw + gap) + nw / 2, dy = 492;
-      u.strokeStyle = C.dim; u.lineWidth = 3; u.beginPath(); u.moveTo(ex, y1 + nh); u.lineTo(ex, dy - 40); u.stroke();
-      u.save(); u.translate(ex, dy); u.rotate(Math.PI / 4); u.fillStyle = 'rgba(234,244,255,.06)'; u.strokeStyle = C.text; u.lineWidth = 2;
-      rr(u, -38, -38, 76, 76, 10); u.fill(); u.stroke(); u.restore();
-      t(u, 'Opened?', ex, dy + 8, `600 20px ${SANS}`, C.text, 'center');
-      arrow(u, ex + 56, dy, ex + 120, dy, C.dim);
-      t(u, 'No', ex + 70, dy - 12, `600 18px ${SANS}`, C.dim);
-      rr(u, ex + 124, dy - 38, 350, 76, 14); u.fillStyle = 'rgba(234,244,255,.06)'; u.fill(); u.strokeStyle = C.faint; u.lineWidth = 2; u.stroke();
-      t(u, 'Resend with a new subject', ex + 146, dy - 4, `600 24px ${SANS}`, C.text);
-      t(u, '4 hours later, same code', ex + 146, dy + 26, `500 20px ${SANS}`, C.dim);
-      t(u, 'Yes: straight to doors open', ex - 58, dy + 70, `500 20px ${SANS}`, C.dim, 'center');
-
-      tracked(u, 'CYBER MONDAY', x0, 612, 20, C.neon);
-      const y2 = 628;
-      CM_FLOW.forEach(([a, b], i) => {
+      const rows = [['WHO GETS IT', 460], ['THE OFFER', 560], ['THE MESSAGE', 660]];
+      rows.forEach(([l, y]) => { tracked(u, l, x0, y, 16, C.dim); u.strokeStyle = 'rgba(143,169,198,.14)'; u.lineWidth = 1.5; u.beginPath(); u.moveTo(x0 + 160, y - 6); u.lineTo(x0 + span, y - 6); u.stroke(); });
+      EMAILS.forEach(([, , who, offer, msg], i) => {
         const x = x0 + i * (nw + gap);
-        node(x, y2, nw, nh, a, b, i === 0 ? 'cm' : (i === 4 ? 'exit' : ''));
-        if (i < 4) arrow(u, x + nw + 3, y2 + nh / 2, x + nw + gap - 3, y2 + nh / 2, C.dim);
+        t(u, who, x + 4, 504, fit(u, who, nw - 8, 22, 600), C.text);
+        const [f, ink] = OFFER_COL[offer]; pill(x + 2, 580, offer, f, ink);
+        t(u, msg, x + 4, 708, fit(u, msg, nw - 8, 25, 'italic 400', SERIF), C.dim);
       });
-      // travelling customers
-      const span = 4 * (nw + gap) + nw, p1 = (time / 6000) % 1, p2 = ((time + 3000) / 6000) % 1;
-      [[y2 + nh + 18, p2, 'rgba(92,198,255,.9)']].forEach(([ty, p, col]) => {
-        u.strokeStyle = 'rgba(143,169,198,.18)'; u.lineWidth = 2; u.beginPath(); u.moveTo(x0, ty); u.lineTo(x0 + span, ty); u.stroke();
-        pulse(x0 + p * span, ty, col);
-      });
-      u.strokeStyle = 'rgba(143,169,198,.18)'; u.lineWidth = 2; u.beginPath(); u.moveTo(x0, y1 - 12); u.lineTo(x0 + span, y1 - 12); u.stroke();
-      pulse(x0 + p1 * span, y1 - 12, 'rgba(0,148,255,.9)');
-      t(u, 'Example programme. Every send is split by engagement: VIPs first, then actives, then the wider list.', 64, 836, `500 23px ${SANS}`, C.dim);
-      t(u, 'Anyone who buys leaves the sale flow and moves to post purchase.', 64, 872, `500 23px ${SANS}`, C.dim);
+      // pressure builds across the week
+      const by = 760, heat = u.createLinearGradient(x0, 0, x0 + span, 0);
+      heat.addColorStop(0, 'rgba(143,169,198,.25)'); heat.addColorStop(.55, C.blue); heat.addColorStop(1, C.amber);
+      rr(u, x0, by, span, 10, 5); u.fillStyle = heat; u.fill();
+      t(u, 'Low pressure', x0, by + 42, `600 20px ${SANS}`, C.dim);
+      t(u, 'High urgency', x0 + span, by + 42, `600 20px ${SANS}`, C.amber, 'right');
+      t(u, 'Anyone who buys is suppressed straight away and leaves every sale email.', 64, 872, `500 23px ${SANS}`, C.dim);
     } else {
-      const showCM = flip % 2 === 1;
-      const list = showCM ? CM_FLOW : BF_FLOW;
-      t(u, showCM ? 'Cyber Monday flow' : 'Black Friday flow', 90, 236, `400 70px ${SERIF}`, C.text);
-      list.forEach(([a, b], i) => {
-        const y = 330 + i * 120;
-        u.beginPath(); u.arc(112, y - 14, 14, 0, 7); u.fillStyle = (showCM ? i === 0 : i === 3) ? (showCM ? C.neon : C.blue) : C.text; u.fill();
-        if (i < 4) { u.strokeStyle = C.faint; u.lineWidth = 3; u.beginPath(); u.moveTo(112, y + 4); u.lineTo(112, y + 92); u.stroke(); }
-        t(u, a, 156, y, `600 50px ${SANS}`, i === 4 && showCM ? C.amber : C.text);
-        t(u, b, 156, y + 46, `500 36px ${SANS}`, C.dim);
+      t(u, 'The campaign', 90, 236, `400 70px ${SERIF}`, C.text);
+      EMAILS.forEach(([a, b, who], i) => {
+        const y = 322 + i * 104;
+        u.beginPath(); u.arc(112, y - 13, 13, 0, 7); u.fillStyle = i === 3 ? C.blue : i === 5 ? C.amber : C.text; u.fill();
+        if (i < 5) { u.strokeStyle = C.faint; u.lineWidth = 3; u.beginPath(); u.moveTo(112, y + 4); u.lineTo(112, y + 78); u.stroke(); }
+        t(u, a, 156, y, `600 44px ${SANS}`, i === 5 ? C.amber : C.text);
+        t(u, `${b} · ${who}`, 156, y + 40, fit(u, `${b} · ${who}`, 1000, 30, 500), C.dim);
       });
     }
   }
 
-  /* ---------- 3. before and after ---------- */
-  const BEFORE = [['Browse abandonment', '1 hour after they look'], ['Cart reminder', '30 minutes, no code yet'], ['Second nudge', '4 hours, with the BF code'], ['Final call', '20 hours, code ends tonight'], ['Back in stock', 'the moment it lands']];
-  const AFTER = [['Thank you', 'instantly, plus what’s next'], ['Delivery heads up', 'day 2, holiday shipping'], ['Cross sell', 'day 5, what goes with it'], ['Review request', 'day 12'], ['New buyer winback', 'day 30, before January']];
-  function drawPurchase(time) {
+  /* ---------- 3. automations: browse, cart and back in stock ---------- */
+  const FLOW = [
+    ['Browse abandonment', '1 hour after a view', 'No code', 'You were looking at this'],
+    ['Cart reminder', '30 minutes after cart', 'No code', 'Your cart is waiting'],
+    ['Second nudge', '4 hours after cart', 'BF code', 'Here’s your code'],
+    ['Final call', '20 hours after cart', 'Code ends tonight', 'Your code ends tonight']
+  ];
+  const CODE_COL = { 'No code': ['rgba(143,169,198,.16)', C.dim], 'BF code': ['rgba(0,148,255,.9)', '#fff'], 'Code ends tonight': ['rgba(255,181,71,.95)', C.navy] };
+  function drawAutomations(time) {
     if (!compact) {
-      t(u, 'Before and after the purchase', 64, 214, `400 50px ${SERIF}`, C.text);
-      tracked(u, 'BEFORE THEY BUY', 64, 296, 20, C.blue);
-      tracked(u, 'AFTER THEY BUY', 818, 296, 20, C.neon);
-      const cx = 640, cy = 560;
-      const ys = BEFORE.map((_, i) => 360 + i * 106);
-      // fan lines
-      ys.forEach(y => {
-        u.strokeStyle = 'rgba(0,148,255,.35)'; u.lineWidth = 2; u.beginPath(); u.moveTo(470, y - 10);
-        u.bezierCurveTo(540, y - 10, 520, cy, cx - 84, cy); u.stroke();
-        u.strokeStyle = 'rgba(92,198,255,.35)'; u.beginPath(); u.moveTo(cx + 84, cy);
-        u.bezierCurveTo(760, cy, 740, y - 10, 810, y - 10); u.stroke();
+      t(u, 'Automations that follow intent', 64, 214, `400 50px ${SERIF}`, C.text);
+      tracked(u, 'BROWSE  →  CART  →  INCENTIVE  →  FINAL DEADLINE', 64, 268, 18, C.blue);
+      const nw = 260, nh = 108, gap = 37, x0 = 64, y1 = 296, span = 4 * nw + 3 * gap;
+      FLOW.forEach(([a, b, code, msg], i) => {
+        const x = x0 + i * (nw + gap);
+        node(x, y1, nw, nh, a, b, i === 3 ? 'hot' : '');
+        if (i < 3) arrow(u, x + nw + 3, y1 + nh / 2, x + nw + gap - 3, y1 + nh / 2, C.dim);
+        const [f, ink] = CODE_COL[code]; pill(x + 2, y1 + nh + 20, code, f, ink, 20);
+        t(u, `“${msg}”`, x + 4, y1 + nh + 104, fit(u, `“${msg}”`, nw - 6, 25, 'italic 400', SERIF), C.dim);
       });
-      const g = u.createRadialGradient(cx, cy, 20, cx, cy, 140); g.addColorStop(0, 'rgba(0,148,255,.35)'); g.addColorStop(1, 'rgba(0,148,255,0)');
-      u.fillStyle = g; u.beginPath(); u.arc(cx, cy, 140, 0, 7); u.fill();
-      const beat = 1 + Math.sin(time / 420) * .03;
-      u.beginPath(); u.arc(cx, cy, 80 * beat, 0, 7); u.fillStyle = C.blue; u.fill();
-      t(u, 'Order', cx, cy - 2, `400 40px ${SERIF}`, '#fff', 'center');
-      t(u, 'placed', cx, cy + 32, `600 20px ${SANS}`, '#E6F4FF', 'center');
-      BEFORE.forEach(([a, b], i) => {
-        const y = ys[i];
-        u.beginPath(); u.arc(76, y - 10, 8, 0, 7); u.fillStyle = C.blue; u.fill();
-        t(u, a, 100, y, `600 28px ${SANS}`, C.text);
-        t(u, b, 100, y + 34, `500 22px ${SANS}`, C.dim);
+      u.strokeStyle = 'rgba(143,169,198,.18)'; u.lineWidth = 2; u.beginPath(); u.moveTo(x0, y1 - 12); u.lineTo(x0 + span, y1 - 12); u.stroke();
+      pulse(x0 + ((time / 6000) % 1) * span, y1 - 12, 'rgba(92,198,255,.9)');
+      // exit rules
+      tracked(u, 'EXIT RULES', 64, 582, 18, C.amber);
+      let ex = 64;
+      ['Adds to cart: leaves browse', 'Buys: leaves every flow', 'Buyers skip sale emails'].forEach(s => {
+        u.font = `600 22px ${SANS}`; const w = u.measureText(s).width + 36;
+        rr(u, ex, 602, w, 54, 27); u.setLineDash([7, 6]); u.strokeStyle = C.amber; u.lineWidth = 2; u.stroke(); u.setLineDash([]);
+        t(u, s, ex + 18, 630, `600 22px ${SANS}`, C.text, 'left', 'middle');
+        ex += w + 16;
       });
-      AFTER.forEach(([a, b], i) => {
-        const y = ys[i];
-        u.beginPath(); u.arc(826, y - 10, 8, 0, 7); u.fillStyle = C.neon; u.fill();
-        t(u, a, 850, y, `600 28px ${SANS}`, C.text);
-        t(u, b, 850, y + 34, `500 22px ${SANS}`, C.dim);
+      // availability
+      tracked(u, 'AVAILABILITY', 64, 718, 18, C.neon);
+      node(64, 738, 300, 104, 'Back in stock', 'the moment it lands', 'cm');
+      const chain = ['Wanted it', 'Unavailable', 'Available', 'Purchase'];
+      let cx = 410;
+      chain.forEach((s, i) => {
+        u.font = `600 24px ${SANS}`; const w = u.measureText(s).width;
+        t(u, s, cx, 798, `600 24px ${SANS}`, i === 3 ? C.neon : C.text, 'left', 'middle');
+        cx += w + 18;
+        if (i < 3) { arrow(u, cx, 798, cx + 46, 798, C.dim); cx += 64; }
       });
+      t(u, 'BF offer note added if the product is in the sale.', 410, 838, `500 21px ${SANS}`, C.dim);
+      t(u, 'The code arrives on the second cart email, never the first.', 64, 902, `500 23px ${SANS}`, C.dim);
     } else {
-      const after = flip % 2 === 1, list = after ? AFTER : BEFORE;
-      t(u, after ? 'After they buy' : 'Before they buy', 90, 236, `400 70px ${SERIF}`, C.text);
+      t(u, 'Automations', 90, 236, `400 70px ${SERIF}`, C.text);
+      const list = FLOW.map(([a, b, code]) => [a, `${b.replace(' after a view', '').replace(' after cart', '')} · ${code}`]).concat([['Back in stock', 'the moment it lands']]);
       list.forEach(([a, b], i) => {
-        const y = 330 + i * 120;
-        u.beginPath(); u.arc(112, y - 14, 14, 0, 7); u.fillStyle = after ? C.neon : C.blue; u.fill();
-        t(u, a, 156, y, `600 50px ${SANS}`, C.text);
-        t(u, b, 156, y + 46, `500 36px ${SANS}`, C.dim);
+        const y = 330 + i * 116;
+        u.beginPath(); u.arc(112, y - 14, 14, 0, 7); u.fillStyle = i === 4 ? C.neon : i >= 2 ? C.blue : C.text; u.fill();
+        if (i < 3) { u.strokeStyle = C.faint; u.lineWidth = 3; u.beginPath(); u.moveTo(112, y + 4); u.lineTo(112, y + 88); u.stroke(); }
+        t(u, a, 156, y, fit(u, a, 1000, 48), C.text);
+        t(u, b, 156, y + 44, fit(u, b, 1000, 34, 500), C.dim);
       });
     }
   }
 
   /* ---------- 4. November ---------- */
-  const EVENTS = { 2: ['List clean', 'prep'], 4: ['Warm up', 'prep'], 6: ['Warm up', 'prep'], 9: ['Warm up', 'prep'], 11: ['Gift guide', 'build'], 13: ['Warm up', 'prep'], 16: ['VIP list', 'build'], 18: ['Gift guide', 'build'], 20: ['Teaser', 'build'], 23: ['Teaser', 'build'], 25: ['Teaser', 'build'], 26: ['Early access', 'sale'], 27: ['Black Friday', 'bf'], 28: ['Weekend', 'sale'], 29: ['Last chance', 'sale'], 30: ['Cyber Monday', 'cm'] };
+  const EVENTS = { 13: ['VIP segment', 'prep'], 16: ['VIP list', 'build'], 20: ['Teaser', 'build'], 26: ['Early access', 'sale'], 27: ['Black Friday', 'bf'], 28: ['Still deciding', 'sale'], 29: ['Last chance', 'sale'] };
   const KIND = { prep: 'rgba(143,169,198,.28)', build: 'rgba(0,148,255,.55)', sale: 'rgba(92,198,255,.9)' };
   function drawNovember() {
     const big = compact;
     t(u, 'November 2026', big ? 90 : 64, big ? 236 : 214, `400 ${big ? 70 : 50}px ${SERIF}`, C.text);
     if (!big) {
-      [['Prep', KIND.prep], ['Build up', KIND.build], ['Sale', KIND.sale]].forEach(([l, c], i) => {
-        const x = 800 + i * 140; rr(u, x, 186, 26, 26, 7); u.fillStyle = c; u.fill();
-        t(u, l, x + 36, 207, `600 22px ${SANS}`, C.dim);
+      let lx = 1216;
+      [['Sale', KIND.sale], ['Anticipation', KIND.build], ['Set up', KIND.prep]].forEach(([l, c]) => {
+        u.font = `600 22px ${SANS}`; const w = u.measureText(l).width;
+        lx -= w; t(u, l, lx, 207, `600 22px ${SANS}`, C.dim);
+        lx -= 36; rr(u, lx, 186, 26, 26, 7); u.fillStyle = c; u.fill();
+        lx -= 28;
       });
     }
     const x0 = big ? 90 : 64, gw = big ? 1100 : 1152, cw = gw / 7, top = big ? 290 : 272, rh = big ? 80 : 94;
@@ -309,7 +646,10 @@ const SCREEN = (() => {
       }
     }
     if (big) {
-      t(u, '26 Early access · 27 Black Friday · 30 Cyber Monday', 640, 880, `600 38px ${SANS}`, C.text, 'center');
+      const s = '16 VIP list \u00b7 27 Black Friday \u00b7 29 Last chance';
+      t(u, s, 640, 880, fit(u, s, 1100, 38), C.text, 'center');
+    } else {
+      t(u, 'Browse, cart and back in stock automations run the whole way through.', 64, 880, `500 23px ${SANS}`, C.dim);
     }
   }
 
@@ -319,7 +659,7 @@ const SCREEN = (() => {
     g.addColorStop(0, 'rgba(0,148,255,.16)'); g.addColorStop(1, 'rgba(0,148,255,0)');
     u.fillStyle = g; u.fillRect(0, 0, W, H);
     topBar();
-    [drawCountdown, drawFlows, drawPurchase, drawNovember][tab](time);
+    [drawCountdown, drawCampaign, drawAutomations, drawNovember][tab](time);
   }
 
   function frame(time, dt) {
@@ -369,7 +709,7 @@ const SCREEN = (() => {
     get isOn() { return powerTarget === 1; },
     hitTest(x, y) { if (compact) return null; const h = hits.find(h => x >= h.x && x <= h.x + h.w && y >= h.y && y <= h.y + h.h); return h ? h.tab : null; },
     frame, mark,
-    bfIn() { return remain(BF - Date.now()); }
+    bfIn() { return remain(BF_OPEN - Date.now()); }
   };
 })();
 
@@ -761,12 +1101,12 @@ function makeMonitor() { window.MONITOR = (() => {
       map: labelTex((c, w, h) => { const g = c.createRadialGradient(w / 2, h / 2, 4, w / 2, h / 2, w / 2); g.addColorStop(0, 'rgba(0,0,0,.7)'); g.addColorStop(.5, 'rgba(0,0,0,.28)'); g.addColorStop(1, 'rgba(0,0,0,0)'); c.fillStyle = g; c.fillRect(0, 0, w, h); }, 256, 256),
       transparent: true, depthWrite: false
     }));
-    shadow.rotation.x = -Math.PI / 2; shadow.position.set(0, floorY + .001, -.45); root.add(shadow);
+    shadow.name = 'shadow'; shadow.rotation.x = -Math.PI / 2; shadow.position.set(0, floorY + .001, -.45); root.add(shadow);
     const pool = new T.Mesh(new T.PlaneGeometry(4.5, 3), new T.MeshBasicMaterial({
       map: labelTex((c, w, h) => { const g = c.createRadialGradient(w / 2, h / 2, 4, w / 2, h / 2, w * .5); g.addColorStop(0, 'rgba(0,148,255,.35)'); g.addColorStop(1, 'rgba(0,148,255,0)'); c.fillStyle = g; c.fillRect(0, 0, w, h); }, 256, 256),
       transparent: true, depthWrite: false, toneMapped: false, blending: T.AdditiveBlending
     }));
-    pool.rotation.x = -Math.PI / 2; pool.position.set(0, floorY, .1); pool.scale.set(1, 1.5, 1); root.add(pool);
+    pool.name = 'pool'; pool.rotation.x = -Math.PI / 2; pool.position.set(0, floorY, .1); pool.scale.set(1, 1.5, 1); root.add(pool);
 
     root.traverse(o => { if (o.isMesh) o.userData.part = o.name; });
     return root;
@@ -785,6 +1125,355 @@ function makeMonitor() { window.MONITOR = (() => {
     const pm = new T.PMREMGenerator(renderer); const tex = pm.fromScene(env, .04).texture; pm.dispose(); return tex;
   }
 
+
+  /* ---------- Project mode: the monitor turns into a projector ----------
+     The monitor shrinks to the left and turns to face right, its glass lights up,
+     a cone of light leaves the screen and a hologram of the same live screen
+     unfolds on the right. Desktop and tablet only (the button is hidden under 900px). */
+  const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const proj = { p: 0, target: 0, glitchUntil: 0, nextGlitch: 0 };
+  let holo, holoMat, beam, beamGeo, beamMat, dust, dustGeo, lampMat;
+  const DUST = 90, dustSeed = [];
+  const GLASS_C = [[-1, 1], [1, 1], [1, -1], [-1, -1]].map(([x, y]) => new T.Vector3(x * GW / 2, OY + y * GH / 2, -.075));
+  const HOLO_C = [[-.5, .375], [.5, .375], [.5, -.375], [-.5, -.375]].map(([x, y]) => new T.Vector3(x, y, 0));
+  const src = GLASS_C.map(() => new T.Vector3()), dst = GLASS_C.map(() => new T.Vector3()), end = GLASS_C.map(() => new T.Vector3());
+  const tmp = new T.Vector3(), tmp2 = new T.Vector3();
+  const clamp01 = v => Math.max(0, Math.min(1, v));
+  const outQuart = v => 1 - Math.pow(1 - v, 4), outCubic = v => 1 - Math.pow(1 - v, 3);
+
+  const HOLO_FS = `
+    uniform sampler2D map; uniform float uTime, uReveal, uAlpha, uGlitch, uGlitchY, uDis;
+    varying vec2 vUv;
+    float hash(float n) { return fract(sin(n) * 43758.5453); }
+    void main() {
+      vec2 uv = vUv;
+      uv.x += step(abs(uv.y - uGlitchY), .025) * uGlitch * .014;
+      vec3 c = texture2D(map, uv).rgb;
+      float lum = dot(c, vec3(.2126, .7152, .0722));
+      vec3 tint = vec3(.05, .42, 1.);
+      float key = smoothstep(.012, .085, lum);          // the dark screen background turns to clear air
+      vec3 col = mix(c, tint * lum * 2.4, .32) * key;
+      col *= .8 + .2 * sin(vUv.y * 1500.);
+      float roll = exp(-pow((fract(vUv.y + uTime * .00008) - .5) * 12., 2.));
+      col += tint * roll * (.05 + lum * .5);
+      vec2 e = min(vUv, 1. - vUv); float m = min(e.x, e.y);
+      float body = smoothstep(0., .04, m);
+      float rim = 1. - smoothstep(.0, .005, m);
+      float y = 1. - vUv.y;
+      float shown = step(y, uReveal * 1.03);
+      float lead = exp(-pow((y - uReveal) * 70., 2.)) * (1. - step(1., uReveal));
+      float flick = .94 + .06 * hash(floor(uTime * .024));
+      vec3 outc = (col * body + tint * rim * .9 + tint * .012 * body) * shown + vec3(.55, .85, 1.) * lead * 1.6;
+      float hk = ((1. - vUv.y) * .6 + (1. - vUv.x) * .4) * .92 + .06;
+      float cell = hash(floor(vUv.x * 110.) * 13.1 + floor(vUv.y * 82.) * 157.7);
+      outc *= step(uDis, hk - cell * .08 + .04);
+      gl_FragColor = vec4(outc * flick * uAlpha, 1.);
+      #include <colorspace_fragment>
+    }`;
+  const BEAM_VS = `attribute float aT; attribute float aS; varying float vT; varying float vS;
+    void main() { vT = aT; vS = aS; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }`;
+  const BEAM_FS = `uniform float uAlpha, uTime; varying float vT; varying float vS;
+    void main() {
+      float edge = pow(abs(vS - .5) * 2., 6.);
+      float fall = mix(.5, .14, vT) * smoothstep(0., .12, vT);
+      float streak = .85 + .15 * sin(vT * 24. - uTime * .005);
+      float a = (.06 + .5 * edge) * fall * streak * uAlpha;
+      gl_FragColor = vec4(vec3(.2, .6, 1.) * a, 1.);
+      #include <colorspace_fragment>
+    }`;
+
+  function buildProjection() {
+    const add = { transparent: true, depthWrite: false, blending: T.AdditiveBlending, toneMapped: false };
+    holoMat = new T.ShaderMaterial({
+      uniforms: { map: { value: screenTex }, uTime: { value: 0 }, uReveal: { value: 0 }, uAlpha: { value: 0 }, uGlitch: { value: 0 }, uGlitchY: { value: .5 }, uDis: { value: -1 } },
+      vertexShader: 'varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
+      fragmentShader: HOLO_FS, ...add
+    });
+    holo = new T.Mesh(new T.PlaneGeometry(1, .75), holoMat); holo.visible = false; holo.renderOrder = 12; scene.add(holo);
+
+    // cone of light: four open sides from the glass corners to the hologram corners
+    beamGeo = new T.BufferGeometry();
+    const aT = new Float32Array(16), aS = new Float32Array(16), idx = [];
+    for (let f = 0; f < 4; f++) { const o = f * 4; aT.set([0, 0, 1, 1], o); aS.set([0, 1, 0, 1], o); idx.push(o, o + 1, o + 2, o + 1, o + 3, o + 2); }
+    beamGeo.setAttribute('position', new T.BufferAttribute(new Float32Array(48), 3));
+    beamGeo.setAttribute('aT', new T.BufferAttribute(aT, 1)); beamGeo.setAttribute('aS', new T.BufferAttribute(aS, 1)); beamGeo.setIndex(idx);
+    beamMat = new T.ShaderMaterial({ uniforms: { uAlpha: { value: 0 }, uTime: { value: 0 } }, vertexShader: BEAM_VS, fragmentShader: BEAM_FS, side: T.DoubleSide, ...add });
+    beam = new T.Mesh(beamGeo, beamMat); beam.frustumCulled = false; beam.visible = false; beam.renderOrder = 11; scene.add(beam);
+
+    // dust drifting down the beam
+    dustGeo = new T.BufferGeometry();
+    dustGeo.setAttribute('position', new T.BufferAttribute(new Float32Array(DUST * 3), 3));
+    dustGeo.setAttribute('color', new T.BufferAttribute(new Float32Array(DUST * 3), 3));
+    for (let i = 0; i < DUST; i++) dustSeed.push({ u: Math.random(), v: Math.random(), ph: Math.random(), sp: .00012 + Math.random() * .00018 });
+    const dot = labelTex((c, w, h) => { const g = c.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(.4, 'rgba(160,220,255,.5)'); g.addColorStop(1, 'rgba(92,198,255,0)'); c.fillStyle = g; c.fillRect(0, 0, w, h); }, 32, 32);
+    dust = new T.Points(dustGeo, new T.PointsMaterial({ size: .028, map: dot, vertexColors: true, sizeAttenuation: true, ...add }));
+    dust.frustumCulled = false; dust.visible = false; dust.renderOrder = 13; scene.add(dust);
+
+    // the glass itself brightens like a lamp
+    lampMat = new T.MeshBasicMaterial({ color: 0x5CC6FF, opacity: 0, ...add });
+    const lamp = new T.Mesh(glass.geometry, lampMat); lamp.position.z = .004; glass.parent.add(lamp);
+  }
+
+  // where things sit in project mode, measured from the camera so it fits any desktop window
+  function layout() {
+    const tan = Math.tan(T.MathUtils.degToRad(camera.fov / 2));
+    const dist = camera.position.length();
+    const halfH = dist * tan, halfW = halfH * camera.aspect, upp = 2 * halfH / H;
+    const top = 104, bot = 100;                       // clear the top bar and the channel buttons
+    const cy = (H / 2 - (top + H - bot) / 2) * upp, availH = (H - top - bot) * upp;
+    const margin = Math.max(64 * upp, halfW * .07);
+    const s = Math.min(.34, availH / 3.6), mHalf = 1.02 * s;   // small, pressed up against the left edge
+    const mx = -halfW + 4 * upp + .66 * s, my = cy - .12;
+    const L = mx + mHalf + margin * .7, R = halfW - margin;
+    let w = R - L, h = w * .75;
+    if (h > availH) { h = availH; w = h / .75; }
+    return { s, mx, my, hx: (L + R) / 2, hy: cy, w, dist };
+  }
+  function viewToWorld(x, y, dist, out) { return camera.localToWorld(out.set(x, y, -dist)); }
+
+  function updateProjection(now, dt, pos) {
+    const dur = REDUCE ? 260 : (proj.target ? 1500 : 850);
+    const dir = Math.sign(proj.target - proj.p);
+    if (dir) proj.p = clamp01(proj.p + dir * dt / dur);
+    const p = proj.p;
+    // three phases that overlap: monitor moves, light shoots out, picture unfolds (reverse order on the way back)
+    const m = REDUCE ? proj.target : outQuart(clamp01(p / .5));
+    const b = REDUCE ? p : outCubic(clamp01((p - .36) / .26));
+    const r = REDUCE ? p : clamp01((p - .52) / .48);
+    pos.m = m;
+    if (p <= 0) { holo.visible = beam.visible = dust.visible = false; lampMat.opacity = 0; return; }
+
+    const L = layout();
+    viewToWorld(L.mx, L.my, L.dist, tmp);
+    pos.x = tmp.x * m; pos.y = tmp.y * m; pos.s = 1 + (L.s - 1) * m;
+
+    // hologram: grows out from its centre while a scan line draws it in, top to bottom
+    const grow = REDUCE ? 1 : .1 + .9 * outCubic(clamp01(r * 1.5));
+    viewToWorld(L.hx, L.hy + Math.sin(now / 1400) * .006, L.dist, holo.position);
+    holo.quaternion.copy(camera.quaternion);
+    holo.scale.setScalar(L.w * grow);
+    holo.visible = r > 0;
+    const u = holoMat.uniforms;
+    u.uTime.value = now; u.uReveal.value = REDUCE ? 1 : r * 1.1; u.uAlpha.value = Math.min(1, r * 3);
+    if (p === 1 && !REDUCE && now > proj.nextGlitch) { proj.glitchUntil = now + 90; proj.nextGlitch = now + 4000 + Math.random() * 7000; u.uGlitchY.value = Math.random(); }
+    u.uGlitch.value = now < proj.glitchUntil ? (Math.random() * 2 - 1) : 0;
+
+    // beam: starts at the glass, reaches out to the hologram corners
+    return b;
+  }
+  function updateBeam(now, b) {
+    if (!holo.visible && b <= 0) { beam.visible = dust.visible = false; lampMat.opacity = 0; return; }
+    pivot.updateMatrixWorld(true); holo.updateMatrixWorld(true);
+    GLASS_C.forEach((c, i) => { glass.localToWorld(src[i].copy(c)); holo.localToWorld(end[i].copy(HOLO_C[i])); dst[i].copy(src[i]).lerp(end[i], b); });
+    const P = beamGeo.attributes.position.array;
+    for (let f = 0; f < 4; f++) {
+      const a = f, c = (f + 1) % 4, o = f * 12;
+      [src[a], src[c], dst[a], dst[c]].forEach((v, k) => { P[o + k * 3] = v.x; P[o + k * 3 + 1] = v.y; P[o + k * 3 + 2] = v.z; });
+    }
+    beamGeo.attributes.position.needsUpdate = true;
+    const flash = REDUCE ? 0 : Math.sin(Math.PI * b) * .9;
+    const fade = clamp01(1 - dis * 2.4);
+    beamMat.uniforms.uAlpha.value = b * (1 + flash) * (.92 + .08 * Math.sin(now / 700)) * fade;
+    beamMat.uniforms.uTime.value = now;
+    beam.visible = b > 0;
+    lampMat.opacity = (.1 * b + .1 * flash) * fade;
+
+    // dust motes
+    dust.visible = b > .2 && !REDUCE;
+    if (dust.visible) {
+      const DP = dustGeo.attributes.position.array, DC = dustGeo.attributes.color.array;
+      const bil = (q, u, v, out) => out.copy(q[0]).lerp(q[1], u).lerp(tmp2.copy(q[3]).lerp(q[2], u), v);
+      dustSeed.forEach((d, i) => {
+        const t = (now * d.sp + d.ph) % 1;
+        bil(src, d.u, d.v, tmp); const x0 = tmp.x, y0 = tmp.y, z0 = tmp.z;
+        bil(dst, d.u, d.v, tmp);
+        DP[i * 3] = x0 + (tmp.x - x0) * t; DP[i * 3 + 1] = y0 + (tmp.y - y0) * t; DP[i * 3 + 2] = z0 + (tmp.z - z0) * t;
+        const k = Math.sin(Math.PI * t) * b * .8 * fade;
+        DC[i * 3] = .45 * k; DC[i * 3 + 1] = .8 * k; DC[i * 3 + 2] = k;
+      });
+      dustGeo.attributes.position.needsUpdate = true; dustGeo.attributes.color.needsUpdate = true;
+    }
+  }
+
+  /* ---------- Scroll dissolve: the monitor breaks into tiny glowing pieces ----------
+     As the visitor scrolls down, a sweep runs across the monitor from the top right corner.
+     Everything behind the sweep is clipped away, and pieces sampled from those surfaces
+     (the glass pieces take the colours of whatever is on screen) fly off up and to the right.
+     The hologram does the same when it is showing. It is tied to the scroll position, so
+     scrolling back up puts everything back together. */
+  const DIS_W = .42, DIS_N = 9000, HOLO_N = 3200, EDGE = .045;
+  const DIS_DIR = new T.Vector3(-.42, -1, -.18).normalize();
+  let model, kMin = 0, kRange = 1, dis = 0, colored = false;
+  // shared by every monitor material: the sweep burns a ragged, glowing edge across the surfaces
+  const DU = { uDisP: { value: -1 }, uDisDir: { value: DIS_DIR }, uDisK: { value: new T.Vector2(0, 1) }, uDisInv: { value: new T.Matrix4() } };
+  const DIS_NOISE = `
+    float dH(vec3 p) { p = fract(p * .3183099 + .1); p *= 17.; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
+    float dN(vec3 x) { vec3 i = floor(x), f = fract(x); f = f * f * (3. - 2. * f);
+      return mix(mix(mix(dH(i), dH(i + vec3(1, 0, 0)), f.x), mix(dH(i + vec3(0, 1, 0)), dH(i + vec3(1, 1, 0)), f.x), f.y),
+                 mix(mix(dH(i + vec3(0, 0, 1)), dH(i + vec3(1, 0, 1)), f.x), mix(dH(i + vec3(0, 1, 1)), dH(i + vec3(1, 1, 1)), f.x), f.y), f.z); }`;
+  function hookDissolve(mat) {
+    mat.onBeforeCompile = sh => {
+      Object.assign(sh.uniforms, DU);
+      sh.vertexShader = 'uniform mat4 uDisInv; varying vec3 vDisPos;\n' + sh.vertexShader.replace('#include <project_vertex>',
+        '#include <project_vertex>\n#ifdef USE_INSTANCING\n vDisPos = (uDisInv * modelMatrix * instanceMatrix * vec4(transformed, 1.)).xyz;\n#else\n vDisPos = (uDisInv * modelMatrix * vec4(transformed, 1.)).xyz;\n#endif');
+      sh.fragmentShader = 'uniform float uDisP; uniform vec3 uDisDir; uniform vec2 uDisK; varying vec3 vDisPos;\n' + DIS_NOISE + '\n' +
+        sh.fragmentShader.replace('#include <clipping_planes_fragment>', `#include <clipping_planes_fragment>
+          float dEdge = 0.;
+          if (uDisP > -.5) {
+            float dk = (dot(uDisDir, vDisPos) - uDisK.x) / uDisK.y - (dN(vDisPos * 9.) * .65 + dN(vDisPos * 23.) * .35) * ${(EDGE * 2).toFixed(3)} + ${EDGE.toFixed(3)};
+            if (dk < uDisP) discard;
+            dEdge = 1. - smoothstep(0., .015, dk - uDisP);
+          }`)
+        .replace('#include <dithering_fragment>', 'gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(.62, .9, 1.), dEdge * .92);\n#include <dithering_fragment>');
+    };
+    mat.customProgramCacheKey = () => 'obf-dissolve';
+    mat.needsUpdate = true;
+  }
+  let disPts, disMat, holoPts, holoPtsMat, floorMats = [];
+  const glassIdx = [], glassUV = [], holoUV = [];
+  const PIECE_VS = `attribute vec3 aVel; attribute float aKey; attribute float aSeed; attribute vec3 aCol;
+    uniform float uP, uW, uSize, uScale;
+    varying vec3 vCol; varying float vA;
+    void main() {
+      float l = (uP - aKey) / uW;
+      float on = step(0., l) * step(l, 1.);
+      l = clamp(l, 0., 1.);
+      float e = l * (.3 + .7 * l);
+      float sw = aSeed * 6.2831;
+      vec3 p = position + aVel * e + vec3(sin(l * 7. + sw), cos(l * 5. + sw * 1.3), sin(l * 6. + sw * .7)) * .05 * l;
+      vec4 mv = modelViewMatrix * vec4(p, 1.);
+      gl_Position = on > .5 ? projectionMatrix * mv : vec4(0., 0., 2., 1.);
+      gl_PointSize = max(1., uSize * (.5 + aSeed) * (1. - .55 * l) * uScale / -mv.z);
+      vCol = aCol;
+      vA = on * (1. - l) * (1. - .3 * l) * smoothstep(0., .035, l + .004) * (1. + 2.2 * pow(1. - l, 6.));
+    }`;
+  const PIECE_FS = `varying vec3 vCol; varying float vA;
+    void main() {
+      vec2 d = gl_PointCoord - .5; float r = length(d);
+      if (r > .5) discard;
+      float core = smoothstep(.5, .0, r);
+      float a = core * core * vA;
+      gl_FragColor = vec4((vCol * 1.35 + vec3(.1, .3, .6) * .25) * a, 1.);
+      #include <colorspace_fragment>
+    }`;
+  function pieceMat(size) {
+    return new T.ShaderMaterial({
+      uniforms: { uP: { value: -1 }, uW: { value: DIS_W }, uSize: { value: size }, uScale: { value: 400 } },
+      vertexShader: PIECE_VS, fragmentShader: PIECE_FS,
+      transparent: true, depthWrite: false, blending: T.AdditiveBlending, toneMapped: false
+    });
+  }
+  function pieceGeo(n) {
+    const g = new T.BufferGeometry();
+    g.setAttribute('position', new T.BufferAttribute(new Float32Array(n * 3), 3));
+    g.setAttribute('aVel', new T.BufferAttribute(new Float32Array(n * 3), 3));
+    g.setAttribute('aCol', new T.BufferAttribute(new Float32Array(n * 3), 3));
+    g.setAttribute('aKey', new T.BufferAttribute(new Float32Array(n), 1));
+    g.setAttribute('aSeed', new T.BufferAttribute(new Float32Array(n), 1));
+    return g;
+  }
+
+  function buildDissolve() {
+    model.updateMatrixWorld(true);
+    const inv = new T.Matrix4().copy(model.matrixWorld).invert(), rel = new T.Matrix4();
+    const tris = []; let total = 0;
+    const va = new T.Vector3(), vb = new T.Vector3(), vc = new T.Vector3(), e1 = new T.Vector3(), e2 = new T.Vector3();
+    const neon = new T.Color(0x5CC6FF);
+    const hooked = new Set();
+    model.traverse(o => {
+      if (!o.isMesh) return;
+      if (!hooked.has(o.material)) { hooked.add(o.material); hookDissolve(o.material); if (!o.material.transparent) o.material.side = T.DoubleSide; }
+      if (o.name === 'shadow' || o.name === 'pool') floorMats.push(o.material);
+      if (o.isInstancedMesh || o.material.transparent) return;
+      rel.multiplyMatrices(inv, o.matrixWorld);
+      const g = o.geometry, P = g.attributes.position, I = g.index, UV = g.attributes.uv, isGlass = o === glass;
+      const col = isGlass ? null : o.material.color.clone().lerp(neon, .25).multiplyScalar(.85);
+      const n = I ? I.count : P.count;
+      for (let i = 0; i + 2 < n; i += 3) {
+        const ia = I ? I.getX(i) : i, ib = I ? I.getX(i + 1) : i + 1, ic = I ? I.getX(i + 2) : i + 2;
+        va.fromBufferAttribute(P, ia).applyMatrix4(rel); vb.fromBufferAttribute(P, ib).applyMatrix4(rel); vc.fromBufferAttribute(P, ic).applyMatrix4(rel);
+        e1.subVectors(vb, va).cross(e2.subVectors(vc, va));
+        const area = e1.length() / 2; if (area < 1e-8) continue;
+        total += area * (isGlass ? 4 : 1);
+        tris.push({ a: va.clone(), b: vb.clone(), c: vc.clone(), n: e1.clone().normalize(), col, uv: isGlass ? [ia, ib, ic].map(k => [UV.getX(k), UV.getY(k)]) : null, cum: total });
+      }
+    });
+    const geo = pieceGeo(DIS_N), A = geo.attributes, kv = new Float32Array(DIS_N), p = new T.Vector3();
+    for (let i = 0; i < DIS_N; i++) {
+      const r = Math.random() * total; let lo = 0, hi = tris.length - 1;
+      while (lo < hi) { const mid = (lo + hi) >> 1; if (tris[mid].cum < r) lo = mid + 1; else hi = mid; }
+      const tr = tris[lo]; let u1 = Math.random(), u2 = Math.random(); if (u1 + u2 > 1) { u1 = 1 - u1; u2 = 1 - u2; }
+      p.copy(tr.a).addScaledVector(e1.subVectors(tr.b, tr.a), u1).addScaledVector(e2.subVectors(tr.c, tr.a), u2);
+      A.position.setXYZ(i, p.x, p.y, p.z);
+      kv[i] = DIS_DIR.dot(p);
+      const sp = .5 + Math.random() * .95;
+      A.aVel.setXYZ(i, (.6 + tr.n.x * .3 + (Math.random() - .5) * .7) * sp, (.8 + tr.n.y * .3 + (Math.random() - .5) * .6) * sp, (.3 + tr.n.z * .45 + (Math.random() - .5) * .6) * sp);
+      A.aSeed.setX(i, Math.random());
+      if (tr.uv) {
+        const w0 = 1 - u1 - u2; glassIdx.push(i);
+        glassUV.push(tr.uv[0][0] * w0 + tr.uv[1][0] * u1 + tr.uv[2][0] * u2, tr.uv[0][1] * w0 + tr.uv[1][1] * u1 + tr.uv[2][1] * u2);
+        A.aCol.setXYZ(i, .3, .6, 1);
+      } else A.aCol.setXYZ(i, tr.col.r, tr.col.g, tr.col.b);
+    }
+    kMin = Infinity; let kMax = -Infinity;
+    kv.forEach(k => { kMin = Math.min(kMin, k); kMax = Math.max(kMax, k); });
+    kRange = kMax - kMin || 1;
+    kv.forEach((k, i) => A.aKey.setX(i, (k - kMin) / kRange + EDGE - Math.random() * EDGE * 2 - .01));
+    DU.uDisK.value.set(kMin, kRange);
+    disMat = pieceMat(.021);
+    disPts = new T.Points(geo, disMat); disPts.frustumCulled = false; disPts.visible = false; disPts.renderOrder = 14; model.add(disPts);
+
+    // the hologram's pieces, laid out on its plane (1 x .75, facing the camera)
+    const hg = pieceGeo(HOLO_N), H2 = hg.attributes;
+    for (let i = 0; i < HOLO_N; i++) {
+      const u = Math.random(), v = Math.random(); holoUV.push(u, v);
+      H2.position.setXYZ(i, u - .5, (v - .5) * .75, 0);
+      const sp = .5 + Math.random() * .9;
+      H2.aVel.setXYZ(i, (.26 + (Math.random() - .5) * .3) * sp, (.3 + (Math.random() - .5) * .28) * sp, (.3 + Math.random() * .3) * sp);
+      H2.aKey.setX(i, ((1 - v) * .6 + (1 - u) * .4) * .92 + .06 - Math.random() * .08);
+      H2.aSeed.setX(i, Math.random());
+      H2.aCol.setXYZ(i, .3, .6, 1);
+    }
+    holoPtsMat = pieceMat(.024);
+    holoPts = new T.Points(hg, holoPtsMat); holoPts.frustumCulled = false; holoPts.visible = false; holoPts.renderOrder = 15; holo.add(holoPts);
+  }
+
+  // colour the glass and hologram pieces from what the screen is showing right now
+  function colourFromScreen() {
+    const cv = SCREEN.canvas, W2 = cv.width, H2 = cv.height;
+    let img; try { img = cv.getContext('2d').getImageData(0, 0, W2, H2).data; } catch (e) { return; }
+    const lin = v => Math.pow(v / 255, 2.2);
+    const paint = (attr, idx, uvs) => {
+      for (let j = 0; j < idx.length; j++) {
+        const x = Math.min(W2 - 1, uvs[j * 2] * W2 | 0), y = Math.min(H2 - 1, (1 - uvs[j * 2 + 1]) * H2 | 0), k = (y * W2 + x) * 4;
+        attr.setXYZ(idx[j], Math.max(lin(img[k]), .03), Math.max(lin(img[k + 1]), .16), Math.max(lin(img[k + 2]), .42));
+      }
+      attr.needsUpdate = true;
+    };
+    paint(disPts.geometry.attributes.aCol, glassIdx, glassUV);
+    const all = []; for (let i = 0; i < HOLO_N; i++) all.push(i);
+    paint(holoPts.geometry.attributes.aCol, all, holoUV);
+  }
+
+  function applyDissolve() {
+    if (!disPts) return;
+    const uP = dis * (1 + DIS_W + .06) - .02;
+    holoMat.uniforms.uDis.value = dis > 0 ? uP : -1;
+    floorMats.forEach(m => { m.opacity = clamp01(1 - dis * 1.7); });
+    if (dis <= 0) { DU.uDisP.value = -1; disPts.visible = holoPts.visible = false; colored = false; return; }
+    if (!colored) { colourFromScreen(); colored = true; }
+    model.updateMatrixWorld(true);
+    DU.uDisInv.value.copy(model.matrixWorld).invert();
+    DU.uDisP.value = uP;
+    disPts.visible = holoPts.visible = !REDUCE;
+    disMat.uniforms.uP.value = holoPtsMat.uniforms.uP.value = uP;
+  }
+  function pieceScale() {
+    if (!disMat) return;
+    const s = H * renderer.getPixelRatio() / 2;
+    disMat.uniforms.uScale.value = holoPtsMat.uniforms.uScale.value = s;
+  }
+
   function init(canvas) {
     renderer = new T.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
     renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
@@ -799,7 +1488,15 @@ function makeMonitor() { window.MONITOR = (() => {
     const rim2 = new T.DirectionalLight(0x5CC6FF, 1.4); rim2.position.set(-3, .5, -2.5); scene.add(rim2);
     const glow = new T.PointLight(0x5CC6FF, 1.2, 1.6, 2); glow.position.set(0, -.74, .55); scene.add(glow);
     pivot = new T.Group(); pivot.position.z = -.6; const m = build(); m.position.z = .6; pivot.add(m); scene.add(pivot);
+    model = m;
+    buildProjection();
+    buildDissolve();
     resize();
+    // 26/09: compile every shader now, including the hidden dissolve pieces, so the first frame
+    // of the dissolve doesn't stall while the graphics card builds them
+    const hv = [holo.visible, beam.visible, dust.visible]; disPts.visible = holoPts.visible = holo.visible = beam.visible = dust.visible = true;
+    try { renderer.compile(scene, camera); } catch (e) {}
+    disPts.visible = holoPts.visible = false; [holo.visible, beam.visible, dust.visible] = hv;
   }
 
   function resize() {
@@ -816,6 +1513,7 @@ function makeMonitor() { window.MONITOR = (() => {
     camera.position.set(0, compact ? .06 : .16, d);
     camera.lookAt(0, compact ? -.12 : -.04, 0);
     camera.updateProjectionMatrix();
+    pieceScale();
   }
 
   function pick(clientX, clientY) {
@@ -842,12 +1540,19 @@ function makeMonitor() { window.MONITOR = (() => {
     // entrance
     if (state.riseT < 1) state.riseT = Math.min(1, (now - state.riseStart) / 1400);
     const e = 1 - Math.pow(1 - state.riseT, 4);
-    pivot.position.y = (1 - e) * -1.6;
-    pivot.rotation.y = state.rotY + (1 - e) * -1.1;
-    pivot.rotation.x = state.rotX;
+    const pos = { m: 0, x: 0, y: 0, s: 1 };
+    const b = updateProjection(now, dt, pos) || 0;
+    const calm = 1 - .75 * pos.m;                    // less mouse tilt while projecting
+    pivot.position.x = pos.x;
+    pivot.position.y = (1 - e) * -1.6 + pos.y;
+    pivot.scale.setScalar(pos.s);
+    pivot.rotation.y = state.rotY * calm + (1 - e) * -1.1 + pos.m * .78;
+    pivot.rotation.x = state.rotX * calm;
     ledMat.color.setHex(SCREEN.isOn ? 0x5CC6FF : 0xFFB547);
     SCREEN.frame(now, dt);
     screenTex.needsUpdate = true;
+    updateBeam(now, b);
+    applyDissolve();
     renderer.render(scene, camera);
   }
 
@@ -855,7 +1560,11 @@ function makeMonitor() { window.MONITOR = (() => {
     init, resize, frame, pick, press, state,
     riseIn() { state.riseT = 0; state.riseStart = performance.now(); },
     pressCh(i) { if (buttons[i]) press(buttons[i]); },
-    get compact() { return compact; }
+    get compact() { return compact; },
+    setProject(on) { proj.target = on ? 1 : 0; if (on) { state.spin = 0; proj.nextGlitch = performance.now() + 5000; } },
+    get projecting() { return proj.target === 1; },
+    setDissolve(v) { const n = clamp01(v); if (n > 0 && !colored && disPts) { colourFromScreen(); colored = true; } dis = n; },
+    get dissolve() { return dis; }
   };
 })(); }
 
@@ -870,7 +1579,7 @@ function makeMonitor() { window.MONITOR = (() => {
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const wrap = document.createElement('div');
-  wrap.innerHTML = GIFT_HTML + OVERLAY_HTML;
+  wrap.innerHTML = GIFT_HTML + OVERLAY_HTML.replace('__PLAYBOOK__', PLAYBOOK_HTML);
   // How many gifts hide on a page: set with data-bfcm-gifts on <body>. Big pages use 2, everything else 1.
   const COUNT = Math.max(1, Math.min(2, parseInt(document.body.dataset.bfcmGifts, 10) || 1));
   const gift0 = wrap.querySelector('.obf-gift'), bf = wrap.querySelector('.obf');
@@ -885,8 +1594,20 @@ function makeMonitor() { window.MONITOR = (() => {
     if (h2) { const h1 = document.createElement('h1'); h1.id = h2.id; h1.className = h2.className; h1.innerHTML = h2.innerHTML; h2.replaceWith(h1); }
     bf.querySelectorAll('a[target="_blank"][href*="book.html"]').forEach(a => { a.removeAttribute('target'); a.removeAttribute('rel'); a.setAttribute('href', 'book.html'); });
   }
+  const pin = $('#obf-pin'), plan = $('#obf-plan'), scrollCue = $('#obf-scrollCue');
   const stage = $('#obf-stage'), gl = $('#obf-gl'), paperEl = $('#obf-paper'), tearHint = $('#obf-tearHint'), hand = $('#obf-hand');
   const chans = [...bf.querySelectorAll('#obf-channels button')];
+  // Project button: turns the monitor into a projector. Added here so the channel list above stays untouched.
+  $('#obf-channels').insertAdjacentHTML('beforeend',
+    '<span class="obf-sep" aria-hidden="true"></span>' +
+    '<span class="obf-project-wrap"><span class="obf-project-tip" id="obf-projectTip" aria-hidden="true">See it on the big screen</span>' +
+    '<button type="button" class="obf-project" id="obf-project" aria-pressed="false" aria-keyshortcuts="P" title="Project the screen (P)">' +
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 9.5 22 5v14l-8.5-4.5" fill="currentColor" opacity=".35"/><rect x="2" y="7" width="12" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="8" cy="12" r="2.4" fill="currentColor"/><path d="M5 19.5h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>' +
+    '<span class="obf-project-label">Project</span></button></span>');
+  const projBtn = $('#obf-project'), projTip = $('#obf-projectTip'), projLabel = projBtn.querySelector('.obf-project-label');
+  const dragNote = $('.obf-drag-note'), NOTE = dragNote.textContent, GL_LABEL = gl.getAttribute('aria-label');
+  const roomToProject = matchMedia('(min-width: 900px)');   // never on phones
+  let tipTimer = 0;
   let opened = false, started = false, paperReady = false, raf = 0, lastFocus = null, threeReady = null;
 
   (() => {
@@ -940,7 +1661,7 @@ function makeMonitor() { window.MONITOR = (() => {
     if (opened) return; opened = true; lastFocus = document.activeElement;
     bf.hidden = false; document.documentElement.style.overflow = 'hidden';
     requestAnimationFrame(() => bf.classList.add('obf-on'));
-    bf.scrollTop = 0; stage.classList.remove('obf-revealed'); tearHint.classList.remove('obf-gone');
+    bf.scrollTop = 0; resetDis(); stage.classList.remove('obf-revealed'); tearHint.classList.remove('obf-gone');
     if (!paperReady) { paperReady = true; PAPER.setup(paperEl, $('#obf-paperCanvas'), reveal); }
     PAPER.reset();
     hand.style.left = (stage.clientWidth * .32) + 'px'; hand.style.top = (stage.clientHeight * .62) + 'px';
@@ -948,8 +1669,8 @@ function makeMonitor() { window.MONITOR = (() => {
     setTimeout(() => $('#obf-autoTear').focus({ preventScroll: true }), 400);
     try { await loadThree(); } catch (e) { gl.hidden = true; return; }
     if (!started) { started = true; makeMonitor(); MONITOR.init(gl); bindGL(); }
-    SCREEN.setTab(0, true); SCREEN.power(true); syncChans();
-    MONITOR.resize(); loop();
+    SCREEN.setTab(0, true); SCREEN.power(true); syncChans(); setProject(false);
+    MONITOR.resize(); MONITOR.setDissolve(reduce ? 0 : dis); loop();
   }
   function close() {
     if (PAGE) { location.href = 'index.html'; return; }
@@ -966,6 +1687,13 @@ function makeMonitor() { window.MONITOR = (() => {
     SCREEN.power(false);
     setTimeout(() => SCREEN.power(true), reduce ? 0 : 450);
     setTimeout(() => chans[0].focus({ preventScroll: true }), 900);
+    // one nudge towards the Project button, then it gets out of the way
+    clearTimeout(tipTimer);
+    tipTimer = setTimeout(() => {
+      if (!roomToProject.matches || (window.MONITOR && MONITOR.projecting)) return;
+      projTip.classList.add('obf-show');
+      tipTimer = setTimeout(hideTip, 6000);
+    }, 2600);
     try { window.fbq && fbq('trackCustom', 'BlackFridayGiftOpened'); } catch (e) {}
   }
   gifts.forEach(g => g.addEventListener('click', open));
@@ -975,7 +1703,9 @@ function makeMonitor() { window.MONITOR = (() => {
   document.addEventListener('paper:start', () => { tearHint.classList.add('obf-gone'); hand.classList.remove('obf-play'); });
   addEventListener('keydown', e => {
     if (!opened) return;
+    if (e.key === 'Escape' && window.MONITOR && MONITOR.projecting) { setProject(false); projBtn.focus({ preventScroll: true }); return; }
     if (e.key === 'Escape' && !PAGE) close();
+    if (PAPER.done && window.MONITOR && (e.key === 'p' || e.key === 'P') && !e.metaKey && !e.ctrlKey && !e.altKey && roomToProject.matches) setProject(!MONITOR.projecting);
     if (PAPER.done && /^[1-4]$/.test(e.key) && !e.metaKey && !e.ctrlKey) setChannel(+e.key - 1);
   });
   bf.addEventListener('keydown', e => {
@@ -991,6 +1721,88 @@ function makeMonitor() { window.MONITOR = (() => {
   function setChannel(i) { if (!SCREEN.isOn) SCREEN.power(true); SCREEN.setTab(i); syncChans(); }
   chans.forEach(b => b.addEventListener('click', () => { const i = +b.dataset.ch; setChannel(i); window.MONITOR && MONITOR.pressCh(i); }));
 
+  /* ---- scroll: a small scroll down sets off the dissolve, scrolling back up rebuilds it ----
+     26/09: the dissolve used to be tied to the scroll position, so every scroll event pushed a
+     new frame of the effect and it stuttered when the visitor stopped halfway. Now the scroll
+     only flips a switch and the effect plays on its own clock, start to finish.
+       Scroll DOWN past DIS_OUT_AT px   the monitor breaks apart, then the page glides to the plan
+       Scroll UP into the monitor area  (the first 45vh of the page) it builds itself back and
+                                        the page glides back to the top
+       DIS_OUT_MS / DIS_IN_MS           how long each direction takes
+       DIS_GLIDE_MS                     when the glide to the plan starts, 0 turns it off */
+  const DIS_OUT_AT = 30, DIS_OUT_MS = 1600, DIS_IN_MS = 1200, DIS_GLIDE_MS = 900;
+  let dis = 0, disTarget = 0, disRaf = 0, lastY = 0, glideT = 0;
+  const easeInOut = k => k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+  const easeOut = k => 1 - Math.pow(1 - k, 3);
+  const planTop = () => plan.offsetTop + parseFloat(getComputedStyle(plan).paddingTop) - 40;
+  function setDis(d) {
+    dis = d;
+    stage.style.setProperty('--obf-d', d.toFixed(4));
+    stage.classList.toggle('obf-dissolving', d > 0);
+    stage.classList.toggle('obf-gone-ui', d > .25);
+    if (window.MONITOR && started) MONITOR.setDissolve(reduce ? 0 : d);
+    if (reduce) gl.style.opacity = String(1 - d);
+  }
+  function playDissolve(to) {
+    if (to === disTarget) return;
+    disTarget = to;
+    cancelAnimationFrame(disRaf);
+    if (to) hideTip();
+    const from = dis, t0 = performance.now();
+    // if it is reversed halfway, the way back only takes as long as the part already played
+    const dur = (reduce ? 350 : (to ? DIS_OUT_MS : DIS_IN_MS)) * Math.max(.2, Math.abs(to - from));
+    const ease = to ? easeInOut : easeOut;
+    const step = now => {
+      const k = Math.max(0, Math.min(1, (now - t0) / dur));
+      setDis(from + (to - from) * ease(k));
+      if (k < 1) disRaf = requestAnimationFrame(step);
+    };
+    disRaf = requestAnimationFrame(step);
+  }
+  function resetDis() { cancelAnimationFrame(disRaf); clearTimeout(glideT); disTarget = 0; lastY = 0; setDis(0); }
+  function onScroll() {
+    const y = bf.scrollTop, dir = y - lastY; lastY = y;
+    const monitorZone = Math.max(1, pin.offsetHeight - stage.offsetHeight);
+    if (!disTarget && dir > 0 && y > DIS_OUT_AT) {
+      playDissolve(1);
+      clearTimeout(glideT);
+      // the plan rises in over the last of the pieces, unless the visitor has already scrolled there
+      if (DIS_GLIDE_MS) glideT = setTimeout(() => {
+        const top = planTop();
+        if (disTarget && bf.scrollTop < top - 60) bf.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
+      }, reduce ? 0 : DIS_GLIDE_MS);
+    } else if (disTarget && dir < 0 && y <= monitorZone) {
+      clearTimeout(glideT);
+      playDissolve(0);
+      // and glide back up so the whole monitor, buttons included, is in view again
+      if (DIS_GLIDE_MS && y > 0) bf.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    }
+  }
+  bf.addEventListener('scroll', onScroll, { passive: true });
+  scrollCue.addEventListener('click', () => {
+    bf.scrollTo({ top: planTop(), behavior: reduce ? 'auto' : 'smooth' });
+  });
+  // each part of the plan rises in as it arrives
+  const riseIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('obf-in'); riseIO.unobserve(e.target); } }), { root: bf, threshold: .05 });
+  bf.querySelectorAll('.obf-rise').forEach(el => riseIO.observe(el));
+
+  /* ---- project mode ---- */
+  function hideTip() { clearTimeout(tipTimer); projTip.classList.remove('obf-show'); }
+  function setProject(on) {
+    on = !!on && roomToProject.matches && !!window.MONITOR && PAPER.done;
+    if (window.MONITOR) MONITOR.setProject(on);
+    if (on && !SCREEN.isOn) SCREEN.power(true);
+    projBtn.setAttribute('aria-pressed', String(on));
+    projLabel.textContent = on ? 'Back to monitor' : 'Project';
+    projBtn.title = on ? 'Back to the monitor (P)' : 'Project the screen (P)';
+    stage.classList.toggle('obf-projecting', on);
+    dragNote.textContent = on ? 'Projecting the screen \u00b7 change channel with the buttons below' : NOTE;
+    gl.setAttribute('aria-label', on ? 'The Opes monitor is projecting its screen as a large hologram. Use the channel buttons below to change what it shows.' : GL_LABEL);
+    hideTip();
+  }
+  projBtn.addEventListener('click', () => { setProject(!(window.MONITOR && MONITOR.projecting)); try { window.fbq && projBtn.getAttribute('aria-pressed') === 'true' && fbq('trackCustom', 'BlackFridayProjected'); } catch (e) {} });
+  roomToProject.addEventListener?.('change', () => { if (!roomToProject.matches) setProject(false); });
+
   /* ---- pointer on the 3D monitor ---- */
   function bindGL() {
     const st = MONITOR.state; let down = null;
@@ -998,6 +1810,7 @@ function makeMonitor() { window.MONITOR = (() => {
       if (down) {
         const dx = e.clientX - down.x;
         if (Math.abs(dx) > 4) down.moved = true;
+        if (MONITOR.projecting) return;
         st.spin = down.spin + dx * .008; st.lastDrag = performance.now(); st.dragging = true;
         return;
       }
