@@ -171,6 +171,10 @@
   .opes-footer .ofx-base p { color: rgba(255,255,255,.8); margin: 0; }
   .ofx-base img { height: 20px; width: auto; }
 </style>
+<style id="opes-footer-services">
+  /* Footer gets a Services column, 26/09. Four columns on desktop. */
+  @media (min-width: 641px) { .ofx-cols { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
+</style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
@@ -373,7 +377,11 @@
             <nav class="ofx-cols" aria-label="Footer">
                 <div>
                     <p class="ofx-h">Explore</p>
-                    <ul><li><a href="index.html#services">Services</a></li><li><a href="process.html">Process</a></li><li><a href="campaigns.html">Campaigns</a></li><li><a href="work.html">Work</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="guides.html">Guides</a></li></ul>
+                    <ul><li><a href="services.html">Services</a></li><li><a href="process.html">Process</a></li><li><a href="campaigns.html">Campaigns</a></li><li><a href="work.html">Work</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="guides.html">Guides</a></li></ul>
+                </div>
+                <div>
+                    <p class="ofx-h">Services</p>
+                    <ul><li><a href="email-marketing-agency.html">Email marketing</a></li><li><a href="ecrm-agency.html">eCRM and retention</a></li><li><a href="klaviyo-agency.html">Klaviyo</a></li><li><a href="b2b-email-marketing.html">B2B email</a></li><li><a href="hubspot-crm-agency.html">HubSpot and CRM</a></li><li><a href="marketing-automation.html">N8N and automation</a></li><li><a href="meta-ads-agency.html">Meta ads</a></li><li><a href="website-design.html">Websites</a></li></ul>
                 </div>
                 <div>
                     <p class="ofx-h">Why Opes</p>

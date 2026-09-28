@@ -416,6 +416,10 @@
   header .ml-auto.xl\:flex { gap: clamp(20px, 2vw, 36px) !important; }
 }
 </style>
+<style id="opes-footer-services">
+  /* Footer gets a Services column, 26/09. Four columns on desktop. */
+  @media (min-width: 641px) { .ofx-cols { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
+</style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
@@ -431,7 +435,7 @@
         </a>
         <div class="hidden xl:flex items-center gap-5 ml-auto">
             <nav class="flex items-center gap-3 font-medium text-[13.5px] tracking-wide text-slate-800 whitespace-nowrap">
-                <a href="index.html#services" class="nav-link hover:text-brand">Services</a>
+                <a href="services.html" class="nav-link hover:text-brand">Services</a>
                 <a href="process.html" class="nav-link text-brand">Process</a>
                 <a href="campaigns.html" class="nav-link hover:text-brand">Campaigns</a>
                 <a href="free-resource.html" class="nav-link hover:text-brand">Free Resource</a>
@@ -453,7 +457,7 @@
     </div>
     <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-[#f8fafc] border-b border-slate-200 shadow-xl z-40">
         <div class="flex flex-col px-6 py-8 gap-5">
-            <div><a href="index.html#services" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Services</a></div>
+            <div><a href="services.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Services</a></div>
             <div><a href="process.html" class="nav-link text-[16px] font-medium text-brand">Process</a></div>
             <div><a href="campaigns.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Campaigns</a></div>
             <div><a href="free-resource.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Free Resource</a></div>
@@ -674,7 +678,11 @@
             <nav class="ofx-cols" aria-label="Footer">
                 <div>
                     <p class="ofx-h">Explore</p>
-                    <ul><li><a href="index.html#services">Services</a></li><li><a href="process.html">Process</a></li><li><a href="campaigns.html">Campaigns</a></li><li><a href="work.html">Work</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="guides.html">Guides</a></li></ul>
+                    <ul><li><a href="services.html">Services</a></li><li><a href="process.html">Process</a></li><li><a href="campaigns.html">Campaigns</a></li><li><a href="work.html">Work</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="guides.html">Guides</a></li></ul>
+                </div>
+                <div>
+                    <p class="ofx-h">Services</p>
+                    <ul><li><a href="email-marketing-agency.html">Email marketing</a></li><li><a href="ecrm-agency.html">eCRM and retention</a></li><li><a href="klaviyo-agency.html">Klaviyo</a></li><li><a href="b2b-email-marketing.html">B2B email</a></li><li><a href="hubspot-crm-agency.html">HubSpot and CRM</a></li><li><a href="marketing-automation.html">N8N and automation</a></li><li><a href="meta-ads-agency.html">Meta ads</a></li><li><a href="website-design.html">Websites</a></li></ul>
                 </div>
                 <div>
                     <p class="ofx-h">Why Opes</p>

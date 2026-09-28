@@ -39,12 +39,15 @@
       ],
       "@id": "https://opesconsulting.london/#organization",
       "name": "Opes Consulting",
-      "alternateName": ["Opes", "Opes Consultancy London"],
+      "alternateName": [
+        "Opes",
+        "Opes Consultancy London"
+      ],
       "url": "https://opesconsulting.london/",
       "logo": "https://opesconsulting.london/images/logo-header.png",
       "image": "https://opesconsulting.london/images/og-image.jpg",
       "slogan": "Smarter eCRM. Stronger customer relationships. Better results.",
-      "description": "London eCRM and lifecycle email marketing agency. Email marketing, CRM automation, N8N workflow automation and custom website builds for B2B, B2C and eCommerce brands.",
+      "description": "London eCRM and lifecycle email marketing agency. Email marketing, Klaviyo, B2B lead nurture, HubSpot CRM, N8N workflow automation, Meta ads and custom website builds for B2B, B2C and eCommerce brands.",
       "email": "hello@opesconsulting.online",
       "address": {
         "@type": "PostalAddress",
@@ -70,42 +73,98 @@
         "Brevo",
         "GoHighLevel",
         "N8N",
-        "Email deliverability"
+        "Email deliverability",
+        "Customer retention",
+        "CRM marketing",
+        "Pipedrive",
+        "Make.com",
+        "Zapier",
+        "Meta ads",
+        "Website design"
       ],
       "priceRange": "$$",
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "eCRM services",
+        "url": "https://opesconsulting.london/services",
         "itemListElement": [
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
+              "@id": "https://opesconsulting.london/email-marketing-agency#service",
               "name": "Email Marketing",
-              "description": "Mobile first HTML email campaigns and lifecycle flows: welcome series, abandoned cart, post purchase and winback."
+              "url": "https://opesconsulting.london/email-marketing-agency",
+              "description": "Lifecycle email flows and campaigns for eCommerce, B2C and B2B brands."
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "CRM Automation",
-              "description": "CRM set up, segmentation and automation across Klaviyo, HubSpot, Brevo and GoHighLevel."
+              "@id": "https://opesconsulting.london/ecrm-agency#service",
+              "name": "eCRM and Retention Marketing",
+              "url": "https://opesconsulting.london/ecrm-agency",
+              "description": "CRM, customer data and email connected into one retention system."
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
+              "@id": "https://opesconsulting.london/klaviyo-agency#service",
+              "name": "Klaviyo Email Marketing",
+              "url": "https://opesconsulting.london/klaviyo-agency",
+              "description": "Klaviyo set up, flows, segmentation, campaigns and audits."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "@id": "https://opesconsulting.london/b2b-email-marketing#service",
+              "name": "B2B Email Marketing and Lead Nurture",
+              "url": "https://opesconsulting.london/b2b-email-marketing",
+              "description": "Lead nurture, sales enablement and client retention for B2B."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "@id": "https://opesconsulting.london/hubspot-crm-agency#service",
+              "name": "HubSpot CRM Setup and Integration",
+              "url": "https://opesconsulting.london/hubspot-crm-agency",
+              "description": "HubSpot pipelines, lead scoring, workflows and integrations."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "@id": "https://opesconsulting.london/marketing-automation#service",
               "name": "Workflow Automation and API Integration",
-              "description": "N8N automations and API integrations that connect your CRM to the rest of your stack."
+              "url": "https://opesconsulting.london/marketing-automation",
+              "description": "N8N, Make.com and Zapier automations and custom API integrations."
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Website Building",
+              "@id": "https://opesconsulting.london/meta-ads-agency#service",
+              "name": "Meta Ads Management",
+              "url": "https://opesconsulting.london/meta-ads-agency",
+              "description": "Facebook and Instagram ads tied into email and CRM."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "@id": "https://opesconsulting.london/website-design#service",
+              "name": "Website Design and Build",
+              "url": "https://opesconsulting.london/website-design",
               "description": "Custom HTML and Tailwind CSS websites deployed on Cloudflare Pages."
             }
           }
@@ -1648,6 +1707,16 @@ html.night .opes-vs-them { color: #8FA3BC; }
   header .ml-auto.xl\:flex { gap: clamp(20px, 2vw, 36px) !important; }
 }
 </style>
+<style id="opes-footer-services">
+  /* Footer gets a Services column, 26/09. Four columns on desktop. */
+  @media (min-width: 641px) { .ofx-cols { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
+</style>
+<style id="opes-svc-links">
+  /* Service card headings link to their service pages, 26/09. */
+  a.opes-svc-h { color: inherit; text-decoration: none; }
+  a.opes-svc-h:hover { color: #0094FF; }
+  a.opes-svc-h::after { content: " \2192"; font-size: .7em; color: #0094FF; vertical-align: .12em; }
+</style>
 </head>
 <body data-bfcm-gifts="2" class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
@@ -1664,7 +1733,7 @@ html.night .opes-vs-them { color: #8FA3BC; }
             
             <div class="hidden xl:flex items-center gap-5 ml-auto">
                 <nav class="flex items-center gap-3 font-medium text-[13.5px] tracking-wide text-slate-800 whitespace-nowrap">
-                    <a href="#services" class="nav-link hover:text-brand">Services</a>
+                    <a href="services.html" class="nav-link hover:text-brand">Services</a>
                     <a href="process.html" class="nav-link hover:text-brand">Process</a>
                     <a href="campaigns.html" class="nav-link hover:text-brand">Campaigns</a>
                     <a href="free-resource.html" class="nav-link hover:text-brand">Free Resource</a>
@@ -1691,7 +1760,7 @@ html.night .opes-vs-them { color: #8FA3BC; }
 
         <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-[#f8fafc] border-b border-slate-200 shadow-xl z-40">
             <div class="flex flex-col px-6 py-8 gap-5">
-                <div><a href="#services" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Services</a></div>
+                <div><a href="services.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Services</a></div>
                 <div><a href="process.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Process</a></div>
                 <div><a href="campaigns.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Campaigns</a></div>
                 <div><a href="free-resource.html" class="nav-link text-[16px] font-medium text-slate-800 hover:text-brand">Free Resource</a></div>
@@ -1776,7 +1845,8 @@ html.night .opes-vs-them { color: #8FA3BC; }
                             We strip away the noise to focus on the three pillars of digital scaling: acquisition, nurturing, and automated retention.
                         </p>
                     </div>
-                    <div class="flex-shrink-0 mt-2 md:mt-0">
+                    <div class="flex-shrink-0 mt-2 md:mt-0 flex flex-wrap gap-3 justify-center">
+                        <a href="services.html" class="custom-filled-button">All Services</a>
                         <a href="work.html" class="custom-stroked-button">View Our Work</a>
                     </div>
                 </div>
@@ -1787,7 +1857,7 @@ html.night .opes-vs-them { color: #8FA3BC; }
                     
                     <div class="services-card">
                         <div class="service-card-info">
-                            <h2 class="service-card-h2">Email Marketing</h2>
+                            <h2 class="service-card-h2"><a href="email-marketing-agency.html" class="opes-svc-h">Email Marketing</a></h2>
                             <div class="w-dyn-list">
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
@@ -1825,7 +1895,7 @@ html.night .opes-vs-them { color: #8FA3BC; }
 
                     <div class="services-card small">
                         <div class="service-card-info">
-                            <h2 class="service-card-h2">Website Building</h2>
+                            <h2 class="service-card-h2"><a href="website-design.html" class="opes-svc-h">Website Building</a></h2>
                             <div class="w-dyn-list">
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
@@ -1862,7 +1932,7 @@ html.night .opes-vs-them { color: #8FA3BC; }
 
                     <div class="services-card small">
                         <div class="service-card-info">
-                            <h2 class="service-card-h2">CRM Automation</h2>
+                            <h2 class="service-card-h2"><a href="hubspot-crm-agency.html" class="opes-svc-h">CRM Automation</a></h2>
                             <div class="w-dyn-list">
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
@@ -1899,7 +1969,7 @@ html.night .opes-vs-them { color: #8FA3BC; }
 
                     <div class="services-card small">
                         <div class="service-card-info">
-                            <h2 class="service-card-h2">N8N</h2>
+                            <h2 class="service-card-h2"><a href="marketing-automation.html" class="opes-svc-h">N8N</a></h2>
                             <div class="w-dyn-list">
                                 <div role="list" class="service-card-services-list w-dyn-items">
                                     <div role="listitem" class="w-dyn-item">
@@ -3047,7 +3117,11 @@ html.night .opes-vs-them { color: #8FA3BC; }
             <nav class="ofx-cols" aria-label="Footer">
                 <div>
                     <p class="ofx-h">Explore</p>
-                    <ul><li><a href="#services">Services</a></li><li><a href="process.html">Process</a></li><li><a href="campaigns.html">Campaigns</a></li><li><a href="work.html">Work</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="guides.html">Guides</a></li></ul>
+                    <ul><li><a href="services.html">Services</a></li><li><a href="process.html">Process</a></li><li><a href="campaigns.html">Campaigns</a></li><li><a href="work.html">Work</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="guides.html">Guides</a></li></ul>
+                </div>
+                <div>
+                    <p class="ofx-h">Services</p>
+                    <ul><li><a href="email-marketing-agency.html">Email marketing</a></li><li><a href="ecrm-agency.html">eCRM and retention</a></li><li><a href="klaviyo-agency.html">Klaviyo</a></li><li><a href="b2b-email-marketing.html">B2B email</a></li><li><a href="hubspot-crm-agency.html">HubSpot and CRM</a></li><li><a href="marketing-automation.html">N8N and automation</a></li><li><a href="meta-ads-agency.html">Meta ads</a></li><li><a href="website-design.html">Websites</a></li></ul>
                 </div>
                 <div>
                     <p class="ofx-h">Why Opes</p>
