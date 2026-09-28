@@ -9,8 +9,16 @@
 /webfonts/*
   Cache-Control: public, max-age=31536000, immutable
 
+# bfcm.css and bfcm.js keep the same filenames on every deploy, so a browser
+# (and Cloudflare's own edge) holding a copy has no way to know the contents
+# changed. max-age=86400 here meant up to 24 hours of visitors seeing the
+# previous version of the Black Friday gift after every push, which is what
+# happened on 28/09. must-revalidate makes the cache check first: the server
+# answers 304 and sends no body unless the file really did change, so it costs
+# one small round trip and removes the "why is it still the old one" problem.
+# Put this back to a long max-age after Cyber Monday, when the files stop moving.
 /bfcm/*
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=0, must-revalidate
 
 /favicon.ico
   Cache-Control: public, max-age=604800
