@@ -1,8 +1,20 @@
 # Opes Consulting
 
-> Opes Consulting is an eCRM and lifecycle email marketing agency based in London, working with B2B, B2C and eCommerce brands across the UK, Europe and the USA. We build email marketing programmes, CRM automation, N8N workflow automation and custom websites. Work is backed by a guarantee: you don't pay unless we deliver on the Performance Threshold agreed in writing before any work starts.
+> Opes Consulting is an eCRM and lifecycle email marketing agency based in London, working with B2B, B2C and eCommerce brands across the UK, Europe and the USA. We build email marketing and Klaviyo programmes, eCRM and retention systems, B2B lead nurture, HubSpot CRM set ups, N8N, Make.com and Zapier automation, Meta ads and custom websites. Work is backed by a guarantee: you don't pay unless we deliver on the Performance Threshold agreed in writing before any work starts.
 
-Platforms we work in: Klaviyo, HubSpot, Brevo, GoHighLevel, N8N. Contact: hello@opesconsulting.online. Instagram: @weareopes.
+Platforms we work in: Klaviyo, HubSpot, Brevo, GoHighLevel, Pipedrive, N8N, Make.com, Zapier and Meta Ads Manager. Contact: hello@opesconsulting.online. Instagram: @weareopes.
+
+## Services
+
+- [All services](https://opesconsulting.london/services)
+- [Email marketing agency](https://opesconsulting.london/email-marketing-agency): lifecycle flows and campaigns for eCommerce, B2C and B2B brands
+- [eCRM agency](https://opesconsulting.london/ecrm-agency): CRM, customer data and email connected into one retention system
+- [Klaviyo agency](https://opesconsulting.london/klaviyo-agency): Klaviyo set up, flows, segments, campaigns and audits
+- [B2B email marketing](https://opesconsulting.london/b2b-email-marketing): lead nurture, sales enablement and client retention
+- [HubSpot CRM](https://opesconsulting.london/hubspot-crm-agency): pipelines, lead scoring, workflows, integrations and migrations
+- [N8N, Make and Zapier automation](https://opesconsulting.london/marketing-automation): workflow automation and API integration
+- [Meta ads](https://opesconsulting.london/meta-ads-agency): Facebook and Instagram ads tied into email and CRM
+- [Website design](https://opesconsulting.london/website-design): custom HTML and Tailwind CSS sites on Cloudflare Pages
 
 ## Main pages
 
