@@ -199,6 +199,31 @@
                         30 minutes, no obligation, no pitch deck. If something comes up you can
                         reschedule from the confirmation email.
                     </p>
+
+                    <!-- Always-visible route to the calendar. Re-added 28/09 after the
+                         two-step rebuild dropped it.
+
+                         It matters more now than it did before. #booking-fallback only
+                         appears after step 1 is submitted AND the embed has failed to
+                         produce an iframe for 3.5s, and it is revealed by our own script.
+                         So a visitor with a strict blocker faces: fill in the form, wait,
+                         and only then get an escape route, or, if the page script is
+                         blocked too, nothing at all (the form will not even submit).
+                         This line is plain markup with no script behind it, so it is the
+                         one way to the calendar that cannot break. Kept quiet on purpose:
+                         it must not pull people out of the form when the form is working,
+                         which is nearly always. -->
+                    <div id="booking-direct" class="mt-8 pt-6 border-t border-slate-100">
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Calendar not loading? An ad blocker will sometimes stop it.
+                            <a href="https://meetings-eu1.hubspot.com/aran-patel"
+                               class="font-semibold text-brand underline underline-offset-2 hover:text-[#0077CC]">Open
+                                the booking page directly</a>, or email
+                            <a href="mailto:aran@opesconsulting.online"
+                               class="text-brand underline underline-offset-2 hover:text-[#0077CC]">aran@opesconsulting.online</a>
+                            and we'll find you a time.
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Right: the booking widget -->
@@ -397,6 +422,11 @@
                 box.style.display = 'none';
                 box.style.minHeight = '0';
                 document.getElementById('booking-fallback').hidden = false;
+
+                /* The panel now says the same thing, louder and with a button. Drop the
+                   quiet line so the page is not telling the visitor twice. */
+                var quiet = document.getElementById('booking-direct');
+                if (quiet) quiet.hidden = true;
             }, 3500);
 
             step2.scrollIntoView({ behavior: 'smooth', block: 'start' });
