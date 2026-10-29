@@ -101,15 +101,11 @@
 
     <style>
 
-        /* Google's appointment schedule iframe. Unlike the old HubSpot embed it does
-           not resize itself, so the height is set here. 700px fits a month grid plus
-           the time slots without an inner scrollbar on a laptop; below 640px Google
-           switches to its narrow layout, which needs more vertical room. */
+        /* HubSpot Meetings embed. HubSpot's own script sizes the iframe to fit,
+           so only a minimum height is set here to stop the page jumping while it
+           loads. 29/10: back on HubSpot (was Google's appointment schedule). */
         .cal-frame { min-height: 700px; }
-        .cal-frame iframe { display: block; width: 100%; height: 700px; border: 0; }
-        @media (max-width: 640px) {
-            .cal-frame, .cal-frame iframe { min-height: 820px; height: 820px; }
-        }
+        .cal-frame iframe { display: block; width: 100%; border: 0; }
 
         /* Step 1 questions */
         .q-label { display:block; font-size:14px; font-weight:500; color:#0A0C19; margin-bottom:6px; }
@@ -222,7 +218,7 @@
                     <div id="booking-direct" class="mt-8 pt-6 border-t border-slate-100">
                         <p class="text-sm text-slate-600 leading-relaxed">
                             Calendar not loading? An ad blocker will sometimes stop it.
-                            <a href="https://calendar.app.google/RawoAHi3DoPtqgBx6"
+                            <a href="https://meetings-eu1.hubspot.com/aran-patel"
                                class="font-semibold text-brand underline underline-offset-2 hover:text-[#0077CC]">Open
                                 the booking page directly</a>, or email
                             <a href="mailto:jaah@opesconsulting.london"
@@ -296,16 +292,10 @@
                         </form>
 
                         <!-- Step 2: the calendar. Built by the script below once step 1 is
-                             done. The old HubSpot embed took name and email as URL
-                             parameters so step 2 never re-asked. Google's appointment
-                             schedules have no prefill, so it does ask again. The note
-                             below says so, because an unexplained second set of identical
-                             boxes reads as a bug and loses bookings. -->
+                             done. 29/10: back on HubSpot Meetings, which takes name and
+                             email as URL parameters, so step 2 does not ask again. -->
                         <div id="discovery-step2" hidden>
                             <p class="px-4 pt-4 text-sm font-semibold uppercase tracking-wider text-brand">Step 2 of 2 &middot; pick a time</p>
-                            <p class="px-4 pt-1 pb-3 text-sm text-slate-500">
-                                Google will ask for your name and email once more to send the invite.
-                            </p>
                             <div id="meetings-slot"></div>
                         </div>
 
@@ -317,7 +307,7 @@
                                 Usually an ad blocker. You can book on the calendar directly.
                                 Same times, same 30 minutes.
                             </p>
-                            <a href="https://calendar.app.google/RawoAHi3DoPtqgBx6"
+                            <a href="https://meetings-eu1.hubspot.com/aran-patel"
                                class="inline-block mt-6 px-6 py-3 rounded-lg bg-brand text-white font-semibold hover:bg-[#0077CC]">
                                 Open the booking calendar
                             </a>
@@ -354,22 +344,22 @@
     <!-- The booking calendar. Loads regardless of cookie choice: it IS the
          service the visitor came for, not analytics.
 
-         21/10: moved off HubSpot Meetings (aran-patel) onto the Google
-         appointment schedule on Jaheim's calendar. The questionnaire above is
-         unchanged and still posts to HubSpot, so contacts and their answers
-         keep landing in the CRM exactly as before. -->
+         21/10: moved off HubSpot Meetings onto a Google appointment schedule.
+         29/10: back on HubSpot Meetings (meetings-eu1.hubspot.com/aran-patel),
+         which now books into Jaheim's calendar, jaah@opesconsulting.london,
+         connected in HubSpot under Settings > General > Calendar. The
+         questionnaire above is unchanged and still posts to HubSpot. -->
     <script>
     (function () {
         var PORTAL    = '149303097';
         var FORM_GUID = 'c88ffe36-c411-4fca-8d90-070558b03076';
 
-        /* Two forms of the same schedule. BOOK_URL is the short share link, for
-           opening in a new tab. EMBED_URL is the long form with gv=true, which is
-           the only one that renders inside an iframe. Keep both pointing at the
-           same schedule if it is ever changed. */
-        var BOOK_URL  = 'https://calendar.app.google/RawoAHi3DoPtqgBx6';
-        var EMBED_URL = 'https://calendar.google.com/calendar/appointments/schedules/' +
-                        'AcZssZ1WRs9x3_KDbLmyO5mBpRfMQoqA1YQ3LlJja789usOPMqa_CXCj6Pantn5qL8UCzxzDsUvioiKk?gv=true';
+        /* HubSpot Meetings link. BOOK_URL opens it in a new tab (the fallback
+           links use the same address). The embed adds embed=true plus the name
+           and email from step 1 so the visitor is not asked twice. If the link
+           ever changes, change it here and in the two links in the markup. */
+        var BOOK_URL  = 'https://meetings-eu1.hubspot.com/aran-patel';
+        var EMBED_JS  = 'https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js';
 
         var form   = document.getElementById('discovery-form');
         var step2  = document.getElementById('discovery-step2');
@@ -430,52 +420,30 @@
             form.hidden = true;
             step2.hidden = false;
 
-            /* Google renders the schedule itself, so unlike the HubSpot embed there
-               is no third party script to load and nothing to wait for a widget to
-               build. Just the iframe.
-
-               Failure detection has to work differently because of that, and it is
-               worth being honest that it cannot be made airtight. The frame is
-               cross origin, so the page is not allowed to look inside it: a blocked
-               frame, an error page and a real calendar are not reliably
-               distinguishable from out here, and a blocked iframe still fires
-               'load' in Chromium, so 'load' alone proves nothing.
-
-               So we probe the host directly instead. A no-cors fetch to
-               calendar.google.com resolves opaquely when the request gets through
-               and rejects when something stops it at the network layer, which is
-               what a blocker, a DNS block or a corporate firewall does. That is the
-               signal. The timeout is only a backstop for a request that hangs
-               rather than fails.
-
-               The real safety net is not this code at all, it is the
-               #booking-direct line in the left column, which is plain markup, is
-               always on the page and needs nothing to work. Treat what follows as a
-               nicety on top of that, not as the thing standing between a visitor
-               and the calendar. */
+            /* HubSpot's embed: a container with data-src, then their script
+               turns it into a self sizing iframe. If a blocker stops the script
+               or the frame, no iframe appears, so we check for one after a few
+               seconds and show the fallback panel if it is missing. The
+               #booking-direct line in the left column is the real safety net:
+               plain markup that needs nothing to work. */
             var box = document.createElement('div');
-            box.className = 'cal-frame';
-
-            var f = document.createElement('iframe');
-            f.src = EMBED_URL;
-            f.title = 'Pick a time for your discovery call';
-            f.setAttribute('loading', 'eager');
-            f.setAttribute('frameborder', '0');
-
-            var settled = false;
-            function fail() { if (!settled) { settled = true; showFallback(box); } }
-
-            try {
-                fetch(EMBED_URL, { mode: 'no-cors', cache: 'no-store' })
-                    .then(function () { settled = true; })
-                    .catch(fail);
-            } catch (e) { /* no fetch, fall through to the timeout */ }
-
-            f.addEventListener('error', fail);
-            setTimeout(fail, 8000);
-
-            box.appendChild(f);
+            box.className = 'cal-frame meetings-iframe-container';
+            var q = 'embed=true' +
+                    '&firstName=' + encodeURIComponent(val('firstname')) +
+                    '&lastName='  + encodeURIComponent(val('lastname')) +
+                    '&email='     + encodeURIComponent(val('email'));
+            box.setAttribute('data-src', BOOK_URL + '?' + q);
             slot.appendChild(box);
+
+            var s = document.createElement('script');
+            s.src = EMBED_JS;
+            s.async = true;
+            s.onerror = function () { showFallback(box); };
+            document.body.appendChild(s);
+
+            setTimeout(function () {
+                if (!box.querySelector('iframe')) showFallback(box);
+            }, 6000);
 
             step2.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -512,24 +480,13 @@
             setTimeout(go, 4000);
         });
 
-        /* BOOKING AUTOMATION, rewired 21/10.
-
-           The block that used to live here listened for HubSpot's
-           meetingBookSucceeded message and posted the answers plus the call time
-           to the "Discovery call booked" Zap. Google's appointment schedule sends
-           no such message, so that code could never fire again and has been
-           removed rather than left to rot.
-
-           The Zap now triggers on the Google Calendar side instead:
-             Trigger : Google Calendar, New Event, on Jaheim's calendar
-             Then    : HubSpot, Find Contact, by the attendee's email
-             Then    : the existing deal, Slack alert and prep email actions
-
-           The questionnaire answers are already on that contact, put there by
-           sendAnswers() above, so nothing is lost. The one thing to watch is
-           somebody typing a different email into Google's booking page than they
-           gave in step 1, which makes the lookup miss. Have the Zap fall back to
-           creating the contact rather than stopping. */
+        /* BOOKING AUTOMATION. 29/10: bookings now come from HubSpot Meetings
+           and land on jaah@opesconsulting.london's calendar. The "Discovery
+           call booked" Zap was set to trigger on Google Calendar New Event on
+           Jaheim's old Google calendar, so point its trigger at the calendar
+           HubSpot now books into (or switch it to a HubSpot meeting trigger).
+           The questionnaire answers are already on the contact, put there by
+           sendAnswers() above. */
     })();
     </script>
 
