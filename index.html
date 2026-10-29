@@ -48,7 +48,7 @@
       "image": "https://opesconsulting.london/images/og-image.jpg",
       "slogan": "Smarter eCRM. Stronger customer relationships. Better results.",
       "description": "London eCRM and lifecycle email marketing agency. Email marketing, Klaviyo, B2B lead nurture, HubSpot CRM, N8N workflow automation, Meta ads and custom website builds for B2B, B2C and eCommerce brands.",
-      "email": "hello@opesconsulting.online",
+      "email": "hello@opesconsulting.london",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "London",
@@ -1717,6 +1717,195 @@ html.night .opes-vs-them { color: #8FA3BC; }
   a.opes-svc-h:hover { color: #0094FF; }
   a.opes-svc-h::after { content: " \2192"; font-size: .7em; color: #0094FF; vertical-align: .12em; }
 </style>
+
+<style>
+/* ============================================================
+   PHONE DECLUTTER PASS  —  29/10/26
+   Everything here is inside a max-width:767px query, so the
+   desktop layout is untouched. Nothing is deleted from the
+   document: the two hidden hero lines repeat the logo and the
+   h1's own screen-reader text, so nothing is lost to a reader
+   or to a crawler either.
+   Measured before: 13,702px tall at 390px, 16.2 phone screens.
+   ============================================================ */
+@media (max-width: 767px) {
+
+  /* --- 1. The hero said the brand name three times ---------
+     The logo sits directly above, and the h1 already opens with
+     a visually hidden "Opes Consulting." for screen readers and
+     search engines. These two lines were the third and fourth
+     telling, costing 86px before anyone reached a button. */
+  .opes-hero-attrib,
+  .opes-hero-sub { display: none !important; }
+
+  /* --- 2. Stop centring body copy --------------------------
+     Centred text on a 390px screen gives every line a different
+     starting x, so the eye has to hunt for the start of each
+     one. Headings and paragraphs go left; the eyebrow pills and
+     the carousels keep their own alignment. */
+  .opes-hero-in { text-align: left !important; }
+  .opes-hero-lede { margin-left: 0; margin-right: 0; }
+  .opes-promise { text-align: left !important; margin-left: 0; margin-right: 0; }
+
+  /* --- 2b. The hero, rebuilt for the phone  —  29/10 ------
+     It was a narrow centred column floating in the middle of a
+     full height section, with roughly 200px of dead air under
+     it. Now it uses the width it has, with deliberate spacing
+     instead of accidental gaps.
+
+     The headline gets bigger, not smaller. On a phone the
+     headline IS the design, and there is room for it once the
+     brand lines and the repeated terms paragraph are gone. */
+  /* The hero fills the screen, by request. svh not vh so it does
+     not jump when the phone's address bar hides and shows.
+
+     The trap with a full height hero is the one this had before:
+     trimmed content clumped at the top with a band of dead
+     gradient under it. So the content is spread to use the
+     height rather than just parked in the middle of it. The
+     spacing below is deliberately looser than it needs to be for
+     exactly that reason. */
+  .opes-hero.opes-full {
+      min-height: calc(100svh - 81px) !important;   /* 81px is the measured mobile header */
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 2rem !important;
+      padding-bottom: 2rem !important;
+  }
+
+  /* Everywhere ELSE .opes-full is used it was doing harm: it
+     forces a section to be at least a full screen tall and
+     centres the content inside, so any section with less content
+     than that gets empty bands above and below. The contact
+     block had about 500px of empty navy before its heading.
+     Those sections are now the size of what is in them. The hero
+     above is the deliberate exception. */
+  section:not(.opes-hero).opes-full,
+  div:not(.opes-hero).opes-full { min-height: 0 !important; }
+  #contact.opes-full { padding-top: 3rem !important; padding-bottom: 3.5rem !important; }
+  .opes-hero-in { padding-left: 24px !important; padding-right: 24px !important; }
+
+  .opes-hero h1 {
+      max-width: none; margin-left: 0;
+      font-size: 2.35rem !important;
+      line-height: 1.08 !important;
+      letter-spacing: -.028em !important;
+      text-wrap: pretty;
+  }
+  .opes-hero-lede {
+      margin-top: 1.75rem !important;
+      font-size: 1.02rem !important;
+      line-height: 1.6 !important;
+      max-width: 34ch;
+  }
+
+  /* The guarantee was a bold claim followed by a three line
+     paragraph of terms. That same paragraph appears twice more
+     further down this page and in full in the guarantee section,
+     so on a phone it is said four times. Here it becomes the
+     claim plus the link, and the link is where the detail lives.
+     See .opes-promise-copy below, which does the hiding. */
+  .opes-promise {
+      margin: 2.4rem 0 0 !important;
+      padding: 14px 16px;
+      background: rgba(0,148,255,.055);
+      border: 1px solid rgba(0,148,255,.16);
+      border-radius: 14px;
+  }
+  .opes-promise b { font-size: 15.5px !important; align-items: flex-start; }
+  .opes-promise svg { margin-top: 2px; }
+  .opes-promise-terms { margin-top: 6px !important; font-size: 13px !important; }
+
+  /* Full width primary action. A 165px pill in the corner of a
+     390px screen is a small target and reads as an afterthought;
+     this is the one thing the page wants you to do. */
+  .opes-hero-cta {
+      margin-top: 2rem !important;
+      display: grid !important;
+      grid-template-columns: 1fr;
+      gap: 10px !important;
+  }
+  .opes-hero-cta .custom-filled-button,
+  .opes-hero-cta .custom-stroked-button {
+      width: 100%; justify-content: center;
+      padding: 15px 20px !important; font-size: 15px !important;
+  }
+
+  /* --- 2c. The repeated terms paragraph ---------------------
+     Hidden in all three places it appears on this page (hero,
+     the mid page CTA band, and the contact block). The bold
+     claim and the "How the guarantee works" link stay in all
+     three, and that link goes to the section that carries the
+     terms in full. Desktop still shows every word. */
+  .opes-promise-copy { display: none !important; }
+
+  #services > div:first-child,
+  #services .max-w-2xl,
+  #work .opes-work-head,
+  #faq > div > .text-center,
+  #contact > div,
+  #opes-vs-others > .container,
+  #opes-guarantee > .container { text-align: left !important; }
+
+  /* The CTA rows inside those sections were centred by the same
+     parent, so pull them back to the left edge too. */
+  /* The heading block is a flex column with items-center, so the
+     button row was being centred as a flex item no matter what
+     justify-content it carried. Align the column's items instead. */
+  #services > div:first-child > .flex { align-items: flex-start !important; }
+  #contact > div > .flex,
+  #opes-vs-others .opes-vs-cta { justify-content: flex-start !important; }
+
+  /* --- 3. Service cards were the worst offender ------------
+     Four cards at 511px each, 2,044px to carry 112 words. The
+     screenshot inside each card was doing most of that. Smaller
+     image, tighter padding, closer tick list. The words all
+     stay. */
+  .services-card { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+  .services-card .service-card-info { gap: .5rem; }
+  .services-card ul li { margin-bottom: .35rem; }
+
+  /* The imagery block is a fixed 266px box with the screenshots
+     absolutely positioned inside it, so shrinking the images alone
+     changed nothing. The box itself has to come down. */
+  .service-card-imagery,
+  .service-card-imagery.small {
+      height: 206px !important;
+      min-height: 206px !important;
+  }
+  /* Height only, never width. These are very tall screenshots
+     (one is 600 x 4903) cropped by object-fit: cover, so setting
+     width:auto collapses them to a 15px sliver. Leave the widths
+     alone and let the crop do the work. */
+  .services-card .first-image,
+  .services-card .second-image { height: 158px !important; max-height: 158px !important; }
+  .services-card .only-image { max-height: 158px !important; }
+
+  /* --- 4. The comparison table --------------------------
+     Eight rows, two narrow columns, every cell wrapping to
+     three or four lines. Tightening the cell padding and
+     dropping a point of type gives the words more width each,
+     so they wrap less and the whole block gets shorter. */
+  .opes-vs-row > * { padding: 10px 11px !important; font-size: 13px !important; line-height: 1.42 !important; }
+  .opes-vs-head > * { font-size: 12.5px !important; }
+  .opes-vs-label { font-size: .66rem !important; padding-top: 12px !important; }
+  .opes-vs-us svg, .opes-vs-them svg { width: 15px !important; height: 15px !important; }
+  .opes-vs-us, .opes-vs-them { gap: 7px !important; }
+  .opes-vs-table { margin-top: 26px !important; }
+
+  /* --- 5. The Black Friday block stays, but stops shouting --
+     44px display type on a 390px screen is most of a line per
+     word. The offer is unchanged, it just takes less room. */
+  .obf-home .obf-big { font-size: 2.4rem !important; }
+  .obf-home h2 { font-size: 1.6rem !important; line-height: 1.2 !important; }
+  .obf-home .obf-lead { font-size: 1.35rem !important; }
+
+  /* --- 6. Breathing room between sections ------------------
+     Not the padding (already 36px) but the gap between a
+     heading and the content under it, which was tuned for a
+     desktop column and reads as a hole on a phone. */
+  #services > div:first-child { margin-bottom: 1.25rem !important; }
+}
+</style>
 </head>
 <body data-bfcm-gifts="2" class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
@@ -1795,7 +1984,7 @@ html.night .opes-vs-them { color: #8FA3BC; }
 
                 <div class="opes-promise">
                     <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>Half to start. The rest only when we hit your number.</b>
-                    <span class="opes-promise-terms">We agree your baseline and your Performance Threshold on the call, in writing, before any work starts. You pay half to begin, and the second half is only due if we reach it within 21 days. <a href="#opes-guarantee">How the guarantee works</a></span>
+                    <span class="opes-promise-terms"><span class="opes-promise-copy">We agree your baseline and your Performance Threshold on the call, in writing, before any work starts. You pay half to begin, and the second half is only due if we reach it within 21 days. </span><a href="#opes-guarantee">How the guarantee works</a></span>
                 </div>
 
                 <div class="opes-hero-cta">
@@ -2328,7 +2517,7 @@ html.night .opes-vs-them { color: #8FA3BC; }
                 <h2>We work across the whole customer lifecycle.</h2>
                 <div class="opes-promise">
                     <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>Half to start. The rest only when we hit your number.</b>
-                    <span class="opes-promise-terms">We agree your baseline and your Performance Threshold on the call, in writing, before any work starts. You pay half to begin, and the second half is only due if we reach it within 21 days. <a href="#opes-guarantee">How the guarantee works</a></span>
+                    <span class="opes-promise-terms"><span class="opes-promise-copy">We agree your baseline and your Performance Threshold on the call, in writing, before any work starts. You pay half to begin, and the second half is only due if we reach it within 21 days. </span><a href="#opes-guarantee">How the guarantee works</a></span>
                 </div>
                 <div class="opes-hero-cta">
                     <a href="book.html"
@@ -3094,7 +3283,7 @@ html.night .opes-vs-them { color: #8FA3BC; }
 
                 <div class="opes-promise">
                     <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>Half to start. The rest only when we hit your number.</b>
-                    <span class="opes-promise-terms">We agree your baseline and your Performance Threshold on the call, in writing, before any work starts. You pay half to begin, and the second half is only due if we reach it within 21 days. <a href="#opes-guarantee">How the guarantee works</a></span>
+                    <span class="opes-promise-terms"><span class="opes-promise-copy">We agree your baseline and your Performance Threshold on the call, in writing, before any work starts. You pay half to begin, and the second half is only due if we reach it within 21 days. </span><a href="#opes-guarantee">How the guarantee works</a></span>
                 </div>
 
                 <div class="opes-hero-cta">
@@ -3129,7 +3318,7 @@ html.night .opes-vs-them { color: #8FA3BC; }
                 </div>
                 <div>
                     <p class="ofx-h">Contact</p>
-                    <ul><li><a href="mailto:hello@opesconsulting.online">hello@opesconsulting.online</a></li><li><a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" class="ofx-ig"><i class="opes-ig"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 6.19a3.65 3.65 0 1 0 0 7.3 3.65 3.65 0 0 0 0-7.3Zm0 6.02a2.37 2.37 0 1 1 0-4.74 2.37 2.37 0 0 1 0 4.74Zm4.65-6.15a.85.85 0 1 1-1.7 0 .85.85 0 0 1 1.7 0Z"/></svg></i> @weareopes</a></li><li class="ofx-muted">London, United Kingdom</li></ul>
+                    <ul><li><a href="mailto:hello@opesconsulting.london">hello@opesconsulting.london</a></li><li><a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" class="ofx-ig"><i class="opes-ig"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 6.19a3.65 3.65 0 1 0 0 7.3 3.65 3.65 0 0 0 0-7.3Zm0 6.02a2.37 2.37 0 1 1 0-4.74 2.37 2.37 0 0 1 0 4.74Zm4.65-6.15a.85.85 0 1 1-1.7 0 .85.85 0 0 1 1.7 0Z"/></svg></i> @weareopes</a></li><li class="ofx-muted">London, United Kingdom</li></ul>
                 </div>
             </nav>
             <div class="ofx-base">
