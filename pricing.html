@@ -800,6 +800,105 @@
   /* Footer gets a Services column, 26/09. Four columns on desktop. */
   @media (min-width: 641px) { .ofx-cols { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
 </style>
+
+<style id="opes-pricing-cards">
+/* ============================================================
+   PRICING: three cards, the detail behind a modal  —  03/11
+   One number per category on the page. Everything that used to
+   be stacked down the page now lives in a <dialog> behind the
+   card it belongs to.
+
+   Native <dialog> on purpose: Escape to close, focus trapped,
+   the rest of the page marked inert and the backdrop, all for
+   free and all correct. A div pretending to be a modal gets
+   none of that without a lot of code that is easy to get wrong.
+
+   Prices: each bundle shows its usual price as the big number,
+   then the Black Friday discount and what you actually pay. When
+   the offer ends, delete the .opes-bf line from each bundle, the
+   .opes-pick-bf line from the first card and the .opes-dlg-note,
+   and nothing else has to change.
+   ============================================================ */
+
+.opes-pick-hint {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    /* Sat 18px off the cards, which read as a label stuck to the first one.
+       Pulled up and given real room underneath so it reads as an instruction
+       for the row, not a caption on one card. */
+    margin: 4px 0 38px; font-size: 14px; font-weight: 600;
+    letter-spacing: .01em; color: #5A6675;
+}
+.opes-pick-hint svg { width: 17px; height: 17px; color: #0094FF; }
+
+/* The three plan cards are the buttons now. The whole card is
+   clickable, with the stroked button inside it as the visible
+   affordance for anyone who does not try clicking the card. */
+.opes-plan-card { cursor: pointer; transition: border-color .16s, box-shadow .16s, transform .16s; }
+.opes-plan-card:hover { border-color: #0094FF; box-shadow: 0 12px 30px rgba(0,148,255,.14); }
+.opes-plan-card:focus-visible { outline: 3px solid rgba(0,148,255,.45); outline-offset: 3px; }
+.opes-plan-bf {
+    margin: -6px 0 14px; font-size: .78rem; font-weight: 600; color: #0077CC;
+}
+.opes-plan-bf b { font-weight: 700; }
+
+/* ---- the modal ---- */
+.opes-dlg {
+    width: min(960px, calc(100vw - 32px));
+    max-height: calc(100vh - 48px);
+    padding: 0; border: 0; border-radius: 20px;
+    background: #fff; color: #0A0C19;
+    box-shadow: 0 24px 70px rgba(10,12,25,.3);
+    overflow: hidden;
+}
+.opes-dlg::backdrop { background: rgba(10,12,25,.55); backdrop-filter: blur(2px); }
+.opes-dlg-in { display: flex; flex-direction: column; max-height: calc(100vh - 48px); }
+
+.opes-dlg-head {
+    flex: none; display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding: 20px 22px; border-bottom: 1px solid #EDF1F6;
+    background: #fff;
+}
+.opes-dlg-head h3 { margin: 0; font-size: 1.3rem; font-weight: 700; letter-spacing: -.02em; }
+.opes-dlg-x {
+    flex: none; width: 38px; height: 38px; display: grid; place-items: center;
+    border: 1px solid #E4EAF2; border-radius: 10px; background: #fff;
+    color: #475569; cursor: pointer;
+}
+.opes-dlg-x:hover { background: #F8FAFC; color: #0A0C19; border-color: #CBD5E1; }
+.opes-dlg-x svg { width: 18px; height: 18px; }
+
+.opes-dlg-note {
+    flex: none; margin: 0; padding: 12px 22px;
+    background: rgba(0,148,255,.06); border-bottom: 1px solid #EDF1F6;
+    font-size: .86rem; line-height: 1.5; color: #44536A;
+}
+.opes-dlg-note b { color: #0A0C19; }
+
+/* The only scrolling area, so the title and the close button stay
+   put however long the content is. */
+.opes-dlg-body { flex: 1 1 auto; overflow-y: auto; padding: 22px; -webkit-overflow-scrolling: touch; }
+.opes-dlg-body > .opes-tbl,
+.opes-dlg-body > .opes-panel { margin: 0; }
+.opes-dlg-body .opes-seg { margin-top: 0; }
+
+/* Stops the page behind from scrolling while a dialog is open. */
+body.opes-dlg-open { overflow: hidden; }
+
+.opes-bf {
+    display: inline-block; margin-top: 6px;
+    font-size: .78rem; font-weight: 600; color: #0077CC;
+}
+.opes-bf em { font-style: normal; font-weight: 700; }
+
+@media (max-width: 640px) {
+    .opes-dlg { width: 100vw; max-width: 100vw; max-height: 100svh; border-radius: 0; margin: 0; }
+    .opes-dlg-in { max-height: 100svh; }
+    .opes-dlg-body { padding: 16px; }
+    .opes-dlg-head { padding: 16px; }
+    .opes-pick-card { padding: 22px 20px 18px; }
+    .opes-pick-num { font-size: 1.9rem; }
+}
+</style>
 </head>
 <body data-bfcm-gifts="2" class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
@@ -877,10 +976,15 @@
                     Everything we offer and what it costs, in one place. Pick a set package, save with a bundle, keep things running with a monthly plan, or talk to us about something built just for you.
                 </p>
 
+                <p class="opes-pick-hint">
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3.2v10l2.5-2.3 1.7 4.4 2.1-0.8-1.7-4.3h3.3L6 3.2Z" fill="currentColor"/></svg>
+                    Click a section to view more
+                </p>
+
                 <!-- 3 Card Grid -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 text-left">
 
-                    <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between relative hover:shadow-md transition-shadow">
+                    <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between relative hover:shadow-md transition-shadow opes-plan-card" data-dialog="dlg-retainers" role="button" tabindex="0">
                         <div>
                             <div class="opes-plan-title text-xl mb-2">Monthly Retainers</div>
                             <p class="text-slate-600 text-sm mb-6 font-medium">Once your system is live, a retainer keeps it working and growing:</p>
@@ -901,11 +1005,11 @@
                         </div>
                         <div>
                             <div class="opes-plan-price"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-price"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>From $299 <span class="opes-plan-per">/mo</span></div>
-                            <a href="#opes-retainers" class="custom-stroked-button w-full">See the tiers</a>
+                            <button type="button" data-dialog="dlg-retainers" class="custom-stroked-button w-full">See the tiers</button>
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-3xl p-8 border-2 border-brand shadow-xl flex flex-col justify-between relative transform lg:-translate-y-2">
+                    <div class="bg-white rounded-3xl p-8 border-2 border-brand shadow-xl flex flex-col justify-between relative transform lg:-translate-y-2 opes-plan-card" data-dialog="dlg-custom" role="button" tabindex="0">
                         <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full">
                             Most Popular
                         </div>
@@ -929,11 +1033,11 @@
                         </div>
                         <div>
                             <div class="opes-plan-price"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-price"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>Quoted for you</div>
-                            <a href="book.html" class="custom-filled-button w-full">Book a call</a>
+                            <button type="button" data-dialog="dlg-custom" class="custom-filled-button w-full">See what we build</button>
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between relative hover:shadow-md transition-shadow">
+                    <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between relative hover:shadow-md transition-shadow opes-plan-card" data-dialog="dlg-packages" role="button" tabindex="0">
                         <div>
                             <div class="opes-plan-title text-xl mb-2">Set Packages &amp; Bundles</div>
                             <p class="text-slate-600 text-sm mb-6 font-medium">Fixed prices you know before we start. Buy one module or save with a bundle:</p>
@@ -948,13 +1052,14 @@
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-li"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>
-                                    <span>Save up to $700 when you bundle</span>
+                                    <span>Black Friday: up to $700 off until 30 November</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <div class="opes-plan-price"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-price"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>Bundles from $4,700</div>
-                            <a href="#opes-packages" class="custom-stroked-button w-full">See the packages</a>
+                            <div class="opes-plan-price"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick opes-tick-price"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>Bundles from $5,200</div>
+                            <div class="opes-plan-bf"><b>Black Friday</b> from $4,700, until 30 Nov</div>
+                            <button type="button" data-dialog="dlg-packages" class="custom-stroked-button w-full">See the packages</button>
                         </div>
                     </div>
 
@@ -972,229 +1077,98 @@
              the part of the pricing that changes by business type; retainers and
              custom builds are the same whoever you are, so they sit below the
              switcher rather than being repeated inside all three panels. -->
-        <section id="opes-prices" class="opes-prices" aria-labelledby="opes-prices-t">
-            <div class="container mx-auto px-6">
-                <div class="opes-prices-head">
-                    <h2 id="opes-prices-t">Every number, <span class="text-brand">in one place</span></h2>
-                    <p>Set packages have a fixed price, so you know the cost before we start. After your onboarding audit, once we understand your business, anything extra is quoted on top. Nothing is added without your say so.</p>
-                </div>
+        
 
-                <div class="opes-seg" role="tablist" aria-label="Business type">
-                    <button type="button" role="tab" id="seg-b2b-t"  aria-controls="seg-b2b"  aria-selected="true">B2B</button>
-                    <button type="button" role="tab" id="seg-b2c-t"  aria-controls="seg-b2c"  aria-selected="false">B2C</button>
-                    <button type="button" role="tab" id="seg-ecom-t" aria-controls="seg-ecom" aria-selected="false">eCommerce</button>
-                </div>
-
-                <div class="opes-panel" id="seg-b2b" role="tabpanel" aria-labelledby="seg-b2b-t">
-                    <div class="opes-bundle">
-                        <div class="opes-bundle-top">
-                            <div>
-                                <span class="opes-bundle-eyebrow">B2B bundle</span>
-                                <h3>The Pipeline Bundle</h3>
-                                <p>For consultancies, agencies, SaaS and professional services with longer sales cycles, where trust is built over months.</p>
-                            </div>
-                            <div class="opes-bundle-price">
-                                <b>$5,000</b>
-                                <span>Total value $5,500 &middot; <em>Save $500</em></span>
-                            </div>
-                        </div>
-                        <p class="opes-bundle-h">Includes</p>
-                        <div class="opes-tags"><span class="opes-tag">Acquisition and lead generation</span><span class="opes-tag">Lead nurture</span><span class="opes-tag">Sales enablement</span><span class="opes-tag">Onboarding and adoption</span><span class="opes-tag">Retention and growth</span><span class="opes-tag">Win back</span><span class="opes-tag">CRM automations</span></div>
-                        <p class="opes-bundle-add"><b>Add ons:</b> Cold outbound +$500</p>
-                        <a href="book.html" class="custom-filled-button">Book a call about this bundle</a>
-                    </div>
-                    <div class="opes-tbl opes-mods">
-                        <h3>Or buy modules one at a time</h3>
-                        <p>Every module can be bought on its own. Tap one to see what it covers.</p>
-                        <div class="opes-rows">
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Acquisition and lead generation</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
-                            <ul><li>Lead magnet follow ups after someone downloads a guide, report or template</li><li>Webinar and event campaigns covering invites, reminders, replays and follow ups</li><li class="opes-mod-add"><b>Add on:</b> Cold outbound sequences through sales tools like Apollo or Outreach, +$500</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Lead nurture</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
-                            <ul><li>Nurture sequences that move a prospect from interest to a sales call</li><li>An educational series with insights, frameworks and how to guides that build authority</li><li>Case study and social proof sends: client wins, results and testimonials</li><li>A newsletter that keeps your brand front of mind every month or fortnight</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Sales enablement</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
-                            <ul><li>Demo and consultation booking pushes</li><li>Post demo follow ups covering proposal reminders and FAQs</li><li>Account based marketing: personalised campaigns aimed at named target companies</li><li>Re engagement of stalled deals, the pipeline that went quiet</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Onboarding and adoption</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
-                            <ul><li>Welcome and onboarding sequences for new clients</li><li>Feature and service adoption nudges</li><li>Check ins at 30, 60 and 90 days</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Retention and growth</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
-                            <ul><li>Renewal reminders</li><li>Upsell and cross sell campaigns</li><li>Quarterly business review invites</li><li>NPS and feedback surveys</li><li>Referral and partner programmes</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Win back</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
-                            <ul><li>Churned client re engagement</li><li>Cold lead reactivation for contacts who stopped opening</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">CRM automations</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
-                            <ul><li>Lead scoring, and lead capture and routing</li><li>Lifecycle stage updates and deal stage automation</li><li>Stalled deal alerts and meeting booked triggers</li><li>ABM account tiering and a renewal pipeline</li><li>Closed won and closed lost workflows</li></ul>
-                        </details><div class="opes-mod-total"><span>All seven B2B modules bought separately</span><b>$5,500</b></div>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="opes-panel" id="seg-b2c" role="tabpanel" aria-labelledby="seg-b2c-t" hidden>
-                    <div class="opes-bundle">
-                        <div class="opes-bundle-top">
-                            <div>
-                                <span class="opes-bundle-eyebrow">B2C bundle</span>
-                                <h3>The Loyalty Bundle</h3>
-                                <p>For brands without an online store: gyms, salons, subscriptions, apps, hospitality and memberships.</p>
-                            </div>
-                            <div class="opes-bundle-price">
-                                <b>$4,700</b>
-                                <span>Total value $5,200 &middot; <em>Save $500</em></span>
-                            </div>
-                        </div>
-                        <p class="opes-bundle-h">Includes</p>
-                        <div class="opes-tags"><span class="opes-tag">Acquisition and welcome</span><span class="opes-tag">Loyalty and retention</span><span class="opes-tag">Promotional</span><span class="opes-tag">Seasonal</span><span class="opes-tag">Win back and list health</span><span class="opes-tag">Engagement and content</span></div>
-                        <p class="opes-bundle-add"><b>Add ons:</b> SMS opt in +$500</p>
-                        <a href="book.html" class="custom-filled-button">Book a call about this bundle</a>
-                    </div>
-                    <div class="opes-tbl opes-mods">
-                        <h3>Or buy modules one at a time</h3>
-                        <p>Every module can be bought on its own. Tap one to see what it covers.</p>
-                        <div class="opes-rows">
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Acquisition and welcome</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
-                            <ul><li>Welcome series, often with a first order discount</li><li>Popup and lead capture follow ups, such as a quiz, spin to win or early access</li><li>Educational emails</li><li>Review campaigns</li><li>Account credit emails</li><li class="opes-mod-add"><b>Add on:</b> SMS opt in campaigns, +$500</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Loyalty and retention</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
-                            <ul><li>Second purchase nudges, since the first repeat order matters most</li><li>Loyalty and points programme updates</li><li>VIP and tier campaigns</li><li>Birthday and anniversary emails</li><li>Referral programmes</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Promotional</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$700</b></summary>
-                            <ul><li>Product launches and new arrivals</li><li>Sales such as Black Friday, Cyber Monday, Boxing Day and summer sale</li><li>Flash sales and limited drops</li><li>Gift guides</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Seasonal</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
-                            <ul><li>Christmas, Valentine's Day and Mother's Day</li><li>Back to school, Halloween and Easter</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Win back and list health</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
-                            <ul><li>Lapsed customer win back</li><li>Re engagement for subscribers who stopped opening</li><li>Sunset flows that quietly remove dead contacts to protect deliverability</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Engagement and content</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
-                            <ul><li>Newsletters and editorial content</li><li>Preference centre updates</li><li>Surveys and feedback</li></ul>
-                        </details><div class="opes-mod-total"><span>All six modules bought separately</span><b>$5,200</b></div>
-                        </div>
-                        <p class="opes-note">Selling online as well? Browse and cart recovery and post purchase are on the eCommerce tab.</p>
-                    </div>
-                </div>
-                <div class="opes-panel" id="seg-ecom" role="tabpanel" aria-labelledby="seg-ecom-t" hidden>
-                    <div class="opes-bundle">
-                        <div class="opes-bundle-top">
-                            <div>
-                                <span class="opes-bundle-eyebrow">eCommerce bundle</span>
-                                <h3>The Revenue Bundle</h3>
-                                <p>For online stores on Shopify, WooCommerce and similar. Our most complete programme.</p>
-                            </div>
-                            <div class="opes-bundle-price">
-                                <b>$7,500</b>
-                                <span>Total value $8,200 &middot; <em>Save $700</em></span>
-                            </div>
-                        </div>
-                        <p class="opes-bundle-h">Includes</p>
-                        <div class="opes-tags"><span class="opes-tag">Acquisition and welcome</span><span class="opes-tag">Browse and cart recovery</span><span class="opes-tag">Post purchase</span><span class="opes-tag">Loyalty and retention</span><span class="opes-tag">Promotional</span><span class="opes-tag">Seasonal</span><span class="opes-tag">Win back and list health</span><span class="opes-tag">Engagement and content</span></div>
-                        <p class="opes-bundle-add"><b>Add ons:</b> SMS opt in +$500, Black Friday and Cyber Monday quoted</p>
-                        <a href="book.html" class="custom-filled-button">Book a call about this bundle</a>
-                    </div>
-                    <div class="opes-tbl opes-mods">
-                        <h3>Or buy modules one at a time</h3>
-                        <p>Every module can be bought on its own. Tap one to see what it covers.</p>
-                        <div class="opes-rows">
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Acquisition and welcome</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
-                            <ul><li>Welcome series, often with a first order discount</li><li>Popup and lead capture follow ups, such as a quiz, spin to win or early access</li><li>Educational emails</li><li>Review campaigns</li><li>Account credit emails</li><li class="opes-mod-add"><b>Add on:</b> SMS opt in campaigns, +$500</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Browse and cart recovery</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
-                            <ul><li>Browse abandonment for people who viewed a product but didn't add it to basket</li><li>Cart abandonment and checkout abandonment</li><li>Price drop alerts and back in stock alerts</li><li>Low stock and urgency alerts (“only 3 left”)</li><li>These automated flows usually earn the most</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Post purchase</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
-                            <ul><li>Order confirmation and shipping updates</li><li>Thank you and brand story emails</li><li>Product education: how to use it, care guides and styling tips</li><li>Review and UGC (user generated content) requests</li><li>Cross sell and upsell, such as “goes well with”</li><li>Replenishment reminders for consumables like skincare, supplements and coffee</li><li>Account credit emails</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Loyalty and retention</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
-                            <ul><li>Second purchase nudges, since the first repeat order matters most</li><li>Loyalty and points programme updates</li><li>VIP and tier campaigns</li><li>Birthday and anniversary emails</li><li>Referral programmes</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Promotional</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$700</b></summary>
-                            <ul><li>Product launches and new arrivals</li><li>Sales such as Black Friday, Cyber Monday, Boxing Day and summer sale</li><li>Flash sales and limited drops</li><li>Gift guides</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Seasonal</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
-                            <ul><li>Christmas, Valentine's Day and Mother's Day</li><li>Back to school, Halloween and Easter</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Win back and list health</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
-                            <ul><li>Lapsed customer win back</li><li>Re engagement for subscribers who stopped opening</li><li>Sunset flows that quietly remove dead contacts to protect deliverability</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Engagement and content</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
-                            <ul><li>Newsletters and editorial content</li><li>Preference centre updates</li><li>Surveys and feedback</li></ul>
-                        </details>
-                        <details class="opes-mod">
-                            <summary><span class="opes-mod-name">Black Friday and Cyber Monday</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price quote">Quoted</b></summary>
-                            <ul><li>A dedicated BFCM programme: Black Friday, Cyber Monday, Boxing Day and the flows around them</li><li>Priced on request each season</li></ul>
-                        </details><div class="opes-mod-total"><span>All eight B2C and ecommerce modules bought separately</span><b>$8,200</b></div>
-                        </div>
-                        <p class="opes-note">Black Friday and Cyber Monday is priced on request each season. It is not part of the bundle.</p>
-                    </div>
-                </div>
-
-                <div class="opes-tbl opes-wide" id="opes-retainers">
-                    <h3>Retainers</h3>
-                    <p>Once your system is live, a retainer keeps it working and growing. Every tier includes everything in the tier before it, and it&rsquo;s the same whatever your business type.</p>
-                    <div class="opes-tiers-wrap">
-                    <table class="opes-tiers">
-                        <thead>
-                            <tr><td></td><th scope="col">Tier 1</th><th scope="col">Tier 2</th><th scope="col">Tier 3<small>Exclusive</small></th></tr>
-                            <tr class="opes-tier-price"><th scope="row">Price</th><td><b>$299</b><small>a month</small></td><td><b>$499</b><small>a month</small></td><td><b class="quote">On application</b></td></tr>
-                        </thead>
-                        <tbody><tr><th scope="row">Email campaigns</th><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr><tr><th scope="row">Bi weekly reporting</th><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr><tr><th scope="row">Monthly growth call with a dedicated strategist</th><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr><tr><th scope="row">Fresh campaigns with in house strategy testing</th><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr><tr><th scope="row">CRM upkeep, keeping your automations running</th><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr><tr><th scope="row">Priority time on upkeep</th><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr><tr><th scope="row">Upkeep of your custom projects</th><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr></tbody>
-                    </table>
-                    </div>
-                </div>
-
-                <div class="opes-tbl opes-wide" id="opes-custom">
-                    <h3>Custom projects</h3>
-                    <p>Anything built specifically for your company, or outside the scope of a set package. Because it has to fit your business, we scope it with you and quote it, rather than giving a set price.</p>
-                    <div class="opes-custom-grid">
-                        <div>
-                            <p class="opes-bundle-h">What we build</p>
-                            <div class="opes-tags">
-                                <span class="opes-tag">Automations in N8N, Make.com and Zapier</span><span class="opes-tag">Websites</span>
-                                <span class="opes-tag">API integrations and webhooks</span><span class="opes-tag">eCRM integrations</span>
-                                <span class="opes-tag">Custom email architecture</span>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="opes-bundle-h">Strategy and implementation</p>
-                            <div class="opes-tags">
-                                <span class="opes-tag">A full go to market strategy and blueprint</span><span class="opes-tag">Email, CRM and software audits</span>
-                                <span class="opes-tag">ESP migration</span><span class="opes-tag">Strategy implementation</span>
-                                <span class="opes-tag">Engineering implementation</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="opes-prices-cta" style="text-align:left;margin-top:24px"><a href="book.html" class="custom-filled-button">Get a quote</a></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Anchors for the two cards that link straight to their own block. -->
+        <!-- Card -> dialog wiring, plus the existing segment tabs. -->
         <script>
         (function () {
+            /* Wait for the document before wiring anything up. The dialogs are
+               parked at the end of <main>, AFTER this script, so running
+               immediately found none of them and silently attached no handlers:
+               the cards opened a dialog, but its close button, its tabs and its
+               module rows were all dead. Position in the document must not be
+               load bearing. */
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', wire);
+            } else {
+                wire();
+            }
+
+            function wire() {
+            /* ---------- the three cards open the three dialogs ---------- */
+            var body = document.body;
+            var opener = null;      /* so focus goes back where it came from */
+
+            function open(id) {
+                var d = document.getElementById(id);
+                if (!d || d.open) return;     /* the inner button bubbles to the
+                                                 card, so this fires twice; calling
+                                                 showModal on an open dialog throws */
+                opener = document.activeElement;
+                if (typeof d.showModal === 'function') d.showModal();
+                else d.setAttribute('open', '');          /* very old browsers */
+                body.classList.add('opes-dlg-open');
+                d.querySelector('.opes-dlg-body').scrollTop = 0;
+            }
+            function close(d) {
+                if (typeof d.close === 'function') d.close();
+                else d.removeAttribute('open');
+            }
+
+            document.querySelectorAll('[data-dialog]').forEach(function (b) {
+                b.addEventListener('click', function () { open(b.getAttribute('data-dialog')); });
+                /* The whole card is role="button" with tabindex, so it has to
+                   answer Enter and Space the way a real button would. Real
+                   <button>s already do, hence the tagName check. */
+                if (b.tagName !== 'BUTTON') {
+                    b.addEventListener('keydown', function (e) {
+                        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                            e.preventDefault();
+                            open(b.getAttribute('data-dialog'));
+                        }
+                    });
+                }
+            });
+
+            document.querySelectorAll('dialog.opes-dlg').forEach(function (d) {
+                d.querySelectorAll('[data-close]').forEach(function (x) {
+                    x.addEventListener('click', function () { close(d); });
+                });
+
+                /* Click outside the panel closes it. The dialog element fills
+                   the backdrop area, so a click whose target IS the dialog
+                   rather than anything inside it means they clicked the gap. */
+                d.addEventListener('click', function (e) { if (e.target === d) close(d); });
+
+                /* Fires for the close button, Escape and the backdrop alike. */
+                d.addEventListener('close', function () {
+                    body.classList.remove('opes-dlg-open');
+                    if (opener && opener.focus) opener.focus();
+                    opener = null;
+                });
+            });
+
+            /* Old links still work. #opes-retainers and #opes-custom used to be
+               blocks on the page and are now inside dialogs, where the browser
+               cannot scroll to them, so turn the hash into an open instead. */
+            var FOR_HASH = {
+                '#opes-retainers': 'dlg-retainers',
+                '#opes-custom':    'dlg-custom',
+                '#opes-packages':  'dlg-packages',
+                '#opes-prices':    null
+            };
+            function fromHash() {
+                var id = FOR_HASH[location.hash];
+                if (id) open(id);
+            }
+            fromHash();
+            window.addEventListener('hashchange', fromHash);
+            document.querySelectorAll('a[href^="#opes-"]').forEach(function (a) {
+                var id = FOR_HASH[a.getAttribute('href')];
+                if (id) a.addEventListener('click', function (e) { e.preventDefault(); open(id); });
+            });
+
+            /* ---------- segment tabs, unchanged, now inside the dialog ---------- */
             var tabs = [].slice.call(document.querySelectorAll('.opes-seg [role="tab"]'));
             function show(tab) {
                 tabs.forEach(function (t) {
@@ -1212,12 +1186,6 @@
                     if (n) { e.preventDefault(); n.focus(); show(n); }
                 });
             });
-            /* A link to #opes-packages means "the packages", which is whichever
-               segment panel is open, so it resolves to the switcher. */
-            var pk = document.getElementById('opes-packages');
-            if (!pk) {
-                var s = document.querySelector('.opes-seg');
-                if (s) s.id = 'opes-packages';
             }
         })();
         </script>
@@ -1363,6 +1331,255 @@
             </div>
         </section>
 
+
+        <!-- PRICING DETAIL. These three dialogs hold everything that used to be
+             stacked down this page. Each one is opened by its card above. They sit
+             at the end of <main> because a dialog is not part of the page flow. -->
+        <dialog id="dlg-packages" class="opes-dlg" aria-labelledby="dlg-packages-t">
+          <div class="opes-dlg-in">
+            <div class="opes-dlg-head">
+              <h3 id="dlg-packages-t">Set packages</h3>
+              <button type="button" class="opes-dlg-x" data-close aria-label="Close">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+              </button>
+            </div>
+            <p class="opes-dlg-note"><b>Black Friday.</b> Each bundle shows its usual price, then the discount and what you pay until 30 November. After that the usual price applies.</p>
+            <div class="opes-dlg-body">
+<div class="opes-seg" role="tablist" aria-label="Business type">
+                    <button type="button" role="tab" id="seg-b2b-t"  aria-controls="seg-b2b"  aria-selected="true">B2B</button>
+                    <button type="button" role="tab" id="seg-b2c-t"  aria-controls="seg-b2c"  aria-selected="false">B2C</button>
+                    <button type="button" role="tab" id="seg-ecom-t" aria-controls="seg-ecom" aria-selected="false">eCommerce</button>
+                </div>
+
+                <div class="opes-panel" id="seg-b2b" role="tabpanel" aria-labelledby="seg-b2b-t">
+                    <div class="opes-bundle">
+                        <div class="opes-bundle-top">
+                            <div>
+                                <span class="opes-bundle-eyebrow">B2B bundle</span>
+                                <h3>The Pipeline Bundle</h3>
+                                <p>For consultancies, agencies, SaaS and professional services with longer sales cycles, where trust is built over months.</p>
+                            </div>
+                            <div class="opes-bundle-price">
+                                <b>$5,500</b>
+                                <span class="opes-bf"><em>Black Friday</em> $500 off, pay $5,000 until 30 Nov</span>
+                            </div>
+                        </div>
+                        <p class="opes-bundle-h">Includes</p>
+                        <div class="opes-tags"><span class="opes-tag">Acquisition and lead generation</span><span class="opes-tag">Lead nurture</span><span class="opes-tag">Sales enablement</span><span class="opes-tag">Onboarding and adoption</span><span class="opes-tag">Retention and growth</span><span class="opes-tag">Win back</span><span class="opes-tag">CRM automations</span></div>
+                        <p class="opes-bundle-add"><b>Add ons:</b> Cold outbound +$500</p>
+                        <a href="book.html" class="custom-filled-button">Book a call about this bundle</a>
+                    </div>
+                    <div class="opes-tbl opes-mods">
+                        <h3>Or buy modules one at a time</h3>
+                        <p>Every module can be bought on its own. Tap one to see what it covers.</p>
+                        <div class="opes-rows">
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Acquisition and lead generation</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
+                            <ul><li>Lead magnet follow ups after someone downloads a guide, report or template</li><li>Webinar and event campaigns covering invites, reminders, replays and follow ups</li><li class="opes-mod-add"><b>Add on:</b> Cold outbound sequences through sales tools like Apollo or Outreach, +$500</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Lead nurture</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
+                            <ul><li>Nurture sequences that move a prospect from interest to a sales call</li><li>An educational series with insights, frameworks and how to guides that build authority</li><li>Case study and social proof sends: client wins, results and testimonials</li><li>A newsletter that keeps your brand front of mind every month or fortnight</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Sales enablement</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
+                            <ul><li>Demo and consultation booking pushes</li><li>Post demo follow ups covering proposal reminders and FAQs</li><li>Account based marketing: personalised campaigns aimed at named target companies</li><li>Re engagement of stalled deals, the pipeline that went quiet</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Onboarding and adoption</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
+                            <ul><li>Welcome and onboarding sequences for new clients</li><li>Feature and service adoption nudges</li><li>Check ins at 30, 60 and 90 days</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Retention and growth</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
+                            <ul><li>Renewal reminders</li><li>Upsell and cross sell campaigns</li><li>Quarterly business review invites</li><li>NPS and feedback surveys</li><li>Referral and partner programmes</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Win back</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
+                            <ul><li>Churned client re engagement</li><li>Cold lead reactivation for contacts who stopped opening</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">CRM automations</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
+                            <ul><li>Lead scoring, and lead capture and routing</li><li>Lifecycle stage updates and deal stage automation</li><li>Stalled deal alerts and meeting booked triggers</li><li>ABM account tiering and a renewal pipeline</li><li>Closed won and closed lost workflows</li></ul>
+                        </details><div class="opes-mod-total"><span>All seven B2B modules bought separately</span><b>$5,500</b></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="opes-panel" id="seg-b2c" role="tabpanel" aria-labelledby="seg-b2c-t" hidden>
+                    <div class="opes-bundle">
+                        <div class="opes-bundle-top">
+                            <div>
+                                <span class="opes-bundle-eyebrow">B2C bundle</span>
+                                <h3>The Loyalty Bundle</h3>
+                                <p>For brands without an online store: gyms, salons, subscriptions, apps, hospitality and memberships.</p>
+                            </div>
+                            <div class="opes-bundle-price">
+                                <b>$5,200</b>
+                                <span class="opes-bf"><em>Black Friday</em> $500 off, pay $4,700 until 30 Nov</span>
+                            </div>
+                        </div>
+                        <p class="opes-bundle-h">Includes</p>
+                        <div class="opes-tags"><span class="opes-tag">Acquisition and welcome</span><span class="opes-tag">Loyalty and retention</span><span class="opes-tag">Promotional</span><span class="opes-tag">Seasonal</span><span class="opes-tag">Win back and list health</span><span class="opes-tag">Engagement and content</span></div>
+                        <p class="opes-bundle-add"><b>Add ons:</b> SMS opt in +$500</p>
+                        <a href="book.html" class="custom-filled-button">Book a call about this bundle</a>
+                    </div>
+                    <div class="opes-tbl opes-mods">
+                        <h3>Or buy modules one at a time</h3>
+                        <p>Every module can be bought on its own. Tap one to see what it covers.</p>
+                        <div class="opes-rows">
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Acquisition and welcome</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
+                            <ul><li>Welcome series, often with a first order discount</li><li>Popup and lead capture follow ups, such as a quiz, spin to win or early access</li><li>Educational emails</li><li>Review campaigns</li><li>Account credit emails</li><li class="opes-mod-add"><b>Add on:</b> SMS opt in campaigns, +$500</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Loyalty and retention</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
+                            <ul><li>Second purchase nudges, since the first repeat order matters most</li><li>Loyalty and points programme updates</li><li>VIP and tier campaigns</li><li>Birthday and anniversary emails</li><li>Referral programmes</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Promotional</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$700</b></summary>
+                            <ul><li>Product launches and new arrivals</li><li>Sales such as Black Friday, Cyber Monday, Boxing Day and summer sale</li><li>Flash sales and limited drops</li><li>Gift guides</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Seasonal</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
+                            <ul><li>Christmas, Valentine's Day and Mother's Day</li><li>Back to school, Halloween and Easter</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Win back and list health</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
+                            <ul><li>Lapsed customer win back</li><li>Re engagement for subscribers who stopped opening</li><li>Sunset flows that quietly remove dead contacts to protect deliverability</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Engagement and content</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
+                            <ul><li>Newsletters and editorial content</li><li>Preference centre updates</li><li>Surveys and feedback</li></ul>
+                        </details><div class="opes-mod-total"><span>All six modules bought separately</span><b>$5,200</b></div>
+                        </div>
+                        <p class="opes-note">Selling online as well? Browse and cart recovery and post purchase are on the eCommerce tab.</p>
+                    </div>
+                </div>
+                <div class="opes-panel" id="seg-ecom" role="tabpanel" aria-labelledby="seg-ecom-t" hidden>
+                    <div class="opes-bundle">
+                        <div class="opes-bundle-top">
+                            <div>
+                                <span class="opes-bundle-eyebrow">eCommerce bundle</span>
+                                <h3>The Revenue Bundle</h3>
+                                <p>For online stores on Shopify, WooCommerce and similar. Our most complete programme.</p>
+                            </div>
+                            <div class="opes-bundle-price">
+                                <b>$8,200</b>
+                                <span class="opes-bf"><em>Black Friday</em> $700 off, pay $7,500 until 30 Nov</span>
+                            </div>
+                        </div>
+                        <p class="opes-bundle-h">Includes</p>
+                        <div class="opes-tags"><span class="opes-tag">Acquisition and welcome</span><span class="opes-tag">Browse and cart recovery</span><span class="opes-tag">Post purchase</span><span class="opes-tag">Loyalty and retention</span><span class="opes-tag">Promotional</span><span class="opes-tag">Seasonal</span><span class="opes-tag">Win back and list health</span><span class="opes-tag">Engagement and content</span></div>
+                        <p class="opes-bundle-add"><b>Add ons:</b> SMS opt in +$500, Black Friday and Cyber Monday quoted</p>
+                        <a href="book.html" class="custom-filled-button">Book a call about this bundle</a>
+                    </div>
+                    <div class="opes-tbl opes-mods">
+                        <h3>Or buy modules one at a time</h3>
+                        <p>Every module can be bought on its own. Tap one to see what it covers.</p>
+                        <div class="opes-rows">
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Acquisition and welcome</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
+                            <ul><li>Welcome series, often with a first order discount</li><li>Popup and lead capture follow ups, such as a quiz, spin to win or early access</li><li>Educational emails</li><li>Review campaigns</li><li>Account credit emails</li><li class="opes-mod-add"><b>Add on:</b> SMS opt in campaigns, +$500</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Browse and cart recovery</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
+                            <ul><li>Browse abandonment for people who viewed a product but didn't add it to basket</li><li>Cart abandonment and checkout abandonment</li><li>Price drop alerts and back in stock alerts</li><li>Low stock and urgency alerts (“only 3 left”)</li><li>These automated flows usually earn the most</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Post purchase</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
+                            <ul><li>Order confirmation and shipping updates</li><li>Thank you and brand story emails</li><li>Product education: how to use it, care guides and styling tips</li><li>Review and UGC (user generated content) requests</li><li>Cross sell and upsell, such as “goes well with”</li><li>Replenishment reminders for consumables like skincare, supplements and coffee</li><li>Account credit emails</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Loyalty and retention</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$1,500</b></summary>
+                            <ul><li>Second purchase nudges, since the first repeat order matters most</li><li>Loyalty and points programme updates</li><li>VIP and tier campaigns</li><li>Birthday and anniversary emails</li><li>Referral programmes</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Promotional</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$700</b></summary>
+                            <ul><li>Product launches and new arrivals</li><li>Sales such as Black Friday, Cyber Monday, Boxing Day and summer sale</li><li>Flash sales and limited drops</li><li>Gift guides</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Seasonal</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
+                            <ul><li>Christmas, Valentine's Day and Mother's Day</li><li>Back to school, Halloween and Easter</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Win back and list health</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
+                            <ul><li>Lapsed customer win back</li><li>Re engagement for subscribers who stopped opening</li><li>Sunset flows that quietly remove dead contacts to protect deliverability</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Engagement and content</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price">$500</b></summary>
+                            <ul><li>Newsletters and editorial content</li><li>Preference centre updates</li><li>Surveys and feedback</li></ul>
+                        </details>
+                        <details class="opes-mod">
+                            <summary><span class="opes-mod-name">Black Friday and Cyber Monday</span><span class="opes-mod-more">What&rsquo;s included</span><b class="opes-mod-price quote">Quoted</b></summary>
+                            <ul><li>A dedicated BFCM programme: Black Friday, Cyber Monday, Boxing Day and the flows around them</li><li>Priced on request each season</li></ul>
+                        </details><div class="opes-mod-total"><span>All eight B2C and ecommerce modules bought separately</span><b>$8,200</b></div>
+                        </div>
+                        <p class="opes-note">Black Friday and Cyber Monday is priced on request each season. It is not part of the bundle.</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </dialog>
+        <dialog id="dlg-custom" class="opes-dlg" aria-labelledby="dlg-custom-t">
+          <div class="opes-dlg-in">
+            <div class="opes-dlg-head">
+              <h3 id="dlg-custom-t">Custom builds</h3>
+              <button type="button" class="opes-dlg-x" data-close aria-label="Close">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+              </button>
+            </div>
+            <div class="opes-dlg-body">
+<div class="opes-tbl opes-wide" id="opes-custom">
+                    <h3>Custom projects</h3>
+                    <p>Anything built specifically for your company, or outside the scope of a set package. Because it has to fit your business, we scope it with you and quote it, rather than giving a set price.</p>
+                    <div class="opes-custom-grid">
+                        <div>
+                            <p class="opes-bundle-h">What we build</p>
+                            <div class="opes-tags">
+                                <span class="opes-tag">Automations in N8N, Make.com and Zapier</span><span class="opes-tag">Websites</span>
+                                <span class="opes-tag">API integrations and webhooks</span><span class="opes-tag">eCRM integrations</span>
+                                <span class="opes-tag">Custom email architecture</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="opes-bundle-h">Strategy and implementation</p>
+                            <div class="opes-tags">
+                                <span class="opes-tag">A full go to market strategy and blueprint</span><span class="opes-tag">Email, CRM and software audits</span>
+                                <span class="opes-tag">ESP migration</span><span class="opes-tag">Strategy implementation</span>
+                                <span class="opes-tag">Engineering implementation</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opes-prices-cta" style="text-align:left;margin-top:24px"><a href="book.html" class="custom-filled-button">Get a quote</a></div></div>
+            </div>
+          </div>
+        </dialog>
+        <dialog id="dlg-retainers" class="opes-dlg" aria-labelledby="dlg-retainers-t">
+          <div class="opes-dlg-in">
+            <div class="opes-dlg-head">
+              <h3 id="dlg-retainers-t">Retainers</h3>
+              <button type="button" class="opes-dlg-x" data-close aria-label="Close">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+              </button>
+            </div>
+            <div class="opes-dlg-body">
+<div class="opes-tbl opes-wide" id="opes-retainers">
+                    <h3>Retainers</h3>
+                    <p>Once your system is live, a retainer keeps it working and growing. Every tier includes everything in the tier before it, and it&rsquo;s the same whatever your business type.</p>
+                    <div class="opes-tiers-wrap">
+                    <table class="opes-tiers">
+                        <thead>
+                            <tr><td></td><th scope="col">Tier 1</th><th scope="col">Tier 2</th><th scope="col">Tier 3<small>Exclusive</small></th></tr>
+                            <tr class="opes-tier-price"><th scope="row">Price</th><td><b>$299</b><small>a month</small></td><td><b>$499</b><small>a month</small></td><td><b class="quote">On application</b></td></tr>
+                        </thead>
+                        <tbody><tr><th scope="row">Email campaigns</th><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr><tr><th scope="row">Bi weekly reporting</th><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr><tr><th scope="row">Monthly growth call with a dedicated strategist</th><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr><tr><th scope="row">Fresh campaigns with in house strategy testing</th><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr><tr><th scope="row">CRM upkeep, keeping your automations running</th><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr><tr><th scope="row">Priority time on upkeep</th><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr><tr><th scope="row">Upkeep of your custom projects</th><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-no" aria-label="Not included"></span></td><td><span class="opes-yes" aria-label="Included"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="opes-tick"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg></span></td></tr></tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </dialog>
+
     </main>
 
     <!-- Footer -->
@@ -1387,7 +1604,7 @@
                 </div>
                 <div>
                     <p class="ofx-h">Contact</p>
-                    <ul><li><a href="mailto:hello@opesconsulting.online">hello@opesconsulting.online</a></li><li><a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" class="ofx-ig"><i class="opes-ig"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 6.19a3.65 3.65 0 1 0 0 7.3 3.65 3.65 0 0 0 0-7.3Zm0 6.02a2.37 2.37 0 1 1 0-4.74 2.37 2.37 0 0 1 0 4.74Zm4.65-6.15a.85.85 0 1 1-1.7 0 .85.85 0 0 1 1.7 0Z"/></svg></i> @weareopes</a></li><li class="ofx-muted">London, United Kingdom</li></ul>
+                    <ul><li><a href="mailto:hello@opesconsulting.london">hello@opesconsulting.london</a></li><li><a href="https://www.instagram.com/weareopes/" target="_blank" rel="noopener" class="ofx-ig"><i class="opes-ig"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 6.19a3.65 3.65 0 1 0 0 7.3 3.65 3.65 0 0 0 0-7.3Zm0 6.02a2.37 2.37 0 1 1 0-4.74 2.37 2.37 0 0 1 0 4.74Zm4.65-6.15a.85.85 0 1 1-1.7 0 .85.85 0 0 1 1.7 0Z"/></svg></i> @weareopes</a></li><li class="ofx-muted">London, United Kingdom</li></ul>
                 </div>
             </nav>
             <div class="ofx-base">
