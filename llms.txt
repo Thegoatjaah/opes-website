@@ -2,7 +2,7 @@
 
 > Opes Consulting is an eCRM and lifecycle email marketing agency based in London, working with B2B, B2C and eCommerce brands across the UK, Europe and the USA. We build email marketing and Klaviyo programmes, eCRM and retention systems, B2B lead nurture, HubSpot CRM set ups, N8N, Make.com and Zapier automation, Meta ads and custom websites. Work is backed by a guarantee: clients pay half to start, and the second half is only due if we hit the Performance Threshold agreed in writing before any work starts, within 21 days.
 
-Platforms we work in: Klaviyo, HubSpot, Brevo, GoHighLevel, Pipedrive, N8N, Make.com, Zapier and Meta Ads Manager. Contact: hello@opesconsulting.london. Instagram: @weareopes.
+Platforms we work in: Klaviyo, HubSpot, Omnisend, Brevo, Pipedrive, N8N, Make.com, Zapier and Meta Ads Manager. Contact: hello@opesconsulting.london. Instagram: @weareopes.
 
 ## Services
 
@@ -22,7 +22,8 @@ Platforms we work in: Klaviyo, HubSpot, Brevo, GoHighLevel, Pipedrive, N8N, Make
 - [Process](https://opesconsulting.london/process): the first ninety days after you book, week by week
 - [Campaigns](https://opesconsulting.london/campaigns): email campaigns we have designed and written
 - [Our Work](https://opesconsulting.london/work): case studies
-- [Pricing](https://opesconsulting.london/pricing): modules from $500, bundles from $4,700 (Pipeline, Loyalty and Revenue), retainers from $299 a month, custom projects quoted, and how the guarantee works
+- [Pricing](https://opesconsulting.london/pricing): modules from £500, bundles from £5,200 (Pipeline, Loyalty and Revenue), retainers from £299 a month, custom projects quoted, and how the guarantee works
+- [Programmes](https://opesconsulting.london/programmes): scoped retention programmes for established brands, built in phases with a guarantee per phase, plus a free leak map
 - [Book a call](https://opesconsulting.london/book): a free 30 minute discovery call
 - [Free resource](https://opesconsulting.london/free-resource): the lifecycle email blueprint, with 9 flows, 43 emails and 18 campaign types
 - [Careers](https://opesconsulting.london/careers): we are currently hiring a sales representative
