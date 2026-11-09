@@ -24,6 +24,7 @@ Platforms we work in: Klaviyo, HubSpot, Omnisend, Brevo, Pipedrive, N8N, Make.co
 - [Our Work](https://opesconsulting.london/work): case studies
 - [Pricing](https://opesconsulting.london/pricing): modules from £500, bundles from £5,200 (Pipeline, Loyalty and Revenue), retainers from £299 a month, custom projects quoted, and how the guarantee works
 - [Programmes](https://opesconsulting.london/programmes): scoped retention programmes for established brands, built in phases with a guarantee per phase, plus a free leak map
+- [Opes or a retainer agency](https://opesconsulting.london/compare): how a fixed package with a 21 day guarantee compares with a typical monthly retainer
 - [Book a call](https://opesconsulting.london/book): a free 30 minute discovery call
 - [Free resource](https://opesconsulting.london/free-resource): the lifecycle email blueprint, with 9 flows, 43 emails and 18 campaign types
 - [Careers](https://opesconsulting.london/careers): we are currently hiring a sales representative
