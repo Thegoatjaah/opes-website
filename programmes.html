@@ -464,7 +464,7 @@
 </style>
 
 <style id="opes-programmes">
-/* Programmes page, 08/11. Copy lives in programmes-onboarding-copy.md. No pound signs or prices on this page. */
+/* Programmes page, 08/11. Copy lives in programmes-onboarding-copy.md. No prices on this page (programmes are quoted). Turnover bands (£500k to £5m, £5m+) added 10/11 so visitors can tell which route is theirs. */
 .opg-sec { padding: 72px 0; }
 .opg-sec + .opg-sec { border-top: 1px solid #EDF1F6; }
 .opg-alt { background: #F8FAFC; }
@@ -530,6 +530,25 @@
 .opg-leak { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,460px); gap:48px; align-items:start; }
 @media (max-width:900px){ .opg-leak { grid-template-columns:1fr; gap:28px; } }
 .opg-leak .opg-h2 { max-width:18ch; }
+/* 10/11: fit comparison, next steps and FAQ, for sales calls and visitors */
+.opg-fit-tag { display:inline-block; margin:0 0 14px; padding:6px 12px; border-radius:999px; background:#F0F8FF; color:#0077CC; font-size:.82rem; font-weight:700; }
+.opg-fit-tag.is-main { background:#0094FF; color:#fff; }
+.opg-fit { padding:28px; }
+.opg-fit.is-main { border:2px solid #0094FF; box-shadow:0 14px 34px rgba(0,148,255,.10); }
+.opg-fit h3 { font-size:1.4rem; margin-bottom:16px; }
+.opg-fit dl { margin:0; display:grid; gap:14px; }
+.opg-fit dt { font-size:.74rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#64748B; }
+.opg-fit dd { margin:3px 0 0; font-size:1rem; line-height:1.55; color:#0A0C19; }
+.opg-fit .opg-small { margin-top:20px; }
+.opg-faq { max-width:800px; border-top:1px solid #E2E8F0; }
+.opg-faq details { border-bottom:1px solid #E2E8F0; }
+.opg-faq summary { display:flex; justify-content:space-between; gap:16px; align-items:center; padding:20px 0; cursor:pointer; list-style:none; font-size:1.12rem; font-weight:600; color:#0A0C19; }
+.opg-faq summary::-webkit-details-marker { display:none; }
+.opg-faq summary::after { content:"+"; flex:none; font-size:1.4rem; font-weight:400; color:#94A3B8; }
+.opg-faq details[open] summary::after { content:"\2212"; }
+.opg-faq summary:hover { color:#0077CC; }
+.opg-faq details p { margin:0 0 20px; font-size:1rem; line-height:1.7; color:#475569; max-width:68ch; }
+.opg-faq details a { color:#0077CC; text-decoration:underline; }
 </style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
@@ -591,6 +610,7 @@
                 <span class="text-xs font-semibold uppercase tracking-wider text-brand">Programmes</span>
             </div>
             <h1 class="text-4xl md:text-5xl lg:text-[56px] tracking-tight text-ink leading-[1.12] max-w-[20ch] mb-6">Retention programmes, scoped around your business</h1>
+            <p class="opg-fit-tag is-main" style="margin-bottom:18px">For businesses turning over £5m+</p>
             <p class="text-lg md:text-xl text-slate-600 font-medium max-w-[60ch] leading-relaxed">
                 For established brands with a big list, more than one channel and a team that is
                 already stretched. We scope the work with you, build it in phases, and tie every
@@ -600,7 +620,47 @@
                 <a href="#leak-map" class="custom-filled-button">Get your leak map</a>
                 <a href="book.html?call=scoping" class="custom-stroked-button">Book a Scoping Call</a>
             </div>
-            <p class="opg-small">Not at this stage yet? Our set packages are fixed price. <a href="pricing.html">See pricing</a>.</p>
+            <p class="opg-small">Turning over £500k to £5m? Our set packages are fixed price. <a href="pricing.html#which-fits">See set packages</a>.</p>
+        </div>
+    </section>
+
+
+    <!-- IS A PROGRAMME RIGHT FOR YOU, added 10/11. The same six questions
+         answered for both routes, in the same order, so the two cards can be
+         read across on a sales call. Must stay in line with pricing.html. -->
+    <section class="opg-sec opg-alt" id="right-for-you">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8">
+            <span class="opg-eyebrow">Is a programme right for you?</span>
+            <h2 class="opg-h2">Set package or programme, side by side</h2>
+            <p class="opg-intro">Both come with the same guarantee: half to start, the rest only when we hit the number we agreed. The difference is how much we build and how we build it.</p>
+            <div class="opg-grid opg-grid-2">
+                <div class="opg-card opg-fit">
+                    <span class="opg-fit-tag">Turning over £500k to £5m</span>
+                    <h3>Set Packages</h3>
+                    <dl>
+                        <div><dt>What you get</dt><dd>A fixed set of flows for your type of business</dd></div>
+                        <div><dt>How it is priced</dt><dd>Fixed prices you see before we start</dd></div>
+                        <div><dt>How long</dt><dd>Your first results inside 21 days</dd></div>
+                        <div><dt>How results are judged</dt><dd>One number, agreed with you in writing</dd></div>
+                        <div><dt>How you pay</dt><dd>Half to start, the rest when we hit the number</dd></div>
+                        <div><dt>Where you see progress</dt><dd>Your own client hub, with a written update every Thursday</dd></div>
+                    </dl>
+                    <p class="opg-small"><a href="pricing.html#which-fits">See set packages and prices</a></p>
+                </div>
+                <div class="opg-card opg-fit is-main">
+                    <span class="opg-fit-tag is-main">Turning over £5m+</span>
+                    <h3>Programmes</h3>
+                    <dl>
+                        <div><dt>What you get</dt><dd>A plan built around your data, your platform and your team</dd></div>
+                        <div><dt>How it is priced</dt><dd>Scoped with you and quoted in writing</dd></div>
+                        <div><dt>How long</dt><dd>Built in phases, one at a time, each with its own review date</dd></div>
+                        <div><dt>How results are judged</dt><dd>One number per phase, agreed before that phase starts</dd></div>
+                        <div><dt>How you pay</dt><dd>Half to start each phase, the rest when we hit that phase&rsquo;s number</dd></div>
+                        <div><dt>Where you see progress</dt><dd>Your own client hub, with a written update every Thursday</dd></div>
+                    </dl>
+                    <p class="opg-small"><a href="book.html?call=scoping">Book a Scoping Call</a></p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -663,7 +723,26 @@
         </div>
     </section>
 
-    <section class="opg-sec opg-alt" id="proof">
+
+    <!-- AFTER YOU SAY YES, added 10/11. Same steps and order as the client
+         hub (Programme), so the page cannot promise anything the hub does not. -->
+    <section class="opg-sec opg-alt" id="after-yes">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8">
+            <span class="opg-eyebrow">After you say yes</span>
+            <h2 class="opg-h2">What happens next</h2>
+            <p class="opg-intro">Six steps from signing to your first phase review. You can follow every one of them in your own client hub.</p>
+            <div class="opg-grid">
+                <div class="opg-card"><span class="opg-num">1</span><h3>Sign and pay</h3><p>You get your agreement and your first invoice. Nothing starts until both are done.</p></div>
+                <div class="opg-card"><span class="opg-num">2</span><h3>Give us access</h3><p>Add us to your platforms. Book a 20 minute call and we do it with you, or follow the step by step guide.</p></div>
+                <div class="opg-card"><span class="opg-num">3</span><h3>Your leak map, in detail</h3><p>Our specialist checks every leak against your own numbers and takes your starting figures straight from your platform.</p></div>
+                <div class="opg-card"><span class="opg-num">4</span><h3>Your onboarding call</h3><p>We walk you through the leak map, confirm your phases and agree your Phase 1 target in writing.</p></div>
+                <div class="opg-card"><span class="opg-num">5</span><h3>Phase 1</h3><p>We build and launch the work agreed for the phase, with a written update in your client hub every Thursday.</p></div>
+                <div class="opg-card"><span class="opg-num">6</span><h3>Your phase review</h3><p>We check your numbers against the target together, then agree what the next phase covers.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="opg-sec bg-white" id="proof">
         <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8">
             <span class="opg-eyebrow">Proof</span>
             <h2 class="opg-h2">Work we have already shipped</h2>
@@ -678,6 +757,24 @@
                 <blockquote class="opg-card opg-quote"><p>&ldquo;Opes combines strong technical ability with a professional, collaborative approach. He handled complex automations, communicated clearly, met deadlines, and helped streamline our marketing processes, saving valuable time.&rdquo;</p><footer>Nathan <span>Verified Review</span></footer></blockquote>
             </div>
             <p class="opg-small"><a href="work.html">See all our work</a></p>
+        </div>
+    </section>
+
+
+    <!-- FAQ, added 10/11. Only answers that are already true elsewhere on the
+         site or in the client hub. No prices: programmes are quoted. -->
+    <section class="opg-sec opg-alt" id="faq">
+        <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8">
+            <span class="opg-eyebrow">Questions</span>
+            <h2 class="opg-h2">What people ask us about programmes</h2>
+            <div class="opg-faq" style="margin-top:24px">
+                <details><summary>How is a programme priced?</summary><p>Every programme is scoped around your business, so we quote it in writing after the Scoping Call. You see the phases, the timeline and the price before anything starts.</p></details>
+                <details><summary>How long does a phase take?</summary><p>It depends on what the phase covers. We agree the length of each phase, and the date of its review, in writing before it starts.</p></details>
+                <details><summary>What if a phase misses its number?</summary><p>You keep everything we built in that phase and owe nothing more for it. That is the same promise as our set packages, applied one phase at a time.</p></details>
+                <details><summary>What do I need to do on my side?</summary><p>Give us access to your platforms, name one person who signs off our work, and reply to anything we send for approval within 48 hours. If we are waiting on you for longer than that, the phase clock pauses until we have it.</p></details>
+                <details><summary>Do you work in the platform we already use?</summary><p>Yes. Most clients are on Klaviyo, HubSpot, Omnisend or Brevo, and we work in other CRMs too.</p></details>
+                <details><summary>We are under £5m. Can we still work with you?</summary><p>Yes. Our set packages are built for businesses turning over £500k to £5m, with fixed prices you can see now. <a href="pricing.html#which-fits">See set packages</a>.</p></details>
+            </div>
         </div>
     </section>
 

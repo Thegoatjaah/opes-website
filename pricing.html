@@ -801,6 +801,37 @@
   @media (min-width: 641px) { .ofx-cols { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
 </style>
 
+<style id="opes-pricing-guide">
+/* 10/11: "Which one fits" chooser and "What happens next" steps, so the page
+   works on a sales call and on its own. Same look as programmes.html. */
+.opg-sec { padding: 80px 0; }
+.opg-alt { background: #F8FAFC; border-top: 1px solid #EDF1F6; border-bottom: 1px solid #EDF1F6; }
+.opg-eyebrow { display:block; margin:0 0 10px; font-size:.74rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#0094FF; }
+.opg-h2 { margin:0 0 14px; font-size:clamp(1.65rem,3vw,2.3rem); font-weight:700; letter-spacing:-.02em; line-height:1.15; color:#0A0C19; }
+.opg-intro { margin:0 0 36px; font-size:1.06rem; line-height:1.7; color:#44536A; max-width:62ch; }
+.opg-center { text-align:center; } .opg-center .opg-intro { margin-left:auto; margin-right:auto; }
+.opg-grid { display:grid; gap:18px; grid-template-columns:repeat(3,minmax(0,1fr)); }
+.opg-grid-2 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.opg-grid-5 { grid-template-columns:repeat(5,minmax(0,1fr)); }
+@media (max-width:1100px){ .opg-grid-5 { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media (max-width:760px){ .opg-grid, .opg-grid-2, .opg-grid-5 { grid-template-columns:1fr; } .opg-sec { padding:56px 0; } }
+.opg-card { padding:24px; border:1px solid #E4EAF2; border-radius:18px; background:#fff; text-align:left; }
+.opg-card h3 { margin:0 0 8px; font-size:1.08rem; font-weight:700; letter-spacing:-.01em; color:#0A0C19; }
+.opg-card p { margin:0; font-size:.96rem; line-height:1.65; color:#475569; }
+.opg-num { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; margin-bottom:14px; border-radius:50%; background:rgba(0,148,255,.1); color:#0077CC; font-size:.85rem; font-weight:700; }
+.opg-route { display:flex; flex-direction:column; padding:30px; border-radius:22px; }
+.opg-route.is-main { border:2px solid #0094FF; box-shadow:0 14px 34px rgba(0,148,255,.10); }
+.opg-route-tag { align-self:flex-start; margin-bottom:14px; padding:6px 12px; border-radius:999px; background:#F0F8FF; color:#0077CC; font-size:.82rem; font-weight:700; }
+.opg-route h3 { font-size:1.5rem; margin-bottom:6px; }
+.opg-route > p { margin-bottom:18px; }
+.opg-route ul { margin:0 0 26px; padding:0; list-style:none; display:grid; gap:12px; }
+.opg-route li { display:flex; gap:10px; font-size:.98rem; line-height:1.55; color:#334155; }
+.opg-route li svg { flex:none; width:19px; height:19px; margin-top:2px; color:#0094FF; }
+.opg-route .opg-route-btn { margin-top:auto; }
+.opg-route .opg-route-btn > * { width:100%; text-align:center; }
+.opg-foot { margin-top:22px; font-size:.95rem; color:#64748B; text-align:center; }
+.opg-foot button { font:inherit; color:#0077CC; text-decoration:underline; text-underline-offset:2px; background:none; border:0; padding:0; cursor:pointer; }
+</style>
 <style id="opes-pricing-cards">
 /* ============================================================
    PRICING: three cards, the detail behind a modal  —  03/11
@@ -1216,14 +1247,73 @@ body.opes-dlg-open { overflow: hidden; }
         })();
         </script>
 
+
+        <!-- WHICH ONE FITS, added 10/11. The two routes side by side, so a
+             visitor (or a sales call) can place a business in ten seconds.
+             Bands come from the offer brief: packages £500k to £5m, programmes £5m+. -->
+        <section class="opg-sec opg-alt" id="which-fits" aria-labelledby="which-fits-t">
+            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8" style="max-width:1040px">
+                <div class="opg-center">
+                    <span class="opg-eyebrow">Start here</span>
+                    <h2 class="opg-h2" id="which-fits-t">Which one fits your business?</h2>
+                    <p class="opg-intro">Most businesses fit one of two routes. It comes down to your size and how much you want built.</p>
+                </div>
+                <div class="opg-grid opg-grid-2">
+                    <div class="opg-card opg-route is-main">
+                        <span class="opg-route-tag">Turning over £500k to £5m</span>
+                        <h3>Set Packages</h3>
+                        <p>A fixed set of flows for your type of business, built and live fast.</p>
+                        <ul>
+                            <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg><span>Fixed prices you see before we start</span></li>
+                            <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg><span>Your first results inside 21 days</span></li>
+                            <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg><span>Half to start. The rest only when we hit your number</span></li>
+                        </ul>
+                        <div class="opg-route-btn"><button type="button" data-dialog="dlg-packages" class="custom-filled-button">See the packages</button></div>
+                    </div>
+                    <div class="opg-card opg-route">
+                        <span class="opg-route-tag">Turning over £5m+</span>
+                        <h3>Programmes</h3>
+                        <p>A plan built around your data, your platform and your team.</p>
+                        <ul>
+                            <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg><span>Scoped with you and quoted in writing</span></li>
+                            <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg><span>Built and launched one phase at a time</span></li>
+                            <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg><span>Every phase judged against its own number</span></li>
+                        </ul>
+                        <div class="opg-route-btn"><a href="programmes.html" class="custom-stroked-button">See programmes</a></div>
+                    </div>
+                </div>
+                <p class="opg-foot">Already set up and just want it kept running? <button type="button" data-dialog="dlg-retainers">Monthly retainers start from £299</button>.</p>
+            </div>
+        </section>
+
+        <!-- WHAT HAPPENS NEXT, added 10/11. Same steps, same order and same
+             promises as the client hub (Packages), so nothing here can
+             contradict what the client sees after signing. -->
+        <section class="opg-sec bg-white" id="what-happens-next" aria-labelledby="next-t">
+            <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-8">
+                <div class="opg-center">
+                    <span class="opg-eyebrow">After you say yes</span>
+                    <h2 class="opg-h2" id="next-t">What happens next with a set package</h2>
+                    <p class="opg-intro">Five steps from signing to results. You can follow every one of them in your own client hub, with a written update from us every Thursday.</p>
+                </div>
+                <div class="opg-grid opg-grid-5">
+                    <div class="opg-card"><span class="opg-num">1</span><h3>Sign and pay half</h3><p>You get your agreement and your first invoice. Nothing starts until both are done.</p></div>
+                    <div class="opg-card"><span class="opg-num">2</span><h3>Give us access</h3><p>Add us to your platforms. Book a 20 minute call and we do it with you, or follow the step by step guide.</p></div>
+                    <div class="opg-card"><span class="opg-num">3</span><h3>Your Growth Audit</h3><p>Our specialist scores your setup and takes your starting numbers straight from your own platform.</p></div>
+                    <div class="opg-card"><span class="opg-num">4</span><h3>Your onboarding call</h3><p>We show you what we found and agree one number with you, in writing. That is your Performance Threshold.</p></div>
+                    <div class="opg-card"><span class="opg-num">5</span><h3>Your 21 days</h3><p>Your first win lands by Day 7 and your first flow is live by Day 10. On Day 21 we check the number together.</p></div>
+                </div>
+            </div>
+        </section>
+
         <!-- Book a call, between the prices and the FAQs. Someone who has just
              read the numbers either has a question, which the FAQ answers, or is
              ready, and should not have to scroll past the FAQ to act on it. -->
         <section class="opes-cta-band" aria-labelledby="opes-price-cta-t">
             <div class="container mx-auto px-6 text-center">
                 <h2 id="opes-price-cta-t">Not sure which one you are?</h2>
-                <p class="opes-cta-lede">That is what the call is for. Thirty minutes, and you
-                   leave knowing what your programme should cost and what it should do.</p>
+                <p class="opes-cta-lede">That is what the call is for. Thirty minutes, and you leave knowing
+                   which route fits, what it costs and what it should do for you.</p>
                 <div class="opes-promise">
                     <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" ><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>Half to start. The rest only when we hit your number.</b>
                     <span class="opes-promise-terms">We agree your baseline and your Performance Threshold on the call, in writing, before any work starts. You pay half to begin, and the second half is only due if we reach it within 21 days. <a href="#opes-guarantee">How the guarantee works</a></span>
@@ -1283,12 +1373,50 @@ body.opes-dlg-open { overflow: hidden; }
                 <div class="text-center md:text-left mb-12">
                     <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900">Frequently Asked <span class="text-brand">Questions</span></h2>
                     <p class="text-slate-600 font-medium text-lg mx-auto md:mx-0">
-                        Everything you need to know about our packages, bundles and retainers.
+                        Everything you need to know about our packages, programmes and retainers.
                     </p>
                 </div>
                 
                 <div class="flex flex-col border-t border-slate-200">
                     
+
+                    <!-- Added 10/11: the three questions asked most on sales calls. -->
+                    <div class="border-b border-slate-200 py-6 faq-item">
+                        <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
+                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">What is the difference between a set package and a programme?</span>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
+                        </button>
+                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                                Set packages are for businesses turning over £500k to £5m. The price is fixed, you see it before we start, and your first results land inside 21 days. Programmes are for businesses turning over £5m+. We scope the work around your data and your team, build it in phases, and judge each phase against its own number. <a class="text-brand underline" href="programmes.html">See programmes</a>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border-b border-slate-200 py-6 faq-item">
+                        <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
+                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">When do my 21 days start?</span>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
+                        </button>
+                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                                Not when you sign, and not at the call. Your 21 days start once you have agreed your number in writing and given us all the access we need. If we are waiting on you for more than 48 hours, the clock pauses until we have it.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border-b border-slate-200 py-6 faq-item">
+                        <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
+                            <span class="text-xl font-semibold text-slate-900 group-hover:text-brand transition-colors">What do I need to do on my side?</span>
+                            <i class="opes-chev text-slate-400 group-hover:text-brand transition-transform duration-300 ml-4 flex-shrink-0"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></i>
+                        </button>
+                        <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                            <p class="pt-4 text-slate-600 font-medium text-lg leading-relaxed">
+                                Give us access to your platforms, name one person who signs off our work, and reply to anything we send for approval within 48 hours. Everything is listed in your client hub, so there are no surprises.
+                            </p>
+                        </div>
+                    </div>
+
                     <!-- FAQ Item 1 -->
                     <div class="border-b border-slate-200 py-6 faq-item">
                         <button class="faq-btn flex justify-between items-center w-full text-left focus:outline-none group">
@@ -1349,7 +1477,7 @@ body.opes-dlg-open { overflow: hidden; }
         <section id="contact" class="bg-white py-24 text-center">
             <div class="max-w-[800px] mx-auto px-6">
                 <h2 class="text-4xl font-bold tracking-tight mb-6 text-slate-900">Ready to <span class="text-brand">Scale Your Revenue</span>?</h2>
-                <p class="text-lg text-slate-600 mb-10 font-medium">Book a discovery call with our team to discuss your store's requirements and determine the right engagement model.</p>
+                <p class="text-lg text-slate-600 mb-10 font-medium">Book a Strategy Call with our team. We look at your setup and tell you which package or programme fits, and what it would cost.</p>
                 <div class="opes-promise">
                     <b><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 .8a9.2 9.2 0 1 0 0 18.4A9.2 9.2 0 0 0 10 .8Zm4.62 6.86-5.4 5.9a1 1 0 0 1-1.45.03L5.53 11.5a1 1 0 1 1 1.4-1.43l1.5 1.47 4.71-5.15a1 1 0 1 1 1.48 1.35Z"/></svg>Half to start. The rest only when we hit your number.</b>
                     <span class="opes-promise-terms">We agree your baseline and your Performance Threshold on the call, in writing, before any work starts. You pay half to begin, and the second half is only due if we reach it within 21 days. <a href="#opes-guarantee">How the guarantee works</a></span>

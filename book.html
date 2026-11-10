@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Book a 30 minute discovery call with Opes Consulting. We'll review your email and lifecycle setup and tell you where the revenue is leaking.">
+    <meta name="description" content="Book a free Strategy Call with Opes Consulting. We'll review your email and lifecycle setup, tell you where the revenue is leaking, and which package or programme fits.">
     
-    <title>Book a Discovery Call | Opes Consulting</title>
+    <title>Book a Strategy Call | Opes Consulting</title>
     <!-- SEO: canonical, social cards and structured data (added 20/09) -->
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
     <link rel="icon" href="/favicon.ico" sizes="any">
@@ -18,15 +18,15 @@
     <meta property="og:site_name" content="Opes Consulting">
     <meta property="og:locale" content="en_GB">
     <meta property="og:url" content="https://opesconsulting.london/book">
-    <meta property="og:title" content="Book a Discovery Call | Opes Consulting">
-    <meta property="og:description" content="Book a 30 minute discovery call with Opes Consulting. We'll review your email and lifecycle setup and tell you where the revenue is leaking.">
+    <meta property="og:title" content="Book a Strategy Call | Opes Consulting">
+    <meta property="og:description" content="Book a free Strategy Call with Opes Consulting. We'll review your email and lifecycle setup, tell you where the revenue is leaking, and which package or programme fits.">
     <meta property="og:image" content="https://opesconsulting.london/images/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Opes Consulting">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Book a Discovery Call | Opes Consulting">
-    <meta name="twitter:description" content="Book a 30 minute discovery call with Opes Consulting. We'll review your email and lifecycle setup and tell you where the revenue is leaking.">
+    <meta name="twitter:title" content="Book a Strategy Call | Opes Consulting">
+    <meta name="twitter:description" content="Book a free Strategy Call with Opes Consulting. We'll review your email and lifecycle setup, tell you where the revenue is leaking, and which package or programme fits.">
     <meta name="twitter:image" content="https://opesconsulting.london/images/og-image.jpg">
     <script type="application/ld+json">
 {
@@ -36,7 +36,7 @@
       "@type": "WebPage",
       "@id": "https://opesconsulting.london/book#webpage",
       "url": "https://opesconsulting.london/book",
-      "name": "Book a Discovery Call | Opes Consulting",
+      "name": "Book a Strategy Call | Opes Consulting",
       "isPartOf": {
         "@id": "https://opesconsulting.london/#website"
       },
@@ -44,7 +44,7 @@
         "@id": "https://opesconsulting.london/#organization"
       },
       "inLanguage": "en-GB",
-      "description": "Book a 30 minute discovery call with Opes Consulting. We'll review your email and lifecycle setup and tell you where the revenue is leaking."
+      "description": "Book a free Strategy Call with Opes Consulting. We'll review your email and lifecycle setup, tell you where the revenue is leaking, and which package or programme fits."
     },
     {
       "@type": "BreadcrumbList",
@@ -171,12 +171,17 @@
 
                 <!-- Left: the pitch -->
                 <div class="md:col-span-5">
-                    <h1 class="font-display text-4xl md:text-5xl leading-tight tracking-tight">
-                        Book a 30&#8209;minute discovery call
+                    <!-- 10/11: Strategy Call by default (set packages, £500k to £5m).
+                         Becomes a Scoping Call when the page is opened with
+                         ?call=scoping (the programmes page links) or when the visitor
+                         picks £5m+ as their turnover. Both use the same calendar. -->
+                    <h1 id="book-h1" class="font-display text-4xl md:text-5xl leading-tight tracking-tight">
+                        Book a Strategy Call
                     </h1>
-                    <p class="mt-5 text-lg text-slate-600 leading-relaxed">
+                    <p id="book-lede" class="mt-5 text-lg text-slate-600 leading-relaxed">
                         We'll go through your current email and lifecycle setup, find where
-                        revenue is leaking, and give you a straight answer on whether we can help.
+                        revenue is leaking, and give you a straight answer on which package fits
+                        and whether we can help.
                     </p>
 
                     <h2 class="mt-10 text-sm font-semibold uppercase tracking-wider text-slate-500">
@@ -197,7 +202,7 @@
                         </li>
                     </ul>
 
-                    <p class="mt-10 text-sm text-slate-500 leading-relaxed">
+                    <p id="book-small" class="mt-10 text-sm text-slate-500 leading-relaxed">
                         30 minutes, no obligation, no pitch deck. If something comes up you can
                         reschedule from the confirmation email.
                     </p>
@@ -267,8 +272,17 @@
                                 <input class="q-input" id="q-website" name="website" type="text" inputmode="url" autocomplete="url" placeholder="yourbrand.com" required>
                             </div>
                             <div>
-                                <label class="q-label" for="q-revenue">What is your estimated revenue (monthly)?</label>
-                                <input class="q-input" id="q-revenue" name="discovery_monthly_revenue" type="text" required>
+                                <!-- 10/11: was a free text "monthly revenue" box. Now the turnover
+                                     bands from the offer brief, so every booking arrives already
+                                     sorted. Same HubSpot property, the answer is plain text. -->
+                                <label class="q-label" for="q-revenue">Roughly what does your business turn over a year?</label>
+                                <select class="q-input" id="q-revenue" name="discovery_monthly_revenue" required>
+                                    <option value="">Choose one</option>
+                                    <option value="Yearly turnover: under £500k">Under £500k</option>
+                                    <option value="Yearly turnover: £500k to £5m">£500k to £5m</option>
+                                    <option value="Yearly turnover: £5m+">£5m+</option>
+                                    <option value="Yearly turnover: not sure">Not sure</option>
+                                </select>
                             </div>
                             <div>
                                 <label class="q-label" for="q-goals">What context can you provide on your current business goals and challenges?</label>
@@ -295,7 +309,7 @@
                              done. 29/10: back on HubSpot Meetings, which takes name and
                              email as URL parameters, so step 2 does not ask again. -->
                         <div id="discovery-step2" hidden>
-                            <p class="px-4 pt-4 text-sm font-semibold uppercase tracking-wider text-brand">Step 2 of 2 &middot; pick a time</p>
+                            <p id="step2-label" class="px-4 pt-4 text-sm font-semibold uppercase tracking-wider text-brand">Step 2 of 2 &middot; pick a time</p>
                             <div id="meetings-slot"></div>
                         </div>
 
@@ -366,6 +380,40 @@
         var slot   = document.getElementById('meetings-slot');
         var errMsg = document.getElementById('q-error');
         var btn    = document.getElementById('q-submit');
+
+        /* 10/11: Strategy Call or Scoping Call. Scoping when the page is opened
+           with ?call=scoping or the visitor picks £5m+. Only the words change;
+           both book into the same calendar, and the turnover answer reaches
+           HubSpot and the #all-opes alert either way. */
+        var COPY = {
+            strategy: {
+                h1: 'Book a Strategy Call',
+                lede: "We'll go through your current email and lifecycle setup, find where revenue is leaking, and give you a straight answer on which package fits and whether we can help.",
+                small: '30 minutes, no obligation, no pitch deck. If something comes up you can reschedule from the confirmation email.',
+                step2: 'Step 2 of 2 \u00b7 pick a time for your Strategy Call'
+            },
+            scoping: {
+                h1: 'Book a Scoping Call',
+                lede: "We'll go through your numbers, your platform and your team, show you where retention is leaking, and agree what to build first.",
+                small: 'No obligation, no pitch deck. If something comes up you can reschedule from the confirmation email.',
+                step2: 'Step 2 of 2 \u00b7 pick a time for your Scoping Call'
+            }
+        };
+        var urlScoping = /(?:^|[?&])call=scoping(?:&|$)/.test(location.search);
+        var revenueSel = document.getElementById('q-revenue');
+        function callType() {
+            return (urlScoping || /5m\+/.test(revenueSel.value)) ? 'scoping' : 'strategy';
+        }
+        function applyCallType() {
+            var c = COPY[callType()];
+            document.getElementById('book-h1').textContent = c.h1;
+            document.getElementById('book-lede').textContent = c.lede;
+            document.getElementById('book-small').textContent = c.small;
+            document.getElementById('step2-label').textContent = c.step2;
+            document.title = c.h1 + ' | Opes Consulting';
+        }
+        revenueSel.addEventListener('change', applyCallType);
+        applyCallType();
 
         function val(name) { return (form.elements[name].value || '').trim(); }
 
